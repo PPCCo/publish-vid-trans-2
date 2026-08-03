@@ -25,6 +25,7 @@ from typing import Any
 
 from . import artifacts as artifacts_mod
 from . import media as media_mod
+from .captions import script_class
 from .errors import ConfigurationError, MuxError, PackageError
 from .events import append_event
 from .paths import ProjectPaths
@@ -38,8 +39,28 @@ from .translate import (
     _set_track,
     _write_gate_report,
 )
-from .util import atomic_write_json, atomic_write_text, load_json, project_lock, sha256_path, utc_now
+from .util import (
+    atomic_write_json,
+    atomic_write_text,
+    load_json,
+    load_tools_config,
+    project_lock,
+    sha256_path,
+    utc_now,
+)
 from .validation import require_valid
+
+# script_class() -> tools.default.json "fonts" key, so burned-in captions render with a
+# family that has full glyph coverage for that script instead of missing-glyph boxes.
+_FONT_KEY_BY_SCRIPT = {"cjk": "cjk", "rtl": "arabic", "cyrillic": "cyrillic"}
+
+
+def _font_for_language(root: Path, language: str) -> str | None:
+    cls = script_class(language)
+    key = _FONT_KEY_BY_SCRIPT.get(cls)
+    if not key:
+        return None
+    return load_tools_config(root).get("fonts", {}).get(key)
 
 # Track stages during Phase 5.
 TRACK_STAGE_MUXED = "FINAL_QA_GATE"      # dubbed.mp4 rendered; A/V measured
@@ -109,21 +130,29 @@ def _source_provenance(paths: ProjectPaths) -> dict[str, Any]:
 
 # --- 1. mux ------------------------------------------------------------------
 
+_MUX_MODES = {"soft-subs", "burned-in", "no-subs"}
+
+
 def run_mux(
     root: Path,
     project_id: str,
     language: str,
     *,
-    with_subs: bool = True,
+    mode: str = "soft-subs",
     actor: str = "agent",
     advance: bool = False,
 ) -> dict[str, Any]:
     """Mux the source video + a language's dub track into video/<lang>/dubbed.mp4.
 
     Guarded to state at/through AUDIO_QA_GATE + dub_enabled track. Uses the ACTIVE dub-wav
-    artifact (so a superseded dub can't be muxed). Optionally embeds the language's VTT as a
-    soft subtitle track. Registers dubbed-video@<lang>; advances the track to FINAL_QA_GATE.
+    artifact (so a superseded dub can't be muxed). `mode` selects how the language's VTT
+    captions are attached: "soft-subs" (default, a toggleable mov_text track, picture copied
+    bit-for-bit), "burned-in" (rendered into the picture via ffmpeg's subtitles filter, video
+    re-encoded — for platforms that don't reliably render soft subs), or "no-subs" (dub audio
+    only). Registers dubbed-video@<lang>; advances the track to FINAL_QA_GATE.
     """
+    if mode not in _MUX_MODES:
+        raise MuxError(f"mode must be one of {sorted(_MUX_MODES)}, got {mode!r}")
     paths = ProjectPaths(root, project_id).require()
     state = load_json(paths.state)
     if state["current_state"] not in _STATES_ALLOWING_MUX:
@@ -146,15 +175,19 @@ def run_mux(
     if not dub_path.is_file():
         raise MuxError(f"registered dub is missing on disk: {dub_artifact['path']}")
 
-    subs_path: Path | None = None
-    if with_subs:
-        vtt = paths.captions_dir / f"captions.{language}.vtt"
-        subs_path = vtt if vtt.is_file() else None
+    vtt = paths.captions_dir / f"captions.{language}.vtt"
+    subs_path = vtt if (mode != "no-subs" and vtt.is_file()) else None
+    if mode == "burned-in" and subs_path is None:
+        raise MuxError(f"mode=burned-in requires captions.{language}.vtt; run `captions build` first")
 
     dst = paths.directory / dubbed_video_relpath(language)
     with project_lock(paths.lock):
         dst.parent.mkdir(parents=True, exist_ok=True)
-        media_mod.mux_video(src_video, dub_path, dst, subs=subs_path)
+        if mode == "burned-in":
+            font = _font_for_language(root, language)
+            media_mod.mux_video_burned_in(src_video, dub_path, subs_path, dst, font_name=font)
+        else:
+            media_mod.mux_video(src_video, dub_path, dst, subs=subs_path)
 
     artifact = artifacts_mod.register_artifact(
         root, project_id, dst, "dubbed-video", "VIDEO_MUX", actor, language=language,
@@ -163,14 +196,13 @@ def run_mux(
     _set_track(root, project_id, language, stage=TRACK_STAGE_MUXED,
                status="in_progress", actor=actor, notes="dubbed video muxed")
     append_event(paths.events, project_id, "VIDEO_MUXED", actor, {
-        "language": language, "dubbed_sha256": artifact["sha256"],
-        "with_subs": subs_path is not None,
+        "language": language, "dubbed_sha256": artifact["sha256"], "mode": mode,
     })
     dub_quorum = [lang for lang in _active_track_langs(state) if _dub_enabled(state, lang)]
     advanced = _maybe_advance_top(root, project_id, actor, advance, "AUDIO_QA_GATE",
                                   "VIDEO_MUX", TRACK_STAGE_MUXED, dub_quorum)
     return {"dubbed_video": _rel(dst, paths), "artifact": artifact, "language": language,
-            "with_subs": subs_path is not None, "advanced_to": advanced}
+            "mode": mode, "advanced_to": advanced}
 
 
 # --- 2. final QA (aggregate gate report) -------------------------------------

@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .. import budget as budget_mod
 from ..errors import EngineUnavailableError, VideoTranslationHouseError
 from ..util import executable, load_tools_config
 
@@ -151,17 +152,28 @@ def synthesize_cue(
     voice: str | None = None,
     clone_ref: Path | str | None = None,
     root: Path | None = None,
+    project_id: str | None = None,
     timeout: int = 600,
 ) -> TTSResult:
     """Synthesize one caption cue to ``dst_wav`` with the resolved provider.
 
-    Raises ``EngineUnavailableError`` if no suitable engine is installed. ``clone_ref`` is a
-    reference speaker WAV; passing it is a pure mechanism — the caller MUST have verified
-    ``voice_clone_consent`` before supplying it.
+    Raises ``EngineUnavailableError`` if no suitable engine is installed. Raises
+    ``BudgetExceededError`` if the resolved provider is a billed vendor engine and the
+    call would exceed the human-set ``budget.vendor_spend_ceiling_usd`` (requires
+    ``root`` — without it, vendor calls cannot be spend-checked and are refused).
+    ``clone_ref`` is a reference speaker WAV; passing it is a pure mechanism — the
+    caller MUST have verified ``voice_clone_consent`` before supplying it.
     """
     dst = Path(dst_wav)
     dst.parent.mkdir(parents=True, exist_ok=True)
     resolved = _resolve_provider(provider, language, root=root)
+    if budget_mod.is_vendor_provider(resolved):
+        if root is None:
+            raise EngineUnavailableError(
+                f"vendor TTS provider {resolved!r} requires a repo root to check the spend "
+                "ceiling; pass root= or use a local engine."
+            )
+        budget_mod.check_and_record(root, resolved, project_id=project_id, language=language)
     ref = Path(clone_ref) if clone_ref is not None else None
 
     command = _build_command(

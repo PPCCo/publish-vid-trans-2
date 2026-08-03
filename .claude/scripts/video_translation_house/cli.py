@@ -170,8 +170,10 @@ def build_parser() -> argparse.ArgumentParser:
     pk_mux = pkgsub.add_parser("mux", help="Mux source video + a language's dub -> video/<lang>/dubbed.mp4")  # noqa: E501
     pk_mux.add_argument("project_id")
     pk_mux.add_argument("--language", required=True, help="Dub-enabled target language (ISO 639-1)")
-    pk_mux.add_argument("--no-subs", dest="with_subs", action="store_false",
-                        help="Do not embed the VTT as a soft-subtitle track")
+    pk_mux.add_argument("--mode", default="soft-subs", choices=["soft-subs", "burned-in", "no-subs"],
+                        help="soft-subs: toggleable mov_text track (default, picture copied "
+                             "bit-for-bit); burned-in: render VTT into the picture (re-encodes "
+                             "video, for platforms that drop soft subs); no-subs: dub audio only")
     pk_mux.add_argument("--advance", action="store_true", help="Advance top state once all dub tracks muxed")  # noqa: E501
     pk_mux.add_argument("--actor", default="agent")
     pk_final = pkgsub.add_parser("final-qa", help="Aggregate `final` gate report across dubbed videos")  # noqa: E501
@@ -187,6 +189,10 @@ def build_parser() -> argparse.ArgumentParser:
     csub.add_parser("list")
     c_show = csub.add_parser("show")
     c_show.add_argument("video_id")
+
+    bud = sub.add_parser("budget", help="Vendor (billed) TTS spend ceiling + ledger (read-only)")
+    budsub = bud.add_subparsers(dest="budget_command", required=True)
+    budsub.add_parser("status", help="Ceiling, running spend, and remaining headroom")
 
     lid = sub.add_parser("langid", help="Source-language identification (human-overridable)")
     lsub = lid.add_subparsers(dest="langid_command", required=True)
@@ -362,7 +368,7 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         pc = args.package_command
         if pc == "mux":
             return packaging_mod.run_mux(
-                root, args.project_id, args.language, with_subs=args.with_subs,
+                root, args.project_id, args.language, mode=args.mode,
                 actor=args.actor, advance=args.advance,
             )
         if pc == "final-qa":
@@ -380,6 +386,10 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             if entry is None:
                 raise VideoTranslationHouseError(f"No catalog entry: {args.video_id}")
             return entry
+    if cmd == "budget":
+        from . import budget as budget_mod
+        if args.budget_command == "status":
+            return budget_mod.status(root)
     if cmd == "langid":
         from . import langid as langid_mod
         if args.langid_command == "detect":

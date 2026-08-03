@@ -176,6 +176,7 @@ def run_dub(
             tts_mod.synthesize_cue(
                 cue["target_text"], raw, provider=provider, language=language,
                 model=model, voice=voice, clone_ref=clone_ref, root=root,
+                project_id=project_id,
             )
             natural_ms = media_mod.audio_duration_ms(raw)
             stretch = (natural_ms / slot_ms) if slot_ms else 1.0

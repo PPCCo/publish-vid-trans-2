@@ -357,3 +357,56 @@ def mux_video(
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
+
+
+def _escape_subtitles_path(path: Path) -> str:
+    # ffmpeg filter-graph args split on ':' and treat '\' as an escape char, so a plain
+    # path (esp. on absolute POSIX/Windows paths) must be escaped before it goes inside
+    # subtitles=filename='...'.
+    return str(path).replace("\\", "\\\\").replace(":", "\\:").replace("'", "\\'")
+
+
+def mux_video_burned_in(
+    video_source: Path | str,
+    audio_wav: Path | str,
+    subs: Path | str,
+    dest_mp4: Path | str,
+    *,
+    font_name: str | None = None,
+    audio_bitrate: str = "192k",
+    video_crf: int = 18,
+    timeout: int = 3600,
+) -> Path:
+    """Mux picture + dub track and burn the subtitle track into the picture (re-encoded).
+
+    Unlike ``mux_video``'s soft ``mov_text`` track, burned-in captions are rendered as
+    pixels via the ``subtitles`` filter — required for platforms that don't reliably
+    render soft subs, and the only option that survives screenshots/clips. This forces a
+    video re-encode (``libx264``, CRF ``video_crf``) since ffmpeg cannot burn subtitles
+    into a stream it is only copying. ``font_name`` selects the family libass renders with
+    (e.g. "Noto Sans CJK" / "Noto Sans Arabic") so CJK/Cyrillic/Arabic scripts don't
+    fall back to missing-glyph boxes; see ``tools.default.json``'s ``fonts`` map.
+    """
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    subs_arg = f"filename='{_escape_subtitles_path(Path(subs))}'"
+    if font_name:
+        subs_arg += f":force_style='FontName={font_name}'"
+    command = [
+        _require("ffmpeg"), "-y",
+        "-i", str(video_source),
+        "-i", str(audio_wav),
+        "-map", "0:v:0", "-map", "1:a:0",
+        "-vf", f"subtitles={subs_arg}",
+        "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+        "-c:a", "aac", "-b:a", audio_bitrate,
+        "-shortest", str(dest),
+    ]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(
+            f"ffmpeg burned-in mux failed ({proc.returncode}): {proc.stderr.strip()[:400]}"
+        )
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest

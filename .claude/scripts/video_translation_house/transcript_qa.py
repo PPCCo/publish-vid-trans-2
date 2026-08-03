@@ -74,8 +74,14 @@ def _timing_findings(cues: list[dict[str, Any]]) -> list[dict[str, Any]]:
             findings.append(_finding(
                 "minor", "timing", f"cue {cid} has zero duration", cue_id=cid, timestamp_ms=start))
         if start < prev_end:
+            # No diarization is run (ANALYSIS.md B1/C7 — pyannote's HF-gated stack is out of
+            # scope here), so cue-timing overlap is the only deterministic signal available
+            # for "two people may be talking at once." Flag it for a human to listen to rather
+            # than silently letting ASR's single-speaker assumption paper over cross-talk.
             findings.append(_finding(
-                "minor", "timing", f"cue {cid} overlaps the previous cue by {prev_end - start}ms",
+                "minor", "possible-overlapping-speech",
+                f"cue {cid} overlaps the previous cue by {prev_end - start}ms "
+                "(no diarization run — may be simultaneous/cross-talk speech; human review recommended)",
                 cue_id=cid, timestamp_ms=start))
         gap = start - prev_end
         if prev_end and gap >= LONG_SILENCE_GAP_MS:

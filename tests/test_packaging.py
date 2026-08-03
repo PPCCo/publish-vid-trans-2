@@ -40,6 +40,19 @@ ffmpeg_required = pytest.mark.skipif(
 )
 
 
+def _subtitles_filter_available() -> bool:
+    if not executable("ffmpeg"):
+        return False
+    proc = subprocess.run(["ffmpeg", "-hide_banner", "-filters"], capture_output=True, text=True)
+    return " subtitles " in proc.stdout
+
+
+burned_in_required = pytest.mark.skipif(
+    not _subtitles_filter_available(),
+    reason="ffmpeg build lacks the subtitles (libass) filter",
+)
+
+
 @pytest.fixture()
 def repo(tmp_path: Path) -> Path:
     root = tmp_path / "repo"
@@ -169,6 +182,30 @@ def test_mux_builds_dubbed_video_and_advances(repo: Path):
     st = json.loads((repo / "projects" / VID / "state.json").read_text())
     assert st["language_tracks"]["en"]["stage"] == "FINAL_QA_GATE"
     assert st["current_state"] == "VIDEO_MUX"
+
+
+@ffmpeg_required
+@burned_in_required
+def test_mux_burned_in_renders_video_and_reencodes(repo: Path):
+    _drive_to_audio_qa_gate(repo)
+    out = packaging.run_mux(repo, VID, "en", mode="burned-in", advance=True)
+    assert out["mode"] == "burned-in"
+    dubbed = repo / "projects" / VID / "video" / "en" / "dubbed.mp4"
+    assert dubbed.is_file()
+
+    from video_translation_house.media import probe_summary
+    summary = probe_summary(dubbed)
+    assert summary["video"].get("codec") == "h264"  # re-encoded, not the source's stream copy
+    assert summary["audio"].get("codec")
+
+
+@ffmpeg_required
+def test_mux_burned_in_requires_captions(repo: Path):
+    _drive_to_audio_qa_gate(repo)
+    vtt = repo / "projects" / VID / "captions" / "captions.en.vtt"
+    vtt.unlink()
+    with pytest.raises(MuxError):
+        packaging.run_mux(repo, VID, "en", mode="burned-in")
 
 
 @ffmpeg_required

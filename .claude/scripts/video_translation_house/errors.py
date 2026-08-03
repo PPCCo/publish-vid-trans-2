@@ -60,3 +60,11 @@ class MuxError(VideoTranslationHouseError):
 
 class PackageError(VideoTranslationHouseError):
     """A deliverable package could not be assembled or its manifest is inconsistent."""
+
+
+class BudgetExceededError(VideoTranslationHouseError):
+    """A vendor (billed) engine call was attempted without a sufficient human-set budget.
+
+    Local engines never raise this — only vendor providers (elevenlabs/azure/google TTS,
+    or any future billed ASR/MT integration) are spend-guarded.
+    """

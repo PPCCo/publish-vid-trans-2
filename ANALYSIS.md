@@ -155,6 +155,24 @@ be a separate, explicitly-authorized extension phase**, not part of the core bui
 core must remain fully functional (through `READY_FOR_REVIEW`) without it. The plan says as
 much (§12 intro); the phasing below honors that.
 
+### B9. `.claude/agents/` and `.claude/workflows/` stay empty — skills absorb that role here
+
+The plan's repository layout (§2) mirrors `publish-book`'s three-tier `agents/` (42
+department personas) + `workflows/` (hand-authored multi-agent orchestration graphs) +
+`skills/` (thin per-stage commands that delegate to agents/workflows) split. This build
+instead put all stage logic directly into 11 `skills/*/SKILL.md` files that call the CLI
+themselves — there is no persona layer and no orchestration-graph layer, because the
+per-language state machine (`workflow_states.json` + `language_tracks`) already *is* the
+deterministic orchestration graph the plan wanted `workflows/` to encode, and each stage is
+narrow enough that a dedicated specialist persona per department would be ceremony without
+payoff at this scope (11 stages vs. `publish-book`'s ~40-agent, multi-format catalog).
+`standards/` is populated (`artifact-contract.md`, `approval-contract.md`,
+`rights-contract.md`, `naming-and-identifiers.md`) since those are genuinely durable,
+cross-cutting rules worth stating once rather than re-explaining in every skill. If a future
+phase needs true multi-agent fan-out (e.g. parallel per-language review panels), add
+`workflows/*.js` then — don't pre-build the graph before there's a concrete orchestration
+need it solves.
+
 ---
 
 ## C. Smaller gaps / ambiguities to nail down
@@ -178,7 +196,11 @@ much (§12 intro); the phasing below honors that.
    release) — this is how the book enforces "Claude can prepare but not grant."
 7. **Diarization/overlap** (Q&A lectures): plan wants VAD+diarization but that's the
    fragile HF-gated path (B1). Make diarization **optional**; when absent, flag overlapping
-   speech for human review rather than failing.
+   speech for human review rather than failing. *(Implemented: real diarization stays out of
+   scope — no speaker-turn model runs — but `transcript_qa._timing_findings` flags any cue
+   whose start precedes the previous cue's end as a `possible-overlapping-speech` finding,
+   the deterministic proxy for "may be cross-talk," surfaced at the human `transcript_qa`
+   gate rather than silently accepted.)*
 8. **Tests:** the book has a `tests/` suite validating the framework (`framework validate`
    checks gate_edges ⊆ transitions, schemas load, etc.). Mirror this — a `framework validate`
    that self-checks the state machine and schemas is high-value and cheap.

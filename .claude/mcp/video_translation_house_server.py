@@ -218,5 +218,17 @@ def final_qa_preview(project_id: str) -> dict[str, Any]:
     return out
 
 
+@mcp.tool()
+def budget_status() -> dict[str, Any]:
+    """Vendor (billed) TTS spend ceiling, running total, and remaining headroom. Read-only.
+
+    The ceiling is human-set (company config); this tool only reports it — it can never
+    raise it or record spend.
+    """
+    from video_translation_house.budget import status as budget_status_fn
+
+    return budget_status_fn(root())
+
+
 if __name__ == "__main__":
     mcp.run()

@@ -40,5 +40,14 @@
   },
   "revision_policy": {
     "maximum_full_revision_cycles": 3
+  },
+  "budget": {
+    "vendor_spend_ceiling_usd": 0.0,
+    "vendor_call_estimated_cost_usd": {
+      "elevenlabs": 0.30,
+      "azure": 0.02,
+      "google": 0.02
+    },
+    "note": "Vendor (billed) TTS providers are refused until a human raises vendor_spend_ceiling_usd above the running total in budget/ledger.json (company.local.json override). Local engines (kokoro/piper/xtts/chatterbox) are never spend-guarded."
   }
 }
