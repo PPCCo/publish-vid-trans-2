@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "channels-config.schema.json",
+  "title": "Distribution channels config",
+  "description": "Structure of .claude/config/channels.config.json — destination channels for Phase 6 uploads. Holds NO secrets; credentials_ref names an env-var prefix resolved at upload time.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "channels"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "channels": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "platform", "language", "credentials_ref"],
+        "properties": {
+          "id": { "type": "string" },
+          "platform": { "type": "string", "enum": ["youtube"] },
+          "channelId": { "type": ["string", "null"] },
+          "language": { "type": "string" },
+          "default": { "type": "boolean" },
+          "credentials_ref": { "type": "string", "description": "Env-var prefix (e.g. YT_DEFAULT) for OAuth creds; never the secret itself." },
+          "privacy_default": { "type": "string", "enum": ["private", "unlisted", "public"] },
+          "category_id": { "type": ["string", "null"] },
+          "playlist_id": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

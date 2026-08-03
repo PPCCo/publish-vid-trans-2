@@ -126,8 +126,53 @@ def validate_framework(root: Path) -> dict[str, Any]:
         # Every gate maps to a declared state.
         bad_gate_states = [g for g, s in gate_map.items() if s not in states]
         add("gate-states-known", not bad_gate_states, f"{bad_gate_states}")
+
+        # Every gate-report edge is a declared transition (Phase 6 added several).
+        bad_report_edges = []
+        for edge in wf.get("gate_reports", {}):
+            src, _, tgt = edge.partition("->")
+            if tgt not in transitions.get(src, []):
+                bad_report_edges.append(edge)
+        add("gate-report-edges-valid", not bad_report_edges, f"{bad_report_edges}")
     except Exception as exc:  # noqa: BLE001
         add("workflow-states", False, str(exc))
+
+    # 3. Distribution config coherence (Phase 6). Configs are optional; validate when present.
+    cfg_dir = root / ".claude" / "config"
+    channels_path = cfg_dir / "channels.config.json"
+    if channels_path.is_file():
+        try:
+            channels_cfg = load_json(channels_path)
+            errs = validate_data(root, channels_cfg, "channels-config.schema.json")
+            add("channels-config-schema", not errs, "; ".join(errs) or "valid")
+            # Reject two default:true channels for the same (platform, language).
+            seen_defaults: dict[tuple[str, str], int] = {}
+            for ch in channels_cfg.get("channels", []):
+                if ch.get("default"):
+                    key = (ch.get("platform", ""), ch.get("language", ""))
+                    seen_defaults[key] = seen_defaults.get(key, 0) + 1
+            dupes = [f"{p}/{lang}" for (p, lang), n in seen_defaults.items() if n > 1]
+            add("channels-single-default-per-language", not dupes,
+                f"multiple default channels for: {dupes}" if dupes else "one default per platform/language")
+        except Exception as exc:  # noqa: BLE001
+            add("channels-config", False, str(exc))
+
+    promo_path = cfg_dir / "promotion.config.json"
+    if promo_path.is_file():
+        try:
+            promo_cfg = load_json(promo_path)
+            errs = validate_data(root, promo_cfg, "promotion-config.schema.json")
+            add("promotion-config-schema", not errs, "; ".join(errs) or "valid")
+            # An automatable platform marked enabled must name a credentials_ref.
+            missing_creds = [
+                name for name, p in promo_cfg.get("platforms", {}).items()
+                if p.get("automatable") and p.get("enabled") and not p.get("credentials_ref")
+            ]
+            add("promotion-enabled-have-credentials", not missing_creds,
+                f"enabled automatable platforms missing credentials_ref: {missing_creds}"
+                if missing_creds else "all enabled platforms reference credentials")
+        except Exception as exc:  # noqa: BLE001
+            add("promotion-config", False, str(exc))
 
     valid = all(c["status"] == "pass" for c in checks)
     return {"valid": valid, "checks": checks}

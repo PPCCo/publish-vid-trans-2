@@ -42,5 +42,16 @@
     "cjk": "Noto Sans CJK",
     "cyrillic": "Noto Sans",
     "arabic": "Noto Sans Arabic"
+  },
+  "distribution": {
+    "_comment": "Phase 6 uploader/promoter adapters. Every platform here is OFF unless BOTH VIDTRANS_PUBLISH_ENABLED=1 (module) and VIDTRANS_EXTERNAL_WRITES=enabled (hook) are set. `sdk` is the Python import probed by `doctor` (absent SDK => graceful PublishDisabled, never a crash). `credentials_ref` names the env-var prefix (see .env.example).",
+    "publish_enabled_env": "VIDTRANS_PUBLISH_ENABLED",
+    "platforms": {
+      "youtube": { "automatable": true, "sdk": "googleapiclient", "credentials_ref": "YT", "quota_units_per_upload": 1600 },
+      "x": { "automatable": true, "sdk": "tweepy", "credentials_ref": "X" },
+      "telegram": { "automatable": true, "sdk": null, "credentials_ref": "TELEGRAM" },
+      "discord": { "automatable": true, "sdk": null, "credentials_ref": "DISCORD" }
+    },
+    "verified": false
   }
 }

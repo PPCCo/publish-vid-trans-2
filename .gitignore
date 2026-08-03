@@ -24,6 +24,10 @@ projects/*/packages/
 projects/*/tmp/
 projects/*/.lock
 
+# Distribution: rendered per-project guides may contain draft copy; keep JSON manifests tracked.
+projects/*/distribution/guides/
+projects/*/distribution/renders/
+
 *.egg-info/
 dist/
 build/

@@ -20,12 +20,21 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-from ..errors import ConfigurationError, FetchDisabled
+from ..errors import ConfigurationError, FetchDisabled, PublishDisabled
 
 # Hosts ingest is permitted to reach. Extend deliberately; keep it short.
 ALLOWED_HOSTS = {
     "youtube.com", "www.youtube.com", "m.youtube.com", "youtu.be",
     "vimeo.com", "www.vimeo.com",
+}
+
+# Hosts the sanctioned uploader (net/publish.py) is permitted to WRITE to. Kept separate
+# from ALLOWED_HOSTS so read-ingest and publish-egress have independent allowlists.
+PUBLISH_HOSTS = {
+    "www.googleapis.com", "youtube.googleapis.com", "oauth2.googleapis.com",
+    "api.twitter.com", "api.x.com", "upload.twitter.com",
+    "api.telegram.org",
+    "discord.com", "discordapp.com",
 }
 
 _TRUTHY = {"1", "true", "on", "yes"}
@@ -39,6 +48,33 @@ def require_fetch_enabled() -> None:
     if not fetch_enabled():
         raise FetchDisabled(
             "network egress is disabled; set VIDTRANS_FETCH_ENABLED=1 to permit ingest"
+        )
+
+
+def publish_enabled() -> bool:
+    """Master switch for external publication (uploads + promotional posts).
+
+    Distinct from fetch_enabled(): ingest and publish are independently gated so a repo
+    can allow reading source video without allowing it to write to any platform."""
+    return os.environ.get("VIDTRANS_PUBLISH_ENABLED", "0").strip().lower() in _TRUTHY
+
+
+def require_publish_enabled() -> None:
+    if not publish_enabled():
+        raise PublishDisabled(
+            "external publication is disabled; set VIDTRANS_PUBLISH_ENABLED=1 to permit "
+            "uploads/posts (the pre_tool_policy hook additionally requires "
+            "VIDTRANS_EXTERNAL_WRITES=enabled for bash-level API verbs)"
+        )
+
+
+def check_publish_url(url: str) -> None:
+    """Guard a publish endpoint against the write allowlist (defense in depth vs SSRF)."""
+    host = (urlparse(url).hostname or "").lower()
+    if host not in PUBLISH_HOSTS:
+        raise ConfigurationError(
+            f"publish URL host not in allowlist: {host or url!r} "
+            f"(allowed: {', '.join(sorted(PUBLISH_HOSTS))})"
         )
 
 

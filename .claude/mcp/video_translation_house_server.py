@@ -219,6 +219,55 @@ def final_qa_preview(project_id: str) -> dict[str, Any]:
 
 
 @mcp.tool()
+def chapters_show(project_id: str, language: str) -> dict[str, Any] | None:
+    """Return a language's canonical chapters doc (chapters/chapters.<lang>.json), or null if
+    none has been imported. Read-only."""
+    from video_translation_house.chapters import load_chapters
+
+    return load_chapters(root(), project_id, language)
+
+
+@mcp.tool()
+def chapters_youtube_timecodes(project_id: str, language: str) -> dict[str, Any]:
+    """Render the YouTube description timecode block from a language's chapters, WITHOUT
+    writing anything. Returns {} block text; empty string if no chapters. Read-only."""
+    from video_translation_house.chapters import (
+        load_chapters,
+        render_youtube_description_timecodes,
+    )
+
+    doc = load_chapters(root(), project_id, language)
+    return {"language": language, "timecodes": render_youtube_description_timecodes(doc) if doc else ""}
+
+
+@mcp.tool()
+def platform_package_show(project_id: str) -> dict[str, Any]:
+    """Return the platform package manifest (distribution/platform-package.json). Read-only."""
+    from video_translation_house.distribution import load_platform_package
+
+    return load_platform_package(root(), project_id)
+
+
+@mcp.tool()
+def upload_manifest_show(project_id: str) -> dict[str, Any]:
+    """Return the upload manifest (distribution/upload-manifest.json), or an empty shell if no
+    upload has been recorded. Read-only."""
+    from video_translation_house.distribution import _load_upload_manifest
+    from video_translation_house.paths import ProjectPaths
+
+    paths = ProjectPaths(root(), project_id).require()
+    return _load_upload_manifest(paths, project_id)
+
+
+@mcp.tool()
+def promotion_manifest_show(project_id: str) -> dict[str, Any]:
+    """Return the promotion manifest (distribution/promotion-manifest.json). Read-only."""
+    from video_translation_house.distribution import load_promotion_manifest
+
+    return load_promotion_manifest(root(), project_id)
+
+
+@mcp.tool()
 def budget_status() -> dict[str, Any]:
     """Vendor (billed) TTS spend ceiling, running total, and remaining headroom. Read-only.
 

@@ -33,6 +33,14 @@ class FetchDisabled(SecurityError):
     """Network egress attempted while the sanctioned fetch flag is off."""
 
 
+class PublishDisabled(SecurityError):
+    """External publication attempted while the sanctioned publish flag is off.
+
+    The distribution twin of FetchDisabled: every function in net/publish.py raises
+    this before touching a platform API unless VIDTRANS_PUBLISH_ENABLED is truthy.
+    """
+
+
 class EngineUnavailableError(VideoTranslationHouseError):
     """A requested ML engine adapter (ASR/MT/TTS) is not installed or not verified.
 
@@ -60,6 +68,15 @@ class MuxError(VideoTranslationHouseError):
 
 class PackageError(VideoTranslationHouseError):
     """A deliverable package could not be assembled or its manifest is inconsistent."""
+
+
+class DistributionError(VideoTranslationHouseError):
+    """A distribution/promotion step could not be prepared or executed.
+
+    Covers chapter worksheet round-trips, platform packaging, and promotion queueing —
+    the deterministic (no-network) side of Phase 6. Actual egress failures raise
+    PublishDisabled (flag off) or surface the platform error text via this type.
+    """
 
 
 class BudgetExceededError(VideoTranslationHouseError):

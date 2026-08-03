@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "upload-record.schema.json",
+  "title": "Upload manifest (per-project)",
+  "description": "Written at YOUTUBE_UPLOAD (distribution/upload-manifest.json). Audit of each upload attempt/outcome, keyed for idempotency by (platform, channel, video_sha256): re-running skips a hash already uploaded to a channel. A dry_run record captures the exact request that WOULD be sent without any network write.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "uploads"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "uploads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["platform", "language", "video_sha256", "dry_run", "created_at"],
+        "properties": {
+          "platform": { "type": "string" },
+          "language": { "type": "string" },
+          "channel_id": { "type": ["string", "null"] },
+          "video_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+          "dry_run": { "type": "boolean" },
+          "status": { "type": "string", "enum": ["prepared", "uploaded", "skipped", "failed"] },
+          "video_id": { "type": ["string", "null"], "description": "Platform-assigned id (e.g. YouTube videoId) once uploaded; null on dry-run." },
+          "url": { "type": ["string", "null"] },
+          "privacy": { "type": ["string", "null"] },
+          "request_preview": { "type": ["object", "null"], "description": "For dry_run: the exact request payload net/publish.py would send." },
+          "error": { "type": ["string", "null"] },
+          "created_at": { "type": "string" },
+          "created_by": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

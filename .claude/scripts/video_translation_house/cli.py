@@ -219,6 +219,65 @@ def build_parser() -> argparse.ArgumentParser:
     pk_build.add_argument("--advance", action="store_true", help="Advance top state once all tracks packaged")  # noqa: E501
     pk_build.add_argument("--actor", default="agent")
 
+    dist = sub.add_parser(
+        "distribute",
+        help="Phase 6: chapters, platform packaging, upload, promotion (OFF by default)",
+    )
+    distsub = dist.add_subparsers(dest="distribute_command", required=True)
+
+    # distribute chapters export/import (worksheet round-trip; no LLM in the CLI)
+    d_chap = distsub.add_parser("chapters", help="Titled breakpoints via worksheet export/import")
+    chapsub = d_chap.add_subparsers(dest="chapters_command", required=True)
+    dc_export = chapsub.add_parser("export", help="Export a chapter worksheet from captions.<lang>.json")
+    dc_export.add_argument("project_id")
+    dc_export.add_argument("--language", required=True)
+    dc_export.add_argument("--actor", default="agent")
+    dc_import = chapsub.add_parser("import", help="Import a filled chapter worksheet -> chapters.<lang>.json")
+    dc_import.add_argument("project_id")
+    dc_import.add_argument("--language", required=True)
+    dc_import.add_argument("--from", dest="from_path",
+                           help="Worksheet path (default: chapters/<lang>.chapters-worksheet.json)")
+    dc_import.add_argument("--actor", default="agent")
+
+    # distribute package -> PLATFORM_PACKAGING
+    d_pkg = distsub.add_parser("package", help="Build per-platform upload metadata (PLATFORM_PACKAGING)")
+    d_pkg.add_argument("project_id")
+    d_pkg.add_argument("--advance", action="store_true",
+                       help="Advance PLATFORM_PACKAGING -> RELEASE_AUTHORIZATION (human gate will hold)")
+    d_pkg.add_argument("--actor", default="agent")
+
+    # distribute youtube -> upload (dry-run default; needs prior release_authorization)
+    d_yt = distsub.add_parser("youtube", help="Upload a language's video to YouTube (dry-run default)")
+    d_yt.add_argument("project_id")
+    d_yt.add_argument("--language", required=True)
+    d_yt.add_argument("--live", action="store_true",
+                      help="Perform the real upload (default: dry-run, no network write)")
+    d_yt.add_argument("--advance", action="store_true",
+                      help="On a live upload, advance YOUTUBE_UPLOAD -> PROMOTION_QUEUE")
+    d_yt.add_argument("--actor", default="agent")
+
+    # distribute promote queue/publish
+    d_promo = distsub.add_parser("promote", help="Draft (queue) then publish promotional posts")
+    promosub = d_promo.add_subparsers(dest="promote_command", required=True)
+    dp_queue = promosub.add_parser("queue", help="Draft per-platform posts (PROMOTION_QUEUE)")
+    dp_queue.add_argument("project_id")
+    dp_queue.add_argument("--advance", action="store_true",
+                          help="Advance PROMOTION_QUEUE -> PROMOTION_REVIEW (human gate will hold)")
+    dp_queue.add_argument("--actor", default="agent")
+    dp_pub = promosub.add_parser("publish",
+                                 help="Fire approved posts (dry-run default; needs promotion_review)")
+    dp_pub.add_argument("project_id")
+    dp_pub.add_argument("--live", action="store_true",
+                        help="Perform real posts (default: dry-run, no network write)")
+    dp_pub.add_argument("--advance", action="store_true",
+                        help="On a live publish, advance through PROMOTION_PUBLISHED -> MONITORING")
+    dp_pub.add_argument("--actor", default="agent")
+
+    # read-only manifest views
+    for view in ("package-show", "upload-show", "promotion-show"):
+        dv = distsub.add_parser(view, help="Show a distribution manifest (read-only)")
+        dv.add_argument("project_id")
+
     cat = sub.add_parser("catalog", help="Repo-global source-video index")
     csub = cat.add_subparsers(dest="catalog_command", required=True)
     csub.add_parser("list")
@@ -429,6 +488,42 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             return packaging_mod.run_package(
                 root, args.project_id, actor=args.actor, advance=args.advance,
             )
+    if cmd == "distribute":
+        from . import distribution as distribution_mod
+        dc = args.distribute_command
+        if dc == "chapters":
+            from . import chapters as chapters_mod
+            cc = args.chapters_command
+            if cc == "export":
+                return chapters_mod.export_chapter_worksheet(
+                    root, args.project_id, args.language, actor=args.actor)
+            if cc == "import":
+                return chapters_mod.import_chapter_worksheet(
+                    root, args.project_id, args.language, from_path=args.from_path,
+                    actor=args.actor)
+        if dc == "package":
+            return distribution_mod.run_platform_packaging(
+                root, args.project_id, actor=args.actor, advance=args.advance)
+        if dc == "youtube":
+            return distribution_mod.run_youtube_upload(
+                root, args.project_id, args.language, dry_run=not args.live,
+                actor=args.actor, advance=args.advance)
+        if dc == "promote":
+            prc = args.promote_command
+            if prc == "queue":
+                return distribution_mod.run_promotion_queue(
+                    root, args.project_id, actor=args.actor, advance=args.advance)
+            if prc == "publish":
+                return distribution_mod.run_promotion_publish(
+                    root, args.project_id, dry_run=not args.live,
+                    actor=args.actor, advance=args.advance)
+        if dc == "package-show":
+            return distribution_mod.load_platform_package(root, args.project_id)
+        if dc == "upload-show":
+            paths = ProjectPaths(root, args.project_id).require()
+            return distribution_mod._load_upload_manifest(paths, args.project_id)
+        if dc == "promotion-show":
+            return distribution_mod.load_promotion_manifest(root, args.project_id)
     if cmd == "catalog":
         from . import catalog as catalog_mod
         if args.catalog_command == "list":

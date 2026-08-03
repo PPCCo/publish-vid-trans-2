@@ -1,0 +1,45 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Per-platform promotion configuration for Phase 6. STRUCTURE ONLY — no secrets. Credentials are resolved from env vars (see .env.example) by net/publish.py at publish time, and only when VIDTRANS_PUBLISH_ENABLED=1. `automatable:true` platforms can be posted via API on human approval; `automatable:false` platforms produce a manual checklist item + a how-to guide only. Message templates use {title} {url} {summary} {hashtags} placeholders filled per-project at PROMOTION_QUEUE. rate_limit_per_hour is a soft self-imposed ceiling recorded in the promotion manifest.",
+  "platforms": {
+    "x": {
+      "automatable": true,
+      "enabled": false,
+      "credentials_ref": "X",
+      "rate_limit_per_hour": 5,
+      "message_template": "{title}\n\n{summary}\n\nWatch: {url}\n{hashtags}"
+    },
+    "telegram": {
+      "automatable": true,
+      "enabled": false,
+      "credentials_ref": "TELEGRAM",
+      "rate_limit_per_hour": 20,
+      "message_template": "{title}\n\n{summary}\n\n{url}"
+    },
+    "discord": {
+      "automatable": true,
+      "enabled": false,
+      "credentials_ref": "DISCORD",
+      "rate_limit_per_hour": 20,
+      "message_template": "**{title}**\n{summary}\n{url}"
+    },
+    "youtube_community": {
+      "automatable": false,
+      "enabled": false,
+      "message_template": "{title}\n{url}"
+    },
+    "reddit": { "automatable": false, "enabled": false, "guide": "reddit.md" },
+    "instagram": { "automatable": false, "enabled": false, "guide": "instagram.md" },
+    "tiktok": { "automatable": false, "enabled": false, "guide": "tiktok.md" },
+    "facebook": { "automatable": false, "enabled": false, "guide": "facebook.md" },
+    "linkedin": { "automatable": false, "enabled": false, "guide": "linkedin.md" },
+    "rumble": { "automatable": false, "enabled": false, "guide": "rumble.md" },
+    "odysee": { "automatable": false, "enabled": false, "guide": "odysee.md" },
+    "peertube": { "automatable": false, "enabled": false, "guide": "peertube.md" },
+    "podcast_rss": { "automatable": false, "enabled": false, "guide": "podcast-rss.md" }
+  },
+  "defaults": {
+    "hashtags": "",
+    "per_language_targets": {}
+  }
+}

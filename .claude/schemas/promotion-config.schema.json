@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "promotion-config.schema.json",
+  "title": "Promotion config",
+  "description": "Structure of .claude/config/promotion.config.json — per-platform promotion settings. Holds NO secrets; credentials_ref names an env-var prefix resolved at publish time.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "platforms"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "platforms": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["automatable"],
+        "properties": {
+          "automatable": { "type": "boolean" },
+          "enabled": { "type": "boolean" },
+          "credentials_ref": { "type": "string" },
+          "rate_limit_per_hour": { "type": "integer", "minimum": 0 },
+          "message_template": { "type": "string" },
+          "guide": { "type": "string" }
+        }
+      }
+    },
+    "defaults": { "type": "object", "additionalProperties": true }
+  }
+}

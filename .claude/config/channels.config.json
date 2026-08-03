@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "_comment": "YouTube (and other video-host) destination channels for Phase 6 uploads. This file holds STRUCTURE ONLY — never secrets. `credentials_ref` names the env-var PREFIX whose *_CLIENT_ID / *_CLIENT_SECRET / *_REFRESH_TOKEN (documented in .env.example) hold the actual OAuth credentials, resolved at upload time by net/publish.py only when VIDTRANS_PUBLISH_ENABLED=1. A per-project override may live in project.yaml.distribution.youtube.channelId. `framework validate` rejects two default:true channels for the same language.",
+  "channels": [
+    {
+      "id": "default-en",
+      "platform": "youtube",
+      "channelId": "REPLACE_WITH_YOUTUBE_CHANNEL_ID",
+      "language": "en",
+      "default": true,
+      "credentials_ref": "YT_DEFAULT",
+      "privacy_default": "private",
+      "category_id": "25",
+      "playlist_id": null
+    }
+  ]
+}

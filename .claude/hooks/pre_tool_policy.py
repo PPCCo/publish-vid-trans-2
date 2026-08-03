@@ -207,9 +207,13 @@ def main() -> int:
             # to stand alone as command words — NOT embedded in path slugs like
             # "publish-vid-trans" where "\b" would otherwise match around the hyphen.
             if re.search(
-                r"\b(videos\.insert|captions\.insert|thumbnails\.set)\b"
+                r"\b(videos\.insert|captions\.insert|thumbnails\.set|playlistItems\.insert)\b"
                 r"|(?<![\w./-])(publish|purchase)(?![\w./-])"
-                r"|--upload\b|\bupload-video\b",
+                r"|--upload\b|\bupload-video\b"
+                # Phase 6 platform write endpoints: X/Twitter v2 tweets + v1.1 media upload,
+                # Telegram Bot API sendMessage/sendVideo, Discord webhook posts.
+                r"|api\.(twitter|x)\.com/\d[\w./]*|upload\.twitter\.com"
+                r"|api\.telegram\.org/bot|/webhooks?/\d+/",
                 command,
                 re.IGNORECASE,
             ):

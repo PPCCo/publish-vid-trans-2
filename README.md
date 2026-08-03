@@ -24,6 +24,8 @@ full design rationale and every deliberate deviation from `publish-vid-trans-pla
 - [Rights and voice-cloning consent](#rights-and-voice-cloning-consent)
 - [The vendor spend ceiling (cost guard)](#the-vendor-spend-ceiling-cost-guard)
 - [Mux modes: soft-subs, burned-in, no-subs](#mux-modes-soft-subs-burned-in-no-subs)
+- [Distribution and promotion (Phase 6, opt-in)](#distribution-and-promotion-phase-6-opt-in)
+- [Chapters / titled breakpoints](#chapters--titled-breakpoints)
 - [MCP server (read-only)](#mcp-server-read-only)
 - [Hooks and permission posture](#hooks-and-permission-posture)
 - [Worked example: end to end with no ML engines installed](#worked-example-end-to-end-with-no-ml-engines-installed)
@@ -51,10 +53,14 @@ just documentation:
 2. **Gates are human-bound.** An agent may recommend a transition and prepare a gate packet.
    It can never grant an approval, set rights status, or force a transition through a human
    gate — those skills are marked `disable-model-invocation: true`.
-3. **No external publication by default.** The pipeline stops at `READY_FOR_REVIEW` and
-   produces upload-ready packages. It never uploads to YouTube or any platform. Ingest
-   downloads (`yt-dlp`) and any vendor API call happen only through the sanctioned network
-   module, and only when `VIDTRANS_FETCH_ENABLED=1`.
+3. **No external publication by default.** The autonomous pipeline stops at
+   `READY_FOR_REVIEW` and produces upload-ready packages. The optional Phase 6 extension can
+   upload/promote, but only after a human passes a `RELEASE_AUTHORIZATION` gate **and** both
+   publish flags are set — `VIDTRANS_PUBLISH_ENABLED=1` (module switch) and
+   `VIDTRANS_EXTERNAL_WRITES=enabled` (hook switch); with either unset every path is a
+   no-network dry-run. Ingest downloads (`yt-dlp`) and any vendor API call happen only
+   through the sanctioned network module, and only when `VIDTRANS_FETCH_ENABLED=1`.
+   See [Distribution and promotion](#distribution-and-promotion-phase-6-opt-in).
 4. **Rights precede distribution.** A project reaches `READY_FOR_REVIEW` regardless of
    rights status, but nothing under `packages/` is safe to hand off until a human sets
    `rights_status` to a distributable value. `PACKAGE → READY_FOR_REVIEW` is blocked while
@@ -107,8 +113,21 @@ TRANSLATION → [TRANSLATION_QA_GATE] → CAPTION_TIMING → CAPTION_VALIDATION 
                                                           │
                                                     [rights gate]
                                                           ↓
-                                                  READY_FOR_REVIEW
+                                                  READY_FOR_REVIEW   ← autonomous stop
 ```
+
+The autonomous pipeline **stops** at `READY_FOR_REVIEW` (`plan()` reports `TERMINAL`). The
+opt-in Phase 6 extension continues from there, but only under human hands:
+
+```
+READY_FOR_REVIEW → PLATFORM_PACKAGING → [RELEASE_AUTHORIZATION] → YOUTUBE_UPLOAD →
+PROMOTION_QUEUE → [PROMOTION_REVIEW] → PROMOTION_PUBLISHED → MONITORING (terminal)
+```
+
+`[RELEASE_AUTHORIZATION]` and `[PROMOTION_REVIEW]` are **human-only** gates (bound to the
+exact final-video / promotion-manifest hash), and a `rights` re-check guards the
+`RELEASE_AUTHORIZATION → YOUTUBE_UPLOAD` edge — publication is refused under non-distributable
+rights even this late. See [Distribution and promotion](#distribution-and-promotion-phase-6-opt-in).
 
 `[bracketed]` states are **human gates**: a deterministic report must read `PASS` (or
 `CONDITIONAL_PASS`, which still needs the human okay) **and** a human approval must be bound
@@ -301,9 +320,11 @@ publish-vid-trans/
 │   ├── transcripts/            # source-language transcript + qa-report.json
 │   ├── segments/               # segments.json (resolved selection; a single segment when whole-video) + clips/
 │   ├── captions/               # worksheets, captions.<lang>.json, .srt/.vtt
+│   ├── chapters/               # (Phase 6) chapter worksheets + chapters.<lang>.json
 │   ├── audio/<lang>/           # dub.wav per dub-enabled language + sync-report.json
 │   ├── video/<lang>/           # dubbed.mp4 per dub-enabled language
 │   ├── packages/<lang>/        # final deliverables: video + captions + README + checksums
+│   ├── distribution/           # (Phase 6) platform-package + upload/promotion manifests; guides/ + renders/ gitignored
 │   ├── artifacts/manifest.json # every registered artifact, content-addressed
 │   ├── rights/record.json      # human-set rights + voice-clone-consent record
 │   └── reviews/                # gate reports, keyed by report type
@@ -333,6 +354,7 @@ find `.claude/CLAUDE.md` if omitted.
 | `captions` | `build` (SRT/VTT), `validate` |
 | `dub` | `run` (TTS), `import` (no-engine path), `qa` |
 | `package` | `mux`, `final-qa`, `build` |
+| `distribute` *(Phase 6, opt-in)* | `chapters export`/`import`, `package`, `youtube` *(dry-run default)*, `promote queue`/`publish` *(dry-run default)*, `package-show`/`upload-show`/`promotion-show` |
 | `catalog` | `list`, `show` |
 | `budget` | `status` — read-only ceiling/spend/headroom |
 | `langid` | `detect`, `set` |
@@ -367,6 +389,12 @@ gate, and never bypasses the CLI:
 | `qa-audio-sync` | `AUDIO_SYNC_ADJUST`, `AUDIO_QA_GATE` | per-cue drift / stretch-cap / cumulative-offset review |
 | `mux-and-package` | `VIDEO_MUX → PACKAGE` | mux + assemble packages; stops at `final_qa` and the rights-blocked edge |
 | `qa-final` | `VIDEO_MUX`, `FINAL_QA_GATE` | stream-presence + A/V-alignment review |
+| `generate-chapters` *(Phase 6)* | after `CAPTION_VALIDATION` | export a chapter worksheet, fill titles/breakpoints, import → `chapters.<lang>.json` |
+| `prepare-distribution` *(Phase 6)* | `READY_FOR_REVIEW → PLATFORM_PACKAGING` | build the per-platform packet + per-project guide; **stops at** `release_authorization`. Never uploads |
+| `video-release-authorize` *(Phase 6)* | `RELEASE_AUTHORIZATION` | **human-only** (`disable-model-invocation: true`) — grant `release_authorization` bound to the final-video hash |
+| `upload-youtube` *(Phase 6)* | `YOUTUBE_UPLOAD` | dry-run by default; a real upload needs both publish flags + prior authorization |
+| `promote-content` *(Phase 6)* | `PROMOTION_QUEUE` | draft one distinct post per platform; **stops at** `promotion_review` |
+| `video-promote-approve` *(Phase 6)* | `PROMOTION_REVIEW` | **human-only** — grant `promotion_review` for the queued posts |
 
 Every QA skill's job is identical in shape: run the deterministic checker, summarize the
 findings in plain language, and hand the human an evidence-backed gate packet — never grant
@@ -455,6 +483,113 @@ read-only with:
 `burned-in` requires your ffmpeg build to have libass support (`ffmpeg -filters | grep subtitles`);
 without it, the mux fails with a clear `MuxError` rather than silently falling back.
 
+## Distribution and promotion (Phase 6, opt-in)
+
+The core framework ends at `READY_FOR_REVIEW`. **Phase 6** is an opt-in extension that takes
+a review-ready project through upload and cross-platform promotion — but it is **off by
+default and human-bound at every gate**. Nothing leaves the machine unless a human clears
+rights, authorizes the release against the exact final-video hash, and both publish flags are
+set. With the flags unset, every uploader and poster runs as a **no-network dry-run** that
+returns the exact request it *would* send.
+
+### The two publish flags (defense in depth — both required for a live write)
+
+| Flag | Layer | Default | Effect when set |
+|---|---|---|---|
+| `VIDTRANS_PUBLISH_ENABLED=1` | module (`net/publish.py`) | off | lets the sanctioned uploader perform a real API call |
+| `VIDTRANS_EXTERNAL_WRITES=enabled` | hook (`pre_tool_policy.py`) | off | lets bash-level API verbs (`videos.insert`, `yt-dlp`, …) through the pre-tool deny |
+
+A live upload needs **both** — same posture as ingest needing `VIDTRANS_FETCH_ENABLED=1` at
+both the hook and module layers. Credentials are read from environment variables named per a
+channel's `credentials_ref` and documented (no secrets) in **`.env.example`**:
+YouTube OAuth (`YT_DEFAULT_CLIENT_ID`/`_CLIENT_SECRET`/`_REFRESH_TOKEN`), X/Twitter
+(`X_API_KEY`/`_API_SECRET`/`_ACCESS_TOKEN`/`_ACCESS_SECRET`), Telegram
+(`TELEGRAM_BOT_TOKEN`/`_CHANNEL`), Discord (`DISCORD_WEBHOOK_URL`). The uploader SDKs are an
+optional install: `pip install -e '.[publish]'`; a missing SDK degrades to `PublishDisabled`
+rather than crashing.
+
+### The one sanctioned write boundary
+
+`net/publish.py` is the **only** module that performs an external write. Every function calls
+`require_publish_enabled()` first, resolves credentials from the environment, checks the
+target host against a publish allowlist, and accepts `dry_run=True` (the tested, default
+path). Automated platforms: **YouTube** (Data API v3 resumable `videos.insert` +
+`captions.insert`), **X/Twitter** (API v2), **Telegram** (Bot API), **Discord** (webhook).
+Every other platform is a **manual how-to guide** (see below), never an automated post.
+
+### The flow
+
+```bash
+CLI=".venv/bin/python3 .claude/scripts/vid_cli.py"
+VID=yt-abc12345678
+
+# from READY_FOR_REVIEW — an agent may prepare; a human authorizes.
+$CLI project transition $VID --to PLATFORM_PACKAGING --actor human
+$CLI distribute chapters export $VID --language en    # (optional) titled breakpoints
+# ... fill chapters/en.chapters-worksheet.json ...
+$CLI distribute chapters import $VID --language en
+$CLI distribute package $VID --advance                # builds the packet; STOPS at the human gate
+
+# HUMAN grants release_authorization, bound to the exact final-video sha256:
+$CLI approval grant $VID --gate release_authorization --approver "Jane" \
+  --artifact <dubbed-video-sha256> --scope video
+$CLI project transition $VID --to YOUTUBE_UPLOAD --actor human
+
+$CLI distribute youtube $VID --language en            # dry-run by default; --live needs both flags
+$CLI project transition $VID --to PROMOTION_QUEUE --actor agent
+$CLI distribute promote queue $VID --advance          # one DISTINCT post per platform; STOPS at gate
+
+# HUMAN grants promotion_review, then publish (dry-run by default; --live needs both flags):
+$CLI approval grant $VID --gate promotion_review --approver "Jane" \
+  --artifact <promotion-manifest-sha256> --scope promotion
+$CLI distribute promote publish $VID --advance
+```
+
+`distribute package` writes `projects/<id>/distribution/platform-package.json` (the exact
+video hash each target binds to, templated title/description with chapter timecodes appended,
+resolved channel) plus a rendered per-project how-to guide under
+`projects/<id>/distribution/guides/`. `distribute youtube`/`promote publish` record every
+attempt in `upload-manifest.json`/`promotion-manifest.json` — in dry-run those records are
+`prepared`/`queued`, never `posted`.
+
+### Channels and promotion config
+
+- `.claude/config/channels.config.json` — per-language YouTube channels (`channelId`,
+  `credentials_ref`, `privacy_default`, `category_id`, `playlist_id`, `default`). Resolution:
+  a per-project override (`project.yaml` `distribution.youtube`) wins, else the `default:true`
+  channel for the language, else the first. `framework validate` **rejects two `default:true`
+  channels for the same language**.
+- `.claude/config/promotion.config.json` — per-platform `automatable`/`enabled` flags,
+  message templates, and `credentials_ref`. A guardrail flags two *queued* posts with
+  byte-identical text so a human differentiates before publishing (checklist/manual posts,
+  which share the default template by design, are exempt).
+
+### Guides (`docs/guides/`)
+
+Generic, video-agnostic how-tos live in `docs/guides/` and index which platforms are
+**automated** (`youtube-upload.md`, `x-twitter.md`, `telegram.md`, `discord.md` — also cover
+OAuth/API-key setup + env vars) vs **manual-only** (`reddit.md`, `instagram.md`, `tiktok.md`,
+`facebook.md`, `linkedin.md`, `rumble.md`, `odysee.md`, `peertube.md`, `podcast-rss.md`).
+`youtube-upload.md` doubles as the **template** the per-project renderer fills (`{{TITLE}}`,
+`{{DESCRIPTION}}`, `{{CHANNEL_ID}}`, `{{PRIVACY}}`, `{{LANGUAGE}}`, `{{VIDEO_PATH}}`,
+`{{VIDEO_SHA256}}`). Even automated platforms get a guide so a human can always fall back to
+posting by hand.
+
+## Chapters / titled breakpoints
+
+Chapters (titled timestamp breakpoints for YouTube's description and X threads) are produced
+by the **same worksheet round-trip as translation** — the CLI never calls an LLM. `distribute
+chapters export` reads the canonical captions and emits
+`chapters/<lang>.chapters-worksheet.json`: the full cue list, an empty `chapters[]` for the
+agent to fill, and heuristic `candidate_boundaries` pre-seeded at large silence gaps. The
+agent (via the `generate-chapters` skill) groups cues into titled chapters; `distribute
+chapters import` validates them (first chapter at `0`, strictly increasing `start_ms`, all
+within the video duration, non-empty titles) and writes canonical `chapters/chapters.<lang>.json`,
+registered as a content-addressed `chapters@<lang>` artifact. Editing and re-importing
+supersedes the hash and invalidates any approval bound to the old one (rule 6). At packaging,
+`render_youtube_description_timecodes` turns the chapters into the `M:SS Title` / `H:MM:SS
+Title` block YouTube parses (first line always `0:00`), appended to the description.
+
 ## MCP server (read-only)
 
 `.claude/mcp/video_translation_house_server.py` exposes query/dry-run tools only —
@@ -472,7 +607,9 @@ additionally hard-denies any write-capable MCP tool name as defense in depth. Co
 
 - **Hard deny (never allowed, no prompt):** hand-writing CLI-owned project state
   (`state.json`, `manifest.json`, anything under `approvals/`/`events/`); editing
-  `.claude/settings.json` or `.mcp.json`; unflagged `yt-dlp`; external-publish verbs.
+  `.claude/settings.json` or `.mcp.json`; `yt-dlp` unless `VIDTRANS_FETCH_ENABLED=1`;
+  external-publish verbs (`videos.insert`, `captions.insert`, `--upload`, standalone
+  `publish`/`purchase`, X/Telegram/Discord post verbs) unless `VIDTRANS_EXTERNAL_WRITES=enabled`.
 - **Ask (prompts the human):** secrets/credentials/`.git` writes, writes outside the repo,
   `rm -rf` outside OS temp dirs, `sudo`, `git push`/`reset --hard`, cloud-CLI writes,
   write-capable MCP tools.
@@ -586,12 +723,14 @@ holds just the captions and README — no video, since `fa` was never in `--audi
   90 seconds; write `"01:30"` (or `90.0`) for clarity. This trips up authors expecting ms.
 - **Large binaries are gitignored, not committed.** `projects/*/source/`, `audio/`, `video/`,
   and `packages/` hold multi-hundred-MB files; only the JSON/manifest/schema layer is meant
-  to live in version control.
+  to live in version control. Phase 6 adds `projects/*/distribution/guides/` and
+  `projects/*/distribution/renders/` to the ignore list (rendered per-project guides may
+  carry draft copy) while keeping the distribution JSON manifests tracked.
 
 ## Testing
 
 ```bash
-.venv/bin/python3 -m pytest tests/ -q                              # 117 passed, 1 skipped*
+.venv/bin/python3 -m pytest tests/ -q                              # 146 passed, 1 skipped*
 .venv/bin/python3 -m ruff check .claude/scripts .claude/mcp tests   # clean
 VIDTRANS_REPO_ROOT="$PWD" .venv/bin/python3 .claude/scripts/vid_cli.py framework validate
 ```
@@ -602,7 +741,9 @@ mode-validation logic around it is still covered and passes.
 Most of the lifecycle is tested through the **no-engine `import` paths** (`transcript
 import`, `dub import`) precisely so the suite doesn't depend on any ASR/TTS binary being
 installed in CI. Tests that do need `ffmpeg`/`ffprobe` skip cleanly (`ffmpeg_required`) when
-absent.
+absent. The Phase 6 suites (`test_chapters.py`, `test_distribution.py`, `test_publish.py`)
+exercise the full distribution lifecycle to `MONITORING` entirely through the **dry-run**
+path — no external write, no publish credentials, and no SDK required.
 
 ## Installation
 
@@ -622,13 +763,23 @@ Optional, install as needed:
   without one.
 - A TTS engine (`kokoro`, `piper`, `xtts`, `chatterbox`, or a vendor CLI) — optional; `dub
   import` works without one.
+- The Phase 6 uploader SDKs (`pip install -e '.[publish]'`:
+  `google-api-python-client`, `google-auth-oauthlib`, `tweepy`, `requests`) — optional; the
+  distribution dry-run path works without them, and a missing SDK degrades to
+  `PublishDisabled` rather than crashing.
 
 ## What's out of scope
 
-**Phase 6 — distribution and promotion** (YouTube upload, cross-platform promotion) is
-explicitly out of scope for this framework and lives in a separate,
-not-yet-authorized plan (`publishing-and-promotion-extentsion-plan.md`). This repository's
-contract ends at `READY_FOR_REVIEW`: an upload-ready package on disk, nothing pushed
-anywhere. Building the distribution extension requires a separate, explicit authorization —
-it adds live external-write credentials (OAuth, platform API quotas) that this core
-framework deliberately does not carry.
+**Phase 6 — distribution and promotion** (YouTube upload, cross-platform promotion, chapters)
+is now **implemented but opt-in and off by default** — see
+[Distribution and promotion](#distribution-and-promotion-phase-6-opt-in). The *autonomous*
+pipeline still ends at `READY_FOR_REVIEW`: an upload-ready package on disk, nothing pushed
+anywhere. Going further is never automatic — it requires a human to clear rights, pass the
+`RELEASE_AUTHORIZATION` gate against the exact final-video hash, and deliberately set **both**
+publish flags (`VIDTRANS_PUBLISH_ENABLED=1` + `VIDTRANS_EXTERNAL_WRITES=enabled`) plus supply
+platform credentials via `.env`. With any of those absent, Phase 6 runs only as a no-network
+dry-run.
+
+Still genuinely out of scope: speaker diarization (see `ANALYSIS.md` B1); a hosted/scheduled
+publishing service (Phase 6 fires on human command, it does not run a queue daemon); and
+analytics beyond the terminal `MONITORING` marker (no view/engagement scraping).

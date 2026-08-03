@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "promotion-manifest.schema.json",
+  "title": "Promotion manifest (per-project)",
+  "description": "Written at PROMOTION_QUEUE (distribution/promotion-manifest.json) and updated at PROMOTION_PUBLISHED. The audit of promotional posts: one queued post per platform with distinct message text (anti-spam guardrail), a human review at PROMOTION_REVIEW, then automatable platforms fire via net/publish.* while manual platforms become checklist items. Records status + outcome per post.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "created_at", "posts"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] },
+    "video_url": { "type": ["string", "null"], "description": "Canonical watch URL (e.g. the YouTube upload) the posts point at, if known." },
+    "posts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["platform", "automatable", "message", "status"],
+        "properties": {
+          "platform": { "type": "string" },
+          "automatable": { "type": "boolean" },
+          "language": { "type": ["string", "null"] },
+          "message": { "type": "string", "description": "Platform-specific post text; must differ across platforms (no identical cross-posting)." },
+          "target": { "type": ["string", "null"], "description": "Channel/handle/webhook reference (not a secret)." },
+          "status": { "type": "string", "enum": ["queued", "checklist", "posted", "skipped", "failed"] },
+          "dry_run": { "type": ["boolean", "null"] },
+          "post_id": { "type": ["string", "null"] },
+          "url": { "type": ["string", "null"] },
+          "request_preview": { "type": ["object", "null"] },
+          "error": { "type": ["string", "null"] },
+          "posted_at": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

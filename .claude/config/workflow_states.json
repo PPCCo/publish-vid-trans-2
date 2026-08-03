@@ -17,12 +17,19 @@
     "FINAL_QA_GATE",
     "PACKAGE",
     "READY_FOR_REVIEW",
+    "PLATFORM_PACKAGING",
+    "RELEASE_AUTHORIZATION",
+    "YOUTUBE_UPLOAD",
+    "PROMOTION_QUEUE",
+    "PROMOTION_REVIEW",
+    "PROMOTION_PUBLISHED",
+    "MONITORING",
     "PAUSED",
     "CANCELLED",
     "ERROR"
   ],
   "initial_state": "INGEST",
-  "terminal_states": ["READY_FOR_REVIEW", "CANCELLED"],
+  "terminal_states": ["READY_FOR_REVIEW", "MONITORING", "CANCELLED"],
   "transitions": {
     "INGEST": ["LANGUAGE_ID", "PAUSED", "CANCELLED", "ERROR"],
     "LANGUAGE_ID": ["TRANSCRIPTION", "PAUSED", "CANCELLED", "ERROR"],
@@ -39,21 +46,32 @@
     "VIDEO_MUX": ["FINAL_QA_GATE", "PAUSED", "CANCELLED", "ERROR"],
     "FINAL_QA_GATE": ["PACKAGE", "VIDEO_MUX", "PAUSED", "CANCELLED", "ERROR"],
     "PACKAGE": ["READY_FOR_REVIEW", "PAUSED", "CANCELLED", "ERROR"],
-    "READY_FOR_REVIEW": ["PACKAGE", "PAUSED", "CANCELLED"],
-    "PAUSED": ["INGEST", "LANGUAGE_ID", "TRANSCRIPTION", "SEGMENT_RESOLUTION", "TRANSLATION", "CAPTION_TIMING", "DUBBING", "VIDEO_MUX", "PACKAGE", "CANCELLED", "ERROR"],
-    "ERROR": ["PAUSED", "CANCELLED", "INGEST", "TRANSCRIPTION", "TRANSLATION", "DUBBING", "VIDEO_MUX"]
+    "READY_FOR_REVIEW": ["PACKAGE", "PLATFORM_PACKAGING", "PAUSED", "CANCELLED"],
+    "PLATFORM_PACKAGING": ["RELEASE_AUTHORIZATION", "READY_FOR_REVIEW", "PAUSED", "CANCELLED", "ERROR"],
+    "RELEASE_AUTHORIZATION": ["YOUTUBE_UPLOAD", "PLATFORM_PACKAGING", "PAUSED", "CANCELLED", "ERROR"],
+    "YOUTUBE_UPLOAD": ["PROMOTION_QUEUE", "PAUSED", "CANCELLED", "ERROR"],
+    "PROMOTION_QUEUE": ["PROMOTION_REVIEW", "PAUSED", "CANCELLED", "ERROR"],
+    "PROMOTION_REVIEW": ["PROMOTION_PUBLISHED", "PROMOTION_QUEUE", "PAUSED", "CANCELLED", "ERROR"],
+    "PROMOTION_PUBLISHED": ["MONITORING", "PAUSED", "CANCELLED", "ERROR"],
+    "MONITORING": ["PAUSED", "CANCELLED"],
+    "PAUSED": ["INGEST", "LANGUAGE_ID", "TRANSCRIPTION", "SEGMENT_RESOLUTION", "TRANSLATION", "CAPTION_TIMING", "DUBBING", "VIDEO_MUX", "PACKAGE", "PLATFORM_PACKAGING", "YOUTUBE_UPLOAD", "PROMOTION_QUEUE", "PROMOTION_PUBLISHED", "CANCELLED", "ERROR"],
+    "ERROR": ["PAUSED", "CANCELLED", "INGEST", "TRANSCRIPTION", "TRANSLATION", "DUBBING", "VIDEO_MUX", "PLATFORM_PACKAGING", "YOUTUBE_UPLOAD", "PROMOTION_QUEUE"]
   },
   "human_gate_to_state": {
     "transcript_qa": "TRANSCRIPT_QA_GATE",
     "translation_qa": "TRANSLATION_QA_GATE",
     "audio_qa": "AUDIO_QA_GATE",
-    "final_qa": "FINAL_QA_GATE"
+    "final_qa": "FINAL_QA_GATE",
+    "release_authorization": "RELEASE_AUTHORIZATION",
+    "promotion_review": "PROMOTION_REVIEW"
   },
   "gate_edges": {
     "TRANSCRIPT_QA_GATE->SEGMENT_RESOLUTION": "transcript_qa",
     "TRANSLATION_QA_GATE->CAPTION_TIMING": "translation_qa",
     "AUDIO_QA_GATE->VIDEO_MUX": "audio_qa",
-    "FINAL_QA_GATE->PACKAGE": "final_qa"
+    "FINAL_QA_GATE->PACKAGE": "final_qa",
+    "RELEASE_AUTHORIZATION->YOUTUBE_UPLOAD": "release_authorization",
+    "PROMOTION_REVIEW->PROMOTION_PUBLISHED": "promotion_review"
   },
   "gate_reports": {
     "TRANSCRIPT_QA_GATE->SEGMENT_RESOLUTION": ["transcript-qa"],
@@ -62,13 +80,18 @@
     "CAPTION_VALIDATION->PACKAGE": ["caption"],
     "AUDIO_QA_GATE->VIDEO_MUX": ["audio-sync"],
     "FINAL_QA_GATE->PACKAGE": ["final"],
-    "PACKAGE->READY_FOR_REVIEW": ["rights"]
+    "PACKAGE->READY_FOR_REVIEW": ["rights"],
+    "PLATFORM_PACKAGING->RELEASE_AUTHORIZATION": ["platform-package"],
+    "RELEASE_AUTHORIZATION->YOUTUBE_UPLOAD": ["rights"],
+    "PROMOTION_QUEUE->PROMOTION_REVIEW": ["promotion"]
   },
   "captions_only_edges": {
     "CAPTION_VALIDATION->PACKAGE": "Skip dubbing/mux when a project is caption-only (no audio deliverables)."
   },
   "notes": {
     "per_language": "TRANSLATION..VIDEO_MUX advance per target language; per-language progress is tracked in state.json.language_tracks. The top-level current_state records the SLOWEST track's stage: the project only advances to stage N when every active, non-failed language track has reached at least stage N. Gate approvals bind to (gate, language, artifact_hash).",
-    "rights_gate": "PACKAGE->READY_FOR_REVIEW requires the rights report decision != unreviewed/do-not-distribute; enforced in transition_blockers."
+    "rights_gate": "PACKAGE->READY_FOR_REVIEW requires the rights report decision != unreviewed/do-not-distribute; enforced in transition_blockers.",
+    "distribution": "Phase 6 (READY_FOR_REVIEW -> MONITORING) is the optional distribution/promotion extension. It is OFF by default: the module-level VIDTRANS_PUBLISH_ENABLED flag and the hook-level VIDTRANS_EXTERNAL_WRITES=enabled gate must BOTH be set before any external write occurs, and both human gates (release_authorization, promotion_review) plus a re-checked rights report block the path. A project that never enters PLATFORM_PACKAGING simply rests at READY_FOR_REVIEW with upload-ready packages.",
+    "release_gate": "RELEASE_AUTHORIZATION->YOUTUBE_UPLOAD re-checks the rights report (publication must never proceed under unreviewed/do-not-distribute) in addition to the human release_authorization approval bound to the exact final-video hash."
   }
 }

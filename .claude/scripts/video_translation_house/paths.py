@@ -22,6 +22,8 @@ PROJECT_DIRS = [
     "approvals",
     "artifacts",
     "packages",
+    "chapters",
+    "distribution/guides",
     "outputs",
     "tmp",
 ]
@@ -100,6 +102,30 @@ class ProjectPaths:
     @property
     def video_dir(self) -> Path:
         return self.directory / "video"
+
+    @property
+    def chapters_dir(self) -> Path:
+        return self.directory / "chapters"
+
+    @property
+    def distribution_dir(self) -> Path:
+        """Phase 6 workspace: platform packages, upload/promotion manifests, rendered guides.
+
+        Gitignored (may hold large per-platform renders / draft copy); the JSON manifests are
+        content-addressed artifacts registered through the CLI like every other deliverable."""
+        return self.directory / "distribution"
+
+    @property
+    def platform_package_manifest(self) -> Path:
+        return self.directory / "distribution" / "platform-package.json"
+
+    @property
+    def upload_manifest(self) -> Path:
+        return self.directory / "distribution" / "upload-manifest.json"
+
+    @property
+    def promotion_manifest(self) -> Path:
+        return self.directory / "distribution" / "promotion-manifest.json"
 
     def gate_report(self, gate: str) -> Path:
         """Path to the latest gate report a state blocker reads (decision must be PASS)."""

@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "platform-package-manifest.schema.json",
+  "title": "Platform package manifest (per-project)",
+  "description": "Built at PLATFORM_PACKAGING (distribution/platform-package.json). Per target language/channel, the upload-ready metadata a human authorizes at RELEASE_AUTHORIZATION: templated title/description (with chapter timecodes), tags, resolved channel, and the exact final-video artifact hash it binds to. Describes an upload a human MAY perform once authorized; nothing here uploads.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "created_at", "targets"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] },
+    "rights_status": { "type": "string" },
+    "distributable": { "type": "boolean" },
+    "targets": {
+      "type": "array",
+      "description": "One entry per language/channel to publish.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["language", "platform", "title", "description", "video_sha256"],
+        "properties": {
+          "language": { "type": "string" },
+          "platform": { "type": "string" },
+          "channel_id": { "type": ["string", "null"] },
+          "channel_config_id": { "type": ["string", "null"] },
+          "title": { "type": "string", "minLength": 1, "maxLength": 100 },
+          "description": { "type": "string" },
+          "tags": { "type": "array", "items": { "type": "string" } },
+          "category_id": { "type": ["string", "null"] },
+          "privacy": { "type": "string", "enum": ["private", "unlisted", "public"] },
+          "playlist_id": { "type": ["string", "null"] },
+          "video_path": { "type": ["string", "null"], "description": "Project-relative path to the deliverable video the upload would send." },
+          "video_sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$", "description": "The exact final-video hash the release authorization binds to." },
+          "caption_paths": { "type": "array", "items": { "type": "string" } },
+          "thumbnail_path": { "type": ["string", "null"] },
+          "chapters_timecodes": { "type": ["string", "null"], "description": "Rendered YouTube description timecode block, if chapters exist." },
+          "guide_path": { "type": ["string", "null"], "description": "Project-relative path to the per-project how-to guide rendered for this target." }
+        }
+      }
+    }
+  }
+}
