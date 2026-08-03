@@ -10,6 +10,17 @@ from .errors import VideoTranslationHouseError
 from .util import parse_csv, repo_root
 
 
+def _load_json_arg(value: str) -> Any:
+    """Parse a CLI argument that is either inline JSON or ``@path`` to a JSON file."""
+    text = value
+    if value.startswith("@"):
+        text = Path(value[1:]).expanduser().read_text(encoding="utf-8")
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as exc:
+        raise VideoTranslationHouseError(f"invalid JSON in --selection: {exc}") from exc
+
+
 def build_parser() -> argparse.ArgumentParser:
     # Global options live on a parent parser so they are accepted both before AND after
     # the subcommand (argparse otherwise rejects `... framework validate --compact`).
@@ -37,6 +48,15 @@ def build_parser() -> argparse.ArgumentParser:
     p_init.add_argument("--audio", help="Comma-separated languages to dub (subset of targets)")
     p_init.add_argument("--channel")
     p_init.add_argument("--title")
+    p_init.add_argument(
+        "--selection",
+        help="Source windows to process as inline JSON or @file. Object with a `windows` "
+             "list ({start,end,[id,label,exact]}); omit for the whole video.",
+    )
+    p_init.add_argument("--no-join-clips", action="store_true",
+                        help="Emit each selected window as a separate clip (default: join into one video)")
+    p_init.add_argument("--no-snap-edges", action="store_true",
+                        help="Cut selection windows at exact requested timecodes (default: snap to cue boundaries)")  # noqa: E501
     p_init.add_argument("--actor", default="human")
     psub.add_parser("list")
     for verb in ("status", "validate", "next", "plan"):
@@ -116,6 +136,21 @@ def build_parser() -> argparse.ArgumentParser:
     t_qa.add_argument("project_id")
     t_qa.add_argument("--language")
     t_qa.add_argument("--actor", default="agent")
+
+    seg = sub.add_parser("segments", help="Resolve a source selection into cut/join segments")
+    segsub = seg.add_subparsers(dest="segments_command", required=True)
+    s_resolve = segsub.add_parser("resolve", help="Resolve selection -> segments/segments.json (SEGMENT_RESOLUTION)")  # noqa: E501
+    s_resolve.add_argument("project_id")
+    s_resolve.add_argument("--advance", action="store_true", help="Advance SEGMENT_RESOLUTION -> TRANSLATION")
+    s_resolve.add_argument("--actor", default="agent")
+    s_cut = segsub.add_parser("cut", help="Extract per-segment clip media + clip-local transcripts")
+    s_cut.add_argument("project_id")
+    s_cut.add_argument("--no-reencode", action="store_true",
+                       help="Stream-copy clips instead of re-encoding (only safe on keyframe-aligned cuts)")  # noqa: E501
+    s_cut.add_argument("--actor", default="agent")
+    for verb in ("show", "list"):
+        sv = segsub.add_parser(verb, help="Show the resolved segments manifest")
+        sv.add_argument("project_id")
 
     tl = sub.add_parser("translate", help="Per-language translation worksheet + captions.<lang>.json")
     tlsub = tl.add_subparsers(dest="translate_command", required=True)
@@ -232,11 +267,15 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "project":
         pc = args.project_command
         if pc == "init":
+            selection = _load_json_arg(args.selection) if args.selection else None
             return project.init_project(
                 root, args.project_id, url=args.url,
                 target_languages=parse_csv(args.targets),
                 audio_languages=parse_csv(args.audio) if args.audio else None,
                 channel=args.channel, title=args.title, actor=args.actor,
+                selection=selection,
+                join_clips=not args.no_join_clips,
+                snap_edges=not args.no_snap_edges,
             )
         if pc == "list":
             return project.list_projects(root)
@@ -323,6 +362,19 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             return transcript_qa.run_transcript_qa(
                 root, args.project_id, language=args.language, actor=args.actor,
             )
+    if cmd == "segments":
+        from . import segments as segments_mod
+        sc = args.segments_command
+        if sc == "resolve":
+            return segments_mod.run_resolve(
+                root, args.project_id, actor=args.actor, advance=args.advance,
+            )
+        if sc == "cut":
+            return segments_mod.run_cut(
+                root, args.project_id, actor=args.actor, reencode=not args.no_reencode,
+            )
+        if sc in ("show", "list"):
+            return segments_mod.load_segments(root, args.project_id)
     if cmd == "translate":
         from . import translate as translate_mod
         tlc = args.translate_command

@@ -16,6 +16,7 @@ full design rationale and every deliberate deviation from `publish-vid-trans-pla
 - [Non-negotiable rules](#non-negotiable-rules)
 - [Quick start](#quick-start)
 - [How a project moves through the pipeline](#how-a-project-moves-through-the-pipeline)
+- [Selecting and clipping the source (`selection` / `join_clips`)](#selecting-and-clipping-the-source-selection--join_clips)
 - [Repository layout](#repository-layout)
 - [The CLI](#the-cli-vid_clipy)
 - [Skills (the `/`-invocable workflow)](#skills-the--invocable-workflow)
@@ -98,8 +99,8 @@ cleanly at the next human gate.
 ## How a project moves through the pipeline
 
 ```
-INGEST → LANGUAGE_ID → TRANSCRIPTION → [TRANSCRIPT_QA_GATE] → TRANSLATION →
-[TRANSLATION_QA_GATE] → CAPTION_TIMING → CAPTION_VALIDATION →
+INGEST → LANGUAGE_ID → TRANSCRIPTION → [TRANSCRIPT_QA_GATE] → SEGMENT_RESOLUTION →
+TRANSLATION → [TRANSLATION_QA_GATE] → CAPTION_TIMING → CAPTION_VALIDATION →
   ├─(dub-enabled langs)→ DUBBING → AUDIO_SYNC_ADJUST → [AUDIO_QA_GATE] → VIDEO_MUX →
   │                       [FINAL_QA_GATE] → PACKAGE ─┐
   └─(caption-only langs)──────────────────────────────┴→ PACKAGE
@@ -116,6 +117,11 @@ alone never opens a gate.
 
 - Everything through `TRANSCRIPT_QA_GATE` is **project-level** (one shared source-language
   transcript).
+- `SEGMENT_RESOLUTION` is a project-level step between the transcript gate and translation
+  that turns an optional `selection` (which source time-windows to process) into a canonical,
+  hashed segment list. With no selection it resolves instantly to a single whole-video segment
+  and the pipeline behaves exactly as before. See
+  [Selecting and clipping the source](#selecting-and-clipping-the-source-selection--join_clips).
 - From `TRANSLATION` onward, each target language runs its own **track**
   (`state.language_tracks.<lang>`), in parallel, at its own pace. `translation_qa` and
   `audio_qa` approvals are per-language; `transcript_qa` and `final_qa` are project-level.
@@ -133,6 +139,138 @@ alone never opens a gate.
   last edge until a human clears it.
 - Operational states outside the plan's original 12: `PAUSED`, `CANCELLED`, `ERROR` — every
   in-flight state can transition to any of these three, and `CANCELLED` is terminal.
+
+## Selecting and clipping the source (`selection` / `join_clips`)
+
+By default a project processes the **whole** source video. You can instead restrict
+processing to specific source time-windows, and choose whether the selected parts ship as
+**separate clips** or are **joined into one tightened video** — useful for lifting the
+substantive passages out of a long lecture and shipping just those, either as chapters or as
+one cut.
+
+Two independent knobs, both set at `project init` and recorded in `project.yaml`:
+
+- **`selection`** — which source time-windows to process. `null`/absent (the default) means
+  the whole video. A `selection` is an object with an ordered `windows` list; **output order
+  is list order**, so listing windows out of source order re-sequences them.
+- **`join_clips`** — what to do with the selected windows. `true` (the default) concatenates
+  them, in listed order, into **one** output video. `false` emits **each window as its own
+  deliverable clip**. Ignored when `selection` is `null`.
+
+### The three shapes
+
+```bash
+CLI=".venv/bin/python3 .claude/scripts/vid_cli.py"
+
+# (1) Whole video — the default. No selection flags at all.
+$CLI project init yt-abc12345678 --url "https://youtube.com/watch?v=abc12345678" \
+  --targets en,ar --audio en
+
+# (2) Three windows, shipped as three SEPARATE dubbed clips.
+$CLI project init yt-abc12345678 --url "https://youtube.com/watch?v=abc12345678" \
+  --targets en --audio en --no-join-clips \
+  --selection '{"windows": [
+    {"start": "00:08:07", "end": "00:12:40", "label": "intro"},
+    {"start": "00:41:00", "end": "00:48:15", "label": "core argument"},
+    {"start": "01:55:00", "end": "02:03:30", "label": "closing"}
+  ]}'
+
+# (3) Two windows JOINED into one video, in listed order (join_clips defaults to true).
+$CLI project init yt-abc12345678 --url "https://youtube.com/watch?v=abc12345678" \
+  --targets en --audio en \
+  --selection '{"windows": [
+    {"start": "00:41:00", "end": "00:48:15", "label": "core argument"},
+    {"start": "01:55:00", "end": "02:03:30", "label": "closing"}
+  ]}'
+```
+
+`--selection` accepts inline JSON or `@path/to/selection.json`. The related flags:
+
+- `--no-join-clips` — emit one deliverable per window instead of joining.
+- `--no-snap-edges` — cut at the exact requested timecodes instead of snapping edges to the
+  nearest cue/silence boundary (see below).
+
+### The `selection` shape
+
+```jsonc
+{
+  "windows": [
+    {
+      "start": "00:41:00",     // HH:MM:SS(.mmm), MM:SS, or a (fractional) number of seconds
+      "end":   "00:48:15",     // same formats; a bare number is SECONDS, not milliseconds
+      "id":    "core",         // optional, human-stable; auto-assigned when absent
+      "label": "core argument",// optional human note
+      "exact": true            // optional per-window override: cut verbatim, ignore snapping
+    }
+  ],
+  "snap_edges": true,           // project default; --no-snap-edges sets this false
+  "snap_search_window_ms": 2000 // max distance (ms) an edge may move to reach a snap boundary
+}
+```
+
+Timecodes may be given as `"HH:MM:SS.mmm"`, `"MM:SS"`, or a plain number — but a bare number
+is interpreted as **seconds** (`90` = 90 s), so use a string when you mean a wall-clock time.
+Both string and numeric forms validate against the schema and parse identically.
+
+### Edge snapping
+
+Because a hard cut in the middle of a word is jarring, each window edge is **snapped** by
+default to the nearest cue/silence boundary in the full-source transcript, within
+`snap_search_window_ms` (default 2000 ms). The adjustment is reported for the human. To cut
+at the exact requested timecodes instead, either set `--no-snap-edges` for the whole project
+or `"exact": true` on an individual window (per-window `exact` overrides the project default).
+If no boundary is found within the search radius, the edge is left at the requested value and
+flagged as unsnapped.
+
+### Where it happens in the pipeline: `SEGMENT_RESOLUTION`
+
+The selection is resolved at the `SEGMENT_RESOLUTION` state, which sits between the transcript
+gate and translation. Crucially, **the middle of the pipeline is untouched**: translation,
+captioning, and dubbing all run against the whole-source timeline as before. The actual
+cutting and joining happens only at **assemble time** (PACKAGE) — the finished video is sliced
+per window (frame-accurate, `libx264 -crf 18` re-encode) and, if `join_clips` is true,
+concatenated; captions are re-offset to match. This "assemble-time cut/join" keeps the
+translation/QA/dub stages simple and lets the selection stay editable late.
+
+The verbs (an agent may run these; they mutate no gates):
+
+```bash
+$CLI segments resolve yt-abc12345678 --advance   # selection -> hashed segments.json; -> TRANSLATION
+$CLI segments show    yt-abc12345678             # inspect the resolved windows + snap adjustments
+$CLI segments list    yt-abc12345678             # same, alias
+$CLI segments cut      yt-abc12345678            # (optional) extract per-segment clip media early
+```
+
+`segments resolve --advance` writes the canonical `segments.json` and advances
+`SEGMENT_RESOLUTION → TRANSLATION`. For a whole-video project this resolves to a single
+`[0, duration]` segment flagged `whole_video`, and packaging takes its original fast path
+(`-c:v copy`, byte-identical to before).
+
+### Caption-only + selection
+
+A caption-only language (one not in `--audio`) with a selection ships a cut/joined video of
+the selected windows carrying the **original source audio** plus soft captions — no dub.
+(Because a cut requires a re-encode, the video is not stream-copied in this case.)
+
+### Selection is not frozen — it's hash-bound
+
+Resolving a selection stamps a `selection_hash` (a `util.hash_json` over the resolved segment
+list) into the provenance of every downstream artifact. Editing the windows and re-running
+`segments resolve` produces a new hash, which re-registers those artifacts under new SHA-256s
+and **auto-invalidates any approvals bound to the old ones** — the same content-addressing
+mechanism as [rule 6](#non-negotiable-rules). So you can revise the selection late; the gates
+that depended on the old cut simply reopen.
+
+### What the deliverables look like
+
+- **Whole video** (`selection: null`): `packages/<lang>/` exactly as documented in the
+  [worked example](#worked-example-end-to-end-with-no-ml-engines-installed).
+- **`join_clips: false`, N windows**: one clip per window, e.g.
+  `packages/<lang>/clip-0/`, `clip-1/`, … each with its own video + clip-local captions, plus
+  a `package-manifest.json` listing every clip.
+- **`join_clips: true`, N windows**: a single `packages/<lang>/joined.mp4` whose duration is
+  the sum of the windows, with one continuous caption track re-timed across the joined
+  timeline.
 
 ## Repository layout
 
@@ -161,6 +299,7 @@ publish-vid-trans/
 │   ├── project.yaml / state.json / events.ndjson
 │   ├── source/                 # downloaded video + extracted WAV + metadata
 │   ├── transcripts/            # source-language transcript + qa-report.json
+│   ├── segments/               # segments.json (resolved selection; a single segment when whole-video) + clips/
 │   ├── captions/               # worksheets, captions.<lang>.json, .srt/.vtt
 │   ├── audio/<lang>/           # dub.wav per dub-enabled language + sync-report.json
 │   ├── video/<lang>/           # dubbed.mp4 per dub-enabled language
@@ -189,6 +328,7 @@ find `.claude/CLAUDE.md` if omitted.
 | `rights` | `check`, `set` *(`set` is human-only)* |
 | `ingest` | `run` — download, extract WAV, probe, catalog, register, advance |
 | `transcript` | `run` (ASR), `import` (no-engine path), `qa` |
+| `segments` | `resolve` (selection → `segments.json`, `SEGMENT_RESOLUTION → TRANSLATION`), `cut`, `show`, `list` |
 | `translate` | `export`, `import`, `qa` |
 | `captions` | `build` (SRT/VTT), `validate` |
 | `dub` | `run` (TTS), `import` (no-engine path), `qa` |
@@ -363,7 +503,10 @@ $CLI transcript qa $VID
 # a human now grants the transcript_qa approval, bound to the transcript's sha256:
 $CLI approval grant $VID --gate transcript_qa --approver "Jane" \
   --artifact <transcript-sha256> --scope transcript
-$CLI project transition $VID --to TRANSLATION --actor human
+$CLI project transition $VID --to SEGMENT_RESOLUTION --actor human
+
+# resolve the selection (here: none → whole video) and advance into TRANSLATION
+$CLI segments resolve $VID --advance
 
 # per language: export a worksheet, translate it (this is where Claude does the work), import it back
 $CLI translate export $VID --language en
@@ -432,6 +575,15 @@ holds just the captions and README — no video, since `fa` was never in `--audi
 - **Ingest is allowlisted, not open.** The sanctioned network module only accepts
   `youtube.com`/`youtu.be`/`vimeo.com` URLs and only runs when `VIDTRANS_FETCH_ENABLED=1` —
   an agent cannot redirect ingest to an arbitrary host even if it tries.
+- **A source selection is resolved late and can be re-cut.** Selection windows are turned
+  into a hashed `segments.json` at `SEGMENT_RESOLUTION` and only *applied* (cut/joined) at
+  PACKAGE — translation/dub run on the whole timeline throughout. Empty `selection: []`,
+  `start >= end`, negative or non-parseable timecodes, and windows outside `[0, duration]` are
+  errors (use `selection: null` for the whole video); overlapping / duplicate / out-of-order
+  windows are **allowed** (re-sequencing is the point) and only noted. See
+  [Selecting and clipping the source](#selecting-and-clipping-the-source-selection--join_clips).
+- **Bare-number timecodes are seconds, not milliseconds.** In a selection window, `90` means
+  90 seconds; write `"01:30"` (or `90.0`) for clarity. This trips up authors expecting ms.
 - **Large binaries are gitignored, not committed.** `projects/*/source/`, `audio/`, `video/`,
   and `packages/` hold multi-hundred-MB files; only the JSON/manifest/schema layer is meant
   to live in version control.
@@ -439,7 +591,7 @@ holds just the captions and README — no video, since `fa` was never in `--audi
 ## Testing
 
 ```bash
-.venv/bin/python3 -m pytest tests/ -q                              # 75 passed, 1 skipped*
+.venv/bin/python3 -m pytest tests/ -q                              # 117 passed, 1 skipped*
 .venv/bin/python3 -m ruff check .claude/scripts .claude/mcp tests   # clean
 VIDTRANS_REPO_ROOT="$PWD" .venv/bin/python3 .claude/scripts/vid_cli.py framework validate
 ```

@@ -127,6 +127,42 @@ def render_vtt(caption_doc: dict[str, Any]) -> str:
     return "\n".join(blocks)
 
 
+def slice_caption_doc(
+    caption_doc: dict[str, Any],
+    *,
+    start_ms: int,
+    end_ms: int,
+    offset_ms: int = 0,
+) -> dict[str, Any]:
+    """Return a copy of ``caption_doc`` containing only cues overlapping [start_ms, end_ms),
+    re-timed onto a target timeline.
+
+    Used at PACKAGE for selection cut/join: each cue overlapping the window is clipped to the
+    window, then shifted so ``start_ms`` maps to ``offset_ms`` on the output timeline. For a
+    single clip pass ``offset_ms=0`` (clip-local zero); for a joined output pass the running
+    duration of the clips already placed so cues land continuously across the seam. Cue ids
+    are renumbered from 0. Pure/deterministic: identical input -> identical bytes downstream.
+    """
+    start, end, offset = int(start_ms), int(end_ms), int(offset_ms)
+    out_cues: list[dict[str, Any]] = []
+    for cue in caption_doc.get("cues", []) or []:
+        cs, ce = int(cue["start_ms"]), int(cue["end_ms"])
+        if ce <= start or cs >= end:
+            continue  # no overlap with the window
+        new_start = (max(cs, start) - start) + offset
+        new_end = (min(ce, end) - start) + offset
+        if new_end <= new_start:
+            continue
+        new_cue = dict(cue)
+        new_cue["id"] = len(out_cues)
+        new_cue["start_ms"] = new_start
+        new_cue["end_ms"] = new_end
+        out_cues.append(new_cue)
+    out = dict(caption_doc)
+    out["cues"] = out_cues
+    return out
+
+
 RENDERERS = {"srt": render_srt, "vtt": render_vtt}
 
 

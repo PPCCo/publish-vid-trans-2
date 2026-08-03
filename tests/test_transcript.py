@@ -165,7 +165,9 @@ def test_qa_pass_writes_gate_report_read_by_blocker(repo: Path):
     from video_translation_house.paths import ProjectPaths
     from video_translation_house.state import required_reports
     paths = ProjectPaths(repo, VID)
-    report_type = required_reports(repo, "TRANSCRIPT_QA_GATE", "TRANSLATION")[0]
+    # The transcript_qa gate now guards TRANSCRIPT_QA_GATE -> SEGMENT_RESOLUTION (a resolution
+    # step slots between the QA'd full transcript and TRANSLATION).
+    report_type = required_reports(repo, "TRANSCRIPT_QA_GATE", "SEGMENT_RESOLUTION")[0]
     assert report_type == "transcript-qa"
     assert paths.gate_report(report_type).is_file()
     assert json.loads(paths.gate_report(report_type).read_text())["decision"] == "PASS"
@@ -175,7 +177,7 @@ def test_qa_pass_writes_gate_report_read_by_blocker(repo: Path):
     # with no approval yet the transition is still blocked, and specifically NOT for a
     # missing report (that would be the filename bug).
     with pytest.raises(StateTransitionError) as exc:
-        state.transition(repo, VID, "TRANSLATION", "agent")
+        state.transition(repo, VID, "SEGMENT_RESOLUTION", "agent")
     assert "gate report must be PASS" not in str(exc.value)
     assert "approval required" in str(exc.value)
 
@@ -184,8 +186,8 @@ def test_qa_pass_writes_gate_report_read_by_blocker(repo: Path):
         repo, VID, "transcript_qa", "human",
         [written["artifact"]["sha256"]], scope="transcript", language=None,
     )
-    state.transition(repo, VID, "TRANSLATION", "human")
-    assert project.project_status(repo, VID)["state"]["current_state"] == "TRANSLATION"
+    state.transition(repo, VID, "SEGMENT_RESOLUTION", "human")
+    assert project.project_status(repo, VID)["state"]["current_state"] == "SEGMENT_RESOLUTION"
 
 
 def test_qa_fail_on_corrupt_timing_blocks_gate_report():

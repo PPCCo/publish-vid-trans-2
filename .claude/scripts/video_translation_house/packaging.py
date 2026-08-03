@@ -20,12 +20,15 @@ Gate report filename is keyed by REPORT TYPE ("final"), matching workflow_states
 """
 from __future__ import annotations
 
+import contextlib
 from pathlib import Path
 from typing import Any
 
 from . import artifacts as artifacts_mod
 from . import media as media_mod
-from .captions import script_class
+from . import segments as segments_mod
+from .captions import render as render_captions
+from .captions import script_class, slice_caption_doc
 from .errors import ConfigurationError, MuxError, PackageError
 from .events import append_event
 from .paths import ProjectPaths
@@ -38,6 +41,7 @@ from .translate import (
     _rel,
     _set_track,
     _write_gate_report,
+    load_captions,
 )
 from .util import (
     atomic_write_json,
@@ -349,6 +353,143 @@ def _copy_registered(root: Path, project_id: str, src: Path, dst: Path,
     return {"type": artifact_type, "path": _rel(dst, paths), "sha256": digest, "size_bytes": size}
 
 
+# --- selection assembly (cut/join at package time) ---------------------------
+# Assemble-time strategy: translate/captions/dub run on the WHOLE source timeline and produce
+# the full-length dubbed.mp4 (dub-enabled) or leave the source video (caption-only) plus the
+# canonical captions.<lang>.json. Here we cut those finished artifacts at the resolved window
+# bounds and, when join_clips, concat the pieces. Whole-video selections skip all of this and
+# take the unchanged fast path. Captions are sliced from the canonical doc and re-offset onto
+# the (clip-local or joined) timeline, then re-rendered — never re-translated.
+
+
+def _write_captions_for_timeline(
+    caption_doc: dict[str, Any], windows: list[tuple[int, int, int]], dest_dir: Path,
+    language: str,
+) -> list[tuple[str, Path]]:
+    """Slice+re-offset the canonical caption doc across ``windows`` (each (start,end,offset))
+    into one continuous doc, render SRT+VTT into ``dest_dir``. Returns [(fmt, path), ...].
+
+    A single window with offset 0 yields clip-local captions; multiple windows with cumulative
+    offsets yield captions continuous across a joined video's seams."""
+    merged_cues: list[dict[str, Any]] = []
+    for start_ms, end_ms, offset_ms in windows:
+        piece = slice_caption_doc(caption_doc, start_ms=start_ms, end_ms=end_ms, offset_ms=offset_ms)
+        for cue in piece["cues"]:
+            cue = dict(cue)
+            cue["id"] = len(merged_cues)
+            merged_cues.append(cue)
+    doc = dict(caption_doc)
+    doc["cues"] = merged_cues
+    out: list[tuple[str, Path]] = []
+    dest_dir.mkdir(parents=True, exist_ok=True)
+    for fmt in ("srt", "vtt"):
+        text = render_captions(doc, fmt)
+        path = dest_dir / f"captions.{language}.{fmt}"
+        atomic_write_text(path, text if text.endswith("\n") else text + "\n")
+        out.append((fmt, path))
+    return out
+
+
+def _clip_source_for_lang(paths: ProjectPaths, state: dict[str, Any], language: str) -> Path:
+    """The finished full-timeline video to cut for a language: the dubbed.mp4 for dub-enabled
+    tracks (dub already muxed over the full picture), else the source video (caption-only keeps
+    the original audio)."""
+    if _dub_enabled(state, language):
+        vid = paths.directory / dubbed_video_relpath(language)
+        if not vid.is_file():
+            raise PackageError(f"[{language}] missing dubbed video; run `package mux` first")
+        return vid
+    src = _source_video(paths)
+    if src is None:
+        raise PackageError(f"[{language}] caption-only selection needs a source video to cut")
+    return src
+
+
+def _assemble_selection_package(
+    root: Path, project_id: str, paths: ProjectPaths, state: dict[str, Any],
+    language: str, seg_doc: dict[str, Any], pkg_dir: Path, actor: str,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    """Build a selection (multi-window) package for one language via cut/join at PACKAGE.
+
+    Returns (deliverables, selection_meta). Cuts each resolved window out of the finished
+    full-timeline video (frame-accurate re-encode), then either concatenates them into one
+    joined.mp4 (join_clips) or emits each as a per-clip deliverable. Captions are sliced and
+    re-offset to match the assembled timeline. tmp clip files live under packages/<lang>/_work.
+    """
+    caption_doc = load_captions(root, project_id, language)
+    source_video = _clip_source_for_lang(paths, state, language)
+    join_clips = bool(seg_doc["join_clips"])
+    seg_list = seg_doc["segments"]
+    work = pkg_dir / "_work"
+    work.mkdir(parents=True, exist_ok=True)
+
+    # Extract one frame-accurate clip per window from the finished video.
+    clip_videos: list[Path] = []
+    for seg in seg_list:
+        start_ms, end_ms = int(seg["start_ms"]), int(seg["end_ms"])
+        clip = work / f"clip-{seg['index']}.mp4"
+        media_mod.slice_video(
+            source_video, clip,
+            start_seconds=start_ms / 1000, duration_seconds=(end_ms - start_ms) / 1000,
+            reencode=True,
+        )
+        clip_videos.append(clip)
+
+    deliverables: list[dict[str, Any]] = []
+    selection_meta = {
+        "join_clips": join_clips,
+        "selection_hash": seg_doc.get("selection_hash"),
+        "clips": [
+            {"index": s["index"], "id": s["id"], "label": s.get("label"),
+             "source_start_ms": int(s["start_ms"]), "source_end_ms": int(s["end_ms"])}
+            for s in seg_list
+        ],
+    }
+
+    if join_clips:
+        joined = pkg_dir / "joined.mp4"
+        media_mod.concat_videos(clip_videos, joined)
+        deliverables.append(_deliverable(paths, joined, "joined-video"))
+        # Captions continuous across the joined timeline: cumulative offsets = running duration.
+        windows: list[tuple[int, int, int]] = []
+        offset = 0
+        for seg in seg_list:
+            start_ms, end_ms = int(seg["start_ms"]), int(seg["end_ms"])
+            windows.append((start_ms, end_ms, offset))
+            offset += end_ms - start_ms
+        for fmt, cap_path in _write_captions_for_timeline(caption_doc, windows, pkg_dir, language):
+            deliverables.append(_deliverable(paths, cap_path, f"captions-{fmt}"))
+    else:
+        for seg, clip in zip(seg_list, clip_videos):
+            idx = seg["index"]
+            clip_dir = pkg_dir / f"clip-{idx}"
+            clip_dir.mkdir(parents=True, exist_ok=True)
+            dst = clip_dir / "clip.mp4"
+            dst.write_bytes(clip.read_bytes())
+            deliverables.append(_deliverable(paths, dst, "clip-video", clip_index=idx))
+            start_ms, end_ms = int(seg["start_ms"]), int(seg["end_ms"])
+            for fmt, cap_path in _write_captions_for_timeline(
+                caption_doc, [(start_ms, end_ms, 0)], clip_dir, language
+            ):
+                deliverables.append(_deliverable(paths, cap_path, f"captions-{fmt}", clip_index=idx))
+
+    # Drop the scratch clips; deliverables have been copied/concatenated out of _work.
+    for clip in clip_videos:
+        clip.unlink(missing_ok=True)
+    with contextlib.suppress(OSError):
+        work.rmdir()
+    return deliverables, selection_meta
+
+
+def _deliverable(paths: ProjectPaths, path: Path, kind: str, *, clip_index: int | None = None) -> dict[str, Any]:
+    digest, size = sha256_path(path)
+    entry: dict[str, Any] = {"type": kind, "path": _rel(path, paths),
+                             "sha256": digest, "size_bytes": size}
+    if clip_index is not None:
+        entry["clip_index"] = clip_index
+    return entry
+
+
 def run_package(
     root: Path,
     project_id: str,
@@ -381,29 +522,43 @@ def run_package(
     if not langs:
         raise PackageError("no active language tracks to package")
 
+    # Selection (multi-window) resolution, if any. whole_video / unresolved => the whole-video
+    # deliverable layout (dubbed.mp4 or captions-only). A non-whole-video selection triggers the
+    # assemble-time cut/join path per language.
+    seg_doc: dict[str, Any] | None = None
+    if paths.segments_manifest.is_file():
+        loaded = load_json(paths.segments_manifest)
+        if not loaded.get("whole_video", True):
+            seg_doc = loaded
+    selection_hash = seg_doc.get("selection_hash") if seg_doc else None
+
     packages: list[dict[str, Any]] = []
     for lang in langs:
         dub_enabled = _dub_enabled(state, lang)
         pkg_dir = paths.directory / package_dir_relpath(lang)
         deliverables: list[dict[str, Any]] = []
+        selection_meta: dict[str, Any] | None = None
 
-        # Captions (SRT + VTT) — required for every track.
-        for fmt in ("srt", "vtt"):
-            src = paths.captions_dir / f"captions.{lang}.{fmt}"
-            if not src.is_file():
-                raise PackageError(
-                    f"[{lang}] missing captions.{lang}.{fmt}; run `captions build` first"
-                )
-            deliverables.append(_copy_registered(
-                root, project_id, src, pkg_dir / src.name, f"captions-{fmt}", actor, lang))
-
-        # Dubbed video for dub-enabled tracks.
-        if dub_enabled:
-            vid = paths.directory / dubbed_video_relpath(lang)
-            if not vid.is_file():
-                raise PackageError(f"[{lang}] missing dubbed video; run `package mux` first")
-            deliverables.append(_copy_registered(
-                root, project_id, vid, pkg_dir / "dubbed.mp4", "dubbed-video", actor, lang))
+        if seg_doc is not None:
+            # Assemble-time cut/join: build clip/joined deliverables + re-offset captions.
+            deliverables, selection_meta = _assemble_selection_package(
+                root, project_id, paths, state, lang, seg_doc, pkg_dir, actor)
+        else:
+            # Whole-video layout (unchanged): full captions + (dub-enabled) full dubbed video.
+            for fmt in ("srt", "vtt"):
+                src = paths.captions_dir / f"captions.{lang}.{fmt}"
+                if not src.is_file():
+                    raise PackageError(
+                        f"[{lang}] missing captions.{lang}.{fmt}; run `captions build` first"
+                    )
+                deliverables.append(_copy_registered(
+                    root, project_id, src, pkg_dir / src.name, f"captions-{fmt}", actor, lang))
+            if dub_enabled:
+                vid = paths.directory / dubbed_video_relpath(lang)
+                if not vid.is_file():
+                    raise PackageError(f"[{lang}] missing dubbed video; run `package mux` first")
+                deliverables.append(_copy_registered(
+                    root, project_id, vid, pkg_dir / "dubbed.mp4", "dubbed-video", actor, lang))
 
         readme_text = _readme(project_id, lang, dub_enabled, prov, distributable,
                               rights_status, deliverables)
@@ -417,11 +572,13 @@ def run_package(
 
         artifacts_mod.register_artifact(
             root, project_id, pkg_dir, "package", "PACKAGE", actor, language=lang,
+            provenance={"selection_hash": selection_hash} if selection_hash else None,
         )
         packages.append({
             "language": lang,
             "dub_enabled": dub_enabled,
             "directory": package_dir_relpath(lang),
+            "selection": selection_meta,
             "deliverables": deliverables,
         })
         _set_track(root, project_id, lang, stage=TRACK_STAGE_PACKAGED,

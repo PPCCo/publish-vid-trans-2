@@ -410,3 +410,94 @@ def mux_video_burned_in(
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
+
+
+# --- selection clip ops (segment resolution / assembly) ----------------------
+# Cutting a source video at arbitrary timecodes and concatenating windows both require
+# a re-encode by default: seeking to a non-keyframe start with stream-copy would either
+# snap to the previous keyframe (imprecise) or emit a broken GOP, and concatenating clips
+# with independent GOP structures via stream-copy fails unless every join lands on a
+# keyframe. `libx264 -crf 18` matches the quality bar used by mux_video_burned_in.
+
+def slice_video(
+    source: Path | str,
+    dest_mp4: Path | str,
+    *,
+    start_seconds: float,
+    duration_seconds: float,
+    reencode: bool = True,
+    video_crf: int = 18,
+    audio_bitrate: str = "192k",
+    timeout: int = 3600,
+) -> Path:
+    """Cut one time window out of a source video into its own MP4.
+
+    Placing ``-ss``/``-t`` AFTER ``-i`` makes the seek frame-accurate (input-side seeking
+    is fast but snaps to keyframes). ``reencode=True`` (default) re-encodes to H.264/AAC so
+    the cut is exact and the resulting clip has a self-contained GOP that ``concat_videos``
+    can join. ``reencode=False`` stream-copies (only safe when the caller knows the cut
+    points fall on keyframes — e.g. never for arbitrary human timecodes).
+    """
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    command = [
+        _require("ffmpeg"), "-y",
+        "-i", str(source),
+        "-ss", f"{max(0.0, start_seconds):.3f}",
+        "-t", f"{max(0.0, duration_seconds):.3f}",
+        "-map", "0:v:0", "-map", "0:a:0?",
+    ]
+    if reencode:
+        command += [
+            "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+            "-c:a", "aac", "-b:a", audio_bitrate,
+        ]
+    else:
+        command += ["-c", "copy"]
+    command += ["-avoid_negative_ts", "make_zero", str(dest)]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(f"ffmpeg slice_video failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest
+
+
+def concat_videos(
+    parts: list[Path | str],
+    dest_mp4: Path | str,
+    *,
+    video_crf: int = 18,
+    audio_bitrate: str = "192k",
+    timeout: int = 3600,
+) -> Path:
+    """Concatenate video clips (in the given order) into one MP4 via the concat filter.
+
+    Mirrors ``concat_wavs``: uses the filter graph (not the concat demuxer) so clips with
+    differing timebases/GOP structures join cleanly, re-encoding once to a uniform
+    H.264/AAC output. Every part is expected to have both a video and an audio stream —
+    ``slice_video``/mux outputs always do (audio is silence if the source had none isn't
+    guaranteed, so callers building caption-only joins must ensure an audio stream exists).
+    """
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if not parts:
+        raise ConfigurationError("concat_videos: no parts to concatenate")
+    command = [_require("ffmpeg"), "-y"]
+    for part in parts:
+        command += ["-i", str(part)]
+    n = len(parts)
+    filter_complex = "".join(f"[{i}:v:0][{i}:a:0]" for i in range(n)) + f"concat=n={n}:v=1:a=1[v][a]"
+    command += [
+        "-filter_complex", filter_complex,
+        "-map", "[v]", "-map", "[a]",
+        "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+        "-c:a", "aac", "-b:a", audio_bitrate,
+        str(dest),
+    ]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(f"ffmpeg concat_videos failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest

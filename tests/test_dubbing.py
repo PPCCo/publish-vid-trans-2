@@ -64,6 +64,10 @@ def _silence_wav(dest: Path, *, duration_ms: int) -> Path:
 def _drive_to_caption_validation(root: Path, targets=("en",), audio=("en",)) -> str:
     project.init_project(root, VID, url="https://youtube.com/watch?v=vid00000004",
                          target_languages=list(targets), audio_languages=list(audio))
+    (root / "projects" / VID / "source" / "metadata.json").write_text(json.dumps({
+        "title": "Test speech", "channel": "Test channel",
+        "url": "https://youtube.com/watch?v=vid00000004", "duration_seconds": 6.0,
+    }))
     state.transition(root, VID, "LANGUAGE_ID", "agent")
     langid.set_language(root, VID, "fa", source="manual", confidence=0.9)
     state.transition(root, VID, "TRANSCRIPTION", "agent")
@@ -84,7 +88,11 @@ def _drive_to_caption_validation(root: Path, targets=("en",), audio=("en",)) -> 
     src_hash = next(a["sha256"] for a in manifest["artifacts"] if a["type"] == "transcript")
     approvals.grant_approval(root, VID, "transcript_qa", "human", [src_hash],
                              scope="transcript", language=None)
-    state.transition(root, VID, "TRANSLATION", "human")
+    # transcript_qa now guards TRANSCRIPT_QA_GATE -> SEGMENT_RESOLUTION; resolve the whole-video
+    # (selection:null) segment set, which advances SEGMENT_RESOLUTION -> TRANSLATION.
+    state.transition(root, VID, "SEGMENT_RESOLUTION", "human")
+    from video_translation_house import segments as segments_mod
+    segments_mod.run_resolve(root, VID, advance=True)
 
     # translate every target, drive each to CAPTION_VALIDATION
     for lang in targets:

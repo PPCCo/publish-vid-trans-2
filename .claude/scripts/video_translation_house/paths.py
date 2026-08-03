@@ -13,6 +13,7 @@ from .util import ensure_within
 PROJECT_DIRS = [
     "source",
     "transcript",
+    "segments",
     "captions/translation-qa",
     "audio",
     "video",
@@ -74,6 +75,19 @@ class ProjectPaths:
     @property
     def transcript_dir(self) -> Path:
         return self.directory / "transcript"
+
+    @property
+    def segments_dir(self) -> Path:
+        return self.directory / "segments"
+
+    @property
+    def segments_manifest(self) -> Path:
+        """Resolved-segments artifact: segments/segments.json (null selection = whole video)."""
+        return self.directory / "segments" / "segments.json"
+
+    def segment_clip_dir(self, index: int) -> Path:
+        """Per-segment extracted media: segments/clips/<index>/ (audio.wav / video.mp4)."""
+        return self.directory / "segments" / "clips" / str(index)
 
     @property
     def captions_dir(self) -> Path:

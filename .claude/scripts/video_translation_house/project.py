@@ -32,6 +32,9 @@ def init_project(
     channel: str | None = None,
     title: str | None = None,
     actor: str = "human",
+    selection: dict[str, Any] | None = None,
+    join_clips: bool = True,
+    snap_edges: bool = True,
 ) -> dict[str, Any]:
     if not is_valid_video_id(project_id):
         raise ConfigurationError(f"Invalid project/video id: {project_id!r}")
@@ -50,6 +53,15 @@ def init_project(
     for sub in PROJECT_DIRS:
         (paths.directory / sub).mkdir(parents=True, exist_ok=True)
 
+    # A selection restricts processing to specific source windows (resolved at
+    # SEGMENT_RESOLUTION). Absent/null selection = whole video. `snap_edges` is a property of
+    # the selection object; fold the CLI flag in without clobbering an explicit value.
+    if selection is not None:
+        if not isinstance(selection, dict):
+            raise ConfigurationError("selection must be a JSON object or null")
+        selection = dict(selection)
+        selection.setdefault("snap_edges", snap_edges)
+
     project_cfg = {
         "schema_version": "1.0",
         "project_id": project_id,
@@ -58,6 +70,8 @@ def init_project(
         "audio_languages": dub_langs,
         "dubbing": {"voice_clone": False},
         "glossary_id": None,
+        "join_clips": bool(join_clips),
+        "selection": selection,
         "created_at": utc_now(),
     }
     errors = validate_data(root, project_cfg, "project.schema.json")

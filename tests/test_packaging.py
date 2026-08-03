@@ -123,7 +123,11 @@ def _drive_to_audio_qa_gate(root: Path, targets=("en",), audio=("en",)) -> str:
     src_hash = next(a["sha256"] for a in manifest["artifacts"] if a["type"] == "transcript")
     approvals.grant_approval(root, VID, "transcript_qa", "human", [src_hash],
                              scope="transcript", language=None)
-    state.transition(root, VID, "TRANSLATION", "human")
+    # transcript_qa now guards TRANSCRIPT_QA_GATE -> SEGMENT_RESOLUTION; resolve the (whole-video,
+    # selection:null) segment set there, which advances SEGMENT_RESOLUTION -> TRANSLATION.
+    state.transition(root, VID, "SEGMENT_RESOLUTION", "human")
+    from video_translation_house import segments as segments_mod
+    segments_mod.run_resolve(root, VID, advance=True)
 
     for lang in targets:
         translate.export_worksheet(root, VID, lang)

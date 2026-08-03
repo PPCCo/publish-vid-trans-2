@@ -39,6 +39,43 @@
       }
     },
     "glossary_id": { "type": ["string", "null"] },
+    "join_clips": {
+      "type": "boolean",
+      "description": "When a selection is set: true concatenates the selected windows (in listed order) into one output; false emits each window as a separate deliverable clip. Default true. Ignored when selection is null (whole video)."
+    },
+    "selection": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Which parts of the source video to process. null/absent = whole video (single implicit segment).",
+      "properties": {
+        "windows": {
+          "type": "array",
+          "minItems": 0,
+          "description": "Ordered source-time windows to transform. Output order is list order (out-of-source-order allowed = re-sequencing).",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["start", "end"],
+            "properties": {
+              "id": { "type": "string", "description": "Optional human-stable window id (referenced in reports/filenames). Auto-assigned when absent." },
+              "start": { "type": ["string", "number"], "minimum": 0, "description": "Window start as an HH:MM:SS(.mmm) / MM:SS string, or a (fractional) number of seconds." },
+              "end": { "type": ["string", "number"], "minimum": 0, "description": "Window end (same formats as start)." },
+              "exact": { "type": "boolean", "description": "Per-window override: true cuts at the exact requested timecodes, bypassing snapping for THIS window. Overrides selection.snap_edges." },
+              "label": { "type": ["string", "null"], "description": "Optional human note (e.g. 'intro', 'Q&A')." }
+            }
+          }
+        },
+        "snap_edges": {
+          "type": "boolean",
+          "description": "Project default: snap each window edge to the nearest cue/silence boundary in the full-source transcript. false = cut verbatim. Per-window exact overrides this. Default true."
+        },
+        "snap_search_window_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Max distance (ms) a window edge may move to reach a snap candidate. No boundary within this radius = left at the requested timecode, reported as unsnapped. Default 2000."
+        }
+      }
+    },
     "created_at": { "type": "string" }
   }
 }

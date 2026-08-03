@@ -57,6 +57,18 @@
       }
     },
     "has_word_timing": { "type": "boolean" },
+    "segment": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "description": "Present only on a clip-local transcript derived from a resolved segment: identifies the source window and confirms cue times are clip-local (source_start_ms subtracted).",
+      "required": ["index", "id", "source_start_ms", "source_end_ms"],
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "id": { "type": "string" },
+        "source_start_ms": { "type": "integer", "minimum": 0 },
+        "source_end_ms": { "type": "integer", "minimum": 0 }
+      }
+    },
     "created_at": { "type": "string" },
     "created_by": { "type": ["string", "null"] }
   }

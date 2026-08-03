@@ -35,6 +35,32 @@
           "language": { "type": "string" },
           "dub_enabled": { "type": "boolean" },
           "directory": { "type": "string", "description": "Project-relative package dir, e.g. packages/en." },
+          "selection": {
+            "type": ["object", "null"],
+            "additionalProperties": false,
+            "description": "Present when the project processed a source selection (not the whole video). Describes how the selected windows were assembled into this package's deliverables.",
+            "required": ["join_clips", "clips"],
+            "properties": {
+              "join_clips": { "type": "boolean", "description": "true => clips were concatenated into one joined video; false => one deliverable per clip." },
+              "selection_hash": { "type": ["string", "null"] },
+              "clips": {
+                "type": "array",
+                "description": "One entry per selected window, in output (list) order.",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["index", "id", "source_start_ms", "source_end_ms"],
+                  "properties": {
+                    "index": { "type": "integer", "minimum": 0 },
+                    "id": { "type": "string" },
+                    "label": { "type": ["string", "null"] },
+                    "source_start_ms": { "type": "integer", "minimum": 0 },
+                    "source_end_ms": { "type": "integer", "minimum": 0 }
+                  }
+                }
+              }
+            }
+          },
           "deliverables": {
             "type": "array",
             "items": {
@@ -44,9 +70,10 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "description": "Deliverable kind: dubbed-video, captions-srt, captions-vtt, readme."
+                  "description": "Deliverable kind: dubbed-video, clip-video, joined-video, captions-srt, captions-vtt, readme."
                 },
                 "path": { "type": "string", "description": "Project-relative path to the deliverable." },
+                "clip_index": { "type": ["integer", "null"], "minimum": 0, "description": "For per-clip deliverables (join_clips=false): which selected window this file belongs to." },
                 "sha256": { "type": "string" },
                 "size_bytes": { "type": "integer", "minimum": 0 }
               }

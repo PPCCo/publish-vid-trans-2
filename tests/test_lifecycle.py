@@ -64,12 +64,12 @@ def test_walk_to_transcript_gate(repo: Path):
     state.transition(repo, "yt-testvideo01", "LANGUAGE_ID", "agent")
     state.transition(repo, "yt-testvideo01", "TRANSCRIPTION", "agent")
     state.transition(repo, "yt-testvideo01", "TRANSCRIPT_QA_GATE", "agent")
-    # The gate edge to TRANSLATION is blocked until an approval exists.
+    # The gate edge (TRANSCRIPT_QA_GATE -> SEGMENT_RESOLUTION) is blocked until approval exists.
     plan = state.plan(repo, "yt-testvideo01")
     assert plan["autonomy_action"] == "STOP_AT_GATE"
     assert plan["required_gate"] == "transcript_qa"
     with pytest.raises(StateTransitionError):
-        state.transition(repo, "yt-testvideo01", "TRANSLATION", "agent")
+        state.transition(repo, "yt-testvideo01", "SEGMENT_RESOLUTION", "agent")
 
 
 def test_artifact_supersede_invalidates_approval(repo: Path):
