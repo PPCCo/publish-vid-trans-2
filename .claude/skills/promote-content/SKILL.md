@@ -9,6 +9,8 @@ allowed-tools: Bash, Read, Edit
 argument-hint: <video-id>
 user-invocable: true
 disable-model-invocation: false
+model: "@bedrock-eus1/us.anthropic.claude-sonnet-5"
+effort: medium
 ---
 
 # promote-content

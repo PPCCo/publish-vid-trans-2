@@ -1,7 +1,8 @@
 ---
 description: Show a project's current lifecycle state, per-language track status, and the deterministic next-step recommendation.
 argument-hint: <video-id>
-model: @bedrock-eus1/us.anthropic.claude-haiku-4-5-20251001-v1:0
+model: "@bedrock-eus1/us.anthropic.claude-haiku-4-5-20251001-v1:0"
+effort: low
 ---
 
 Run, in order, and report both results to the user:

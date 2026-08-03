@@ -8,6 +8,8 @@ allowed-tools: Read
 argument-hint: <video-id>
 user-invocable: true
 disable-model-invocation: true
+model: "@bedrock-eus1/us.anthropic.claude-haiku-4-5-20251001-v1:0"
+effort: low
 ---
 
 # rights-check  (human-only gate)

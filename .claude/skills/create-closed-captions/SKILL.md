@@ -10,6 +10,8 @@ allowed-tools: Bash, Read, Write, Edit
 argument-hint: <video-id> [--language <iso>] [--provider <asr>] [--model <name>]
 user-invocable: true
 disable-model-invocation: false
+model: "@bedrock-eus1/us.anthropic.claude-sonnet-5"
+effort: high
 ---
 
 # create-closed-captions (transcription stage)
@@ -76,10 +78,13 @@ its own). Translation is *your* work as the agent — the CLI never calls an LLM
 worksheet the CLI emits, then hand it back for validation and content-addressing.
 
 ## Model policy
-Translate volume cues with `@bedrock-eus1/us.anthropic.claude-sonnet-5`. For cues the
-worksheet marks with an `editorial-religious` / `editorial-political` flag, use
-`@bedrock-eus2/us.anthropic.claude-opus-4-8` — these references are high-stakes and must be
-rendered with care, not paraphrased away.
+Translate volume cues with `@bedrock-eus1/us.anthropic.claude-sonnet-5` at `high` effort
+(this is the skill's default — a bounded per-cue rendering task, not a capability problem).
+For cues the worksheet marks with an `editorial-religious` / `editorial-political` flag,
+escalate to `@bedrock-eus2/us.anthropic.claude-opus-4-8` at `high` effort — these references
+are high-stakes and must be rendered with care, not paraphrased away. The transcription stage
+above (ASR-adapter invocation, QA triage) stays on the skill default; only the flagged
+translation cues need the capability upgrade.
 
 ## Procedure (run once per target language in `state.target_languages`)
 1. Export the worksheet: `vid_cli.py translate export <id> --language <iso>`. This writes

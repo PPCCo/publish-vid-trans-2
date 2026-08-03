@@ -9,6 +9,8 @@ allowed-tools: Bash, Read, Write, Edit
 argument-hint: <video-id> --language <iso>
 user-invocable: true
 disable-model-invocation: false
+model: "@bedrock-eus1/us.anthropic.claude-sonnet-5"
+effort: medium
 ---
 
 # generate-chapters

@@ -10,6 +10,8 @@ allowed-tools: Bash, Read
 argument-hint: <video-id> [--language <iso>] [--provider <tts>] [--voice <name>]
 user-invocable: true
 disable-model-invocation: false
+model: "@bedrock-eus1/us.anthropic.claude-haiku-4-5-20251001-v1:0"
+effort: low
 ---
 
 # produce-dub

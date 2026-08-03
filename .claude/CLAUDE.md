@@ -38,4 +38,11 @@ Only these three model IDs are permitted:
 - `@bedrock-eus1/us.anthropic.claude-sonnet-5` — production/build and bounded comparison QA.
 - `@bedrock-eus1/us.anthropic.claude-haiku-4-5-20251001-v1:0` — cheap, narrow tasks.
 
-Effort (reasoning depth) and model (capability class) are separate axes.
+Effort (reasoning depth) and model (capability class) are separate axes. Every skill and
+command sets both explicitly in its frontmatter (`model:` + `effort:`, values
+`low`/`medium`/`high`/`xhigh`/`max`) rather than inheriting — pick the model for the task's
+required capability class and the effort for how much reasoning depth that specific task
+warrants (e.g. a bounded QA/proofreading task can run `xhigh` effort on Sonnet without
+needing Opus). Any new skill, command, or agent added to this repo should set both fields
+the same way; don't leave them to inherit silently unless the task is truly trivial and
+`low`/Haiku is the deliberate choice.

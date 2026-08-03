@@ -10,6 +10,8 @@ allowed-tools: Bash, Read
 argument-hint: <video-id>
 user-invocable: true
 disable-model-invocation: false
+model: "@bedrock-eus1/us.anthropic.claude-sonnet-5"
+effort: medium
 ---
 
 # prepare-distribution
