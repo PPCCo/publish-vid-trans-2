@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "state.schema.json",
+  "title": "Project state",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "current_state",
+    "previous_state",
+    "created_at",
+    "updated_at",
+    "updated_by",
+    "target_languages",
+    "language_tracks",
+    "active_artifacts",
+    "blocked_reasons"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "current_state": { "type": "string" },
+    "previous_state": { "type": ["string", "null"] },
+    "created_at": { "type": "string" },
+    "created_by": { "type": "string" },
+    "updated_at": { "type": "string" },
+    "updated_by": { "type": "string" },
+    "source_language": { "type": ["string", "null"] },
+    "target_languages": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "language_tracks": {
+      "type": "object",
+      "description": "Per-target-language sub-state. Keys are ISO 639-1 codes.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["stage", "status", "updated_at"],
+        "properties": {
+          "stage": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "blocked", "failed", "complete"]
+          },
+          "dub_enabled": { "type": "boolean" },
+          "updated_at": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "active_artifacts": {
+      "type": "object",
+      "description": "Map of artifact-key -> active sha256. Key is 'type' for shared artifacts and 'type@lang' for per-language artifacts.",
+      "additionalProperties": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}

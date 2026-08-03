@@ -1,0 +1,30 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Local config / secrets — never committed
+.claude/settings.local.json
+.claude/config/company.local.json
+.claude/config/tools.local.json
+.claude/config/net-allowlist.local.json
+secrets/
+
+# Large media binaries and generated deliverables (tracked by manifest hash, not git)
+projects/*/source/
+projects/*/audio/
+projects/*/video/
+projects/*/outputs/
+projects/*/packages/
+projects/*/tmp/
+projects/*/.lock
+
+*.egg-info/
+dist/
+build/
+node_modules/

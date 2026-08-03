@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "publish-vid-trans"
+version = "0.1.0"
+description = "Deterministic support tooling for a Claude Code video-translation framework"
+requires-python = ">=3.11"
+dependencies = [
+  "PyYAML>=6.0,<7",
+  "jsonschema>=4.23,<5",
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.27,<3"]
+dev = ["ruff>=0.9,<1", "mypy>=1.14,<2", "pytest>=8,<9"]
+
+[project.scripts]
+vid-cli = "video_translation_house.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = ".claude/scripts"}
+
+[tool.setuptools.packages.find]
+where = [".claude/scripts"]
+include = ["video_translation_house*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# SIM102: nested-if subcommand dispatch is clearer than merged conditions.
+# SIM108: an explicit if/else is clearer than a nested ternary here.
+ignore = ["SIM102", "SIM108"]
+
+[tool.ruff.lint.per-file-ignores]
+# Entrypoint mutates sys.path before importing the package.
+".claude/scripts/vid_cli.py" = ["E402"]
+# MCP server bootstraps sys.path before importing the package, and FastMCP/MCPServer
+# tools are declared at module level after that bootstrap.
+".claude/mcp/*.py" = ["E402"]
+# Tests use dense single-line assertions and fixture setups.
+"tests/*" = ["E501", "E702"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-translation_qa-20260803t053549z-904173",
+  "project_id": "yt-smoke0p3aa",
+  "gate": "translation_qa",
+  "language": "en",
+  "approver": "human",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:dd6be55a350b9b00a99361fe5c49a3929f5934da7d35c0a2bfccedee03bd4935"
+  ],
+  "scope": "captions",
+  "exclusions": [],
+  "notes": null,
+  "created_at": "2026-08-03T05:35:49Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

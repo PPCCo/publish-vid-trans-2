@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "transcript.schema.json",
+  "title": "Source-language transcript (canonical)",
+  "description": "Cue-level timing is the downstream contract; word-level timing is optional enrichment that captions/dubbing must not require (see ANALYSIS B3).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "language", "engine", "cues", "created_at"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "language": { "type": "string" },
+    "dialect": { "type": ["string", "null"] },
+    "engine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider"],
+      "properties": {
+        "provider": { "type": "string" },
+        "model": { "type": ["string", "null"] },
+        "word_alignment": { "type": ["string", "null"] },
+        "version": { "type": ["string", "null"] }
+      }
+    },
+    "duration_seconds": { "type": ["number", "null"] },
+    "cues": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "start_ms", "end_ms", "text"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 0 },
+          "start_ms": { "type": "integer", "minimum": 0 },
+          "end_ms": { "type": "integer", "minimum": 0 },
+          "text": { "type": "string" },
+          "confidence": { "type": ["number", "null"] },
+          "no_speech_prob": { "type": ["number", "null"] },
+          "speaker": { "type": ["string", "null"] },
+          "flags": { "type": "array", "items": { "type": "string" } },
+          "words": {
+            "type": "array",
+            "description": "Optional word-level timing; absence is expected and must not block downstream.",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["word", "start_ms", "end_ms"],
+              "properties": {
+                "word": { "type": "string" },
+                "start_ms": { "type": "integer", "minimum": 0 },
+                "end_ms": { "type": "integer", "minimum": 0 },
+                "confidence": { "type": ["number", "null"] }
+              }
+            }
+          }
+        }
+      }
+    },
+    "has_word_timing": { "type": "boolean" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] }
+  }
+}

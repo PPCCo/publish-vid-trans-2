@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-smoke0p3aa",
+  "current_state": "CAPTION_VALIDATION",
+  "previous_state": "CAPTION_TIMING",
+  "created_at": "2026-08-03T05:34:45Z",
+  "created_by": "human",
+  "updated_at": "2026-08-03T05:35:50Z",
+  "updated_by": "human",
+  "source_language": "fa",
+  "target_languages": [
+    "en",
+    "zh"
+  ],
+  "language_tracks": {
+    "en": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-03T05:35:23Z",
+      "notes": "captions rendered"
+    },
+    "zh": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": false,
+      "updated_at": "2026-08-03T05:35:23Z",
+      "notes": "captions rendered"
+    }
+  },
+  "active_artifacts": {
+    "transcript@fa": "sha256:31d9c456b33764ca006071680b63004e95a73360490737e4fb16a9e20abc6325",
+    "captions-json@en": "sha256:dd6be55a350b9b00a99361fe5c49a3929f5934da7d35c0a2bfccedee03bd4935",
+    "captions-json@zh": "sha256:a3b0d7337026b1ea00e09ae7a98200cbb68cd2638ed6bc321c6c502d40f1cdb7",
+    "captions-srt@en": "sha256:bbdeba852c273222fcd46b0ae4cde2cc31de2f297179bc340d0d7914efc07e3f",
+    "captions-vtt@en": "sha256:0374dbb6b644ff0fb9f347bf78507faf21926a696054ee0d4cc150ca6e6e6e8c",
+    "captions-srt@zh": "sha256:073dc790a5774fb6a2a55ede6e6fbdd69434e9c187ea56abf76ef42cac4a5962",
+    "captions-vtt@zh": "sha256:1e29a5a8164ae7132d3f111e9a9c799c29067b8bdc7ff30a4ef65d6d0fc29546"
+  },
+  "blocked_reasons": []
+}

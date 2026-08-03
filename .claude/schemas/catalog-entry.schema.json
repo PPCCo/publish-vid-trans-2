@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "catalog-entry.schema.json",
+  "title": "Catalog entry for a downloaded source video",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["video_id", "url", "added_at", "rights_status"],
+  "properties": {
+    "video_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$" },
+    "url": { "type": "string" },
+    "title": { "type": ["string", "null"] },
+    "channel": { "type": ["string", "null"] },
+    "channel_id": { "type": ["string", "null"] },
+    "duration_seconds": { "type": ["number", "null"] },
+    "upload_date": { "type": ["string", "null"] },
+    "language": {
+      "type": ["string", "null"],
+      "description": "ISO 639-1 detected/confirmed source language; null when undetected."
+    },
+    "language_confidence": { "type": ["number", "null"] },
+    "language_source": {
+      "type": ["string", "null"],
+      "enum": ["auto-detect", "youtube-metadata", "manual", null]
+    },
+    "dialect": { "type": ["string", "null"] },
+    "has_youtube_captions": { "type": "array", "items": { "type": "string" } },
+    "downloaded_at": { "type": ["string", "null"] },
+    "added_at": { "type": "string" },
+    "updated_at": { "type": ["string", "null"] },
+    "local_paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "video": { "type": ["string", "null"] },
+        "audio": { "type": ["string", "null"] },
+        "info_json": { "type": ["string", "null"] }
+      }
+    },
+    "rights_status": {
+      "type": "string",
+      "enum": ["unreviewed", "self-authored", "licensed", "fair-use-claimed", "do-not-distribute"]
+    },
+    "project_id": { "type": ["string", "null"] }
+  }
+}

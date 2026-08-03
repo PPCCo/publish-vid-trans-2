@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "audio-sync.schema.json",
+  "title": "Dub sync report (per-project, per-language blocks)",
+  "description": "Measures how well each dub track's synthesized audio fits the caption timing that is the downstream contract. One file per project at audio/sync-report.json; each active dub-enabled language contributes a block. Per-cue drift (ms) is rendered-vs-caption timing; stretch_factor is synthesized/target duration (>1 = compressed to fit). Cumulative offset is reset to 0 at natural pauses so a single long cue cannot poison the whole track. The aggregate `audio-sync` gate report (review.schema.json) is derived from this file.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "languages", "created_at"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] },
+    "quality_bars": {
+      "type": "object",
+      "description": "Snapshot of the company audio quality bars used to measure this report.",
+      "additionalProperties": true
+    },
+    "languages": {
+      "type": "object",
+      "description": "Map of ISO 639-1 language -> that track's sync measurements.",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["language", "provider", "dub_path", "target_lufs", "cumulative_offset_ms", "cues"],
+        "properties": {
+          "language": { "type": "string" },
+          "provider": { "type": ["string", "null"], "description": "TTS provider that produced the dub, or 'imported'." },
+          "model": { "type": ["string", "null"] },
+          "dub_path": { "type": "string", "description": "Project-relative path to the rendered dub WAV." },
+          "dub_sha256": { "type": ["string", "null"] },
+          "target_lufs": { "type": "number" },
+          "measured_lufs": { "type": ["number", "null"] },
+          "cumulative_offset_ms": { "type": "integer", "description": "Final cumulative drift after natural-pause resets." },
+          "max_abs_drift_ms": { "type": "integer", "minimum": 0 },
+          "cues_over_tolerance": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose |drift| exceeds per-cue tolerance." },
+          "cues_over_stretch_cap": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose fit demanded a stretch beyond the cap (clamped, not forced)." },
+          "cues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["id", "caption_start_ms", "caption_end_ms", "rendered_start_ms", "rendered_end_ms", "drift_ms", "stretch_factor"],
+              "properties": {
+                "id": { "type": "integer", "minimum": 0 },
+                "caption_start_ms": { "type": "integer", "minimum": 0 },
+                "caption_end_ms": { "type": "integer", "minimum": 0 },
+                "rendered_start_ms": { "type": "integer", "minimum": 0 },
+                "rendered_end_ms": { "type": "integer", "minimum": 0 },
+                "drift_ms": { "type": "integer", "description": "rendered_end_ms - caption_end_ms (signed)." },
+                "stretch_factor": { "type": "number", "description": "Synthesized duration / target duration before fitting (1.0 = perfect fit)." },
+                "over_tolerance": { "type": "boolean" },
+                "over_stretch_cap": { "type": "boolean" },
+                "reset_here": { "type": "boolean", "description": "Cumulative offset was reset to 0 at this cue's natural pause." }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

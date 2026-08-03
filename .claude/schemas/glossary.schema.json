@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "glossary.schema.json",
+  "title": "Translation glossary (channel/speaker-scoped)",
+  "description": "A named term list keyed by glossary_id and referenced from project.yaml.glossary_id. Scoped per channel/speaker so different speakers' canonical renderings never collide. `must_appear` terms are hard-gated in captions (ANALYSIS B6): a missing required rendering FAILs the glossary gate report; other mismatches only warn.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "glossary_id", "source_language", "terms"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "glossary_id": { "type": "string" },
+    "source_language": { "type": "string" },
+    "description": { "type": ["string", "null"] },
+    "created_at": { "type": ["string", "null"] },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "targets"],
+        "properties": {
+          "source": { "type": "string", "description": "Canonical source-language term." },
+          "source_variants": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Other source spellings/transliterations that denote the same term."
+          },
+          "targets": {
+            "type": "object",
+            "description": "Per-target-language rendering. Keys are ISO 639-1 codes.",
+            "additionalProperties": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["rendering"],
+              "properties": {
+                "rendering": { "type": "string", "description": "The canonical target rendering." },
+                "aliases": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Acceptable alternative renderings (satisfy must_appear too)."
+                }
+              }
+            }
+          },
+          "must_appear": {
+            "type": "boolean",
+            "description": "If true, the canonical rendering (or an alias) MUST appear wherever the source term is used, or the glossary gate FAILs.",
+            "default": false
+          },
+          "category": { "type": ["string", "null"] },
+          "notes": { "type": ["string", "null"] }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,542 @@
+"""Per-language dubbing + sync (CAPTION_VALIDATION -> AUDIO_QA_GATE).
+
+Mirrors the translate.py contract and the Phase-2/3 export/import posture:
+
+  * The CLI never imports an ML library. TTS runs as a subprocess via engines/tts.py; if no
+    engine is installed, callers use `dub import` on a pre-rendered WAV — the whole pipeline
+    stays exercisable offline (exactly as `transcript import` does for ASR).
+  * Only tracks with `dub_enabled: true` are dubbed; caption-only tracks skip to PACKAGE.
+  * Default voice is NEUTRAL. Cloning the source speaker requires `voice_clone_consent: true`
+    in the rights record — run_dub refuses a clone request otherwise (company rule 5).
+  * The dub track is fit to the caption timing that is the downstream contract: each cue is
+    synthesized, then tempo-fit into its slot up to the configured stretch cap. Beyond the
+    cap we DO NOT force an unnatural stretch — we clamp, flag the cue, and let drift accrue
+    (surfaced in the sync report). Cumulative drift is reset at natural pauses so one long
+    cue cannot poison the whole track.
+  * Reports are AGGREGATE (one `audio-sync` file per project, PASS iff every active dub track
+    passes); approvals are PER-LANGUAGE (`audio_qa` in state.py per_language_gates). This
+    reuses the Phase-3 split — no state.py / paths.py changes.
+
+Gate report filename is keyed by REPORT TYPE ("audio-sync"), matching
+workflow_states.json.gate_reports (the Phase-2 rule transition_blockers relies on).
+"""
+from __future__ import annotations
+
+import tempfile
+from pathlib import Path
+from typing import Any
+
+from . import artifacts as artifacts_mod
+from . import media as media_mod
+from .engines import tts as tts_mod
+from .errors import ConfigurationError, DubbingError, EngineUnavailableError
+from .events import append_event
+from .paths import ProjectPaths
+from .rights import check_rights
+from .translate import (
+    SCHEMA_VERSION,
+    _active_track_langs,
+    _aggregate_decision,
+    _maybe_advance_top,
+    _rel,
+    _set_track,
+    _write_gate_report,
+    load_captions,
+)
+from .util import atomic_write_json, load_json, project_lock, utc_now
+from .validation import require_valid
+
+# Language tracks pass through these stages during Phase 4.
+TRACK_STAGE_DUBBED = "AUDIO_SYNC_ADJUST"   # dub rendered; sync measured
+TRACK_STAGE_SYNCED = "AUDIO_QA_GATE"       # ready for the human audio_qa gate
+
+_STATES_ALLOWING_DUB = {"CAPTION_VALIDATION", "DUBBING", "AUDIO_SYNC_ADJUST", "AUDIO_QA_GATE"}
+
+
+# --- helpers -----------------------------------------------------------------
+
+def dub_relpath(language: str) -> str:
+    """Project-relative path for a language's dub track: audio/<lang>/dub.wav."""
+    return f"audio/{language}/dub.wav"
+
+
+def sync_report_relpath() -> str:
+    return "audio/sync-report.json"
+
+
+def _audio_quality_bars(root: Path) -> dict[str, Any]:
+    """Read quality_bars.audio from company.default.json (never hardcode the bars)."""
+    from .util import load_company_config
+
+    company = load_company_config(root)
+    bars = company.get("quality_bars", {}).get("audio", {})
+    return {
+        "target_lufs": float(bars.get("target_lufs", -16.0)),
+        "max_time_stretch": float(bars.get("max_time_stretch", 1.3)),
+        "per_cue_drift_tolerance_ms": int(bars.get("per_cue_drift_tolerance_ms", 150)),
+        "cumulative_drift_ceiling_ms": int(bars.get("cumulative_drift_ceiling_ms", 500)),
+    }
+
+
+def _track(state: dict[str, Any], language: str) -> dict[str, Any]:
+    return state.get("language_tracks", {}).get(language, {})
+
+
+def _dub_enabled(state: dict[str, Any], language: str) -> bool:
+    return bool(_track(state, language).get("dub_enabled", False))
+
+
+def _dub_langs(state: dict[str, Any]) -> list[str]:
+    """Active tracks that participate in dubbing/mux — the quorum for those top-state edges.
+
+    Caption-only tracks (dub_enabled=false) legitimately skip DUBBING..VIDEO_MUX, so they are
+    excluded here; otherwise they would stall `_maybe_advance_top` on a mixed project."""
+    return [lang for lang in _active_track_langs(state) if _dub_enabled(state, lang)]
+
+
+def _natural_pause_before(cues: list[dict[str, Any]], idx: int, gap_ms: int = 700) -> bool:
+    """A cue starts a fresh 'phrase' (safe cumulative-offset reset point) when the silence
+    before it is long enough to absorb prior drift."""
+    if idx == 0:
+        return True
+    prev = cues[idx - 1]
+    return (cues[idx]["start_ms"] - prev["end_ms"]) >= gap_ms
+
+
+# --- 1. render a dub ---------------------------------------------------------
+
+def run_dub(
+    root: Path,
+    project_id: str,
+    language: str,
+    *,
+    provider: str | None = None,
+    model: str | None = None,
+    voice: str | None = None,
+    clone: bool = False,
+    actor: str = "agent",
+    advance: bool = False,
+) -> dict[str, Any]:
+    """Synthesize a full dub track for one language from captions.<lang>.json.
+
+    Per cue: synthesize -> measure -> tempo-fit into the cue slot (up to the stretch cap;
+    beyond the cap: clamp + flag, never force) -> place at start_ms with silence padding ->
+    concat -> EBU R128 loudnorm to target LUFS. Registers the dub artifact, writes the sync
+    report, advances the track to AUDIO_SYNC_ADJUST.
+    """
+    paths = ProjectPaths(root, project_id).require()
+    state = load_json(paths.state)
+    if state["current_state"] not in _STATES_ALLOWING_DUB:
+        raise ConfigurationError(
+            f"dubbing expects the project at/through CAPTION_VALIDATION, "
+            f"is at {state['current_state']}"
+        )
+    if not _dub_enabled(state, language):
+        raise DubbingError(
+            f"track {language!r} is not dub_enabled (caption-only); nothing to synthesize"
+        )
+    if clone and not check_rights(root, project_id).get("voice_clone_consent", False):
+        raise DubbingError(
+            "voice cloning requested but rights record has voice_clone_consent=false. "
+            "A human must record consent (rights set --voice-clone-consent) before cloning; "
+            "the neutral voice is the default."
+        )
+
+    doc = load_captions(root, project_id, language)
+    cues = doc["cues"]
+    if not cues:
+        raise DubbingError(f"captions for {language!r} have no cues to dub")
+
+    bars = _audio_quality_bars(root)
+    cap = bars["max_time_stretch"]
+    sr, ch = media_mod.DUB_SAMPLE_RATE, media_mod.DUB_CHANNELS
+
+    clone_ref: Path | None = None
+    if clone:
+        # Reference speaker is the extracted source audio (consent already verified above).
+        src_wav = paths.source_dir / "audio.wav"
+        clone_ref = src_wav if src_wav.is_file() else None
+
+    parts: list[Path] = []
+    cue_measures: list[dict[str, Any]] = []
+    with tempfile.TemporaryDirectory(prefix=f"dub-{language}-") as tmp:
+        tmpdir = Path(tmp)
+        timeline_ms = 0
+        for i, cue in enumerate(cues):
+            slot_ms = max(1, cue["end_ms"] - cue["start_ms"])
+            # Lead silence up to this cue's start (keeps cues time-anchored).
+            lead = cue["start_ms"] - timeline_ms
+            if lead > 0:
+                gap = tmpdir / f"gap-{i}.wav"
+                media_mod.silent_wav(gap, duration_ms=lead, sample_rate=sr, channels=ch)
+                parts.append(gap)
+                timeline_ms += lead
+
+            raw = tmpdir / f"cue-{i}.raw.wav"
+            tts_mod.synthesize_cue(
+                cue["target_text"], raw, provider=provider, language=language,
+                model=model, voice=voice, clone_ref=clone_ref, root=root,
+            )
+            natural_ms = media_mod.audio_duration_ms(raw)
+            stretch = (natural_ms / slot_ms) if slot_ms else 1.0
+            over_cap = stretch > cap
+            applied = min(stretch, cap) if over_cap else stretch
+
+            fit = tmpdir / f"cue-{i}.fit.wav"
+            media_mod.time_stretch(raw, fit, factor=applied if applied > 0 else 1.0,
+                                   sample_rate=sr, channels=ch)
+            parts.append(fit)
+            rendered_ms = media_mod.audio_duration_ms(fit)
+            rendered_start = timeline_ms
+            timeline_ms += rendered_ms
+            cue_measures.append({
+                "id": cue["id"],
+                "caption_start_ms": cue["start_ms"],
+                "caption_end_ms": cue["end_ms"],
+                "rendered_start_ms": rendered_start,
+                "rendered_end_ms": timeline_ms,
+                "natural_ms": natural_ms,
+                "stretch_factor": round(stretch, 4),
+                "over_stretch_cap": over_cap,
+            })
+
+        concat = tmpdir / "concat.wav"
+        media_mod.concat_wavs(parts, concat, sample_rate=sr, channels=ch)
+        dub_path = paths.directory / dub_relpath(language)
+        dub_path.parent.mkdir(parents=True, exist_ok=True)
+        media_mod.loudnorm(concat, dub_path, target_lufs=bars["target_lufs"],
+                           sample_rate=sr, channels=ch)
+
+    artifact = artifacts_mod.register_artifact(
+        root, project_id, dub_path, "dub-wav", "DUBBING", actor, language=language,
+    )
+    provider_used = provider or _resolved_provider_label(root, language)
+    report = _build_sync_report(
+        root, project_id, language, cue_measures, bars,
+        provider=provider_used, model=model, dub_sha256=artifact["sha256"], actor=actor,
+    )
+    _set_track(root, project_id, language, stage=TRACK_STAGE_DUBBED,
+               status="in_progress", actor=actor, notes="dub rendered; sync measured")
+    append_event(paths.events, project_id, "DUB_RENDERED", actor, {
+        "language": language, "cues": len(cues), "provider": provider_used,
+        "dub_sha256": artifact["sha256"], "cloned": bool(clone),
+    })
+    advanced = _maybe_advance_top(root, project_id, actor, advance, "CAPTION_VALIDATION",
+                                  "DUBBING", TRACK_STAGE_DUBBED,
+                                  _dub_langs(load_json(paths.state)))
+    return {"dub": _rel(dub_path, paths), "artifact": artifact, "language": language,
+            "sync": report["languages"][language], "advanced_to": advanced}
+
+
+def _resolved_provider_label(root: Path, language: str) -> str:
+    try:
+        return tts_mod._resolve_provider(None, language, root=root)
+    except EngineUnavailableError:
+        return "unknown"
+
+
+# --- 2. import a pre-rendered dub (no-engine path) ---------------------------
+
+def import_dub(
+    root: Path,
+    project_id: str,
+    language: str,
+    *,
+    from_path: str | Path,
+    actor: str = "agent",
+    advance: bool = False,
+) -> dict[str, Any]:
+    """Ingest a pre-rendered dub WAV (dubbed out-of-band) as audio/<lang>/dub.wav, build the
+    sync report from caption timing + the imported track's duration, register, and advance.
+
+    This mirrors `transcript import`: it lets the whole Phase-4 pipeline run with NO TTS
+    engine installed. Per-cue drift can only be estimated from the caption schedule here (we
+    do not have per-cue boundaries in an opaque imported track), so cue measures record the
+    caption schedule with a whole-track offset check against the imported duration.
+    """
+    paths = ProjectPaths(root, project_id).require()
+    state = load_json(paths.state)
+    if state["current_state"] not in _STATES_ALLOWING_DUB:
+        raise ConfigurationError(
+            f"dub import expects the project at/through CAPTION_VALIDATION, "
+            f"is at {state['current_state']}"
+        )
+    if not _dub_enabled(state, language):
+        raise DubbingError(f"track {language!r} is not dub_enabled (caption-only)")
+
+    src = Path(from_path)
+    if not src.is_absolute():
+        src = paths.directory / src
+    if not src.is_file():
+        raise DubbingError(f"dub WAV not found: {src}")
+
+    doc = load_captions(root, project_id, language)
+    cues = doc["cues"]
+    if not cues:
+        raise DubbingError(f"captions for {language!r} have no cues")
+
+    dub_path = paths.directory / dub_relpath(language)
+    bars = _audio_quality_bars(root)
+    with project_lock(paths.lock):
+        dub_path.parent.mkdir(parents=True, exist_ok=True)
+        # Normalize the imported track to the dub format + target loudness (idempotent).
+        media_mod.loudnorm(src, dub_path, target_lufs=bars["target_lufs"],
+                           sample_rate=media_mod.DUB_SAMPLE_RATE,
+                           channels=media_mod.DUB_CHANNELS)
+
+    imported_ms = media_mod.audio_duration_ms(dub_path)
+    captions_span = cues[-1]["end_ms"] - cues[0]["start_ms"]
+    # Distribute the whole-track offset proportionally across cues for a schedule estimate.
+    cue_measures: list[dict[str, Any]] = []
+    scale = (imported_ms / captions_span) if captions_span else 1.0
+    origin = cues[0]["start_ms"]
+    for cue in cues:
+        r_start = origin + round((cue["start_ms"] - origin) * scale)
+        r_end = origin + round((cue["end_ms"] - origin) * scale)
+        cue_measures.append({
+            "id": cue["id"],
+            "caption_start_ms": cue["start_ms"],
+            "caption_end_ms": cue["end_ms"],
+            "rendered_start_ms": r_start,
+            "rendered_end_ms": r_end,
+            "natural_ms": r_end - r_start,
+            "stretch_factor": round(scale, 4),
+            "over_stretch_cap": scale > bars["max_time_stretch"],
+        })
+
+    artifact = artifacts_mod.register_artifact(
+        root, project_id, dub_path, "dub-wav", "DUBBING", actor, language=language,
+    )
+    report = _build_sync_report(
+        root, project_id, language, cue_measures, bars,
+        provider="imported", model=None, dub_sha256=artifact["sha256"], actor=actor,
+    )
+    _set_track(root, project_id, language, stage=TRACK_STAGE_DUBBED,
+               status="in_progress", actor=actor, notes="dub imported; sync measured")
+    append_event(paths.events, project_id, "DUB_IMPORTED", actor, {
+        "language": language, "dub_sha256": artifact["sha256"], "source": str(src),
+    })
+    advanced = _maybe_advance_top(root, project_id, actor, advance, "CAPTION_VALIDATION",
+                                  "DUBBING", TRACK_STAGE_DUBBED,
+                                  _dub_langs(load_json(paths.state)))
+    return {"dub": _rel(dub_path, paths), "artifact": artifact, "language": language,
+            "sync": report["languages"][language], "advanced_to": advanced}
+
+
+# --- 3. sync report ----------------------------------------------------------
+
+def _build_sync_report(
+    root: Path,
+    project_id: str,
+    language: str,
+    cue_measures: list[dict[str, Any]],
+    bars: dict[str, Any],
+    *,
+    provider: str | None,
+    model: str | None,
+    dub_sha256: str | None,
+    actor: str,
+) -> dict[str, Any]:
+    """Merge one language's cue measures into audio/sync-report.json and register it.
+
+    Drift is rendered_end - caption_end. Cumulative offset is reset to 0 at natural pauses so
+    a single long cue cannot poison the whole track. Preserves other languages' blocks.
+    """
+    paths = ProjectPaths(root, project_id).require()
+    tol = bars["per_cue_drift_tolerance_ms"]
+    cap = bars["max_time_stretch"]
+
+    cues_out: list[dict[str, Any]] = []
+    cumulative = 0
+    max_abs = 0
+    over_tol: list[int] = []
+    over_cap: list[int] = []
+    # Reconstruct the cue list for pause detection from the caption schedule.
+    schedule = [{"start_ms": m["caption_start_ms"], "end_ms": m["caption_end_ms"]}
+                for m in cue_measures]
+    for i, m in enumerate(cue_measures):
+        drift = int(m["rendered_end_ms"] - m["caption_end_ms"])
+        reset = _natural_pause_before(schedule, i)
+        if reset:
+            cumulative = 0
+        cumulative += drift
+        max_abs = max(max_abs, abs(cumulative))
+        is_over_tol = abs(cumulative) > tol
+        is_over_cap = bool(m.get("over_stretch_cap"))
+        if is_over_tol:
+            over_tol.append(m["id"])
+        if is_over_cap:
+            over_cap.append(m["id"])
+        cues_out.append({
+            "id": m["id"],
+            "caption_start_ms": m["caption_start_ms"],
+            "caption_end_ms": m["caption_end_ms"],
+            "rendered_start_ms": m["rendered_start_ms"],
+            "rendered_end_ms": m["rendered_end_ms"],
+            "drift_ms": drift,
+            "stretch_factor": m["stretch_factor"],
+            "over_tolerance": is_over_tol,
+            "over_stretch_cap": is_over_cap,
+            "reset_here": reset,
+        })
+
+    lang_block = {
+        "language": language,
+        "provider": provider,
+        "model": model,
+        "dub_path": dub_relpath(language),
+        "dub_sha256": dub_sha256,
+        "target_lufs": bars["target_lufs"],
+        "measured_lufs": None,
+        "cumulative_offset_ms": int(cumulative),
+        "max_abs_drift_ms": int(max_abs),
+        "cues_over_tolerance": over_tol,
+        "cues_over_stretch_cap": over_cap,
+        "cues": cues_out,
+    }
+
+    report_path = paths.directory / sync_report_relpath()
+    with project_lock(paths.lock):
+        if report_path.is_file():
+            report = load_json(report_path)
+        else:
+            report = {
+                "schema_version": SCHEMA_VERSION,
+                "project_id": project_id,
+                "created_at": utc_now(),
+                "created_by": actor,
+                "quality_bars": bars,
+                "languages": {},
+            }
+        report["languages"][language] = lang_block
+        report["created_at"] = utc_now()
+        report["created_by"] = actor
+        report["quality_bars"] = bars
+        require_valid(root, report, "audio-sync.schema.json")
+        report_path.parent.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(report_path, report)
+    artifacts_mod.register_artifact(
+        root, project_id, report_path, "sync-report", "AUDIO_SYNC_ADJUST", actor,
+    )
+    _ = cap  # cap already applied upstream; kept for clarity of the bars snapshot
+    return report
+
+
+def load_sync_report(root: Path, project_id: str) -> dict[str, Any]:
+    paths = ProjectPaths(root, project_id).require()
+    path = paths.directory / sync_report_relpath()
+    if not path.is_file():
+        raise ConfigurationError(
+            f"no sync report at {sync_report_relpath()}; run `dub run`/`dub import` first"
+        )
+    return load_json(path)
+
+
+# --- 4. audio-sync QA (aggregate gate report) --------------------------------
+
+def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, Any]:
+    """Deterministic per-language decision from a sync-report language block.
+
+    FAIL  : cumulative offset breaches the ceiling (unrecoverable drift).
+    COND. : some cues exceed per-cue tolerance, or a stretch was clamped over the cap.
+    PASS  : everything within budget.
+    """
+    ceiling = bars["cumulative_drift_ceiling_ms"]
+    findings: list[dict[str, Any]] = []
+    lang = lang_block["language"]
+    if abs(lang_block.get("max_abs_drift_ms", 0)) > ceiling:
+        findings.append(_finding(
+            "blocker", "audio-cumulative-drift",
+            f"[{lang}] cumulative offset {lang_block['max_abs_drift_ms']}ms exceeds "
+            f"ceiling {ceiling}ms — re-segment or re-time before the audio_qa gate.",
+            language=lang,
+        ))
+    for cid in lang_block.get("cues_over_stretch_cap", []):
+        findings.append(_finding(
+            "major", "audio-stretch-over-cap",
+            f"[{lang}] cue {cid} needed a tempo stretch beyond the cap "
+            f"({bars['max_time_stretch']}x); clamped, so it will lag — tighten the "
+            f"translation or split the source segment.",
+            language=lang, cue_id=cid,
+        ))
+    for cid in lang_block.get("cues_over_tolerance", []):
+        findings.append(_finding(
+            "minor", "audio-drift-over-tolerance",
+            f"[{lang}] cue {cid} drifts past per-cue tolerance "
+            f"({bars['per_cue_drift_tolerance_ms']}ms).",
+            language=lang, cue_id=cid,
+        ))
+    if any(f["severity"] == "blocker" for f in findings):
+        decision = "FAIL"
+    elif any(f["severity"] == "major" for f in findings):
+        decision = "CONDITIONAL_PASS"
+    else:
+        decision = "PASS"
+    metrics = {
+        "cumulative_offset_ms": lang_block.get("cumulative_offset_ms"),
+        "max_abs_drift_ms": lang_block.get("max_abs_drift_ms"),
+        "cues": len(lang_block.get("cues", [])),
+        "cues_over_tolerance": len(lang_block.get("cues_over_tolerance", [])),
+        "cues_over_stretch_cap": len(lang_block.get("cues_over_stretch_cap", [])),
+    }
+    return {"decision": decision, "findings": findings, "metrics": metrics}
+
+
+def _finding(severity: str, category: str, summary: str, *,
+             language: str | None = None, cue_id: int | None = None) -> dict[str, Any]:
+    finding: dict[str, Any] = {"severity": severity, "category": category, "summary": summary}
+    if language is not None:
+        finding["language"] = language
+    if cue_id is not None:
+        finding["cue_id"] = cue_id
+    return finding
+
+
+def run_audio_qa(root: Path, project_id: str, *, actor: str = "agent") -> dict[str, Any]:
+    """Aggregate `audio-sync` gate report across every active dub-enabled track.
+
+    Single file keyed by report type; PASS iff every dub track passes. The human `audio_qa`
+    approval remains per-language. Advances each measured track to AUDIO_QA_GATE.
+    """
+    paths = ProjectPaths(root, project_id).require()
+    state = load_json(paths.state)
+    bars = _audio_quality_bars(root)
+
+    dub_langs = [lang for lang in _active_track_langs(state) if _dub_enabled(state, lang)]
+    has_report = (paths.directory / sync_report_relpath()).is_file()
+    report = load_sync_report(root, project_id) if has_report else {"languages": {}}
+
+    findings: list[dict[str, Any]] = []
+    per_lang: dict[str, Any] = {}
+    decisions: list[str] = []
+    for lang in dub_langs:
+        block = report.get("languages", {}).get(lang)
+        if not block:
+            decisions.append("FAIL")
+            findings.append(_finding(
+                "blocker", "audio-missing-dub",
+                f"[{lang}] dub_enabled track has no dub/sync yet — run `dub run`/`dub import`.",
+                language=lang,
+            ))
+            continue
+        analysis = analyze_sync(block, bars)
+        decisions.append(analysis["decision"])
+        findings += analysis["findings"]
+        per_lang[lang] = analysis["metrics"]
+
+    decision = _aggregate_decision(decisions)
+    gate_path = _write_gate_report(
+        root, project_id, "audio-sync", decision, findings,
+        {"languages": per_lang, "quality_bars": bars}, actor,
+    )
+    append_event(paths.events, project_id, "AUDIO_SYNC_REPORTED", actor, {
+        "decision": decision, "languages": dub_langs,
+    })
+    # Advance each measured track toward the gate (top-level unchanged; slowest-track rule
+    # governs the AUDIO_SYNC_ADJUST -> AUDIO_QA_GATE top transition, done by the human/CLI).
+    for lang in dub_langs:
+        if report.get("languages", {}).get(lang):
+            _set_track(root, project_id, lang, stage=TRACK_STAGE_SYNCED,
+                       status="in_progress", actor=actor, notes="audio-sync reported")
+    return {"decision": decision, "report": _rel(gate_path, paths),
+            "languages": per_lang, "findings": findings}

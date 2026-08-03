@@ -1,0 +1,35 @@
+{
+  "env": {
+    "VIDTRANS_EXTERNAL_WRITES": "disabled",
+    "VIDTRANS_FETCH_ENABLED": "0",
+    "CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH": "2",
+    "CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION": "200",
+    "CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS": "12"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|NotebookEdit|WebFetch|WebSearch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_tool_policy.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_tool_audit.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

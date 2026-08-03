@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-smoke0p3aa",
+  "report_type": "caption",
+  "decision": "PASS",
+  "metrics": {
+    "languages": {
+      "en": {
+        "cue_count": 2,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "zh": {
+        "cue_count": 2,
+        "script_class": "cjk",
+        "too_fast_cues": 0
+      }
+    }
+  },
+  "created_at": "2026-08-03T05:35:49Z",
+  "created_by": "agent",
+  "findings": []
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "finding.schema.json",
+  "title": "Review finding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["severity", "summary"],
+  "properties": {
+    "id": { "type": "string" },
+    "severity": { "type": "string", "enum": ["blocker", "major", "minor", "note"] },
+    "category": { "type": "string" },
+    "summary": { "type": "string" },
+    "detail": { "type": "string" },
+    "language": { "type": ["string", "null"] },
+    "cue_id": { "type": ["string", "integer", "null"] },
+    "timestamp_ms": { "type": ["integer", "null"] },
+    "evidence": { "type": "string" }
+  }
+}

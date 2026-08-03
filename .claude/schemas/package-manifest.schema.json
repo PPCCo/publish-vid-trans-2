@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "package-manifest.schema.json",
+  "title": "Deliverable package manifest (per-project)",
+  "description": "The top-level index of upload-ready deliverables assembled at PACKAGE, one file per project at packages/package-manifest.json. Lists every per-language package and its deliverables with content-addressed hashes. `distributable` snapshots whether rights were cleared at build time; the framework NEVER publishes — this manifest describes packages that a human may distribute once rights allow. Nothing here implies external upload.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "rights_status", "distributable", "packages", "created_at"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] },
+    "source": {
+      "type": "object",
+      "description": "Provenance snapshot (source url/title/channel) for the package README.",
+      "additionalProperties": true
+    },
+    "rights_status": {
+      "type": "string",
+      "description": "rights_status at build time (e.g. unreviewed, self-authored, licensed, fair-use-claimed, do-not-distribute)."
+    },
+    "distributable": {
+      "type": "boolean",
+      "description": "True iff rights_status was a distributable value when the package was built. False packages carry a NOT-cleared banner."
+    },
+    "packages": {
+      "type": "array",
+      "description": "One entry per active language track.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["language", "dub_enabled", "directory", "deliverables"],
+        "properties": {
+          "language": { "type": "string" },
+          "dub_enabled": { "type": "boolean" },
+          "directory": { "type": "string", "description": "Project-relative package dir, e.g. packages/en." },
+          "deliverables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["type", "path", "sha256", "size_bytes"],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Deliverable kind: dubbed-video, captions-srt, captions-vtt, readme."
+                },
+                "path": { "type": "string", "description": "Project-relative path to the deliverable." },
+                "sha256": { "type": "string" },
+                "size_bytes": { "type": "integer", "minimum": 0 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

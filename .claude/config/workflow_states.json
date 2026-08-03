@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "states": [
+    "INGEST",
+    "LANGUAGE_ID",
+    "TRANSCRIPTION",
+    "TRANSCRIPT_QA_GATE",
+    "TRANSLATION",
+    "TRANSLATION_QA_GATE",
+    "CAPTION_TIMING",
+    "CAPTION_VALIDATION",
+    "DUBBING",
+    "AUDIO_SYNC_ADJUST",
+    "AUDIO_QA_GATE",
+    "VIDEO_MUX",
+    "FINAL_QA_GATE",
+    "PACKAGE",
+    "READY_FOR_REVIEW",
+    "PAUSED",
+    "CANCELLED",
+    "ERROR"
+  ],
+  "initial_state": "INGEST",
+  "terminal_states": ["READY_FOR_REVIEW", "CANCELLED"],
+  "transitions": {
+    "INGEST": ["LANGUAGE_ID", "PAUSED", "CANCELLED", "ERROR"],
+    "LANGUAGE_ID": ["TRANSCRIPTION", "PAUSED", "CANCELLED", "ERROR"],
+    "TRANSCRIPTION": ["TRANSCRIPT_QA_GATE", "PAUSED", "CANCELLED", "ERROR"],
+    "TRANSCRIPT_QA_GATE": ["TRANSLATION", "TRANSCRIPTION", "PAUSED", "CANCELLED", "ERROR"],
+    "TRANSLATION": ["TRANSLATION_QA_GATE", "PAUSED", "CANCELLED", "ERROR"],
+    "TRANSLATION_QA_GATE": ["CAPTION_TIMING", "TRANSLATION", "PAUSED", "CANCELLED", "ERROR"],
+    "CAPTION_TIMING": ["CAPTION_VALIDATION", "PAUSED", "CANCELLED", "ERROR"],
+    "CAPTION_VALIDATION": ["DUBBING", "CAPTION_TIMING", "PACKAGE", "PAUSED", "CANCELLED", "ERROR"],
+    "DUBBING": ["AUDIO_SYNC_ADJUST", "PAUSED", "CANCELLED", "ERROR"],
+    "AUDIO_SYNC_ADJUST": ["AUDIO_QA_GATE", "DUBBING", "PAUSED", "CANCELLED", "ERROR"],
+    "AUDIO_QA_GATE": ["VIDEO_MUX", "AUDIO_SYNC_ADJUST", "PAUSED", "CANCELLED", "ERROR"],
+    "VIDEO_MUX": ["FINAL_QA_GATE", "PAUSED", "CANCELLED", "ERROR"],
+    "FINAL_QA_GATE": ["PACKAGE", "VIDEO_MUX", "PAUSED", "CANCELLED", "ERROR"],
+    "PACKAGE": ["READY_FOR_REVIEW", "PAUSED", "CANCELLED", "ERROR"],
+    "READY_FOR_REVIEW": ["PACKAGE", "PAUSED", "CANCELLED"],
+    "PAUSED": ["INGEST", "LANGUAGE_ID", "TRANSCRIPTION", "TRANSLATION", "CAPTION_TIMING", "DUBBING", "VIDEO_MUX", "PACKAGE", "CANCELLED", "ERROR"],
+    "ERROR": ["PAUSED", "CANCELLED", "INGEST", "TRANSCRIPTION", "TRANSLATION", "DUBBING", "VIDEO_MUX"]
+  },
+  "human_gate_to_state": {
+    "transcript_qa": "TRANSCRIPT_QA_GATE",
+    "translation_qa": "TRANSLATION_QA_GATE",
+    "audio_qa": "AUDIO_QA_GATE",
+    "final_qa": "FINAL_QA_GATE"
+  },
+  "gate_edges": {
+    "TRANSCRIPT_QA_GATE->TRANSLATION": "transcript_qa",
+    "TRANSLATION_QA_GATE->CAPTION_TIMING": "translation_qa",
+    "AUDIO_QA_GATE->VIDEO_MUX": "audio_qa",
+    "FINAL_QA_GATE->PACKAGE": "final_qa"
+  },
+  "gate_reports": {
+    "TRANSCRIPT_QA_GATE->TRANSLATION": ["transcript-qa"],
+    "TRANSLATION_QA_GATE->CAPTION_TIMING": ["translation-qa", "glossary"],
+    "CAPTION_VALIDATION->DUBBING": ["caption"],
+    "CAPTION_VALIDATION->PACKAGE": ["caption"],
+    "AUDIO_QA_GATE->VIDEO_MUX": ["audio-sync"],
+    "FINAL_QA_GATE->PACKAGE": ["final"],
+    "PACKAGE->READY_FOR_REVIEW": ["rights"]
+  },
+  "captions_only_edges": {
+    "CAPTION_VALIDATION->PACKAGE": "Skip dubbing/mux when a project is caption-only (no audio deliverables)."
+  },
+  "notes": {
+    "per_language": "TRANSLATION..VIDEO_MUX advance per target language; per-language progress is tracked in state.json.language_tracks. The top-level current_state records the SLOWEST track's stage: the project only advances to stage N when every active, non-failed language track has reached at least stage N. Gate approvals bind to (gate, language, artifact_hash).",
+    "rights_gate": "PACKAGE->READY_FOR_REVIEW requires the rights report decision != unreviewed/do-not-distribute; enforced in transition_blockers."
+  }
+}

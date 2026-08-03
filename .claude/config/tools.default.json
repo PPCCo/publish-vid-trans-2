@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "_comment": "Engine adapters. Local-first defaults for Apple Silicon (no CUDA); vendor providers are opt-in via tools.local.json (gitignored). No adapter is required for the framework to validate.",
+  "asr": {
+    "provider": "mlx-whisper",
+    "model": "large-v3",
+    "word_alignment": "auto",
+    "providers_available": ["mlx-whisper", "faster-whisper", "groq", "assemblyai"],
+    "verified": false
+  },
+  "translation": {
+    "provider": "claude",
+    "volume_model": "@bedrock-eus1/us.anthropic.claude-sonnet-5",
+    "hero_model": "@bedrock-eus2/us.anthropic.claude-opus-4-8",
+    "mt_baseline": null,
+    "verified": false
+  },
+  "tts": {
+    "default_provider": "piper",
+    "per_language": {
+      "en": "kokoro",
+      "fa": "piper",
+      "ur": "piper",
+      "ar": "piper",
+      "zh": "xtts",
+      "fr": "xtts",
+      "es": "xtts",
+      "pt": "xtts",
+      "ru": "xtts"
+    },
+    "allow_noncommercial_engines": true,
+    "providers_available": ["kokoro", "piper", "xtts", "chatterbox", "elevenlabs", "azure", "google"],
+    "verified": false
+  },
+  "external_binaries": {
+    "ffmpeg": { "required": true },
+    "ffprobe": { "required": true },
+    "yt-dlp": { "required": true },
+    "rubberband": { "required": false }
+  },
+  "fonts": {
+    "cjk": "Noto Sans CJK",
+    "cyrillic": "Noto Sans",
+    "arabic": "Noto Sans Arabic"
+  }
+}

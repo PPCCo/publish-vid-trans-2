@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "artifact.schema.json",
+  "title": "Artifact record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_id",
+    "project_id",
+    "type",
+    "stage",
+    "version",
+    "path",
+    "sha256",
+    "size_bytes",
+    "created_at",
+    "created_by",
+    "source_artifact_ids",
+    "provenance",
+    "rights_status",
+    "validation_status",
+    "supersedes",
+    "frozen"
+  ],
+  "properties": {
+    "artifact_id": { "type": "string", "pattern": "^art-[a-z0-9-]+$" },
+    "project_id": { "type": "string" },
+    "type": {
+      "type": "string",
+      "description": "e.g. source-video, source-audio, transcript, captions-json, subtitle-srt, subtitle-vtt, dub-audio, sync-report, final-video, package"
+    },
+    "language": {
+      "type": ["string", "null"],
+      "description": "Target language (ISO 639-1) for per-language artifacts; null for source/shared artifacts."
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "INGEST", "LANGUAGE_ID", "TRANSCRIPTION", "TRANSCRIPT_QA_GATE",
+        "TRANSLATION", "TRANSLATION_QA_GATE", "CAPTION_TIMING", "CAPTION_VALIDATION",
+        "DUBBING", "AUDIO_SYNC_ADJUST", "AUDIO_QA_GATE", "VIDEO_MUX", "FINAL_QA_GATE",
+        "PACKAGE", "READY_FOR_REVIEW", "PAUSED", "CANCELLED", "ERROR"
+      ]
+    },
+    "version": { "type": "integer", "minimum": 1 },
+    "path": { "type": "string" },
+    "sha256": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+    "size_bytes": { "type": "integer", "minimum": 0 },
+    "created_at": { "type": "string" },
+    "created_by": { "type": "string" },
+    "source_artifact_ids": { "type": "array", "items": { "type": "string" } },
+    "provenance": { "type": "object" },
+    "rights_status": {
+      "type": "string",
+      "enum": ["unreviewed", "self-authored", "licensed", "fair-use-claimed", "do-not-distribute", "not-applicable"]
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": ["not-run", "pass", "fail", "warning"]
+    },
+    "supersedes": { "type": ["string", "null"] },
+    "frozen": { "type": "boolean" }
+  }
+}

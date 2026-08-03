@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "review.schema.json",
+  "title": "Gate / review report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "report_type", "decision", "created_at", "findings"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "report_type": {
+      "type": "string",
+      "description": "e.g. transcript-qa, translation-qa, glossary, caption, audio-sync, final, rights"
+    },
+    "language": { "type": ["string", "null"] },
+    "artifact_hashes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "decision": { "type": "string", "enum": ["PASS", "CONDITIONAL_PASS", "FAIL"] },
+    "scores": {
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0, "maximum": 5 }
+    },
+    "metrics": { "type": "object" },
+    "created_at": { "type": "string" },
+    "created_by": { "type": "string" },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "finding.schema.json" }
+    }
+  }
+}

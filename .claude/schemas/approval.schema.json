@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "approval.schema.json",
+  "title": "Human approval record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "approval_id",
+    "project_id",
+    "gate",
+    "approver",
+    "decision",
+    "artifact_hashes",
+    "scope",
+    "created_at"
+  ],
+  "properties": {
+    "approval_id": { "type": "string", "pattern": "^apr-[a-z0-9_-]+$" },
+    "project_id": { "type": "string" },
+    "gate": { "type": "string" },
+    "language": {
+      "type": ["string", "null"],
+      "description": "Language scope for per-language gates (translation_qa, audio_qa); null for shared gates."
+    },
+    "approver": { "type": "string" },
+    "approver_role": { "type": ["string", "null"] },
+    "decision": { "type": "string", "enum": ["APPROVED", "REJECTED"] },
+    "artifact_hashes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" }
+    },
+    "scope": { "type": "string" },
+    "exclusions": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": ["string", "null"] },
+    "created_at": { "type": "string" },
+    "expires_at": { "type": ["string", "null"] },
+    "invalidated_at": { "type": ["string", "null"] },
+    "invalidation_reason": { "type": ["string", "null"] }
+  }
+}

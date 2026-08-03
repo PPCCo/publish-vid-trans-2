@@ -1,0 +1,15 @@
+schema_version: '1.0'
+project_id: yt-smoke0p3aa
+source:
+  url: https://youtube.com/watch?v=smoke0p3aa
+  channel: null
+  title: null
+target_languages:
+- en
+- zh
+audio_languages:
+- en
+dubbing:
+  voice_clone: false
+glossary_id: smoke-chan
+created_at: '2026-08-03T05:34:45Z'

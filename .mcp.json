@@ -1,0 +1,13 @@
+{
+    "mcpServers": {
+        "video-translation-house": {
+        "command": "${CLAUDE_PROJECT_DIR}/.venv/bin/python3",
+        "args": [
+            "${CLAUDE_PROJECT_DIR}/.claude/mcp/video_translation_house_server.py"
+        ],
+        "env": {
+            "VIDTRANS_REPO_ROOT": "${CLAUDE_PROJECT_DIR}"
+        }
+        }
+    }
+}

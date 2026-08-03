@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "event.schema.json",
+  "title": "Append-only event record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["event_id", "time", "event", "project_id", "actor", "details"],
+  "properties": {
+    "event_id": { "type": "string" },
+    "time": { "type": "string" },
+    "event": { "type": "string" },
+    "project_id": { "type": "string" },
+    "actor": { "type": "string" },
+    "details": { "type": "object" }
+  }
+}
