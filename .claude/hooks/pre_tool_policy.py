@@ -35,6 +35,47 @@ _CLI_STATE_DIRS = {"approvals", "events"}
 
 _RM_RECURSIVE = re.compile(r"\brm\s+-[^\n]*r[^\n]*f\b|\brm\s+-rf\b", re.IGNORECASE)
 
+# Shell separators after which a fresh command word begins. Used to find command-position
+# tokens (the actual programs being run) so we can distinguish "run yt-dlp" / "publish" as a
+# command from those same strings appearing as arguments, quoted literals, or grep patterns.
+_CMD_SEPARATORS = {"&&", "||", ";", "|", "(", ")", "{", "}"}
+# Package-manager verbs that legitimately take an egress tool's NAME as an argument (e.g.
+# `pip install yt-dlp`). Installing a tool is not the same as running it, so a command whose
+# leading program is one of these is not treated as egress on account of its arguments.
+_PKG_MANAGERS = {"pip", "pip3", "pipx", "uv", "poetry", "conda", "mamba", "brew", "port"}
+
+
+def _command_position_tokens(command: str) -> set[str] | None:
+    """Return the set of tokens that appear in *command position* — the first token, and the
+    first token after each shell separator (&&, ||, ;, |, subshell parens/braces). Basenames
+    are included too, so `/usr/local/bin/yt-dlp` contributes `yt-dlp`.
+
+    Returns None if the command can't be tokenized (unbalanced quotes) — callers should then
+    fall back to their conservative default. This lets a sensitive verb be matched only when
+    it's actually being invoked, not when it shows up inside a quoted string or a grep pattern
+    (the real-world false positive: `grep -iE "...|publish|..."`)."""
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        return None
+    words: set[str] = set()
+    expect_command = True
+    for token in tokens:
+        if token in _CMD_SEPARATORS:
+            expect_command = True
+            continue
+        if expect_command:
+            words.add(token)
+            words.add(token.rsplit("/", 1)[-1])
+            # env-var prefixes (FOO=bar cmd) and `env`/`sudo`/`nohup` wrappers keep the next
+            # token in command position too.
+            if "=" in token and not token.startswith("-"):
+                continue
+            if token.rsplit("/", 1)[-1] in {"env", "sudo", "nohup", "time", "nice", "xargs", "command"}:
+                continue
+            expect_command = False
+    return words
+
 # Directories a recursive rm may target without a prompt: OS temp roots only. A recursive
 # deletion is auto-allowed iff EVERY path argument resolves under one of these; anything
 # touching the repo, $HOME, or a system path escalates to a human prompt instead.
@@ -191,10 +232,26 @@ def main() -> int:
     if tool == "Bash":
         command = str(tool_input.get("command") or "")
         record["command"] = command[:1000]
+        cmd_words = _command_position_tokens(command)
         # Ingest/vendor egress is HARD-denied unless the sanctioned fetch flag is set — this
-        # is the network-egress non-negotiable, not a case-by-case call.
+        # is the network-egress non-negotiable, not a case-by-case call. We deny only when
+        # yt-dlp is *invoked* (a command-position token), not when it merely appears as an
+        # argument — e.g. `pip install yt-dlp` installs the tool without any egress. If the
+        # command can't be tokenized (None), fall back to the substring check to stay safe.
         if os.environ.get("VIDTRANS_FETCH_ENABLED", "0").strip().lower() not in {"1", "true", "on", "yes"}:
-            if re.search(r"\byt-dlp\b", command, re.IGNORECASE):
+            invokes_ytdlp = (
+                "yt-dlp" in cmd_words if cmd_words is not None
+                else bool(re.search(r"\byt-dlp\b", command, re.IGNORECASE))
+            )
+            leading = None
+            if cmd_words is not None:
+                # a package-manager invocation (pip install yt-dlp) is an install, not egress
+                try:
+                    first = shlex.split(command)[0].rsplit("/", 1)[-1]
+                    leading = first
+                except (ValueError, IndexError):
+                    leading = None
+            if invokes_ytdlp and leading not in _PKG_MANAGERS:
                 reason = "yt-dlp egress is disabled; set VIDTRANS_FETCH_ENABLED=1 to permit ingest"
                 record.update({"decision": "deny", "reason": reason})
                 append_audit(root, record)
@@ -202,13 +259,10 @@ def main() -> int:
         # External publication verbs are HARD-denied unless explicitly enabled — the
         # pipeline stops at READY_FOR_REVIEW by policy.
         if os.environ.get("VIDTRANS_EXTERNAL_WRITES", "disabled").lower() != "enabled":
-            # Scoped to publish/marketplace API verbs. Deliberately avoids bare
-            # "activate"/"install" (venv/pip false positives) AND requires publish/purchase
-            # to stand alone as command words — NOT embedded in path slugs like
-            # "publish-vid-trans" where "\b" would otherwise match around the hyphen.
-            if re.search(
+            # Specific API-write endpoints / URLs / flags — these are distinctive enough to
+            # match anywhere in the command without false-positiving on ordinary text.
+            endpoint_hit = re.search(
                 r"\b(videos\.insert|captions\.insert|thumbnails\.set|playlistItems\.insert)\b"
-                r"|(?<![\w./-])(publish|purchase)(?![\w./-])"
                 r"|--upload\b|\bupload-video\b"
                 # Phase 6 platform write endpoints: X/Twitter v2 tweets + v1.1 media upload,
                 # Telegram Bot API sendMessage/sendVideo, Discord webhook posts.
@@ -216,7 +270,19 @@ def main() -> int:
                 r"|api\.telegram\.org/bot|/webhooks?/\d+/",
                 command,
                 re.IGNORECASE,
-            ):
+            )
+            # The bare verbs `publish`/`purchase` are matched ONLY in command position — as an
+            # actual program being invoked — never as a quoted literal, a grep pattern
+            # (`grep -iE "...|publish|..."`), or embedded in a path slug like
+            # "publish-vid-trans". If the command can't be tokenized, fall back to the old
+            # standalone-word check so we don't silently stop enforcing.
+            if cmd_words is not None:
+                verb_hit = bool(cmd_words & {"publish", "purchase"})
+            else:
+                verb_hit = bool(
+                    re.search(r"(?<![\w./-])(publish|purchase)(?![\w./-])", command, re.IGNORECASE)
+                )
+            if endpoint_hit or verb_hit:
                 reason = "external writes are disabled; produce a package or dry-run instead"
                 record.update({"decision": "deny", "reason": reason})
                 append_audit(root, record)

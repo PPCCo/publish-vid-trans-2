@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -88,7 +87,13 @@ def _check_url(url: str) -> None:
 
 
 def _ytdlp() -> str:
-    binary = shutil.which("yt-dlp")
+    # util.executable resolves PATH first, then the venv bin dir next to sys.executable —
+    # so a `pip install yt-dlp` into the project venv is found even when the venv isn't
+    # activated (the CLI is run as `.venv/bin/python3 …`). Keeps this in lockstep with
+    # what `doctor` reports as installed.
+    from ..util import executable
+
+    binary = executable("yt-dlp")
     if not binary:
         raise ConfigurationError("yt-dlp is not installed; see `vid_cli.py doctor`")
     return binary

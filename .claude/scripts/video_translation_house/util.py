@@ -7,6 +7,7 @@ import os
 import re
 import secrets
 import shutil
+import sys
 import tempfile
 from collections.abc import Iterator
 from datetime import UTC, datetime
@@ -165,7 +166,33 @@ def parse_csv(values: str | list[str] | None) -> list[str]:
 
 
 def executable(name: str) -> str | None:
-    return shutil.which(name)
+    """Resolve a console-script / binary by name.
+
+    Checks PATH first (`shutil.which`), then falls back to the directory holding the current
+    interpreter (`sys.executable`) — i.e. the active venv's `bin/` (or `Scripts/` on Windows).
+    Tools pip-installed into the project venv (yt-dlp, kokoro, faster-whisper, …) land there,
+    and the CLI is documented to run as `.venv/bin/python3 …` WITHOUT activating the venv, so
+    that bin dir is not on PATH. Without this fallback, doctor and ingest would report a
+    pip-installed yt-dlp as "not installed". Absolute paths / names containing a separator are
+    passed straight through to `shutil.which`."""
+    found = shutil.which(name)
+    if found:
+        return found
+    if os.sep in name or (os.altsep and os.altsep in name):
+        return None
+    # Candidate bin dirs: the dir literally holding the interpreter (do NOT resolve() — the
+    # venv's python3 is a symlink to the base interpreter, and following it would jump us out
+    # of the venv), and sys.prefix's bin/Scripts (points at the venv root under a venv).
+    bindirs = [Path(sys.executable).parent, Path(sys.prefix) / ("Scripts" if os.name == "nt" else "bin")]
+    seen: set[Path] = set()
+    for bindir in bindirs:
+        if bindir in seen:
+            continue
+        seen.add(bindir)
+        for candidate in (bindir / name, bindir / f"{name}.exe"):
+            if candidate.is_file() and os.access(candidate, os.X_OK):
+                return str(candidate)
+    return None
 
 
 @contextlib.contextmanager

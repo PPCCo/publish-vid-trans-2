@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "current_state": "TRANSCRIPT_QA_GATE",
+  "previous_state": "TRANSCRIPTION",
+  "created_at": "2026-08-04T11:37:36Z",
+  "created_by": "human",
+  "updated_at": "2026-08-04T23:37:15Z",
+  "updated_by": "agent",
+  "source_language": "fa",
+  "target_languages": [
+    "en",
+    "ar",
+    "fa",
+    "ur"
+  ],
+  "language_tracks": {
+    "en": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-04T11:37:36Z"
+    },
+    "ar": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": false,
+      "updated_at": "2026-08-04T11:37:36Z"
+    },
+    "fa": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": false,
+      "updated_at": "2026-08-04T11:37:36Z"
+    },
+    "ur": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": false,
+      "updated_at": "2026-08-04T11:37:36Z"
+    }
+  },
+  "active_artifacts": {
+    "source-video": "sha256:3d60ede741d162d1a02c74d62b1f48f34cbc67013f3a0711ba5968bf0bf855a8",
+    "source-audio": "sha256:365ca98b3fd87a9bb0480bc281b02751cae1a2d7a359f1109c54130748b55414",
+    "transcript@fa": "sha256:3f2ef0d29009416dd544f37b056513707ad24293a6c61df7542593eefe197ce6"
+  },
+  "blocked_reasons": []
+}

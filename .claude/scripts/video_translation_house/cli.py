@@ -123,6 +123,13 @@ def build_parser() -> argparse.ArgumentParser:
     t_run.add_argument("--provider", help="ASR provider (default: first installed)")
     t_run.add_argument("--model", help="Engine model name (e.g. large-v3)")
     t_run.add_argument("--no-word-timestamps", action="store_true", help="Skip word-level timing")
+    t_run.add_argument("--no-condition-on-previous-text", action="store_true",
+                       help="Disable conditioning on prior text (main defense vs repetition loops)")
+    t_run.add_argument("--hallucination-silence-threshold", type=float,
+                       help="Skip likely hallucinations across silences longer than N seconds")
+    t_run.add_argument("--temperature", type=float, help="Decode temperature (default 0 = deterministic)")
+    t_run.add_argument("--no-retry", action="store_true",
+                       help="Run one decode configuration only (disable the escalating auto-retry ladder)")
     t_run.add_argument("--advance", action="store_true", help="Advance to TRANSCRIPT_QA_GATE")
     t_run.add_argument("--actor", default="agent")
     t_import = trsub.add_parser("import", help="Import an engine-shaped JSON transcript (no engine needed)")
@@ -136,6 +143,16 @@ def build_parser() -> argparse.ArgumentParser:
     t_qa.add_argument("project_id")
     t_qa.add_argument("--language")
     t_qa.add_argument("--actor", default="agent")
+    t_geng = trsub.add_parser("english-export",
+                              help="Export an English review-gloss worksheet from the source transcript")
+    t_geng.add_argument("project_id")
+    t_geng.add_argument("--actor", default="agent")
+    t_gimp = trsub.add_parser("english-import",
+                              help="Import a filled English-gloss worksheet -> transcript/english-gloss.json")
+    t_gimp.add_argument("project_id")
+    t_gimp.add_argument("--from", dest="from_path",
+                        help="Worksheet path (default: transcript/english-gloss.worksheet.json)")
+    t_gimp.add_argument("--actor", default="agent")
 
     seg = sub.add_parser("segments", help="Resolve a source selection into cut/join segments")
     segsub = seg.add_subparsers(dest="segments_command", required=True)
@@ -392,7 +409,12 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         if tc == "run":
             return transcript_mod.run_transcription(
                 root, args.project_id, provider=args.provider, model=args.model,
-                word_timestamps=not args.no_word_timestamps, actor=args.actor, advance=args.advance,
+                word_timestamps=not args.no_word_timestamps,
+                condition_on_previous_text=not args.no_condition_on_previous_text,
+                hallucination_silence_threshold=args.hallucination_silence_threshold,
+                temperature=args.temperature,
+                retry=not args.no_retry,
+                actor=args.actor, advance=args.advance,
             )
         if tc == "import":
             from .engines.asr import ASRResult, _normalize_whisper_json
@@ -420,6 +442,14 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             from . import transcript_qa
             return transcript_qa.run_transcript_qa(
                 root, args.project_id, language=args.language, actor=args.actor,
+            )
+        if tc == "english-export":
+            from . import english_gloss
+            return english_gloss.export_gloss_worksheet(root, args.project_id, actor=args.actor)
+        if tc == "english-import":
+            from . import english_gloss
+            return english_gloss.import_gloss_worksheet(
+                root, args.project_id, from_path=args.from_path, actor=args.actor,
             )
     if cmd == "segments":
         from . import segments as segments_mod

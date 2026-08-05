@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "videos": [
+    {
+      "added_at": "2026-08-04T11:40:19Z",
+      "rights_status": "unreviewed",
+      "video_id": "yt-YP0FDR7Wc-8",
+      "url": "https://www.youtube.com/watch?v=YP0FDR7Wc-8",
+      "title": "2# تفسیر قرآن سوره العصر جلسه ۱ آیت الله جوادی املی",
+      "channel": "سلوک الی الله",
+      "channel_id": "UCQQ9f_fAQxQh2rZxwG_eEuQ",
+      "duration_seconds": 1479.294,
+      "upload_date": "20230604",
+      "language": "fa",
+      "language_confidence": 0.95,
+      "language_source": "manual",
+      "has_youtube_captions": [],
+      "downloaded_at": null,
+      "local_paths": {
+        "video": "source/YP0FDR7Wc-8.mp4",
+        "audio": "source/audio.wav"
+      },
+      "project_id": "yt-YP0FDR7Wc-8",
+      "updated_at": "2026-08-04T11:40:33Z"
+    }
+  ]
+}

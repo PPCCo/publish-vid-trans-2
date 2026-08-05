@@ -117,7 +117,10 @@ def _build_command(
 ) -> list[str]:
     """Build one cue's synthesis command. Kept deliberately conservative — the exact flags
     vary by engine version; operators can wrap their engine so these defaults apply."""
-    binary = _PROVIDER_BINARY[provider]
+    # Resolve to an absolute path (PATH + venv bin) so the subprocess finds a venv-installed
+    # engine even when the venv isn't activated — the CLI runs as `.venv/bin/python3 …`.
+    # Falls back to the bare name so the caller's FileNotFoundError path still reports it.
+    binary = executable(_PROVIDER_BINARY[provider]) or _PROVIDER_BINARY[provider]
     if provider == "piper":
         cmd = [binary, "--output_file", str(dst)]
         if model:

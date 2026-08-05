@@ -29,8 +29,11 @@ PROJECT_DIRS = [
 ]
 
 # A YouTube-derived video id looks like `yt-<11 chars>`; we accept any short
-# filesystem-safe slug so the framework isn't YouTube-only.
-VIDEO_ID_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{1,63}$")
+# filesystem-safe slug so the framework isn't YouTube-only. YouTube's 11-char ids are
+# case-sensitive base64url (`[A-Za-z0-9_-]`, e.g. `YP0FDR7Wc-8`), so the id MUST allow
+# uppercase — lowercasing it would break the mapping back to the real video. Keep the
+# charset filesystem-safe and the leading char alphanumeric.
+VIDEO_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{1,63}$")
 
 
 def is_valid_video_id(video_id: str) -> bool:

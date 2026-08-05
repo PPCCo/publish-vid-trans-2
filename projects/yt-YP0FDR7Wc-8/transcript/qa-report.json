@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "report_type": "transcript-qa",
+  "language": "fa",
+  "artifact_hashes": [
+    "sha256:3f2ef0d29009416dd544f37b056513707ad24293a6c61df7542593eefe197ce6"
+  ],
+  "decision": "PASS",
+  "metrics": {
+    "cue_count": 30,
+    "low_confidence_cues": 0,
+    "low_confidence_share": 0.0,
+    "non_speech_cues": 0,
+    "over_long_cues": 13
+  },
+  "created_at": "2026-08-05T04:50:05Z",
+  "created_by": "agent",
+  "findings": [
+    {
+      "severity": "note",
+      "category": "silence",
+      "summary": "28580ms gap before cue 10 (possible dropped speech / music)",
+      "cue_id": 10,
+      "timestamp_ms": 325300
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 0 spans 47580ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 0,
+      "timestamp_ms": 0
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 9 spans 150840ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 9,
+      "timestamp_ms": 174460
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 11 spans 43320ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 11,
+      "timestamp_ms": 375520
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 12 spans 103520ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 12,
+      "timestamp_ms": 420300
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 13 spans 52340ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 13,
+      "timestamp_ms": 524940
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 14 spans 33200ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 14,
+      "timestamp_ms": 578600
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 16 spans 62540ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 16,
+      "timestamp_ms": 644020
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 17 spans 123380ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 17,
+      "timestamp_ms": 707600
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 19 spans 49760ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 19,
+      "timestamp_ms": 837400
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 20 spans 212060ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 20,
+      "timestamp_ms": 888280
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 24 spans 123840ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 24,
+      "timestamp_ms": 1147260
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 26 spans 40440ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 26,
+      "timestamp_ms": 1297300
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 27 spans 88480ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 27,
+      "timestamp_ms": 1339300
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 0 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "اعود بالله برشیطان ردیم بسم الله الرحمن الرحیم و العصده اندال انسان ننفی خوصر ایلالذین آمنوا و عملوا استالحاقی و تواصطا و بالحبی و تواصطا و مستبرو سوره ببارکه ق"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 1 references a sensitive religious term ('خدا') — human editorial review of translation recommended",
+      "cue_id": 1,
+      "timestamp_ms": 49540,
+      "evidence": "سوگند به عصر که روشن خواهد شد با حاست خدا که این چه عصر است"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 12 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 12,
+      "timestamp_ms": 420300,
+      "evidence": "تعلیم بدید اراغ کنید اشتفا کنید که این کلمت الله یا الوریا باشد لیوزهره و علا دین کنله باشد اون بیان نورانی پیغمبر سلالله سلالله که فرمود الاسلامو یعنو و لا یعن"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 14 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 14,
+      "timestamp_ms": 578600,
+      "evidence": "متحقق عملی باشند که کار عقل عملی است که الاغلم را عابده به الرحمان و دل را با این گره بزند و مؤمن باشد قبلنم روشن شد که آمنه به معنی اعتقده نیست آمنه یعنی دخل پ"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 15 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 15,
+      "timestamp_ms": 612860,
+      "evidence": "اونچه که به امامت برمی کردد که بعضی ها خواستن بگوید این اصر اصر زهور بلدود انبارکه ولی اصر است اصر رجعت اون زواد قدسی است اون اصر زهور بقیه تا الله ارواغ من سوا"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 17 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 17,
+      "timestamp_ms": 707600,
+      "evidence": "هیچ توقعی ندارد ایدارو معاخزه نمی کند که چرا یاد نگرفتی مگر این که قبلا از علمات احد بگیرد که چرا یاد ندادی یا به شما واجب است کتاب بنویسید کتیبه بنگارید سقنران"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 19 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 19,
+      "timestamp_ms": 837400,
+      "evidence": "اگر دین بشود کلمت الله الانیا و اگر اسلام بشود الاسلام و یعلو بلا یعلا علی جامعه برین اسلامی باید این ارکان ارور را به این صورت داشته باشند چهارومی هم تواصیه به"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 20 references a sensitive religious term ('امام') — human editorial review of translation recommended",
+      "cue_id": 20,
+      "timestamp_ms": 888280,
+      "evidence": "و در حنگام معصیت سبر ان المعصیت است بادار کنیم یک دیگر را چه حنگام تصمیم و گناه از این تصمیم سرفنظر کنیم توفیق توبه فرام کنیم توفیق انابه در کنیم توفیق ادراک مش"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 23 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 23,
+      "timestamp_ms": 1129580,
+      "evidence": "در سابق و لاحق و سالف و آنف تبه باران بودن ولی مردان الهی که دست پرورده این گونه از سبر و آیات قرآن و کریمن حرمت این آیات نگه داشتن بعد از نزول این سوره باره که"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 25 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 25,
+      "timestamp_ms": 1272480,
+      "evidence": "و چه این جامعه میشه خیر روز بریه هر از این طور نیست که فقط ادعای قرآن این باشد که شما بعد از مرگ در بهش میارمید و خیر روز بریه هستید اون سر جاش محفوظ به مال آره"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 27 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 27,
+      "timestamp_ms": 1339300,
+      "evidence": "سوام توصیه به همون اصول دین که حق است چهارم توصیه به همون فرو ادین که سبر است اگر کسی مرکه سبر داشته باشد هم طاعتهای الهی رو انجام میدهد هم از معصیت های الهی نج"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 28 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 28,
+      "timestamp_ms": 1428620,
+      "evidence": "داهمل اخراب دو تا برادر مؤمن وقتی به احدیگر میرسند مثل آن از که دو تا دست به احدیگر رسیدند که از برخورد اینها و تماثت اینها زیر شیر و آید هر دو تدهیر میشوند به "
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 29 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 29,
+      "timestamp_ms": 1458620,
+      "evidence": "تواصیه به حق منتشر کنیم و هم احکام و حکم فرعی به فیقی اینا را به عنوان تواصیه به سر رو در جامعه منتقل کنیم و فرند لا هولنا و لکم و السلام علیکم و رحمت الله و بب"
+    }
+  ]
+}

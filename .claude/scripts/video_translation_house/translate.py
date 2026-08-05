@@ -71,6 +71,15 @@ def _active_track_langs(state: dict[str, Any]) -> list[str]:
     return [lang for lang, t in tracks.items() if t.get("status") != "failed"]
 
 
+def _translatable_track_langs(state: dict[str, Any]) -> list[str]:
+    """Active tracks that actually undergo TRANSLATION — i.e. excluding the source-language
+    track (marked ``skip_translation``), which gets verbatim captions instead of a translation.
+    Used for the translation quorum + QA aggregation so the source track never stalls them."""
+    tracks = state.get("language_tracks", {})
+    return [lang for lang in _active_track_langs(state)
+            if not tracks.get(lang, {}).get("skip_translation")]
+
+
 def _flag_cue(text: str) -> list[str]:
     """Mark cues whose translation is high-stakes editorial (religious/political), so the
     worksheet steers the translator to a stronger model for them."""
@@ -130,6 +139,14 @@ def export_worksheet(
     transcript = load_transcript(root, project_id)  # source language
     source_language = transcript["language"]
 
+    # Source language == target language: no translation needed. Instead of emitting an empty
+    # worksheet for a human to "translate" source->source, write the canonical caption doc
+    # directly with target_text == source_text verbatim, register it, and mark the track
+    # captioned. Downstream (captions build, dubbing, packaging) then sees a normal,
+    # already-"translated" track with no special-casing.
+    if language == source_language:
+        return _export_source_verbatim(root, project_id, paths, transcript, language, actor=actor)
+
     glossary_block = ""
     gid = _project_glossary_id(paths)
     if gid:
@@ -172,6 +189,59 @@ def export_worksheet(
     })
     return {"worksheet": _rel(dest, paths), "language": language, "cues": len(cues),
             "glossary_id": gid}
+
+
+def _export_source_verbatim(
+    root: Path, project_id: str, paths: ProjectPaths, transcript: dict[str, Any],
+    language: str, *, actor: str,
+) -> dict[str, Any]:
+    """Write verbatim source-language captions (target_text == source_text) for the source
+    track, register them, and advance the track straight to the captioned stage. This is the
+    source-language skip of TRANSLATION — the track produces captions without a translation."""
+    cues = [{
+        "id": cue["id"],
+        "start_ms": cue["start_ms"],
+        "end_ms": cue["end_ms"],
+        "source_text": cue["text"],
+        "target_text": cue["text"],
+    } for cue in transcript["cues"]]
+    doc = {
+        "schema_version": SCHEMA_VERSION,
+        "project_id": project_id,
+        "language": language,
+        "source_language": language,
+        "script_class": captions_mod.script_class(language),
+        "glossary_id": _project_glossary_id(paths),
+        "engine": {"provider": "source-verbatim", "model": None, "version": None},
+        "has_word_timing": False,
+        "cues": cues,
+        "created_at": utc_now(),
+        "created_by": actor,
+    }
+    require_valid(root, doc, "captions.schema.json")
+    dest = paths.captions_dir / captions_filename(language)
+    with project_lock(paths.lock):
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(dest, doc)
+    artifact = artifacts_mod.register_artifact(
+        root, project_id, dest, "captions-json", "TRANSLATION", actor, language=language,
+    )
+    # The source track skips the TRANSLATION_QA_GATE stage entirely (nothing to review) and
+    # goes straight to the captioned stage; it's excluded from the translation quorum.
+    _set_track(root, project_id, language, stage=TRACK_STAGE_CAPTIONED,
+               status="in_progress", actor=actor,
+               notes="source language — verbatim captions, no translation")
+    append_event(paths.events, project_id, "SOURCE_CAPTIONS_EXPORTED", actor, {
+        "language": language, "cues": len(cues), "captions_sha256": artifact["sha256"],
+    })
+    return {
+        "language": language,
+        "cues": len(cues),
+        "captions": _rel(dest, paths),
+        "artifact": artifact,
+        "source_language_skip": True,
+        "note": "source language — verbatim captions written, no translation needed",
+    }
 
 
 # --- 3. import ---------------------------------------------------------------
@@ -254,8 +324,10 @@ def import_worksheet(
         "language": language, "cues": len(doc["cues"]), "captions_sha256": artifact["sha256"],
     })
 
+    state = load_json(paths.state)
     advanced = _maybe_advance_top(root, project_id, actor, advance, "TRANSLATION",
-                                  "TRANSLATION_QA_GATE", TRACK_STAGE_TRANSLATED)
+                                  "TRANSLATION_QA_GATE", TRACK_STAGE_TRANSLATED,
+                                  quorum_langs=_translatable_track_langs(state))
     return {"captions": _rel(dest, paths), "artifact": artifact, "language": language,
             "cues": len(doc["cues"]), "advanced_to": advanced}
 
@@ -383,7 +455,12 @@ def run_translation_qa(root: Path, project_id: str, *, actor: str = "agent") -> 
     Both are single files keyed by report type; the human approval remains per-language.
     """
     paths = ProjectPaths(root, project_id).require()
-    docs = _active_captions(root, project_id)
+    # Only translated tracks are subject to translation QA — the source-language track carries
+    # verbatim captions (target == source by design), which would otherwise trip every
+    # "untranslated-suspect"/"identical to source" check. Its readability is still checked in
+    # run_caption_validation.
+    translatable = set(_translatable_track_langs(load_json(paths.state)))
+    docs = [d for d in _active_captions(root, project_id) if d["language"] in translatable]
     gid = _project_glossary_id(paths)
     glossary = glossary_mod.load_glossary(root, gid) if gid else None
 

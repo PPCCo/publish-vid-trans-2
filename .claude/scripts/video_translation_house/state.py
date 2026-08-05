@@ -61,10 +61,14 @@ def transition_blockers(root: Path, project_id: str, current: str, target: str) 
         per_language_gates = {"translation_qa", "audio_qa"}
         if gate in per_language_gates:
             tracks = _active_track_langs(state)
+            lt = state.get("language_tracks", {})
+            # The source-language track skips TRANSLATION (verbatim captions, nothing to
+            # translate), so there is no translation to approve for it — don't demand one.
+            if gate == "translation_qa":
+                tracks = [lang for lang in tracks if not lt.get(lang, {}).get("skip_translation")]
             # audio_qa only applies to dub-enabled tracks; caption-only tracks carry no dub to
             # approve, so they must not demand (an impossible) audio approval.
             if gate == "audio_qa":
-                lt = state.get("language_tracks", {})
                 tracks = [lang for lang in tracks if lt.get(lang, {}).get("dub_enabled")]
             missing = [lang for lang in tracks if not has_valid_approval(root, project_id, gate, lang)]
             if missing:

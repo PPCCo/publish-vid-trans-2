@@ -6,7 +6,7 @@
   "additionalProperties": false,
   "required": ["video_id", "url", "added_at", "rights_status"],
   "properties": {
-    "video_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$" },
+    "video_id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,63}$" },
     "url": { "type": "string" },
     "title": { "type": ["string", "null"] },
     "channel": { "type": ["string", "null"] },

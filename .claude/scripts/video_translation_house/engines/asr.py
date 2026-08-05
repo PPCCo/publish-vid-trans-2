@@ -142,6 +142,18 @@ def _normalize_whisper_json(data: dict[str, Any]) -> tuple[list[TranscriptCue], 
     return cues, has_words
 
 
+def _binary(name: str) -> str:
+    """Absolute path to an engine binary, resolved via util.executable (PATH + venv bin).
+
+    The subprocess is spawned WITHOUT the venv on PATH (the CLI runs as
+    `.venv/bin/python3 …` unactivated), so passing the bare name would make
+    `subprocess.run` fail to find a venv-installed engine even though the availability
+    check found it. Resolving to an absolute path here keeps the two in lockstep. Falls
+    back to the bare name (so the caller's FileNotFoundError → EngineUnavailableError path
+    still produces a clear message) if resolution fails."""
+    return executable(name) or name
+
+
 def _run(command: list[str], *, timeout: int) -> subprocess.CompletedProcess[str]:
     try:
         return subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)
@@ -154,14 +166,27 @@ def _run(command: list[str], *, timeout: int) -> subprocess.CompletedProcess[str
 def _transcribe_mlx(
     audio: Path, out_dir: Path, *, model: str | None, language: str | None,
     word_timestamps: bool, timeout: int,
+    condition_on_previous_text: bool = True,
+    hallucination_silence_threshold: float | None = None,
+    temperature: float | None = None,
 ) -> dict[str, Any]:
-    command = ["mlx_whisper", str(audio), "--output-dir", str(out_dir), "--output-format", "json"]
+    command = [_binary("mlx_whisper"), str(audio), "--output-dir", str(out_dir), "--output-format", "json"]
     if model:
         command += ["--model", model]
     if language:
         command += ["--language", language]
     if word_timestamps:
         command += ["--word-timestamps", "True"]
+    # Decode-control knobs (mlx-whisper CLI uses hyphenated flag names). These are the levers
+    # against repetition-hallucination loops on hard audio (recitation/music): disabling
+    # condition-on-previous-text stops the decoder from parroting its own prior output, and the
+    # hallucination-silence-threshold skips likely hallucinations across long silences.
+    if not condition_on_previous_text:
+        command += ["--condition-on-previous-text", "False"]
+    if hallucination_silence_threshold is not None:
+        command += ["--hallucination-silence-threshold", str(hallucination_silence_threshold)]
+    if temperature is not None:
+        command += ["--temperature", str(temperature)]
     result = _run(command, timeout=timeout)
     if result.returncode != 0:
         raise VideoTranslationHouseError(
@@ -176,15 +201,26 @@ def _transcribe_mlx(
 def _transcribe_faster(
     audio: Path, out_dir: Path, *, model: str | None, language: str | None,
     word_timestamps: bool, timeout: int,
+    condition_on_previous_text: bool = True,
+    hallucination_silence_threshold: float | None = None,
+    temperature: float | None = None,
 ) -> dict[str, Any]:
     out_file = out_dir / f"{audio.stem}.json"
-    command = ["faster-whisper", str(audio), "--output_format", "json", "--output_dir", str(out_dir)]
+    command = [_binary("faster-whisper"), str(audio), "--output_format", "json", "--output_dir", str(out_dir)]
     if model:
         command += ["--model", model]
     if language:
         command += ["--language", language]
     if word_timestamps:
         command += ["--word_timestamps", "True"]
+    # Decode-control knobs (faster-whisper CLI uses underscored flag names — mirror of the mlx
+    # path). Same purpose: suppress repetition-hallucination loops on difficult audio.
+    if not condition_on_previous_text:
+        command += ["--condition_on_previous_text", "False"]
+    if hallucination_silence_threshold is not None:
+        command += ["--hallucination_silence_threshold", str(hallucination_silence_threshold)]
+    if temperature is not None:
+        command += ["--temperature", str(temperature)]
     result = _run(command, timeout=timeout)
     if result.returncode != 0:
         raise VideoTranslationHouseError(
@@ -205,22 +241,36 @@ def transcribe(
     language: str | None = None,
     word_timestamps: bool = True,
     timeout: int = 3600,
+    condition_on_previous_text: bool = True,
+    hallucination_silence_threshold: float | None = None,
+    temperature: float | None = None,
 ) -> ASRResult:
     """Transcribe ``audio_path`` with the resolved provider, writing engine JSON to
-    ``out_dir``. Raises ``EngineUnavailableError`` if no suitable engine is installed."""
+    ``out_dir``. Raises ``EngineUnavailableError`` if no suitable engine is installed.
+
+    ``condition_on_previous_text`` / ``hallucination_silence_threshold`` / ``temperature`` are
+    decode-control levers passed through to the engine CLI. Disabling
+    ``condition_on_previous_text`` is the primary defense against repetition-hallucination loops
+    (the decoder parroting its own prior output) on hard audio; the transcript retry ladder in
+    ``transcript.run_transcription`` varies these across attempts."""
     audio = Path(audio_path)
     if not audio.is_file():
         raise FileNotFoundError(audio)
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    decode = {
+        "condition_on_previous_text": condition_on_previous_text,
+        "hallucination_silence_threshold": hallucination_silence_threshold,
+        "temperature": temperature,
+    }
     resolved = _resolve_provider(provider)
     if resolved == "mlx-whisper":
         raw = _transcribe_mlx(audio, out, model=model, language=language,
-                              word_timestamps=word_timestamps, timeout=timeout)
+                              word_timestamps=word_timestamps, timeout=timeout, **decode)
     else:  # faster-whisper
         raw = _transcribe_faster(audio, out, model=model, language=language,
-                                 word_timestamps=word_timestamps, timeout=timeout)
+                                 word_timestamps=word_timestamps, timeout=timeout, **decode)
 
     cues, has_words = _normalize_whisper_json(raw)
     return ASRResult(

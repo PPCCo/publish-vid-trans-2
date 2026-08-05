@@ -41,6 +41,10 @@
             "type": ["string", "null"],
             "description": "Optional round-trip gloss (target->source) the QA step diffs against source_text."
           },
+          "context_note": {
+            "type": ["string", "null"],
+            "description": "Optional reviewer-facing note (agent-authored) explaining a word-sense / context decision or flagging a source-transcript problem. Used by the TRANSCRIPT_QA_GATE English review-gloss; carried through verbatim."
+          },
           "flags": { "type": "array", "items": { "type": "string" } },
           "lines": {
             "type": "array",

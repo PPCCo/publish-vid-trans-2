@@ -84,6 +84,10 @@ just documentation:
 python3 -m venv .venv
 .venv/bin/pip install -e '.[dev,mcp]'
 
+# ingest needs yt-dlp; install it into the SAME venv (the CLI finds venv-installed tools
+# even when the venv is not "activated" — see OPERATING-GUIDE.md).
+.venv/bin/pip install yt-dlp
+
 # see what's installed / missing (ffmpeg, ffprobe, ASR/TTS engines, yt-dlp)
 .venv/bin/python3 .claude/scripts/vid_cli.py doctor
 
@@ -712,6 +716,13 @@ holds just the captions and README — no video, since `fa` was never in `--audi
 - **Ingest is allowlisted, not open.** The sanctioned network module only accepts
   `youtube.com`/`youtu.be`/`vimeo.com` URLs and only runs when `VIDTRANS_FETCH_ENABLED=1` —
   an agent cannot redirect ingest to an arbitrary host even if it tries.
+- **Behind a TLS-inspecting proxy, point `yt-dlp` at the corporate CA bundle.** On networks
+  that intercept HTTPS (e.g. Palo Alto Prisma Access), `ingest run` fails with
+  `CERTIFICATE_VERIFY_FAILED: self-signed certificate in certificate chain`. yt-dlp reads
+  the trust store from the standard-library `ssl` module, which honors `SSL_CERT_FILE` —
+  export it (and `REQUESTS_CA_BUNDLE`) to the bundle that contains the interception root
+  before running ingest. See OPERATING-GUIDE.md for the exact recipe. This is an environment
+  condition, not a framework bug.
 - **A source selection is resolved late and can be re-cut.** Selection windows are turned
   into a hashed `segments.json` at `SEGMENT_RESOLUTION` and only *applied* (cut/joined) at
   PACKAGE — translation/dub run on the whole timeline throughout. Empty `selection: []`,
@@ -730,8 +741,8 @@ holds just the captions and README — no video, since `fa` was never in `--audi
 ## Testing
 
 ```bash
-.venv/bin/python3 -m pytest tests/ -q                              # 146 passed, 1 skipped*
-.venv/bin/python3 -m ruff check .claude/scripts .claude/mcp tests   # clean
+.venv/bin/python3 -m pytest tests/ -q                              # all pass, 1 skipped*
+.venv/bin/python3 -m ruff check .claude/scripts .claude/mcp .claude/hooks tests
 VIDTRANS_REPO_ROOT="$PWD" .venv/bin/python3 .claude/scripts/vid_cli.py framework validate
 ```
 
@@ -759,6 +770,9 @@ inside the venv once installed, as an alternative to `python3 .claude/scripts/vi
 Optional, install as needed:
 - `ffmpeg`/`ffprobe` — required for any real media operation (mux, probe, audio ops).
 - `yt-dlp` — required for `ingest run`; not needed if you supply source video files directly.
+  Install it into the project venv (`.venv/bin/pip install yt-dlp`); the CLI resolves
+  tools on `PATH` **and** in the venv's own `bin/` (next to the running interpreter), so a
+  venv-installed `yt-dlp` is found without activating the venv.
 - An ASR engine (`mlx-whisper`, `faster-whisper`) — optional; `transcript import` works
   without one.
 - A TTS engine (`kokoro`, `piper`, `xtts`, `chatterbox`, or a vendor CLI) — optional; `dub

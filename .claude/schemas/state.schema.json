@@ -45,6 +45,10 @@
             "enum": ["pending", "in_progress", "blocked", "failed", "complete"]
           },
           "dub_enabled": { "type": "boolean" },
+          "skip_translation": {
+            "type": "boolean",
+            "description": "True when this track's language IS the source language: it skips the TRANSLATION stage (verbatim source captions are produced instead of a pointless source->source translation)."
+          },
           "updated_at": { "type": "string" },
           "notes": { "type": "string" }
         }

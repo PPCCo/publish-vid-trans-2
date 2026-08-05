@@ -90,6 +90,17 @@ def set_language(
     with project_lock(paths.lock):
         state = load_json(paths.state)
         state["source_language"] = normalized
+        # If the source language is also a translation TARGET, that track skips TRANSLATION:
+        # translating source->source is pointless. It still produces verbatim source captions
+        # (see translate.export_worksheet), so mark it here and let the export short-circuit
+        # emit the caption doc. The marker is what excludes the track from translation
+        # quorums/gates downstream (translate._translatable_track_langs, state gate checks).
+        tracks = state.get("language_tracks", {})
+        if normalized in tracks:
+            tracks[normalized]["skip_translation"] = True
+            tracks[normalized]["updated_at"] = utc_now()
+            if not tracks[normalized].get("notes"):
+                tracks[normalized]["notes"] = "source language — no translation; verbatim captions"
         state["updated_at"] = utc_now()
         state["updated_by"] = actor
         atomic_write_json(paths.state, state)

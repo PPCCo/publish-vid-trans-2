@@ -33,6 +33,86 @@ SCHEMA_VERSION = "1.0"
 # Sentence-final punctuation across Latin, Arabic-script (؟ ۔), and CJK.
 _SENTENCE_END = re.compile(r"[.!?۔؟。！？]+[\"'”』」）)]*\s*$")
 
+# --- Transcript quality thresholds (auditable module constants; mirror transcript_qa.py) ---
+# A speech lecture averages well under 10s per natural sentence-cue; a transcript with fewer
+# than ~1 cue / 10s of audio is almost always coarse (word-timestamps off, or a merge over a
+# blank/hallucinated stretch) and unusable for caption timing downstream.
+MIN_CUES_PER_SECOND = 1 / 10
+# A single cue longer than this is almost always a merge across a hallucinated/blank stretch.
+LONG_CUE_MS = 30000
+# The same normalized cue text repeating this many times in a row is a repetition-hallucination
+# loop (the decoder parroting its own output on hard audio — e.g. recitation/music).
+REPETITION_RUN_MIN = 3
+
+
+def _normalize_cue_text(text: str) -> str:
+    return " ".join((text or "").split()).strip().lower()
+
+
+def validate_transcript_quality(doc: dict[str, Any]) -> list[str]:
+    """Pure, testable transcript sanity check. Returns a list of human-readable problem
+    strings (empty = clean). This is the auto-retry ladder's accept/reject signal — it must
+    catch the failure modes a deterministic decode can still produce (repetition loops, coarse
+    output, giant merged cues), NOT editorial judgment (that's the human QA gate)."""
+    problems: list[str] = []
+    cues = doc.get("cues", []) or []
+    if not cues:
+        return ["transcript has no cues"]
+
+    duration = doc.get("duration_seconds")
+    if duration:
+        expected = duration * MIN_CUES_PER_SECOND
+        if len(cues) < expected:
+            problems.append(
+                f"too few cues for {duration:.0f}s of audio: {len(cues)} < ~{expected:.0f} "
+                f"expected ({MIN_CUES_PER_SECOND * 1000:.0f} per 10s) — likely coarse/merged output"
+            )
+
+    # Over-long cues (each one is a signal on its own).
+    for cue in cues:
+        span = int(cue.get("end_ms", 0)) - int(cue.get("start_ms", 0))
+        if span > LONG_CUE_MS:
+            problems.append(
+                f"cue {cue.get('id')} spans {span}ms (> {LONG_CUE_MS}ms) — likely a merge over a "
+                "hallucinated/blank stretch"
+            )
+
+    # Consecutive-repetition run (the نصیحت-style loop).
+    run_text: str | None = None
+    run_len = 0
+    run_start_id: Any = None
+    for cue in cues:
+        norm = _normalize_cue_text(cue.get("text", ""))
+        if norm and norm == run_text:
+            run_len += 1
+        else:
+            if run_len >= REPETITION_RUN_MIN:
+                problems.append(
+                    f"repetition-hallucination run: cue text repeats {run_len}x consecutively "
+                    f"starting at cue {run_start_id} ({run_text[:40]!r})"
+                )
+            run_text, run_len, run_start_id = norm, 1, cue.get("id")
+    if run_len >= REPETITION_RUN_MIN:
+        problems.append(
+            f"repetition-hallucination run: cue text repeats {run_len}x consecutively "
+            f"starting at cue {run_start_id} ({run_text[:40]!r})"
+        )
+    return problems
+
+
+# Escalating decode-configuration ladder for the auto-retry mode. Each rung uses *different*
+# decode settings so a retry can actually change the result (mlx-whisper decodes
+# deterministically at temperature 0, so re-running identical settings would reproduce the same
+# transcript). Rung 1 is the normal default; 2-3 progressively fight repetition-hallucination
+# loops; 4 falls back to coarse segment-only timing as a last resort.
+_RETRY_LADDER: tuple[dict[str, Any], ...] = (
+    {"word_timestamps": True, "condition_on_previous_text": True},
+    {"word_timestamps": True, "condition_on_previous_text": False},
+    {"word_timestamps": True, "condition_on_previous_text": False,
+     "hallucination_silence_threshold": 2.0},
+    {"word_timestamps": False, "condition_on_previous_text": False},
+)
+
 
 def transcript_filename(language: str) -> str:
     return f"source.{language}.json"
@@ -133,6 +213,28 @@ def write_transcript(
     return {"transcript": _rel(dest, paths), "artifact": artifact, "cues": len(doc["cues"])}
 
 
+def _backup_engine_attempt(
+    paths: ProjectPaths, attempt_n: int, ts: str, engine_json: dict[str, Any] | None,
+    candidate_doc: dict[str, Any], problems: list[str],
+) -> Path:
+    """Persist a rejected retry attempt (engine JSON + candidate transcript doc + the problems
+    that rejected it) under transcript/engine/attempts/ so a human can inspect what each rung
+    produced. Never overwrites the canonical transcript — this is scratch/audit output only."""
+    ts_safe = ts.replace(":", "").replace("-", "")
+    attempts_dir = paths.transcript_dir / "engine" / "attempts"
+    dest = attempts_dir / f"attempt-{attempt_n}-{ts_safe}.json"
+    with project_lock(paths.lock):
+        attempts_dir.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(dest, {
+            "attempt": attempt_n,
+            "created_at": ts,
+            "problems": problems,
+            "engine_json": engine_json,
+            "candidate_doc": candidate_doc,
+        })
+    return dest
+
+
 def run_transcription(
     root: Path,
     project_id: str,
@@ -140,10 +242,26 @@ def run_transcription(
     provider: str | None = None,
     model: str | None = None,
     word_timestamps: bool = True,
+    condition_on_previous_text: bool = True,
+    hallucination_silence_threshold: float | None = None,
+    temperature: float | None = None,
+    retry: bool = True,
     actor: str = "agent",
     advance: bool = False,
 ) -> dict[str, Any]:
-    """Transcribe the project's source audio and write the canonical transcript."""
+    """Transcribe the project's source audio and write the canonical transcript.
+
+    Auto-retry mode (``retry=True``, the default): runs an escalating ladder of decode
+    configurations (``_RETRY_LADDER``), validating each with ``validate_transcript_quality``.
+    The first clean attempt wins; rejected attempts are backed up under
+    ``transcript/engine/attempts/`` for inspection. If every rung fails validation, the best
+    attempt (most cues, fewest problems) is persisted anyway — never silently — and its
+    unresolved problems are surfaced in the return payload and a ``TRANSCRIPTION_QUALITY_WARNING``
+    event so the QA gate and human reviewer see them.
+
+    Single-config mode: if the caller overrides any decode flag (``retry=False``, or a non-default
+    ``condition_on_previous_text`` / ``hallucination_silence_threshold`` / ``temperature``), only
+    that one configuration is run — the ladder is the automatic default, not a straitjacket."""
     paths = ProjectPaths(root, project_id).require()
     state = load_json(paths.state)
     if state["current_state"] != "TRANSCRIPTION":
@@ -160,12 +278,66 @@ def run_transcription(
     if not audio.is_file():
         raise ConfigurationError(f"source audio missing: {_rel(audio, paths)} (run ingest first)")
 
-    result = transcribe(
-        audio, paths.transcript_dir / "engine",
-        provider=provider, model=model, language=language, word_timestamps=word_timestamps,
+    # An explicit decode override (or --no-retry) collapses the ladder to a single configuration.
+    overridden = (
+        not retry
+        or not condition_on_previous_text
+        or hallucination_silence_threshold is not None
+        or temperature is not None
+        or not word_timestamps
     )
-    doc = build_transcript_doc(project_id, language, result, dialect=dialect, actor=actor)
+    if overridden:
+        configs: tuple[dict[str, Any], ...] = ({
+            "word_timestamps": word_timestamps,
+            "condition_on_previous_text": condition_on_previous_text,
+            "hallucination_silence_threshold": hallucination_silence_threshold,
+            "temperature": temperature,
+        },)
+    else:
+        configs = _RETRY_LADDER
+
+    engine_dir = paths.transcript_dir / "engine"
+    best: dict[str, Any] | None = None  # {"doc", "result", "problems"}
+    chosen_config: dict[str, Any] | None = None
+
+    for attempt_n, cfg in enumerate(configs, start=1):
+        result = transcribe(
+            audio, engine_dir,
+            provider=provider, model=model, language=language,
+            word_timestamps=cfg.get("word_timestamps", True),
+            condition_on_previous_text=cfg.get("condition_on_previous_text", True),
+            hallucination_silence_threshold=cfg.get("hallucination_silence_threshold"),
+            temperature=cfg.get("temperature"),
+        )
+        doc = build_transcript_doc(project_id, language, result, dialect=dialect, actor=actor)
+        problems = validate_transcript_quality(doc)
+        if not problems:
+            best = {"doc": doc, "result": result, "problems": []}
+            chosen_config = cfg
+            break
+        # Track the best-so-far (most cues, then fewest problems) in case all rungs fail.
+        score = (len(doc["cues"]), -len(problems))
+        if best is None or score > (len(best["doc"]["cues"]), -len(best["problems"])):
+            best = {"doc": doc, "result": result, "problems": problems}
+            chosen_config = cfg
+        # Only bother backing up rejected attempts when we have more rungs to try.
+        if len(configs) > 1:
+            _backup_engine_attempt(paths, attempt_n, utc_now(), result_engine_json(engine_dir, audio),
+                                   doc, problems)
+
+    assert best is not None  # configs is always non-empty
+    doc = best["doc"]
+    result = best["result"]
+    unresolved = best["problems"]
     written = write_transcript(root, project_id, doc, actor=actor)
+
+    if unresolved:
+        append_event(paths.events, project_id, "TRANSCRIPTION_QUALITY_WARNING", actor, {
+            "language": language,
+            "problems": unresolved,
+            "attempts_tried": len(configs),
+            "cues": len(doc["cues"]),
+        })
 
     advanced_to = "TRANSCRIPTION"
     if advance:
@@ -177,9 +349,24 @@ def run_transcription(
         "language": language,
         "provider": result.provider,
         "has_word_timing": result.has_word_timing,
+        "attempts_tried": len(configs),
+        "decode_config": chosen_config,
+        "quality_problems": unresolved,
         **written,
         "advanced_to": advanced_to,
     }
+
+
+def result_engine_json(engine_dir: Path, audio: Path) -> dict[str, Any] | None:
+    """Best-effort read of the raw engine JSON the last transcribe() left in ``engine_dir``
+    (for attempt backups). Returns None if it can't be located/parsed — backups are audit-only."""
+    try:
+        produced = sorted(engine_dir.glob(f"{audio.stem}*.json"))
+        if produced:
+            return load_json(produced[-1])
+    except Exception:  # noqa: BLE001 - backup is best-effort, never fail the run over it
+        return None
+    return None
 
 
 def load_transcript(root: Path, project_id: str, language: str | None = None) -> dict[str, Any]:

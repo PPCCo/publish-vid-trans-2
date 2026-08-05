@@ -545,7 +545,10 @@ def test_reresolve_changes_selection_hash_provenance(repo: Path):
     state.transition(repo, VID, "TRANSCRIPTION", "agent")
     result = asr.ASRResult(
         provider="manual", model=None, language="fa",
-        cues=[asr.TranscriptCue(0, 0, 3000, "x", confidence=-0.2)],
+        # Enough cues for the 20s duration to clear the QA granularity check (~1 cue/10s) so
+        # this test exercises segment re-resolution, not transcript QA.
+        cues=[asr.TranscriptCue(i, i * 3000, i * 3000 + 2000, f"x{i}.", confidence=-0.2)
+              for i in range(3)],
         has_word_timing=False, duration_seconds=20.0,
     )
     transcript.write_transcript(repo, VID, transcript.build_transcript_doc(VID, "fa", result, actor="agent"),
@@ -563,7 +566,7 @@ def test_reresolve_changes_selection_hash_provenance(repo: Path):
     h1 = first["selection_hash"]
 
     # Human edits project.yaml selection; re-resolve -> different hash + re-registered artifact.
-    from video_translation_house.util import load_yaml, atomic_write_yaml
+    from video_translation_house.util import atomic_write_yaml, load_yaml
     cfg = load_yaml(paths / "project.yaml")
     cfg["selection"]["windows"][0]["end"] = "00:05.000"
     atomic_write_yaml(paths / "project.yaml", cfg)
