@@ -77,6 +77,25 @@ lifecycle becomes **per-target-language** (each `state.language_tracks` entry ad
 its own). Translation is *your* work as the agent — the CLI never calls an LLM. You fill a
 worksheet the CLI emits, then hand it back for validation and content-addressing.
 
+## Two-axis translate/dub scope — which tracks need a HUMAN gate
+Translation **and** dubbing happen for every selected language, but the **human review
+machinery is scoped** (rule 7 extension):
+
+- **Source language** — `skip_translation: true`. No worksheet, no translation gate; the CLI
+  emits verbatim source captions (`translate export` short-circuits). Human QA on this track
+  is caption/editorial only.
+- **English (`en`)** — human-reviewed. Fill its worksheet and STOP at the per-language
+  `translation_qa` gate for a human approval (unless `en` is itself the source → skip).
+- **Every other target** (`fr`, `es`, `zh`, `pt`, `ru`, …) — marked `auto_translate: true`
+  at track creation. **You (the AI) fill its worksheet and `translate import` it with NO human
+  gate.** Deterministic QA (`translation-qa`, `glossary`) still runs and must pass; only the
+  *human approval* requirement is lifted. `state.transition_blockers` already excludes these
+  tracks from the `translation_qa` gate — do not seek an approval for them.
+
+Check each track's markers with `vid_cli.py project status <id>` (or read
+`state.language_tracks.<iso>`): `skip_translation` → verbatim; `auto_translate` → AI-fill no
+gate; neither (i.e. `en`) → human gate.
+
 ## Model policy
 Translate volume cues with `@bedrock-eus1/us.anthropic.claude-sonnet-5` at `high` effort
 (this is the skill's default — a bounded per-cue rendering task, not a capability problem).
@@ -95,14 +114,21 @@ translation cues need the capability upgrade.
    `start_ms`, `end_ms`, or `source_text` — timing is the contract, and merging/splitting
    cues corrupts downstream sync. Honour the glossary: `[MUST]` terms must appear verbatim
    (or an accepted alias). Optionally add a `back_translation` per cue to aid QA.
+   For a dense source, fill in **bounded batches** (rule 11 gloss idiom) to avoid a
+   single-response timeout: write small `_batchN.json` maps of `{ "<cue-id>": {"target_text"}}`
+   and merge them into the worksheet by cue id with a throwaway helper, then delete the
+   scaffolding before import.
 3. Import: `vid_cli.py translate import <id> --language <iso>` — validates the worksheet,
    builds canonical `captions/captions.<iso>.json`, registers it, and advances that language
    track to `TRANSLATION_QA_GATE`. Add `--advance` to move the top-level state once *every*
    active track has been translated.
 4. QA: `vid_cli.py translate qa <id>` — writes the aggregate `translation-qa` and `glossary`
-   gate reports across all active tracks. If `glossary` is `FAIL`, a `[MUST]` term is
-   missing from some cue's translation; fix the cue, re-import, and re-run QA. Then STOP at
-   the human gate (see below).
+   gate reports across all active tracks (human AND auto). If `glossary` is `FAIL`, a `[MUST]`
+   term is missing from some cue's translation; fix the cue, re-import, and re-run QA.
+   - **`auto_translate` tracks:** no human gate — once deterministic QA passes they are done;
+     they advance with the top-level `--advance` quorum. Do NOT run `/qa-translation` or seek
+     an approval for them.
+   - **`en` (human) track:** STOP at the per-language human gate (see below).
 5. After the human approves and opens `TRANSLATION_QA_GATE -> CAPTION_TIMING`: render
    captions with `vid_cli.py captions build <id> --language <iso> --format srt,vtt`
    (deterministic; re-rendering the same JSON yields identical bytes).
@@ -111,11 +137,14 @@ translation cues need the capability upgrade.
    words). Fix flagged cues by editing `captions.<iso>.json` line wrapping or re-translating,
    then re-build and re-validate.
 
-## Stop / Escalate — HUMAN GATE (per language)
-`TRANSLATION_QA_GATE -> CAPTION_TIMING` is human-bound and **per-language**: each active
-track needs its own approval bound to that language's `captions-json` hash. You may prepare
-the packet and recommend, but never grant the approval or transition the gate. Use
-`/qa-translation` to build the reviewer packet.
+## Stop / Escalate — HUMAN GATE (source + en only)
+`TRANSLATION_QA_GATE -> CAPTION_TIMING` is human-bound but **scoped to the human-reviewed
+track(s)** — in practice just `en` (the source track is `skip_translation`; every other target
+is `auto_translate` and carries no human gate). The `en` track needs a human approval bound to
+its `captions-json` hash. You may prepare the packet and recommend, but never grant the
+approval or transition the gate. Use `/qa-translation` to build the reviewer packet for the
+human-reviewed track. Once `en` is approved and every `auto_translate` track has passed
+deterministic QA, the top-level gate opens.
 
 ## Outputs
 - `captions/<iso>.worksheet.json` (transient), `captions/captions.<iso>.json` (canonical,

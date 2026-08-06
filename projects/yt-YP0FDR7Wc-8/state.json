@@ -5,8 +5,8 @@
   "previous_state": "SEGMENT_RESOLUTION",
   "created_at": "2026-08-04T11:37:36Z",
   "created_by": "human",
-  "updated_at": "2026-08-06T01:00:44Z",
-  "updated_by": "Qaiser Abbas",
+  "updated_at": "2026-08-06T03:33:58Z",
+  "updated_by": "human",
   "source_language": "fa",
   "target_languages": [
     "en",
@@ -30,50 +30,58 @@
     "ar": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": false,
-      "updated_at": "2026-08-05T12:39:19Z"
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "fa": {
       "stage": "TRANSLATION",
       "status": "pending",
       "dub_enabled": false,
-      "updated_at": "2026-08-05T12:39:19Z"
+      "updated_at": "2026-08-06T03:33:58Z",
+      "skip_translation": true
     },
     "ur": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": false,
-      "updated_at": "2026-08-05T12:39:19Z"
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "zh": {
       "stage": "TRANSLATION",
       "status": "pending",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T01:00:44Z"
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "fr": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": true,
-      "updated_at": "2026-08-06T01:00:44Z"
+      "dub_enabled": false,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "es": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": true,
-      "updated_at": "2026-08-06T01:00:44Z"
+      "dub_enabled": false,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "pt": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": true,
-      "updated_at": "2026-08-06T01:00:44Z"
+      "dub_enabled": false,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     },
     "ru": {
       "stage": "TRANSLATION",
       "status": "pending",
-      "dub_enabled": true,
-      "updated_at": "2026-08-06T01:00:44Z"
+      "dub_enabled": false,
+      "updated_at": "2026-08-06T03:33:58Z",
+      "auto_translate": true
     }
   },
   "active_artifacts": {

@@ -172,3 +172,62 @@ def ingest_project(
 
 def _rel(path: Path, paths: ProjectPaths) -> str:
     return path.resolve().relative_to(paths.directory.resolve()).as_posix()
+
+
+def ensure_source_present(
+    root: Path,
+    project_id: str,
+    *,
+    actor: str = "agent",
+    write_subs: bool = True,
+) -> dict[str, Any]:
+    """Guarantee the source video (and its WAV) exist on disk, re-fetching if deleted.
+
+    Unlike ``ingest_project``, this is a media-restore, not a pipeline stage: it does NOT
+    require the project to be at ``INGEST`` and never advances state. It exists so a later
+    stage that actually needs the source bytes — ``package mux`` (packaging._source_video) or a
+    ``dub run --clone`` reference — can transparently recover from a deleted ``source/`` dir
+    (media is expensive to keep; a translate/dub-only re-run doesn't need it, but mux does).
+
+    If the video is already on disk, this is a no-op (``restored: False``). Otherwise it
+    re-downloads via the sanctioned, ``VIDTRANS_FETCH_ENABLED``-gated network module (raising
+    ``FetchDisabled`` when egress is off), re-extracts the WAV, and re-registers the
+    ``source-video``/``source-audio`` artifacts so provenance stays intact (mirrors ingest and
+    project._preserved_source_files' re-registration).
+    """
+    paths = ProjectPaths(root, project_id).require()
+    video_path = _existing_source_video(paths)
+    wav_path = paths.source_dir / "audio.wav"
+    if video_path is not None and wav_path.exists():
+        return {"project_id": project_id, "restored": False,
+                "video": _rel(video_path, paths), "audio": _rel(wav_path, paths)}
+
+    config = load_yaml(paths.config)
+    url = (config.get("source") or {}).get("url")
+    if not url:
+        raise ConfigurationError(f"project {project_id} has no source.url in project.yaml")
+
+    if video_path is None:
+        from .net import ytdlp_download  # lazy: a no-fetch CLI never loads it
+
+        result = ytdlp_download(url, paths.source_dir, write_subs=write_subs)
+        video_path = Path(result["video_path"]) if result.get("video_path") else None
+        if video_path is None:
+            raise ConfigurationError("yt-dlp completed but produced no video file")
+
+    if not wav_path.exists():
+        extract_wav(video_path, wav_path)
+
+    video_artifact = artifacts_mod.register_artifact(
+        root, project_id, video_path, "source-video", "INGEST", actor,
+    )
+    audio_artifact = artifacts_mod.register_artifact(
+        root, project_id, wav_path, "source-audio", "INGEST", actor,
+    )
+    append_event(paths.events, project_id, "SOURCE_RESTORED", actor, {
+        "video_sha256": video_artifact["sha256"],
+        "audio_sha256": audio_artifact["sha256"],
+    })
+    return {"project_id": project_id, "restored": True,
+            "video": _rel(video_path, paths), "audio": _rel(wav_path, paths),
+            "source_video": video_artifact, "source_audio": audio_artifact}

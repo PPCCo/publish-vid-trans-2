@@ -188,10 +188,13 @@ def test_clone_consent_passes_gate_but_needs_engine(repo: Path):
     _drive_to_caption_validation(repo)
     rights.set_rights(repo, VID, status="self-authored", reviewer="human",
                       voice_clone_consent=True, consent_evidence="signed release")
-    # Consent is recorded, so the clone refusal no longer fires; instead we hit the
-    # (uninstalled) engine — proving the consent gate is what changed, not the engine.
-    from video_translation_house.errors import EngineUnavailableError
-    with pytest.raises((EngineUnavailableError, DubbingError, ConfigurationError)):
+    # Consent is recorded, so the clone refusal no longer fires; instead we fail for a
+    # DIFFERENT reason — proving the consent gate is what changed. With no source WAV on
+    # disk (this fixture never downloaded one) a --clone dub now calls ensure_source_present,
+    # which re-fetches; egress is off in tests so that surfaces as a clean FetchDisabled.
+    # (If a source WAV were present we'd instead hit the uninstalled engine.)
+    from video_translation_house.errors import EngineUnavailableError, FetchDisabled
+    with pytest.raises((EngineUnavailableError, DubbingError, ConfigurationError, FetchDisabled)):
         dubbing.run_dub(repo, VID, "en", clone=True)
 
 

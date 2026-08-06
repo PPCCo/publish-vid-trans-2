@@ -23,6 +23,25 @@ def _initial_state() -> str:
     return "INGEST"
 
 
+# The only target languages that get a human-filled worksheet + a per-language translation_qa
+# human gate are the SOURCE language and English. Every other translatable target is
+# AI-auto-translated with deterministic QA only (marked ``auto_translate`` on its track, which
+# state.transition_blockers consults to skip the human gate). Keeping this in one place lets
+# init_project and add_languages mark tracks identically.
+_HUMAN_REVIEW_LANG = "en"
+
+
+def _is_auto_translate(lang: str, source_language: str | None) -> bool:
+    """True when ``lang`` should be AI-auto-translated (no human worksheet/gate).
+
+    A track is human-reviewed iff it is the source language (which actually skips translation
+    entirely, rule 7) or English; anything else is auto-translated.
+    """
+    if source_language and lang == source_language:
+        return False  # source track skips translation; not "auto-translated"
+    return lang != _HUMAN_REVIEW_LANG
+
+
 # Subpaths under transcript/ preserved by a keep-transcript reset: the source ASR transcript
 # doc(s) (source.<lang>.json) and the engine's raw output. Everything else in transcript/
 # (english-gloss*, qa-report.json) is downstream review work and is wiped.
@@ -85,12 +104,17 @@ def init_project(
     if errors:
         raise ConfigurationError("project.yaml invalid: " + "; ".join(errors))
 
+    # source_language is unknown at init (set later at LANGUAGE_ID); a track is human-reviewed
+    # iff it's English, everything else is AI-auto-translated (rule: worksheet+gate only for
+    # source+en). If the source language turns out to also be a target, langid.set_language
+    # marks it skip_translation and its (harmless) auto_translate flag is ignored downstream.
     tracks = {
         lang: {
             "stage": "TRANSLATION",
             "status": "pending",
             "dub_enabled": lang in dub_langs,
             "updated_at": utc_now(),
+            **({"auto_translate": True} if _is_auto_translate(lang, None) else {}),
         }
         for lang in target_languages
     }
@@ -207,6 +231,10 @@ def add_languages(
             if source_language and lang == source_language:
                 track["skip_translation"] = True
                 track["notes"] = "source language — no translation; verbatim captions"
+            elif _is_auto_translate(lang, source_language):
+                # Non-source, non-English target: AI-auto-translated, deterministic QA only,
+                # no per-language human translation_qa gate (worksheet+gate stay source+en).
+                track["auto_translate"] = True
             tracks[lang] = track
 
         state["target_languages"] = existing + new_langs
@@ -237,6 +265,197 @@ def add_languages(
         "added": new_langs,
         "dub_enabled": [lang for lang in dub_langs if lang in new_langs],
         "target_languages": existing + new_langs,
+    }
+
+
+def sync_scope(
+    root: Path,
+    project_id: str,
+    *,
+    actor: str = "human",
+) -> dict[str, Any]:
+    """Reconcile the two-axis review markers (``skip_translation`` / ``auto_translate``) on the
+    tracks of a project created BEFORE the two-axis feature existed.
+
+    Recomputes both markers for every track from the confirmed ``source_language`` and the fixed
+    ``en`` human-review rule (the single ``_is_auto_translate`` helper, so init/add-languages/
+    sync-scope agree): the source track becomes ``skip_translation`` (rule 7), ``en`` and the
+    source stay human-reviewed (no ``auto_translate``), every other translatable target becomes
+    ``auto_translate``. It is a true recompute — a marker that no longer applies is *removed*, not
+    just left in place.
+
+    It NEVER touches ``dub_enabled``, stages, statuses, artifacts, or approvals — a recorded
+    translation_qa approval on ``en`` stays valid (rule 6). Idempotent: when the markers already
+    match, it is a no-op (no state change, no event). Requires a confirmed ``source_language``.
+    """
+    paths = ProjectPaths(root, project_id).require()
+
+    with project_lock(paths.lock):
+        state = load_json(paths.state)
+        source_language = state.get("source_language")
+        if not source_language:
+            raise ConfigurationError(
+                "source_language is not set yet — run `langid set` before `sync-scope`"
+            )
+        tracks = state.get("language_tracks", {})
+
+        marked_auto: list[str] = []
+        marked_skip: list[str] = []
+        cleared: list[str] = []
+        changed = False
+        for lang, track in tracks.items():
+            want_skip = lang == source_language
+            want_auto = _is_auto_translate(lang, source_language)
+
+            had_skip = bool(track.get("skip_translation"))
+            had_auto = bool(track.get("auto_translate"))
+            track_changed = False
+            if want_skip and not had_skip:
+                track["skip_translation"] = True
+                marked_skip.append(lang)
+                track_changed = True
+            elif not want_skip and had_skip:
+                track.pop("skip_translation", None)
+                cleared.append(lang)
+                track_changed = True
+            if want_auto and not had_auto:
+                track["auto_translate"] = True
+                marked_auto.append(lang)
+                track_changed = True
+            elif not want_auto and had_auto:
+                track.pop("auto_translate", None)
+                cleared.append(lang)
+                track_changed = True
+            if track_changed:
+                track["updated_at"] = utc_now()
+                changed = True
+
+        if not changed:
+            return {
+                "project_id": project_id,
+                "marked_auto": [],
+                "marked_skip": [],
+                "cleared": [],
+            }
+
+        state["updated_at"] = utc_now()
+        state["updated_by"] = actor
+        require_valid(root, state, "state.schema.json")
+        atomic_write_json(paths.state, state)
+        append_event(
+            paths.events, project_id, "SCOPE_SYNCED", actor,
+            {"marked_auto": marked_auto, "marked_skip": marked_skip, "cleared": cleared},
+        )
+
+    return {
+        "project_id": project_id,
+        "marked_auto": marked_auto,
+        "marked_skip": marked_skip,
+        "cleared": cleared,
+    }
+
+
+def enable_dub(
+    root: Path,
+    project_id: str,
+    *,
+    target_languages: list[str],
+    actor: str = "human",
+    disable: bool = False,
+    force: bool = False,
+) -> dict[str, Any]:
+    """Turn dubbing on (or, with ``disable=True``, off) for language tracks that already exist.
+
+    The sanctioned "add es dubbing for <id>" path (rule 1: mutates state + config through the
+    atomic+validated CLI path, never by hand). Flips ``dub_enabled`` on existing tracks, adds/
+    removes them from the project config ``audio_languages``, and logs ``DUB_ENABLED`` /
+    ``DUB_DISABLED``. It does NOT create tracks or fetch anything — dubbing reuses the
+    already-produced ``captions/captions.<lang>.json`` (a non-clone dub has no source-video
+    dependency). If a requested language has no track yet, that's an error directing the caller to
+    ``add-languages`` first (which creates the track).
+
+    Idempotent: languages already in the requested state are ignored; a request that changes
+    nothing is a no-op (no state change, no event).
+
+    ``disable=True`` refuses to strand a produced dub: if a track has an active ``dub-wav@<lang>``
+    artifact, disabling raises unless ``force=True`` (rule 6).
+    """
+    from .langid import normalize_language
+
+    paths = ProjectPaths(root, project_id).require()
+
+    requested: list[str] = []
+    for raw in target_languages:
+        norm = normalize_language(raw)
+        if norm is None:
+            raise ConfigurationError(f"Unrecognized language code: {raw!r}")
+        if norm not in requested:
+            requested.append(norm)
+    if not requested:
+        raise ConfigurationError("At least one target language is required")
+
+    with project_lock(paths.lock):
+        state = load_json(paths.state)
+        tracks = state.get("language_tracks", {})
+
+        missing = [lang for lang in requested if lang not in tracks]
+        if missing:
+            raise ConfigurationError(
+                "no track for language(s): " + ", ".join(missing)
+                + " — add them first with `project add-languages`"
+            )
+
+        target_enabled = not disable
+        changing = [
+            lang for lang in requested
+            if bool(tracks[lang].get("dub_enabled")) != target_enabled
+        ]
+        if not changing:
+            return {
+                "project_id": project_id,
+                "enabled": [] if not disable else None,
+                "disabled": [] if disable else None,
+                "audio_languages": list(load_yaml(paths.config).get("audio_languages", [])),
+            }
+
+        if disable and not force:
+            active = state.get("active_artifacts", {})
+            stranded = [lang for lang in changing if active.get(f"dub-wav@{lang}")]
+            if stranded:
+                raise ConfigurationError(
+                    "refusing to disable dubbing for language(s) with a produced dub: "
+                    + ", ".join(stranded)
+                    + " — a dub-wav artifact exists; re-run with --force to override (rule 6)"
+                )
+
+        for lang in changing:
+            tracks[lang]["dub_enabled"] = target_enabled
+            tracks[lang]["updated_at"] = utc_now()
+        state["updated_at"] = utc_now()
+        state["updated_by"] = actor
+        require_valid(root, state, "state.schema.json")
+        atomic_write_json(paths.state, state)
+
+        cfg = load_yaml(paths.config)
+        cfg_audio = list(cfg.get("audio_languages", []))
+        if disable:
+            cfg["audio_languages"] = [lang for lang in cfg_audio if lang not in changing]
+        else:
+            cfg["audio_languages"] = cfg_audio + [lang for lang in changing if lang not in cfg_audio]
+        errors = validate_data(root, cfg, "project.schema.json")
+        if errors:
+            raise ConfigurationError("project.yaml invalid after enable-dub: " + "; ".join(errors))
+        atomic_write_yaml(paths.config, cfg)
+
+        event = "DUB_DISABLED" if disable else "DUB_ENABLED"
+        key = "disabled" if disable else "enabled"
+        append_event(paths.events, project_id, event, actor, {key: changing})
+
+    return {
+        "project_id": project_id,
+        "enabled": None if disable else changing,
+        "disabled": changing if disable else None,
+        "audio_languages": list(cfg["audio_languages"]),
     }
 
 

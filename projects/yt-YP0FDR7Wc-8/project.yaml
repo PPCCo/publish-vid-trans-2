@@ -17,10 +17,8 @@ target_languages:
 audio_languages:
 - en
 - zh
-- fr
-- es
-- pt
-- ru
+- ar
+- ur
 dubbing:
   voice_clone: false
 glossary_id: null

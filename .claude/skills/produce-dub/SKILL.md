@@ -38,6 +38,21 @@ installed, dub out-of-band and use `dub import`.
 - The track's `stage` is `CAPTION_VALIDATION` and its `captions/captions.<iso>.json` exists.
 - The track is `dub_enabled` (`vid_cli.py project status <id>` → `language_tracks`).
 
+## Incremental dubbing ("add es dubbing for <id>")
+A dub reuses the already-produced `captions/captions.<iso>.json` — a **non-clone dub has no
+source-video dependency**, so you can turn dubbing on for a translate-only language at any point:
+- Track already exists (translated, just not dubbed): `vid_cli.py project enable-dub <id>
+  --targets <iso>` flips `dub_enabled` (idempotent), then dub as below.
+- No track yet: `vid_cli.py project add-languages <id> --targets <iso>` first (creates the
+  translate track), then `enable-dub`.
+- If the project has already advanced past `AUDIO_QA_GATE`, rewind with
+  `vid_cli.py project reset <id> --to CAPTION_VALIDATION` (keeps source+transcript+captions)
+  rather than forcing the dub outside its allowed states.
+- `--clone` still needs recorded consent AND the source video/WAV. If the source was deleted to
+  save space, `dub run --clone` (and `package mux`) transparently re-fetch it via
+  `ingest ensure` — which is flag-gated, so `VIDTRANS_FETCH_ENABLED=1` must be set (else clean
+  `FetchDisabled`). A neutral-voice dub never needs the source.
+
 ## Procedure (once per dub-enabled language)
 1. Confirm readiness: `vid_cli.py project status <id>` (track at CAPTION_VALIDATION, dub_enabled).
 2. Check for a TTS engine: `vid_cli.py doctor` → look for `engine:kokoro` / `engine:piper` /

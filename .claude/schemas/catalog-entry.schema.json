@@ -40,6 +40,11 @@
       "type": "string",
       "enum": ["unreviewed", "self-authored", "licensed", "fair-use-claimed", "do-not-distribute"]
     },
-    "project_id": { "type": ["string", "null"] }
+    "project_id": { "type": ["string", "null"] },
+    "playlist_id": {
+      "type": ["string", "null"],
+      "description": "ID of the source playlist this video was enumerated from (null if added standalone)."
+    },
+    "playlist_title": { "type": ["string", "null"] }
   }
 }

@@ -15,6 +15,7 @@ from .fetch import (
     require_fetch_enabled,
     require_publish_enabled,
     ytdlp_download,
+    ytdlp_playlist_entries,
     ytdlp_probe,
 )
 from .publish import (
@@ -33,6 +34,7 @@ __all__ = [
     "require_fetch_enabled",
     "require_publish_enabled",
     "ytdlp_download",
+    "ytdlp_playlist_entries",
     "ytdlp_probe",
     "youtube_upload",
     "x_post",

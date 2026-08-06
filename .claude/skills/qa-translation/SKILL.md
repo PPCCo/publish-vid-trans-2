@@ -1,10 +1,11 @@
 ---
 name: qa-translation
 description: >-
-  Second-pass quality review of a language's translated captions before the per-language
+  Second-pass quality review of the human-reviewed track's translated captions (en) before its
   translation_qa human gate. Runs the deterministic translation-qa + glossary reports, then
   adds a focused editorial review of flagged and glossary-relevant cues, preparing an
-  evidence-backed gate packet. Use when a project (or a track) is at TRANSLATION_QA_GATE.
+  evidence-backed gate packet. auto_translate targets skip this human gate. Use when a project
+  (or the en track) is at TRANSLATION_QA_GATE.
 allowed-tools: Bash, Read
 argument-hint: <video-id> [--language <iso>]
 user-invocable: true
@@ -19,11 +20,20 @@ effort: xhigh
 Give the human gate reviewer everything they need to approve or reject a language's
 translation in one pass: the deterministic findings (glossary hard-check + empty/untranslated
 signals), plus a careful editorial read of the cues that carry sensitive content or glossary
-terms. The `translation_qa` gate is **per-language** — one approval per active track.
+terms.
+
+## Scope — this gate is only for the human-reviewed track(s)
+Under the two-axis model (rule 7 extension) the `translation_qa` **human** gate applies **only
+to `en`** (and the source language, which is `skip_translation` and needs no translation gate
+at all). Every other target is `auto_translate: true`: it still gets deterministic
+`translation-qa` + `glossary` QA (run by `translate qa`), but **no human approval** — do not run
+this skill for those tracks, and do not seek an approval for them (`state.transition_blockers`
+already excludes them). This skill's editorial pass + gate packet is for the `en` track.
 
 ## Preconditions
 - The project is at `TRANSLATION_QA_GATE` (or the track's `stage` is `TRANSLATION_QA_GATE`).
 - Canonical captions exist at `captions/captions.<iso>.json`.
+- The language is human-reviewed (`en`) — neither `skip_translation` nor `auto_translate`.
 
 ## Procedure
 1. Regenerate the reports (idempotent, aggregate across active tracks):
@@ -51,8 +61,9 @@ terms. The `translation_qa` gate is **per-language** — one approval per active
   committed approval).
 
 ## Stop / Escalate — HUMAN GATE (decide-not-operate, CLAUDE.md rule 13)
-`translation_qa` is human-bound and per-language: a grant records the **human's** decision, executed
-by you only after an explicit confirmation. Run it as a conversation, **per language**:
+`translation_qa` is human-bound but scoped to the human-reviewed track(s) (`en`): a grant records
+the **human's** decision, executed by you only after an explicit confirmation. `auto_translate`
+tracks are not part of this gate. Run it as a conversation, for the human-reviewed language:
 1. **Surface + present options** (`AskUserQuestion`) — REVISE with the specific fixes (glossary miss,
    editorial cue) / edit-then-re-QA — **plus an explicit `Approve this language` option**, each with
    its consequence.
@@ -66,8 +77,9 @@ by you only after an explicit confirmation. Run it as a conversation, **per lang
    vid approval grant <id> --gate translation_qa --lang <iso> --approver "<human>" --scope captions \
        --artifact sha256:<active> --notes "<decision + disclosed concerns>"
    ```
-   The `CAPTION_TIMING` transition opens only once **every** non-source language is approved — run
-   `vid project transition <id> --to CAPTION_TIMING --actor human` when the last one lands. On REVISE,
+   The `CAPTION_TIMING` transition opens once the human-reviewed track (`en`) is approved **and**
+   every `auto_translate` track has passed deterministic QA — run
+   `vid project transition <id> --to CAPTION_TIMING --actor human` then. On REVISE,
    run the human-directed transition back to `TRANSLATION`. Never grant/transition without the explicit
    confirmation (rule 2); never approve to unblock your own work.
 

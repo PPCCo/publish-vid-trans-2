@@ -98,6 +98,10 @@ def set_language(
         tracks = state.get("language_tracks", {})
         if normalized in tracks:
             tracks[normalized]["skip_translation"] = True
+            # The source track skips translation entirely; it is not "auto-translated". init
+            # provisionally marks every non-en target auto_translate before the source is known,
+            # so clear that stale marker now that this track is confirmed as the source.
+            tracks[normalized].pop("auto_translate", None)
             tracks[normalized]["updated_at"] = utc_now()
             if not tracks[normalized].get("notes"):
                 tracks[normalized]["notes"] = "source language — no translation; verbatim captions"

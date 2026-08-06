@@ -49,6 +49,10 @@
             "type": "boolean",
             "description": "True when this track's language IS the source language: it skips the TRANSLATION stage (verbatim source captions are produced instead of a pointless source->source translation)."
           },
+          "auto_translate": {
+            "type": "boolean",
+            "description": "True when this track is AI-auto-translated with deterministic QA only (no human-filled worksheet, no per-language translation_qa human gate). Set for every translatable target that is NOT the source language and NOT English; source+en keep the human worksheet + gate. Orthogonal to skip_translation (the source track is never auto-translated)."
+          },
           "updated_at": { "type": "string" },
           "notes": { "type": "string" }
         }

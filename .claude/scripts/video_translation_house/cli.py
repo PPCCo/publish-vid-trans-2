@@ -71,6 +71,22 @@ def build_parser() -> argparse.ArgumentParser:
     p_addlang.add_argument("--audio",
                            help="Comma-separated subset of the added langs to dub (default: all added)")
     p_addlang.add_argument("--actor", default="human")
+    p_endub = psub.add_parser(
+        "enable-dub",
+        help="Enable/disable dubbing on existing translate tracks (reuses their captions; no re-translate)")  # noqa: E501
+    p_endub.add_argument("project_id")
+    p_endub.add_argument("--targets", required=True,
+                         help="Comma-separated ISO 639-1 codes of existing tracks to (un)dub")
+    p_endub.add_argument("--actor", default="human")
+    p_endub.add_argument("--disable", action="store_true",
+                         help="Turn dubbing OFF for the named tracks (default: on)")
+    p_endub.add_argument("--force", action="store_true",
+                         help="With --disable, allow disabling even if a dub-wav artifact exists (rule 6)")
+    p_syncscope = psub.add_parser(
+        "sync-scope",
+        help="Reconcile two-axis review markers (skip_translation/auto_translate) on a pre-feature project")  # noqa: E501
+    p_syncscope.add_argument("project_id")
+    p_syncscope.add_argument("--actor", default="human")
     p_trans = psub.add_parser("transition")
     p_trans.add_argument("project_id")
     p_trans.add_argument("--to", required=True)
@@ -138,6 +154,12 @@ def build_parser() -> argparse.ArgumentParser:
     i_run.add_argument("--force", action="store_true", help="Re-download even if source exists")
     i_run.add_argument("--no-subs", action="store_true", help="Skip fetching YouTube caption tracks")
     i_run.add_argument("--no-advance", action="store_true", help="Do not transition to LANGUAGE_ID")
+    i_ensure = isub.add_parser(
+        "ensure",
+        help="Re-fetch the source video/WAV if deleted (media-restore; does not change state)")
+    i_ensure.add_argument("project_id")
+    i_ensure.add_argument("--actor", default="agent")
+    i_ensure.add_argument("--no-subs", action="store_true", help="Skip fetching YouTube caption tracks")
 
     tr = sub.add_parser("transcript", help="Source-language transcription + QA")
     trsub = tr.add_subparsers(dest="transcript_command", required=True)
@@ -323,6 +345,14 @@ def build_parser() -> argparse.ArgumentParser:
     csub.add_parser("list")
     c_show = csub.add_parser("show")
     c_show.add_argument("video_id")
+    c_addpl = csub.add_parser(
+        "add-playlist",
+        help="Enumerate a playlist (metadata only, flag-free) and index each video under it")
+    c_addpl.add_argument("url")
+    c_addpl.add_argument("--actor", default="agent")
+    csub.add_parser("playlists", help="List indexed playlists")
+    c_pl = csub.add_parser("playlist", help="Show one playlist's videos (enriched)")
+    c_pl.add_argument("playlist_id")
 
     bud = sub.add_parser("budget", help="Vendor (billed) TTS spend ceiling + ledger (read-only)")
     budsub = bud.add_subparsers(dest="budget_command", required=True)
@@ -383,6 +413,16 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 audio_languages=parse_csv(args.audio) if args.audio else None,
                 actor=args.actor,
             )
+        if pc == "enable-dub":
+            return project.enable_dub(
+                root, args.project_id,
+                target_languages=parse_csv(args.targets),
+                actor=args.actor,
+                disable=args.disable,
+                force=args.force,
+            )
+        if pc == "sync-scope":
+            return project.sync_scope(root, args.project_id, actor=args.actor)
         if pc == "list":
             return project.list_projects(root)
         if pc == "status":
@@ -445,6 +485,10 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             return ingest_mod.ingest_project(
                 root, args.project_id, actor=args.actor, force=args.force,
                 write_subs=not args.no_subs, advance=not args.no_advance,
+            )
+        if args.ingest_command == "ensure":
+            return ingest_mod.ensure_source_present(
+                root, args.project_id, actor=args.actor, write_subs=not args.no_subs,
             )
     if cmd == "transcript":
         from . import transcript as transcript_mod
@@ -600,12 +644,24 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "catalog":
         from . import catalog as catalog_mod
         if args.catalog_command == "list":
-            return {"videos": catalog_mod.list_entries(root)}
+            return {"videos": [catalog_mod.enrich_entry(root, e)
+                               for e in catalog_mod.list_entries(root)]}
         if args.catalog_command == "show":
             entry = catalog_mod.get_entry(root, args.video_id)
             if entry is None:
                 raise VideoTranslationHouseError(f"No catalog entry: {args.video_id}")
-            return entry
+            return catalog_mod.enrich_entry(root, entry)
+        if args.catalog_command == "add-playlist":
+            return catalog_mod.add_playlist(root, args.url, actor=args.actor)
+        if args.catalog_command == "playlists":
+            return {"playlists": catalog_mod.list_playlists(root)}
+        if args.catalog_command == "playlist":
+            pl = catalog_mod.get_playlist(root, args.playlist_id)
+            if pl is None:
+                raise VideoTranslationHouseError(f"No playlist: {args.playlist_id}")
+            videos = [catalog_mod.enrich_entry(root, e) for e in catalog_mod.list_entries(root)
+                      if e.get("playlist_id") == args.playlist_id]
+            return {**pl, "videos": videos}
     if cmd == "budget":
         from . import budget as budget_mod
         if args.budget_command == "status":

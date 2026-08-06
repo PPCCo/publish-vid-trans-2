@@ -20,12 +20,27 @@ CATALOG_FIELDS = {
     "video_id", "url", "title", "channel", "channel_id", "duration_seconds",
     "upload_date", "language", "language_confidence", "language_source", "dialect",
     "has_youtube_captions", "downloaded_at", "added_at", "updated_at", "local_paths",
-    "rights_status", "project_id",
+    "rights_status", "project_id", "playlist_id", "playlist_title",
 }
+
+
+def _default_targets_csv(root: Path) -> str:
+    """The company default target-language set as a CSV, for a kickoff `next_command`."""
+    from .util import load_company_config
+
+    try:
+        defaults = (load_company_config(root).get("defaults") or {}).get("target_languages") or []
+    except Exception:
+        defaults = []
+    return ",".join(defaults) if defaults else "en"
 
 
 def catalog_path(root: Path) -> Path:
     return root / "catalog" / "videos.json"
+
+
+def playlists_path(root: Path) -> Path:
+    return root / "catalog" / "playlists.json"
 
 
 def catalog_events_path(root: Path) -> Path:
@@ -127,3 +142,231 @@ def remove_entry(root: Path, video_id: str, *, actor: str = "agent") -> dict[str
 
 def _log_catalog_event(root: Path, video_id: str, event: str, details: dict[str, Any], actor: str) -> None:
     append_event(catalog_events_path(root), video_id, event, actor, details)
+
+
+# --------------------------------------------------------------------------------------
+# Playlists: a light index of playlist_id -> {url, title, video_ids[]} for O(1) listing
+# and playlist-level provenance. The per-video catalog entry carries playlist_id/title too
+# (so a single entry is self-describing); this store is the reverse index.
+# --------------------------------------------------------------------------------------
+
+def _load_playlists(root: Path) -> dict[str, Any]:
+    data = load_json(playlists_path(root), {"schema_version": "1.0", "playlists": []})
+    data.setdefault("playlists", [])
+    return data
+
+
+def list_playlists(root: Path) -> list[dict[str, Any]]:
+    return _load_playlists(root)["playlists"]
+
+
+def get_playlist(root: Path, playlist_id: str) -> dict[str, Any] | None:
+    return next((p for p in list_playlists(root) if p.get("playlist_id") == playlist_id), None)
+
+
+def upsert_playlist(
+    root: Path,
+    playlist_id: str,
+    *,
+    url: str,
+    title: str | None,
+    video_ids: list[str],
+    actor: str = "agent",
+) -> dict[str, Any]:
+    """Insert or merge a playlist index entry, unioning its video_ids. Locked + atomic."""
+    if not playlist_id:
+        raise ConfigurationError("upsert_playlist needs a playlist_id")
+    with project_lock(_lock_path(root)):
+        data = _load_playlists(root)
+        playlists = data["playlists"]
+        existing = next((p for p in playlists if p.get("playlist_id") == playlist_id), None)
+        now = utc_now()
+        if existing is None:
+            entry = {
+                "playlist_id": playlist_id, "url": url, "title": title,
+                "video_ids": sorted(set(video_ids)), "added_at": now, "updated_at": now,
+            }
+            playlists.append(entry)
+            playlists.sort(key=lambda p: p.get("playlist_id", ""))
+            atomic_write_json(playlists_path(root), data)
+            _log_catalog_event(root, playlist_id, "PLAYLIST_ADDED",
+                               {"url": url, "video_count": len(entry["video_ids"])}, actor)
+            return entry
+        merged_ids = sorted(set(existing.get("video_ids", [])) | set(video_ids))
+        existing["video_ids"] = merged_ids
+        if title and not existing.get("title"):
+            existing["title"] = title
+        existing["updated_at"] = now
+        atomic_write_json(playlists_path(root), data)
+        _log_catalog_event(root, playlist_id, "PLAYLIST_UPDATED",
+                           {"video_count": len(merged_ids)}, actor)
+        return existing
+
+
+def add_playlist(root: Path, url: str, *, actor: str = "agent") -> dict[str, Any]:
+    """Enumerate a playlist (metadata only) and index every video under it.
+
+    Enumeration is the sanctioned flag-free carve-out from VIDTRANS_FETCH_ENABLED (it reads
+    titles/ids only — no media bytes; see net.fetch.ytdlp_playlist_entries and rule 3). Each
+    entry is upserted into the catalog with a derived ``yt-<id>`` video_id and the playlist
+    fields; merge policy preserves an already-catalogued video's status, so a video that is
+    already in-progress simply *moves under* the playlist rather than being duplicated.
+
+    Index-only: this does NOT init projects or download media. Per-video kickoff happens later
+    via each entry's derived ``next_command`` (see enrich_entry).
+    """
+    from .net import ytdlp_playlist_entries  # lazy: keeps a no-net CLI import cheap
+
+    entries = ytdlp_playlist_entries(url)
+    playlist_id = entries[0]["playlist_id"] if entries else None
+    playlist_title = entries[0]["playlist_title"] if entries else None
+    if not playlist_id:
+        # yt-dlp couldn't resolve a playlist id (e.g. a single-video URL) — refuse rather
+        # than silently indexing under a null playlist.
+        raise ConfigurationError(f"no playlist id resolved from {url!r}; is this a playlist URL?")
+
+    added: list[str] = []
+    linked_existing: list[str] = []
+    video_ids: list[str] = []
+    for e in entries:
+        vid = f"yt-{e['id']}"
+        if not is_valid_video_id(vid):
+            continue
+        video_ids.append(vid)
+        before = get_entry(root, vid)
+        upsert_entry(root, {
+            "video_id": vid,
+            "url": e.get("url") or url,
+            "title": e.get("title"),
+            "channel": e.get("channel"),
+            "duration_seconds": e.get("duration_seconds"),
+            "playlist_id": playlist_id,
+            "playlist_title": playlist_title,
+        }, actor=actor)
+        (linked_existing if before is not None else added).append(vid)
+
+    upsert_playlist(root, playlist_id, url=url, title=playlist_title,
+                    video_ids=video_ids, actor=actor)
+    return {
+        "playlist_id": playlist_id, "playlist_title": playlist_title,
+        "added": added, "linked_existing": linked_existing, "video_ids": video_ids,
+    }
+
+
+# --------------------------------------------------------------------------------------
+# Derived, read-only fields: next_command (+ review_files at gate steps). Computed fresh on
+# read from state.plan() so they are never stale and never persisted (rule 1). This is a
+# convenience shortcut in the index — it does NOT relax rule 13: when Claude drives a gate
+# in-conversation it still does disclose->confirm->grant; the field is a power-user hint and,
+# for the outward-facing gates, is exactly the `!` command the human already runs.
+# --------------------------------------------------------------------------------------
+
+# current_state -> the literal CLI verb that performs the next NON-GATE step from it.
+_STATE_NEXT_VERB = {
+    "INGEST": "ingest run {id}",
+    "LANGUAGE_ID": "langid set {id} --language <iso>",
+    "TRANSCRIPTION": "transcript run {id} --advance",
+    "SEGMENT_RESOLUTION": "segments resolve {id} --advance",
+    "TRANSLATION": "translate export {id} --lang <iso>   # then fill + `translate import`",
+    "CAPTION_TIMING": "captions build {id} --advance",
+    "CAPTION_VALIDATION": "captions validate {id} --advance",
+    "DUBBING": "dub run {id} --advance",
+    "AUDIO_SYNC_ADJUST": "dub sync {id} --advance",
+    "VIDEO_MUX": "package mux {id} --advance",
+    "PACKAGE": "package build {id} --advance",
+    "PLATFORM_PACKAGING": "distribution package {id} --advance",
+    "YOUTUBE_UPLOAD": "distribution upload {id}",
+    "PROMOTION_QUEUE": "promotion queue {id} --advance",
+    "PROMOTION_PUBLISHED": "promotion publish {id} --advance",
+}
+
+
+def _cli() -> str:
+    return "vid_cli.py"
+
+
+def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
+    """Return a copy of ``entry`` with a derived ``next_command`` (+ ``review_files`` at gate
+    steps). Pure/read-only: reads state.plan() for entries that have a project; never writes."""
+    from . import state as state_mod
+
+    vid = entry.get("video_id")
+    out = dict(entry)
+    project_id = entry.get("project_id")
+
+    # Not yet a project: the next step is to kick one off (still flag-gated media download).
+    if not project_id:
+        targets = _default_targets_csv(root)
+        out["next_command"] = (
+            f"! {_cli()} project init {vid} --url {entry.get('url', '<url>')} "
+            f"--targets {targets} && {_cli()} ingest run {vid}"
+        )
+        out.pop("review_files", None)
+        return out
+
+    try:
+        plan = state_mod.plan(root, project_id)
+    except Exception:
+        # Project referenced but unreadable (e.g. deleted dir) — surface no command rather
+        # than a wrong one.
+        out["next_command"] = None
+        out.pop("review_files", None)
+        return out
+
+    action = plan.get("autonomy_action")
+    current = plan.get("current_state")
+
+    if action == "TERMINAL":
+        out["next_command"] = None
+        out.pop("review_files", None)
+        return out
+
+    if action == "PROCEED":
+        verb = _STATE_NEXT_VERB.get(current)
+        out["next_command"] = (f"! {_cli()} " + verb.format(id=vid)) if verb else None
+        out.pop("review_files", None)
+        return out
+
+    if action == "STOP_AT_GATE":
+        gate = plan.get("required_gate")
+        target = plan.get("recommended_target")
+        out["next_command"] = (
+            f"! {_cli()} approval grant {vid} --gate {gate} --approver \"<you>\" "
+            f"--scope project --artifact <sha256>  # disclose+confirm first (rule 13)"
+            f" && {_cli()} project transition {vid} --to {target} --actor human"
+        )
+        rf = _gate_review_files(root, project_id, current, target)
+        if rf:
+            out["review_files"] = rf
+        else:
+            out.pop("review_files", None)
+        return out
+
+    # BLOCKED: the common cause is rights not yet set before PACKAGE->READY_FOR_REVIEW.
+    if current == "PACKAGE":
+        out["next_command"] = (
+            f"! {_cli()} rights set {vid} --status <self-authored|licensed|fair-use-claimed> "
+            f"--reviewer \"<you>\""
+        )
+    else:
+        out["next_command"] = None
+    out.pop("review_files", None)
+    return out
+
+
+def _gate_review_files(root: Path, project_id: str, current: str, target: str | None) -> list[str]:
+    """Relative artifact paths a human reviews at this gate: the active gate-report doc(s)
+    plus the per-language artifacts the gate binds. Best-effort; empty list if none resolve."""
+    from . import state as state_mod
+    from .paths import ProjectPaths
+
+    edge = f"{current}->{target}" if target else None
+    reports = (state_mod.workflow_config(root).get("gate_reports", {}) or {}).get(edge, []) if edge else []
+    paths = ProjectPaths(root, project_id)
+    files: list[str] = []
+    for rtype in reports:
+        # Gate report docs are keyed by report type: reviews/<rtype>-gate-latest.json.
+        candidate = paths.gate_report(rtype)
+        if candidate.is_file():
+            files.append(candidate.relative_to(paths.directory).as_posix())
+    return sorted(set(files))

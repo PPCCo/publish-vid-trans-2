@@ -168,6 +168,14 @@ def run_mux(
 
     src_video = _source_video(paths)
     if src_video is None:
+        # The source media may have been deleted after translation/dub (it's expensive to keep
+        # and only mux needs the picture). Try the sanctioned re-fetch — VIDTRANS_FETCH_ENABLED
+        # gated — before giving up, so a deleted source is recovered transparently at mux time.
+        from .ingest import ensure_source_present
+
+        ensure_source_present(root, project_id, actor=actor)
+        src_video = _source_video(paths)
+    if src_video is None:
         raise MuxError("no source video in source/ to mux against")
 
     dub_artifact = _active_artifact(root, project_id, "dub-wav", language)

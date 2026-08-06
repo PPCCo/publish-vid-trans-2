@@ -107,6 +107,17 @@ source .env.local            # or export the vars inline
 vid ingest run yt-YP0FDR7Wc-8               # download + WAV + probe + catalog → LANGUAGE_ID
 ```
 
+Or let the **`/new-video`** skill do it conversationally: give it the URL, it asks you (two
+checklists) which languages to **translate** and which of those to **dub**, then runs
+`project init` + `ingest run`. A **playlist** URL routes instead to `catalog add-playlist`
+(see §8).
+
+**Two-axis translate/dub scope.** Translation *and* dubbing run for every language you pick,
+but only the **source language** and **English** get a human-filled worksheet + a human
+`translation_qa` approval. Every other target (`fr,es,zh,pt,ru,…`) is **AI-auto-translated**
+(marked `auto_translate`) with deterministic QA only — no human gate. So `--targets en,ar,fa,ur`
+on an `fa` source means: `fa` verbatim (skip), `en` human-reviewed, `ar`+`ur` AI-auto-translated.
+
 For clip/selection projects (process only certain windows), see the README's
 [Selecting and clipping the source](README.md#selecting-and-clipping-the-source-selection--join_clips).
 
@@ -179,13 +190,18 @@ vid segments resolve yt-YP0FDR7Wc-8 --advance
 # NOTE: the SOURCE language is never translated. If source_language is also a target (e.g. a
 # Persian video with fa in --targets), `translate export --language fa` writes VERBATIM source
 # captions (target==source) instead of an empty worksheet, marks that track done, and the fa
-# track is excluded from the translation quorum and the translation_qa gate. Only non-source
-# targets get a worksheet to fill.
+# track is excluded from the translation quorum and the translation_qa gate.
+# TWO-AXIS SCOPE: only the source language and `en` get a HUMAN worksheet + human gate. Every
+# other target is `auto_translate` — Claude fills its worksheet and imports it the same way, but
+# it has NO human gate (deterministic QA only). So you walk the human gate for `en` alone; the
+# ar/fr/es/… tracks just need to pass `translate qa` and are carried by the top-level --advance.
 vid translate export yt-YP0FDR7Wc-8 --language en
-#   … fill target_text in captions/en.worksheet.json (this is where Claude does the work) …
+#   … fill target_text in captions/en.worksheet.json (Claude does this; for auto tracks Claude
+#     also fills them — same command, just no human approval afterward) …
 vid translate import yt-YP0FDR7Wc-8 --language en --advance
-vid translate qa yt-YP0FDR7Wc-8
+vid translate qa yt-YP0FDR7Wc-8          # aggregate over ALL tracks (human + auto)
 # 🔒 human: vid approval grant … --gate translation_qa --lang en --scope captions --artifact <sha256>
+#   (only `en` needs this — auto_translate targets are not in the gate)
 vid project transition yt-YP0FDR7Wc-8 --to CAPTION_TIMING --actor human
 
 # CAPTION_TIMING / CAPTION_VALIDATION
@@ -200,6 +216,13 @@ vid captions build yt-YP0FDR7Wc-8 --language en
 vid captions validate yt-YP0FDR7Wc-8
 
 # DUBBING (dub-enabled langs only) — with a TTS engine, or import a rendered WAV
+# INCREMENTAL: to add dubbing later ("add es dubbing for <id>") turn it on without re-translating —
+#   the dub reuses captions/captions.es.json (a non-clone dub has NO source-video dependency):
+#     vid project enable-dub yt-YP0FDR7Wc-8 --targets es    # flips dub_enabled on an existing track
+#   No such track yet? `project add-languages … --targets es` first, then enable-dub. If the project
+#   already passed AUDIO_QA_GATE, rewind with `project reset … --to CAPTION_VALIDATION` (keeps
+#   source+transcript+captions). A `--clone` dub (or `package mux`) that finds source/ deleted
+#   re-fetches it via `ingest ensure` — flag-gated, so VIDTRANS_FETCH_ENABLED=1 (else clean FetchDisabled).
 vid dub run    yt-YP0FDR7Wc-8 --language en --advance
 vid dub import yt-YP0FDR7Wc-8 --language en --from my-dub.wav --advance
 vid dub qa yt-YP0FDR7Wc-8
@@ -387,5 +410,88 @@ The new tracks are picked up automatically by the translation stage — run `tra
 --language <new-lang>` when you're ready to produce them. Adding a language that's already a
 target is a no-op (idempotent, no event). If a newly-added language equals the confirmed
 `source_language`, it's marked `skip_translation` (rule 7: source→source isn't translated; it
-still gets verbatim captions). **Reset vs. add:** `reset` rewinds and rebuilds; `add-languages`
-widens in place.
+still gets verbatim captions); a non-en/non-source add is marked `auto_translate` (AI-translated,
+deterministic QA only, no human gate — see the two-axis scope in §4). **Reset vs. add:** `reset`
+rewinds and rebuilds; `add-languages` widens in place.
+
+### Turn on dubbing for an already-translated language
+
+To add **audio** for a language that already has captions ("add es dubbing for <id>"), don't
+re-translate or re-init — flip `dub_enabled` on the existing track. A non-clone dub reuses that
+track's `captions/captions.<iso>.json` and has **no** source-video dependency.
+
+```bash
+vid project enable-dub yt-YP0FDR7Wc-8 --targets es        # idempotent; adds es to audio_languages, logs DUB_ENABLED
+vid project enable-dub yt-YP0FDR7Wc-8 --targets es,pt,ru  # several at once
+```
+
+To turn dubbing **off** for a track, use the same verb with `--disable` (removes it from
+`audio_languages`, logs `DUB_DISABLED`). It refuses if a dub was already produced (an active
+`dub-wav@<lang>` artifact would be stranded, rule 6) unless you add `--force`:
+
+```bash
+vid project enable-dub yt-YP0FDR7Wc-8 --targets fr,es --disable          # captions-only from now on
+vid project enable-dub yt-YP0FDR7Wc-8 --targets fr --disable --force     # override the rule-6 guard
+```
+
+If the named track doesn't exist yet, run `project add-languages … --targets es` first (that
+creates the translate track), then `enable-dub`. If the project has already advanced past
+`AUDIO_QA_GATE`, rewind with `project reset … --to CAPTION_VALIDATION` (keeps source + transcript
++ captions) before dubbing — `dub run` refuses outside CAPTION_VALIDATION..AUDIO_QA_GATE.
+
+### Reconcile two-axis markers on a pre-feature project (`sync-scope`)
+
+A project created **before** the two-axis translate/dub feature has tracks with no
+`skip_translation`/`auto_translate` markers. `project sync-scope <id>` recomputes both markers for
+every track from the confirmed `source_language` and the fixed `en` human-review rule: the source
+becomes `skip_translation`, `en` + the source stay human-reviewed (no `auto_translate`), every
+other translatable target becomes `auto_translate`. It's a true recompute (a marker that no longer
+applies is removed) and **idempotent** — a no-op once markers are correct.
+
+```bash
+vid project sync-scope yt-YP0FDR7Wc-8      # logs SCOPE_SYNCED if anything changed
+```
+
+It never touches `dub_enabled`, stages, artifacts, or approvals — a recorded `translation_qa`
+approval on `en` stays valid (rule 6). Requires a confirmed `source_language` (run `langid set`
+first). New projects need no `sync-scope` — `project init` + `langid set` already mark tracks
+correctly.
+
+### Re-fetch a deleted source video (`ingest ensure`)
+
+Once a project moves past INGEST you may delete the (large) `source/` media to save space. Two
+operations still need it: a `--clone` dub and `package mux`. Both call `ingest ensure` first,
+which is a **media-restore** — it re-downloads + re-extracts + re-registers the source artifacts
+without touching top-level state. It's flag-gated like any media download:
+
+```bash
+VIDTRANS_FETCH_ENABLED=1 vid ingest ensure yt-YP0FDR7Wc-8   # no-op if source/ still present
+```
+
+With the flag unset and the media missing you get a clean `FetchDisabled`, not a crash.
+
+### Onboard a video or a whole playlist
+
+`/new-video <url>` (skill) confirms the translate + dub sets via two checklists, then
+`project init` + `ingest run`. A **playlist** URL routes to `catalog add-playlist` instead, which
+**enumerates** the playlist (titles/ids only) and indexes each video under it. Enumeration is the
+one sanctioned **flag-free** network call (metadata only, no media) — the per-video media download
+still needs `VIDTRANS_FETCH_ENABLED=1`.
+
+```bash
+vid catalog add-playlist "https://youtube.com/playlist?list=..."   # flag-free; indexes each video
+vid catalog playlists                                              # list known playlists
+vid catalog playlist <playlist-id>                                 # the playlist's videos, enriched
+vid catalog list                                                   # every catalogued video, enriched
+vid catalog show yt-XXXX                                           # one entry, enriched
+```
+
+`list` / `show` / `playlist` enrich each entry **on read** (never persisted) with a derived
+`next_command` — a literal, `!`-runnable command for that video's current phase (kickoff if it has
+no project yet, the next pipeline verb while it PROCEEDs, the approve command at a gate, a
+`rights set` when BLOCKED, null when TERMINAL) — and, at a gate step only, a `review_files` array
+of the relative artifact paths under review. Re-adding a playlist that contains an
+already-catalogued video **moves that entry under the playlist** (keeping its `project_id`,
+`rights_status`, and full status) rather than duplicating it. The `next_command` is a convenience
+shortcut; it does **not** bypass the gate protocol (rule 13) — when the agent drives a gate in
+conversation it still discloses and confirms before granting.

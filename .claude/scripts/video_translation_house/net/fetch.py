@@ -112,6 +112,48 @@ def ytdlp_probe(url: str, *, timeout: int = 120) -> dict[str, Any]:
     return json.loads(proc.stdout)
 
 
+def ytdlp_playlist_entries(url: str, *, timeout: int = 300) -> list[dict[str, Any]]:
+    """Enumerate a playlist's videos — metadata only, no media download.
+
+    Deliberate carve-out from ``require_fetch_enabled()``: enumerating a playlist reads
+    only titles/ids/urls (no media bytes touch disk), so it runs even when
+    ``VIDTRANS_FETCH_ENABLED`` is unset. The per-video *media* download (``ytdlp_download``)
+    remains flag-gated, so this cannot become a back-door for pulling content down (rule 3).
+    Still host-allowlisted (SSRF defense in depth).
+
+    Uses ``--flat-playlist`` so yt-dlp lists entries without descending into each video.
+    Returns one dict per entry: ``{id, url, title, channel, playlist_id, playlist_title}``.
+    """
+    _check_url(url)
+    proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
+        [_ytdlp(), "--dump-single-json", "--flat-playlist", "--skip-download",
+         "--no-warnings", url],
+        capture_output=True, text=True, timeout=timeout, check=False,
+    )
+    if proc.returncode != 0:
+        raise ConfigurationError(
+            f"yt-dlp playlist enumeration failed ({proc.returncode}): {proc.stderr.strip()[:400]}"
+        )
+    data = json.loads(proc.stdout)
+    playlist_id = data.get("id")
+    playlist_title = data.get("title")
+    entries = data.get("entries") or []
+    out: list[dict[str, Any]] = []
+    for e in entries:
+        if not e or not e.get("id"):
+            continue
+        out.append({
+            "id": e.get("id"),
+            "url": e.get("url") or e.get("webpage_url") or f"https://youtu.be/{e.get('id')}",
+            "title": e.get("title"),
+            "channel": e.get("channel") or e.get("uploader"),
+            "duration_seconds": e.get("duration"),
+            "playlist_id": playlist_id,
+            "playlist_title": playlist_title,
+        })
+    return out
+
+
 def ytdlp_download(
     url: str,
     dest_dir: Path,

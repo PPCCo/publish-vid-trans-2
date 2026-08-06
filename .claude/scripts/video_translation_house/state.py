@@ -64,8 +64,17 @@ def transition_blockers(root: Path, project_id: str, current: str, target: str) 
             lt = state.get("language_tracks", {})
             # The source-language track skips TRANSLATION (verbatim captions, nothing to
             # translate), so there is no translation to approve for it — don't demand one.
+            # Auto-translated tracks (every non-source, non-English target) are AI-produced
+            # with deterministic QA only and carry NO human translation_qa gate — only the
+            # source language and English get a human approval. The deterministic translation-qa
+            # / glossary gate reports below still cover every track; only the human sign-off is
+            # scoped to source+en.
             if gate == "translation_qa":
-                tracks = [lang for lang in tracks if not lt.get(lang, {}).get("skip_translation")]
+                tracks = [
+                    lang for lang in tracks
+                    if not lt.get(lang, {}).get("skip_translation")
+                    and not lt.get(lang, {}).get("auto_translate")
+                ]
             # audio_qa only applies to dub-enabled tracks; caption-only tracks carry no dub to
             # approve, so they must not demand (an impossible) audio approval.
             if gate == "audio_qa":

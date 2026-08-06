@@ -23,6 +23,12 @@ closed captions, autonomously but under human-bound gates.
    produces upload-ready packages. It does not upload to YouTube or any platform. Ingest
    downloads (yt-dlp) and any vendor API call happen ONLY through the sanctioned network
    module and ONLY when `VIDTRANS_FETCH_ENABLED=1`.
+   **Narrow carve-out — playlist enumeration is metadata-only and flag-free.** `catalog
+   add-playlist <url>` (→ `net.fetch.ytdlp_playlist_entries`, `yt-dlp --flat-playlist
+   --skip-download`) lists a playlist's video titles/ids/urls without pulling any media, so it
+   runs even when `VIDTRANS_FETCH_ENABLED` is unset. This is the *only* flag-free network call;
+   every **media** download (`ingest run`, `ingest ensure`, and any per-video kickoff) still
+   requires the flag. Enumeration is still host-allowlisted.
 4. **Rights precede distribution.** A project runs to `READY_FOR_REVIEW` regardless of
    rights, but nothing in `outputs/` is safe to publish until a human sets `rights_status`
    to a distributable value. `PACKAGE → READY_FOR_REVIEW` is blocked while `unreviewed` or
@@ -45,6 +51,21 @@ These govern *how you work*, not just what the pipeline does:
    caption doc instead of an empty worksheet; the source track is excluded from the translation
    quorum and the `translation_qa` gate. Human QA on that track is caption/editorial only, not
    translation.
+
+   **Two-axis translate/dub scope (human review is scoped to source + English).** Translation
+   *and* dubbing happen for **every** selected language, but the **human-review machinery** —
+   the human-filled worksheet and the per-language `translation_qa` human approval — is scoped:
+   only the **source language** (verbatim, `skip_translation`) and **English** (`en`) keep it.
+   Every other translatable target (`fr`, `es`, `zh`, `pt`, `ru`, …) is **AI-auto-translated
+   with deterministic QA only — no human gate**, marked `auto_translate: true` on its track at
+   creation (`project init` / `add-languages`; source is never `auto_translate`). The AI fills
+   those worksheets itself (bounded batches, rule 11 idiom) and `translate import`s them through
+   the same caption-build chokepoint; the deterministic `translation-qa` + `glossary` reports
+   still run and must pass. Enforced in code at the single gate line
+   (`state.transition_blockers` excludes both `skip_translation` and `auto_translate` tracks from
+   `translation_qa`); the top-level advance quorum still counts auto tracks (they produce
+   captions), so only the *human approval* requirement differs. Don't re-impose uniform gating on
+   the non-en targets.
 8. **Always validate assumptions — never guess or hallucinate a cause/fix.** When something
    breaks, reproduce and confirm the cause with a command or a file read *before* acting on it.
    (This is how the HuggingFace 503 was traced to a corporate policy block rather than an outage,
@@ -127,6 +148,13 @@ These govern *how you work*, not just what the pipeline does:
     all the fact-gathering and disclosure, but the human runs the final `!` command for those three.
     This is the standing gate UX; the `## Stop / Escalate — HUMAN GATE` section of every gate skill
     follows it.
+    **The catalog `next_command` is convenience, not a bypass.** `catalog list` / `catalog show`
+    surface a derived, copy-paste/`!`-runnable `next_command` (and, at a gate step, a `review_files`
+    array of the artifacts under review) computed fresh on read from `state.plan()` — never
+    persisted. It is a power-user shortcut for a human who wants to run the command themselves; at
+    a `STOP_AT_GATE` step it emits the approve command **with a `disclose+confirm first` reminder**.
+    It does NOT relax this rule: when *you* drive a gate in-conversation you still do
+    surface→options→disclose→confirm→execute, and the three outward-facing gates stay human-run.
 
 ## Where to start
 
@@ -145,7 +173,28 @@ To **widen an in-progress project's languages** (add more translation/dub tracks
 discarding existing work), use `project add-languages <id> --targets <codes> [--audio <subset>]`
 — *not* reset+re-init. It appends new tracks at `TRANSLATION`, leaves existing tracks/approvals/
 artifacts untouched, updates state + config, and logs `LANGUAGES_ADDED`. Added languages default
-to translate+dub; a source-language add is marked `skip_translation` (rule 7).
+to translate+dub; a source-language add is marked `skip_translation`, a non-en/non-source add is
+marked `auto_translate` (rule 7).
+
+To **turn on dubbing for a language that's already translated** ("add es dubbing for <id>"),
+use `project enable-dub <id> --targets <codes>` — it flips `dub_enabled` on the existing track(s)
+and reuses their captions (a non-clone dub has no source-video dependency); no re-translate, no
+re-init. `--disable` is the inverse (turn a dub back into captions-only; refuses to strand a
+produced `dub-wav` artifact unless `--force`, rule 6). If the track doesn't exist yet,
+`add-languages` first. A `--clone` dub or `package mux` that finds the `source/` media deleted will
+re-fetch it via `ingest ensure` (flag-gated).
+
+To **reconcile the two-axis markers on a project created before the feature** (no
+`skip_translation`/`auto_translate` on its tracks), use `project sync-scope <id>` — it recomputes
+both markers from `source_language` + the `en` rule (source→`skip_translation`; en+source
+human-reviewed; every other target→`auto_translate`), idempotently, without touching
+dub/artifacts/approvals. New projects don't need it (`init` + `langid set` already mark correctly).
+
+To **onboard a new video or a whole playlist**, use the `/new-video` skill (URL → confirm
+translate + dub sets → `project init` + `ingest run`). A **playlist** URL routes to `catalog
+add-playlist <url>` (flag-free enumeration; indexes each video under the playlist, no media).
+`catalog list` / `catalog show <id>` / `catalog playlist <plid>` surface each entry's derived
+`next_command` (+ `review_files` at gates) for the current phase.
 
 ## Models
 

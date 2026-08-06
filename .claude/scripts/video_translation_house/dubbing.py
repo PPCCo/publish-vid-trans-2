@@ -154,7 +154,13 @@ def run_dub(
     clone_ref: Path | None = None
     if clone:
         # Reference speaker is the extracted source audio (consent already verified above).
+        # If the source media was deleted after translation, recover it via the sanctioned
+        # (fetch-gated) restore so cloning has a reference; a no-op when already present.
         src_wav = paths.source_dir / "audio.wav"
+        if not src_wav.is_file():
+            from .ingest import ensure_source_present
+
+            ensure_source_present(root, project_id, actor=actor)
         clone_ref = src_wav if src_wav.is_file() else None
 
     parts: list[Path] = []
