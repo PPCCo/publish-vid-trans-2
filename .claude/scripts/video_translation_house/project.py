@@ -459,6 +459,106 @@ def enable_dub(
     }
 
 
+def redub_track(
+    root: Path,
+    project_id: str,
+    *,
+    target_languages: list[str],
+    actor: str = "agent",
+) -> dict[str, Any]:
+    """Scoped rewind so ONE (or a few) dub track(s) can be re-rendered, preserving the rest.
+
+    The narrow alternative to ``reset_project`` when a single language's dub needs to be
+    re-run after ``AUDIO_QA_GATE`` (e.g. a freeze/trim-plan fix) but the other languages'
+    dubs, captions, artifacts, and approvals are correct and must NOT be discarded. Unlike
+    ``reset_project`` (which wipes ALL downstream work and every track), this:
+
+      * rewinds only the top ``current_state`` back to ``AUDIO_SYNC_ADJUST`` (a dub-allowed
+        state) when the project has advanced past it, so ``dub run`` is permitted again;
+      * resets ONLY the named track(s) to the dubbing stage (``AUDIO_SYNC_ADJUST`` /
+        ``in_progress``), leaving every other track's stage/status untouched;
+      * leaves ALL artifacts and approvals in place. The re-``dub run`` registers a fresh
+        ``dub-wav@<lang>`` that supersedes the old one; rule 6 auto-invalidates the stale
+        ``audio_qa`` approval bound to the superseded hash — no approval is hand-cleared here.
+
+    It is the CLI-owned, atomic+validated rewind (rule 1); the caller runs ``dub run`` +
+    ``dub qa`` afterward and re-surfaces the per-language ``audio_qa`` gate (rule 13). Only
+    ``dub_enabled`` tracks are eligible (a captions-only track has no dub to re-render).
+    Idempotent-ish: re-running when already at/behind ``AUDIO_SYNC_ADJUST`` with the named
+    track already reset just re-stamps and logs.
+    """
+    from . import state as state_mod
+    from .langid import normalize_language
+
+    paths = ProjectPaths(root, project_id).require()
+
+    requested: list[str] = []
+    for raw in target_languages:
+        norm = normalize_language(raw)
+        if norm is None:
+            raise ConfigurationError(f"Unrecognized language code: {raw!r}")
+        if norm not in requested:
+            requested.append(norm)
+    if not requested:
+        raise ConfigurationError("At least one target language is required")
+
+    states = state_mod.workflow_config(root).get("states", [])
+    rewind_to = "AUDIO_SYNC_ADJUST"
+    if rewind_to not in states:  # defensive; the workflow always defines it
+        raise ConfigurationError(f"redub rewind target is not a valid state: {rewind_to!r}")
+
+    with project_lock(paths.lock):
+        state = load_json(paths.state)
+        tracks = state.get("language_tracks", {})
+
+        missing = [lang for lang in requested if lang not in tracks]
+        if missing:
+            raise ConfigurationError(
+                "no track for language(s): " + ", ".join(missing)
+                + " — add them first with `project add-languages`"
+            )
+        not_dubbed = [lang for lang in requested if not bool(tracks[lang].get("dub_enabled"))]
+        if not_dubbed:
+            raise ConfigurationError(
+                "refusing to redub captions-only language(s): " + ", ".join(not_dubbed)
+                + " — enable dubbing first with `project enable-dub`"
+            )
+
+        current = state.get("current_state")
+        cur_idx = states.index(current) if current in states else -1
+        rewind_idx = states.index(rewind_to)
+        rewound_from: str | None = None
+        # Only pull the top state *backward* to a dub-allowed state; never push it forward
+        # (that is the pipeline's job through the normal gated transitions).
+        if cur_idx > rewind_idx:
+            rewound_from = current
+            state["previous_state"] = current
+            state["current_state"] = rewind_to
+
+        for lang in requested:
+            tracks[lang]["stage"] = "AUDIO_SYNC_ADJUST"
+            tracks[lang]["status"] = "in_progress"
+            tracks[lang]["updated_at"] = utc_now()
+
+        state["updated_at"] = utc_now()
+        state["updated_by"] = actor
+        require_valid(root, state, "state.schema.json")
+        atomic_write_json(paths.state, state)
+
+        append_event(paths.events, project_id, "TRACK_REDUB_REQUESTED", actor, {
+            "languages": requested,
+            "rewound_from": rewound_from,
+            "current_state": rewind_to,
+        })
+
+    return {
+        "project_id": project_id,
+        "redub_languages": requested,
+        "current_state": rewind_to,
+        "rewound_from": rewound_from,
+    }
+
+
 def _clear_dir_contents(directory: Path, *, keep_globs: tuple[str, ...] = ()) -> None:
     """Delete everything under ``directory`` except entries matching ``keep_globs``,
     leaving the (empty) directory itself in place so the PROJECT_DIRS skeleton stays intact."""

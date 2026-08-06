@@ -14,7 +14,19 @@ Modify/Enhance the `.claude/` framework to behave this way:
 
 ---
 
-I want to pitch this Claude framework to the teams in my organisation, all the strengths and features it provides, that will not only help with some activities but throughout they suffer life cycle from integration with confluence Jara and two, how it keeps everything in sync, and the powerful quality gates that prevent either bad code or wrong specifications to go in to the comments, the powerful husky hooks unit test integration test that make sure the code is well tested, the natural language inquiries about the general task, confluence, the powerful command commands that cover all the different activities involved in a project. The purpose of the presentation is To highlight all the strengths and features of the framework, how it stands out from what is available and no other framework compete with the full feature said set, how it has all the standards and patterns baked in to ensure the documentation generated the specification generated, and the code implemented is of the best quality. The goal is to sell it to the team with evidence after features available. How different YouTube functions like the commit command help the developers to commit with his while ensuring on the quality checks. How the specific case is generated are very detailed and professional, how it works like a team normally works breaking down those functional specifications into EX and breaking down EX into task with every little little detail including acceptance criteria technical specifications data design testing requirements in every activity activity that and enter prize application needs to deliver a high-quality product. Also highlight the commands that would allow projects to repurposed the framework according to their tech technologies stock, or according to the code they already have existing, and the command that allows bringing in features from other frameworks to enhance it further.
+There is a big issue, the source speech is in a male voice, but the en and zh were translated in female voice. This should be a hard restraint, the default should be male voice.
+
+Also, I'd like to add es and ru to default languages, in addition to en/ur/fa/ar. Also add es and ru for `yt-YP0FDR7Wc-8`
+
+---
+
+The video generation (transcribe/translate + dubbing) is eating up too many tokens. Since we have fixed most of the scripts that were generating wrong output, is it possible to have parts of the workflow/process done manually, by handoffs, where you pause the workflow, and tell me to run the scripts that can be run outside of ClaudeCode, whether it's the python scripts or tools like whisper/huggingface. And once I have successfully executed the scripts, I will let the ongoing video-processing claude session, and it can continue from there until the next manual step. So ClaudeCode should be used only for the activities where using ClaudeCode is the only option. Keep the current Claude-based workflow intact (as an alternate route), so either create a new command `/process-manual <PROJECT-ID>` or add a `--manual` flag in existing workflow, but the idea is, both options should be possible, either run the whole process using Claude, or doing some parts manually. Ideally, if possible, I'd like the whole transcribe-translate-dub process be done using only scripts, without using Claude.
+
+---
+API Error: 412 Portkey Usage Limits Policy 9551434e-12fd-462e-83d7-ee27f5e86a5d Exceeded for value key metadata._user
+---
+
+
 
 ---
 

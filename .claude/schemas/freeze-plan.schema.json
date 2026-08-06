@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "freeze-plan.schema.json",
+  "title": "Freeze-frame plan (per-language)",
+  "description": "Records, for one dub track produced under freeze-frame policy, how the picture is re-timed at cue boundaries to track the back-to-back dubbed audio. Written at audio/freeze-plan.<lang>.json by run_dub when quality_bars.audio.freeze_frame_enabled is on. Two modes (see `mode`): hold-only (Model B) emits only `freezes` — where the audio runs later than the picture, hold the frame; a one-sided residual is left honest. Trim mode (Model A, for languages in quality_bars.audio.freeze_trim_languages) also emits `trims` — where the audio runs earlier than the picture, skip that much source so the picture catches up (residual 0 by construction). Consumed at mux time (packaging.run_mux) to re-time the picture to the audio, and at package time to re-offset the standalone caption deliverables onto the post-adjust timeline. `at_ms` is the insertion point on the ORIGINAL (pre-adjust) video timeline (the corrected cue's caption_start_ms). Empty `freezes`/`trims` arrays are legitimate, informative (freeze mode on, nothing needed adjusting).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "project_id", "language", "freezes", "total_freeze_ms", "created_at"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "project_id": { "type": "string" },
+    "language": { "type": "string" },
+    "dub_sha256": { "type": ["string", "null"] },
+    "created_at": { "type": "string" },
+    "created_by": { "type": ["string", "null"] },
+    "mode": { "type": "string", "enum": ["hold", "trim"], "description": "hold = Model B (freeze-only, honest residual); trim = Model A (freeze + trim source → residual 0)." },
+    "quality_bars": {
+      "type": "object",
+      "description": "Snapshot of the freeze-frame quality bars used to compute this plan.",
+      "additionalProperties": true
+    },
+    "total_freeze_ms": { "type": "integer", "minimum": 0 },
+    "total_trim_ms": { "type": "integer", "minimum": 0 },
+    "freezes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cue_id", "at_ms", "freeze_ms", "natural_ms", "slot_ms", "stretch_factor"],
+        "properties": {
+          "cue_id": { "type": "integer", "minimum": 0 },
+          "at_ms": { "type": "integer", "minimum": 0, "description": "Insertion point on the original (pre-adjust) timeline; the corrected cue's caption_start_ms." },
+          "freeze_ms": { "type": "integer", "minimum": 0, "description": "How long to hold the frozen frame (the running audio-vs-picture gap absorbed at this boundary)." },
+          "natural_ms": { "type": "integer", "minimum": 0, "description": "True un-stretched TTS duration of the cue." },
+          "slot_ms": { "type": "integer", "minimum": 1, "description": "Caption slot duration (caption_end_ms - caption_start_ms)." },
+          "stretch_factor": { "type": "number", "description": "natural_ms / slot_ms before fitting." },
+          "tail": { "type": "boolean", "description": "True for the single tail-reconciliation entry: a picture-length adjustment (at_ms == source_duration_ms) that makes the picture END where the dub audio ends, rather than a cue-start boundary event. Excluded from the sync-report per-cue residual accounting (it reuses the last cue's id); applied by the mux/windows, which key events by at_ms." }
+        }
+      }
+    },
+    "trims": {
+      "type": "array",
+      "description": "Trim mode (Model A) only: where the picture is shortened by skipping source frames so it catches up to the earlier-running audio. Empty in hold mode.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cue_id", "at_ms", "trim_ms", "natural_ms", "slot_ms", "stretch_factor"],
+        "properties": {
+          "cue_id": { "type": "integer", "minimum": 0 },
+          "at_ms": { "type": "integer", "minimum": 0, "description": "Trim point on the original (pre-adjust) timeline; the corrected cue's caption_start_ms." },
+          "trim_ms": { "type": "integer", "minimum": 0, "description": "How much source picture to skip (the running picture-ahead-of-audio gap removed at this boundary)." },
+          "natural_ms": { "type": "integer", "minimum": 0, "description": "True un-stretched TTS duration of the cue." },
+          "slot_ms": { "type": "integer", "minimum": 1, "description": "Caption slot duration (caption_end_ms - caption_start_ms)." },
+          "stretch_factor": { "type": "number", "description": "natural_ms / slot_ms before fitting." },
+          "tail": { "type": "boolean", "description": "True for the single tail-reconciliation entry: a picture-length trim (at_ms == source_duration_ms - trim_ms) that makes the picture END where the dub audio ends, rather than a cue-start boundary event. Excluded from the sync-report per-cue residual accounting; applied by the mux/windows." }
+        }
+      }
+    }
+  }
+}

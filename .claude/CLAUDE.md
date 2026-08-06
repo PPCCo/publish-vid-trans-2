@@ -156,6 +156,55 @@ These govern *how you work*, not just what the pipeline does:
     It does NOT relax this rule: when *you* drive a gate in-conversation you still do
     surface→options→disclose→confirm→execute, and the three outward-facing gates stay human-run.
 
+14. **Freeze-frame dubbing re-times the picture to the audio (opt-in).** The default neutral
+    dub voice often speaks slower than fast source oratory, so a cue's synthesized audio can run
+    longer than its caption slot; the legacy behavior tempo-compresses up to
+    `quality_bars.audio.max_time_stretch` and, beyond the cap, clamps and lets drift accumulate
+    (an `audio-stretch-over-cap` major → the `audio-sync` gate reports `CONDITIONAL_PASS`, which
+    blocks `AUDIO_QA_GATE → VIDEO_MUX`). Setting `quality_bars.audio.freeze_frame_enabled: true`
+    (a company bar, opt-in via `company.local.json`; **no per-run CLI flag** — an agent can't
+    override company policy per-invocation) switches to the quality-correct fix: the per-cue loop
+    fits audio only to a **gentle** `freeze_stretch_cap` (default 1.15x, kept near natural length),
+    and `dub run` writes a per-language **freeze plan** (`audio/freeze-plan.<lang>.json`, a
+    registered artifact tracing to the dub-wav). **The plan is computed on a *running gap*, not
+    each cue's own overflow** — because `dub run` lays cue audio **back-to-back** (lead silence
+    only when the audio is *early*), a long cue's overrun propagates to every following cue until a
+    natural pause, so per-cue-own-overflow freezing left the propagated backlog uncancelled (it
+    FAILed on real data). The plan holds the picture by `gap_i = rendered_start_ms - (caption_start_ms
+    + cum_freeze - cum_trim)` at each cue boundary where the audio is later than the (already
+    re-timed) picture. **Two modes, chosen per language by the `quality_bars.audio.
+    freeze_trim_languages` array (a company bar, default `[]`; no CLI flag):**
+    - **Hold-only (Model B, the default for languages *not* in the list):** only freeze/hold, never
+      drop source frames. Where the audio *underruns* the picture in aggregate (after a gap) a
+      one-sided residual remains — the picture lags the audio — and is surfaced **honestly** as
+      signed `drift_ms`; you reach PASS by accepting it under a raised `per_cue_drift_tolerance_ms`
+      (a disclosed, recorded bar relaxation), suitable when the residual is small (≤ a few seconds).
+    - **Freeze + trim (Model A, for languages *in* `freeze_trim_languages`):** additionally **trims**
+      the picture (skips `-gap_i` ms of source at the cue boundary) where the audio runs earlier
+      than the picture, so residual reaches **0 by construction** (`trims[]` + `total_trim_ms` in the
+      plan; `trim_planned`/`trim_ms` per cue in the sync report). Use this when hold-only would leave
+      an unacceptably large lag (e.g. an 11.6s ar residual on the al-'Asr project → `ar` is in the
+      list). Trimming drops real source frames on cue boundaries — an accepted trade vs a large
+      desync.
+    In `_build_sync_report` the post-adjust residual is `rendered_start - (caption_start + cum_freeze
+    - cum_trim)`; a freeze/trim-planned cue's `drift_ms` becomes 0 (Model A) or the honest one-sided
+    residual (Model B) and drops out of the over-cap list **by construction** — so
+    `analyze_sync`'s unchanged blocker/major checks read truthful post-adjust numbers and the track
+    reaches **PASS honestly** (Model A) or PASS-under-raised-tolerance (Model B). Each freeze is an informational `audio-freeze-planned` note;
+    a hold beyond `max_freeze_ms_per_cue` (default 4000ms) escalates to an `audio-freeze-excessive`
+    **major** so a person sees a frame that would linger. At `package mux` the picture is rebuilt on
+    the post-freeze timeline (source slices interleaved with frozen-frame inserts, re-encoded
+    H.264/AAC) and **both** the embedded soft-subs and the standalone `captions.<lang>.vtt/.srt`
+    deliverables are re-timed onto that timeline — the **canonical approved caption doc is never
+    edited** (rules 6/12); retimed subs are derived mux/package outputs. **Scope limit:**
+    freeze-planning is the **real-TTS `dub run` path only**; `dub import` has no per-cue natural
+    durations, so it produces no freeze plan (its result carries a `freeze_plan_skipped_reason`).
+    Freezes and trims always land on cue boundaries (`at_ms` == the corrected cue's
+    `caption_start_ms`), never mid-cue. Turning the
+    bar back off cleanly reverts future muxes to the plain `-c:v copy` path without deleting any
+    artifact. When this is on, prefer it over the earlier band-aid overrides (`max_time_stretch`,
+    `cumulative_drift_ceiling_ms`) — freeze-frame is the proper mechanism.
+
 ## Where to start
 
 Run `/vid-status <video-id>` (or `vid_cli.py project status <id>`) first. Use
@@ -183,6 +232,17 @@ re-init. `--disable` is the inverse (turn a dub back into captions-only; refuses
 produced `dub-wav` artifact unless `--force`, rule 6). If the track doesn't exist yet,
 `add-languages` first. A `--clone` dub or `package mux` that finds the `source/` media deleted will
 re-fetch it via `ingest ensure` (flag-gated).
+
+To **re-render one dub track after it has advanced past the audio gate** (e.g. a freeze/
+trim-plan fix on just `ar` when en/ur/zh are already correct and approved), use `project redub
+<id> --targets <codes>` — *not* `project reset` (which wipes ALL downstream work for every
+track). It pulls the top `current_state` **backward** to `AUDIO_SYNC_ADJUST` (a dub-allowed
+state) only if the project had advanced past it, resets **only** the named dubbed track(s) to
+the dubbing stage, and leaves every other track + all artifacts + all approvals untouched. It
+refuses captions-only tracks (→ `enable-dub` first) and never pushes state forward. After it
+runs, re-`dub run` the named language (a fresh `dub-wav@<lang>` supersedes the old one; rule 6
+auto-invalidates the stale `audio_qa` approval bound to the superseded hash), `dub qa`, then
+re-surface the per-language `audio_qa` gate (rule 13). Logs `TRACK_REDUB_REQUESTED`.
 
 To **reconcile the two-axis markers on a project created before the feature** (no
 `skip_translation`/`auto_translate` on its tracks), use `project sync-scope <id>` — it recomputes

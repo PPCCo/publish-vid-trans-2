@@ -62,6 +62,21 @@ source-video dependency**, so you can turn dubbing on for a translate-only langu
      Per cue the adapter synthesizes, the CLI tempo-fits into the cue slot up to the configured
      stretch cap (default 1.3×). Beyond the cap it does **not** force an unnatural stretch — it
      clamps, flags the cue, and lets drift accrue (surfaced in the sync report).
+   - **Freeze-frame mode** (`quality_bars.audio.freeze_frame_enabled: true`, opt-in via
+     `company.local.json` — no CLI flag): `dub run` instead fits audio only to the gentle
+     `freeze_stretch_cap` (default 1.15×) and writes a per-language freeze plan
+     (`audio/freeze-plan.<iso>.json`, registered, traces to the dub-wav). The plan re-times the
+     picture on a **running gap** (the dub is laid back-to-back, so a long cue propagates), holding
+     the frame at each cue boundary where the audio is later than the picture. **Two modes** per
+     `quality_bars.audio.freeze_trim_languages`: languages *not* in the list are **hold-only**
+     (Model B — an honest one-sided residual may remain; cover it with a raised
+     `per_cue_drift_tolerance_ms`); languages *in* the list additionally **trim** the picture
+     (Model A — residual 0 by construction, dropping some source frames). Over-slot cues drop out of
+     the over-cap list *by construction*, so the track reaches PASS honestly and the picture is
+     re-timed to the audio at `package mux`. Use this when the neutral voice runs slower than the
+     source instead of cranking `max_time_stretch`. Scope limit: freeze-planning is the real-TTS
+     `dub run` path only — `dub import` produces no freeze plan (`freeze_plan_skipped_reason`).
+     See CLAUDE.md rule 14 / OPERATING-GUIDE §9.
    - No engine installed: render out-of-band, then
      `vid_cli.py dub import <id> --language <iso> --from <dub.wav>`. Do NOT hand-edit the WAV
      or `sync-report.json`.

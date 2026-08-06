@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-audio_qa-20260806t085043z-4cb3df",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "gate": "audio_qa",
+  "language": "zh",
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:41ba93e2686b1c56c26f506cbc3414a17c1aa995e0313d6ffafbe9992af105ea"
+  ],
+  "scope": "audio",
+  "exclusions": [],
+  "notes": "audio_qa APPROVE zh: audio-sync PASS. Freeze-frame hold-only (Model B), 7 holds/1215ms. Accepted: picture lags audio 1215ms under disclosed raised per_cue_drift_tolerance_ms=3600. Human confirmed in-conversation 2026-08-06.",
+  "created_at": "2026-08-06T08:50:43Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

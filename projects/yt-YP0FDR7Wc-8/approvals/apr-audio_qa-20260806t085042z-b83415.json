@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-audio_qa-20260806t085042z-b83415",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "gate": "audio_qa",
+  "language": "ar",
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:4960f9172f065c6d5f6896da876fb82d082d6511a29f23a0a033cb5eb41a4c13"
+  ],
+  "scope": "audio",
+  "exclusions": [],
+  "notes": "audio_qa APPROVE ar: audio-sync PASS, residual 0. Freeze+trim (Model A): 39913ms freeze incl one accepted 7560ms frozen frame (max_freeze_ms_per_cue raised to 8000), and 32410ms of source frames trimmed across 65 cue-boundary trims. Accepted vs an 11.6s desync. Human confirmed in-conversation 2026-08-06.",
+  "created_at": "2026-08-06T08:50:42Z",
+  "expires_at": null,
+  "invalidated_at": "2026-08-06T09:36:06Z",
+  "invalidation_reason": "Superseded by sha256:84cef5116fa5d97c3ca418e962f7b5329a73bed37ac4bfcd0e9755025d937256"
+}

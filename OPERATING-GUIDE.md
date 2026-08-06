@@ -219,10 +219,14 @@ vid captions validate yt-YP0FDR7Wc-8
 # INCREMENTAL: to add dubbing later ("add es dubbing for <id>") turn it on without re-translating —
 #   the dub reuses captions/captions.es.json (a non-clone dub has NO source-video dependency):
 #     vid project enable-dub yt-YP0FDR7Wc-8 --targets es    # flips dub_enabled on an existing track
-#   No such track yet? `project add-languages … --targets es` first, then enable-dub. If the project
-#   already passed AUDIO_QA_GATE, rewind with `project reset … --to CAPTION_VALIDATION` (keeps
-#   source+transcript+captions). A `--clone` dub (or `package mux`) that finds source/ deleted
+#   No such track yet? `project add-languages … --targets es` first, then enable-dub. To re-render
+#   ONE already-produced dub after AUDIO_QA_GATE (fix just `ar`, keep en/ur/zh), use the surgical
+#   `project redub … --targets ar` (not `project reset`, which wipes every track) — see §8.
+#   A `--clone` dub (or `package mux`) that finds source/ deleted
 #   re-fetches it via `ingest ensure` — flag-gated, so VIDTRANS_FETCH_ENABLED=1 (else clean FetchDisabled).
+# FREEZE-FRAME: if the neutral dub voice runs slower than the source and `dub qa` reports
+#   CONDITIONAL_PASS with `audio-stretch-over-cap` cues, don't crank max_time_stretch — turn on
+#   freeze-frame (re-times the picture to the audio instead of over-speeding it). See §9.
 vid dub run    yt-YP0FDR7Wc-8 --language en --advance
 vid dub import yt-YP0FDR7Wc-8 --language en --from my-dub.wav --advance
 vid dub qa yt-YP0FDR7Wc-8
@@ -435,9 +439,33 @@ vid project enable-dub yt-YP0FDR7Wc-8 --targets fr --disable --force     # overr
 ```
 
 If the named track doesn't exist yet, run `project add-languages … --targets es` first (that
-creates the translate track), then `enable-dub`. If the project has already advanced past
-`AUDIO_QA_GATE`, rewind with `project reset … --to CAPTION_VALIDATION` (keeps source + transcript
-+ captions) before dubbing — `dub run` refuses outside CAPTION_VALIDATION..AUDIO_QA_GATE.
+creates the translate track), then `enable-dub`.
+
+### Re-render one dub track after the audio gate (`redub`)
+
+When a single language's dub needs re-rendering **after** the project has advanced past
+`AUDIO_QA_GATE` — e.g. you fixed the freeze/trim plan for `ar` but en/ur/zh are already correct
+and approved — use the **surgical** `project redub`, not `project reset` (which would wipe ALL
+downstream work for every track):
+
+```bash
+vid project redub yt-YP0FDR7Wc-8 --targets ar        # rewind top state + reset only ar
+```
+
+It pulls the top `current_state` **backward** to `AUDIO_SYNC_ADJUST` (a dub-allowed state) only
+if the project had advanced past it, resets **only** the named dubbed track(s) to the dubbing
+stage, and leaves every other track + all artifacts + all approvals untouched. It refuses a
+captions-only track (`enable-dub` first) and never pushes state forward. Then re-dub and re-gate
+that one language:
+
+```bash
+vid dub run yt-YP0FDR7Wc-8 --language ar --provider piper --model <ar.onnx>   # fresh dub-wav supersedes; rule 6 invalidates the stale audio_qa approval
+vid dub qa  yt-YP0FDR7Wc-8 --language ar                                       # expect PASS
+# …then re-surface the ar audio_qa gate (rule 13 disclose+confirm) and re-mux ar.
+```
+
+(The old advice to `project reset … --to CAPTION_VALIDATION` for a post-gate redub is superseded
+by this verb — reset is the whole-project teardown; `redub` is the one-track rewind.)
 
 ### Reconcile two-axis markers on a pre-feature project (`sync-scope`)
 
@@ -495,3 +523,94 @@ already-catalogued video **moves that entry under the playlist** (keeping its `p
 `rights_status`, and full status) rather than duplicating it. The `next_command` is a convenience
 shortcut; it does **not** bypass the gate protocol (rule 13) — when the agent drives a gate in
 conversation it still discloses and confirms before granting.
+
+## 9. Freeze-frame dubbing for over-length dub tracks
+
+**Symptom.** The neutral piper voice (the only working TTS engine here — see the piper note in
+§6) speaks *slower* than fast source oratory, so many cues' synthesized audio runs longer than
+their caption slot. `vid dub qa` then reports `CONDITIONAL_PASS` with `audio-stretch-over-cap`
+**major** findings, and the `audio-sync` gate stays non-`PASS` — which blocks
+`AUDIO_QA_GATE → VIDEO_MUX` (`state.transition_blockers` requires an exact `PASS`).
+
+**Wrong fix.** Cranking `quality_bars.audio.max_time_stretch` higher just over-speeds the audio;
+past ~1.6x the listening quality is poor and you're loosening the bar rather than resolving the
+overflow.
+
+**Right fix — freeze the frame, re-time the picture to the audio.** Turn on the company bar:
+
+```jsonc
+// .claude/config/company.local.json  (deep-merges over company.default.json)
+{ "quality_bars": { "audio": { "freeze_frame_enabled": true } } }
+```
+
+This is a **company bar, opt-in via `company.local.json`** — there is deliberately **no per-run
+CLI flag** (an agent can't override company policy per-invocation, same governance as
+`max_time_stretch`). Optional companions: `freeze_stretch_cap` (default `1.15` — the gentle
+per-cue stretch the audio is still fit to, kept near natural length) and `max_freeze_ms_per_cue`
+(default `4000` — a hold longer than this escalates to a human-visible finding).
+
+**The plan is computed on a *running gap*, not each cue's own overflow.** `dub run` lays cue audio
+**back-to-back** (it inserts lead silence only when a cue's audio would start *early*), so a long
+cue's overrun pushes every following cue's audio later until a natural pause absorbs it. Freezing
+only each cue's *own* overflow therefore leaves that propagated backlog uncancelled — on the
+al-'Asr project it drove `en` cumulative drift to ~43s and **FAILed**. The correct plan holds the
+picture by the running gap between the audio playhead and the already-retimed picture at each cue
+boundary (`gap_i = rendered_start_ms − (caption_start_ms + cum_freeze − cum_trim)`).
+
+**Two modes — pick per language with `freeze_trim_languages`.** The company bar
+`quality_bars.audio.freeze_trim_languages` (an array of ISO codes, default `[]`; **no CLI flag**)
+chooses each language's mode:
+
+- **Hold-only (Model B — languages *not* in the list):** freeze/hold only, never drop source
+  frames. Where the audio *underruns* the picture in aggregate a one-sided residual remains
+  (picture lags audio); it's surfaced **honestly** as signed `drift_ms`. Reach `PASS` by raising
+  `per_cue_drift_tolerance_ms` to cover it — a **disclosed, recorded** bar relaxation, appropriate
+  only when the residual is small. On al-'Asr: en −3490ms, ur −404ms, zh −1021ms → raised
+  `per_cue_drift_tolerance_ms` to `3600`.
+- **Freeze + trim (Model A — languages *in* the list):** additionally **trims** the picture (skips
+  source frames at the cue boundary) where the audio runs earlier than the picture, so the residual
+  reaches **0 by construction**. Use when hold-only would leave an unacceptable lag — on al-'Asr,
+  `ar`'s hold-only residual was **−11.6s**, so `freeze_trim_languages: ["ar"]`. The plan records
+  `trims[]` + `total_trim_ms`; the sync report carries `trim_planned`/`trim_ms` per cue. Trimming
+  drops real source frames (on cue boundaries) — an accepted trade vs a large desync.
+
+```jsonc
+// al-'Asr project overlay (yt-YP0FDR7Wc-8):
+{ "quality_bars": { "audio": {
+  "freeze_frame_enabled": true,
+  "freeze_trim_languages": ["ar"],
+  "per_cue_drift_tolerance_ms": 3600
+} } }
+```
+
+**What changes when the bar is on:**
+
+1. **`vid dub run`** fits each cue's audio only to the gentle `freeze_stretch_cap` (not
+   `max_time_stretch`) and writes a per-language **freeze plan**
+   (`audio/freeze-plan.<lang>.json`, a registered artifact tracing to the dub-wav) with `mode`
+   (`hold`|`trim`), the running-gap `freezes[]`, and (trim mode) `trims[]`.
+2. **`vid dub qa`** — a freeze/trim-planned cue's post-adjust `drift_ms` is `0` (Model A) or the
+   honest one-sided residual (Model B) and drops out of the over-cap list **by construction**, so
+   the track reaches `PASS` — *honestly* (Model A) or under the raised tolerance (Model B). Each
+   freeze is an informational `audio-freeze-planned` note; a hold beyond `max_freeze_ms_per_cue`
+   becomes an `audio-freeze-excessive` **major** so a person sees a frame that would linger.
+3. **`vid package mux`** rebuilds the picture on the post-adjust timeline (source slices
+   interleaved with frozen-frame inserts, **and trimmed regions dropped** in trim mode; re-encoded
+   H.264/AAC) and re-times **both** the embedded soft-subs and — at **`vid package build`** — the
+   standalone `captions.<lang>.vtt/.srt` deliverables onto that timeline. The **canonical approved
+   caption doc is never edited** (rules 6/12); retimed subs are derived mux/package outputs.
+
+**Scope limit.** Freeze-planning is the **real-TTS `dub run` path only**. `dub import` distributes
+one whole-track offset with no per-cue natural durations, so it produces **no** freeze plan (its
+result carries a `freeze_plan_skipped_reason`).
+
+**Reverting.** Turning the bar back off cleanly reverts future muxes to the plain `-c:v copy` path
+— no artifact is deleted. Once freeze-frame is validated for a project, prefer it over the earlier
+band-aid overrides: walk `max_time_stretch` / `cumulative_drift_ceiling_ms` back toward defaults,
+since freeze-frame is now the proper mechanism.
+
+**Tradeoff (accepted for v1).** Retiming re-encodes the whole picture (libx264 crf18) instead of
+`-c:v copy` — slower and technically lossy on long videos, though crf18 is near-lossless and
+matches the bar `slice_video`/`mux_video_burned_in` already use. Freezing mid-motion can look
+unnatural on high-motion footage (fine for narration/static-speaker content); the
+`max_freeze_ms_per_cue` escalation surfaces over-long holds for human review.

@@ -82,6 +82,13 @@ def build_parser() -> argparse.ArgumentParser:
                          help="Turn dubbing OFF for the named tracks (default: on)")
     p_endub.add_argument("--force", action="store_true",
                          help="With --disable, allow disabling even if a dub-wav artifact exists (rule 6)")
+    p_redub = psub.add_parser(
+        "redub",
+        help="Scoped rewind so ONE dub track can be re-rendered (preserves other tracks' work/approvals)")  # noqa: E501
+    p_redub.add_argument("project_id")
+    p_redub.add_argument("--targets", required=True,
+                         help="Comma-separated ISO 639-1 codes of dubbed tracks to re-render")
+    p_redub.add_argument("--actor", default="agent")
     p_syncscope = psub.add_parser(
         "sync-scope",
         help="Reconcile two-axis review markers (skip_translation/auto_translate) on a pre-feature project")  # noqa: E501
@@ -420,6 +427,12 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 actor=args.actor,
                 disable=args.disable,
                 force=args.force,
+            )
+        if pc == "redub":
+            return project.redub_track(
+                root, args.project_id,
+                target_languages=parse_csv(args.targets),
+                actor=args.actor,
             )
         if pc == "sync-scope":
             return project.sync_scope(root, args.project_id, actor=args.actor)

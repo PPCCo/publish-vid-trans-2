@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-YP0FDR7Wc-8",
-  "current_state": "DUBBING",
-  "previous_state": "CAPTION_VALIDATION",
+  "current_state": "AUDIO_QA_GATE",
+  "previous_state": "AUDIO_SYNC_ADJUST",
   "created_at": "2026-08-04T11:37:36Z",
   "created_by": "human",
-  "updated_at": "2026-08-06T04:34:36Z",
-  "updated_by": "ai",
+  "updated_at": "2026-08-06T09:51:48Z",
+  "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
     "en",
@@ -21,19 +21,19 @@
   ],
   "language_tracks": {
     "en": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-05T13:48:21Z",
-      "notes": "translated; awaiting QA"
+      "updated_at": "2026-08-06T09:36:50Z",
+      "notes": "audio-sync reported"
     },
     "ar": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:48:56Z",
+      "updated_at": "2026-08-06T09:51:48Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dubbed video muxed"
     },
     "fa": {
       "stage": "CAPTION_VALIDATION",
@@ -44,20 +44,20 @@
       "notes": "source language — verbatim captions, no translation"
     },
     "ur": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:49:15Z",
+      "updated_at": "2026-08-06T09:36:50Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "audio-sync reported"
     },
     "zh": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:49:00Z",
+      "updated_at": "2026-08-06T09:36:50Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "audio-sync reported"
     },
     "fr": {
       "stage": "TRANSLATION_QA_GATE",
@@ -105,7 +105,20 @@
     "captions-json@zh": "sha256:3cbc71fea76fd40073c8149d9ae6ca9bdeb039a7fd06f12f41ce7dd72e336f72",
     "captions-json@ru": "sha256:3901287975a2ec1f00f8f4a296f16389c1a6e4cb4f46949b12f1393c1d4527fd",
     "captions-json@ur": "sha256:5d46a6ad426ce52c4ea0b55138968ab419be2c59f7620206ad6dbf1fe4a6e598",
-    "captions-json@fa": "sha256:5fe051d7025443ea933c78d13b3c40d0f882408a3fd277cccc63b8ff73c26cc1"
+    "captions-json@fa": "sha256:5fe051d7025443ea933c78d13b3c40d0f882408a3fd277cccc63b8ff73c26cc1",
+    "dub-wav@en": "sha256:a048d8fc213f3b206eaec24715d50c2c26930cac267918cb4cd8e7e7d37903cb",
+    "sync-report": "sha256:9adcf73d2edb2136e613b67169c4675350cb0c5cba814380e41601479a44511f",
+    "dub-wav@zh": "sha256:41ba93e2686b1c56c26f506cbc3414a17c1aa995e0313d6ffafbe9992af105ea",
+    "dub-wav@ur": "sha256:ac7b8e3da2eb9482a35a7b92945e25c732d97ef8b72a84c68ac8f018e757971b",
+    "dub-wav@ar": "sha256:84cef5116fa5d97c3ca418e962f7b5329a73bed37ac4bfcd0e9755025d937256",
+    "freeze-plan@en": "sha256:d04568b97a4dbfe1103d9ab4ade9d255811fa3dbf2363616fd2d70b21d5ee83b",
+    "freeze-plan@ar": "sha256:66cd61ec7e3d8f89ac4ea9004f774b61db1c62099b9eb54373bd2722a2a210a0",
+    "freeze-plan@ur": "sha256:cddbc61e6e05cfa38c49c054d82d8b117894af51c18a244fb18feaa0362f4e07",
+    "freeze-plan@zh": "sha256:216cb1d4c84ae8667fcc715c4595e59d3a897f79a28e16b370e7674c32c8f1c3",
+    "dubbed-video@en": "sha256:45b1980da7d3c1a0378af5d8e28e27249cca254b29b4b55a1088b33ef34b6ede",
+    "dubbed-video@ar": "sha256:30e1ab591af98e9b03371c7ee6678d51be440fe1fe72a630ba186738cb7aa18a",
+    "dubbed-video@ur": "sha256:647b60ac45150f115c4fe993e7c5af613658fd75c852c0a6871623a507843e79",
+    "dubbed-video@zh": "sha256:3c3669d304732d8b43d48deb0b716ec9f20691cba9d60e0827c504e548bd15b3"
   },
   "blocked_reasons": []
 }

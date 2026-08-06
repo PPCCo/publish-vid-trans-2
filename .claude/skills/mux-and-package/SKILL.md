@@ -30,7 +30,23 @@ The pipeline **ends at READY_FOR_REVIEW** — nothing is uploaded or published.
   distributable `rights_status`. Until then, every package README carries a **NOT CLEARED FOR
   DISTRIBUTION** banner. Do not set rights yourself — that is a human-only action.
 - Mux runs as an **ffmpeg subprocess**; the CLI never imports an ML library. The source picture
-  is copied bit-for-bit (no re-encode); only the dub is encoded (AAC).
+  is copied bit-for-bit (no re-encode); only the dub is encoded (AAC) — **except** in freeze-frame
+  mode (below), where the picture is re-encoded to absorb the freezes.
+
+## Freeze-frame mode (when `freeze_frame_enabled` is on)
+If the dub was produced with `quality_bars.audio.freeze_frame_enabled: true` (opt-in via
+`company.local.json`), `dub run` wrote a per-language freeze plan (`audio/freeze-plan.<lang>.json`)
+recording how the picture is re-timed to the audio: running-gap **holds**, plus — for languages in
+`quality_bars.audio.freeze_trim_languages` (Model A) — picture **trims** (dropped source regions).
+When an **active** freeze plan exists for a language, `package mux` **rebuilds the picture on the
+post-adjust timeline** (source slices interleaved with frozen-frame inserts and with trimmed regions
+dropped, re-encoded H.264/AAC crf18 — not `-c:v copy`) and re-times **both** the embedded soft-subs
+and, at `package build`, the standalone `captions.<lang>.vtt/.srt` deliverables onto that timeline
+so they line up with the dubbed audio.
+The **canonical approved caption doc is never edited** (rules 6/12) — retimed subs are derived
+mux/package outputs. No new command or flag: mux/build detect the active plan automatically.
+Turning the bar back off cleanly reverts future muxes to the plain `-c:v copy` path (no artifact
+deleted). See CLAUDE.md rule 14 / OPERATING-GUIDE §9.
 
 ## Preconditions
 - The project is at (or through) `AUDIO_QA_GATE` with the per-language `audio_qa` approvals

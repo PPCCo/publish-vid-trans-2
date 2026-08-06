@@ -72,6 +72,7 @@ def probe_summary(media_path: Path | str) -> dict[str, Any]:
             "width": video.get("width"),
             "height": video.get("height"),
             "fps": fps,
+            "pix_fmt": video.get("pix_fmt"),
         } if video else {},
         "audio": {
             "codec": audio.get("codec_name"),
@@ -458,6 +459,61 @@ def slice_video(
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(f"ffmpeg slice_video failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest
+
+
+def freeze_segment(
+    source: Path | str,
+    dest_mp4: Path | str,
+    *,
+    at_seconds: float,
+    duration_ms: int,
+    audio_sample_rate: int = 44100,
+    audio_channels: int = 2,
+    pix_fmt: str | None = "yuv420p",
+    video_crf: int = 18,
+    audio_bitrate: str = "192k",
+    timeout: int = 600,
+) -> Path:
+    """Produce a clip that freezes ``source``'s frame at ``at_seconds`` for ``duration_ms``.
+
+    Used by the freeze-frame dubbing path: when a dubbed cue's audio runs longer than its
+    caption slot, the picture is paused on its last frame for the overflow instead of
+    over-speeding the audio. A matching silent audio stream is generated (``anullsrc``) so the
+    clip carries both a video AND an audio stream — ``concat_videos`` requires every part to
+    have both. ``audio_sample_rate``/``audio_channels`` should match the adjacent source clips'
+    audio (probe one via ``probe_summary``) so the concat never hits a mismatched-audio surprise.
+
+    A single input frame is seized via a fast input-side ``-ss`` (which frame precisely does not
+    matter for a freeze) and ``tpad=stop_mode=clone:stop_duration`` clones it for the requested
+    duration. Re-encoded to H.264/AAC (like ``slice_video``) so the clip has a self-contained GOP
+    ``concat_videos`` can join.
+    """
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    seconds = max(0.0, duration_ms) / 1000
+    layout = "mono" if audio_channels == 1 else "stereo"
+    pad = f"tpad=stop_mode=clone:stop_duration={seconds:.3f}"
+    vfilter = f"[0:v]trim=end_frame=1,setpts=PTS-STARTPTS,{pad}[v]"
+    command = [
+        _require("ffmpeg"), "-y",
+        "-ss", f"{max(0.0, at_seconds):.3f}", "-i", str(source),
+        "-f", "lavfi", "-i", f"anullsrc=r={audio_sample_rate}:cl={layout}",
+        "-filter_complex", vfilter,
+        "-map", "[v]", "-map", "1:a",
+        "-t", f"{seconds:.3f}",
+        "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+        "-pix_fmt", pix_fmt or "yuv420p",
+        "-c:a", "aac", "-b:a", audio_bitrate,
+        "-ac", str(audio_channels), "-ar", str(audio_sample_rate),
+        "-avoid_negative_ts", "make_zero", str(dest),
+    ]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(
+            f"ffmpeg freeze_segment failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest

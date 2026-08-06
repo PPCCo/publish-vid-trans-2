@@ -64,6 +64,11 @@ def sync_report_relpath() -> str:
     return "audio/sync-report.json"
 
 
+def freeze_plan_relpath(language: str) -> str:
+    """Project-relative path for a language's freeze plan: audio/freeze-plan.<lang>.json."""
+    return f"audio/freeze-plan.{language}.json"
+
+
 def _audio_quality_bars(root: Path) -> dict[str, Any]:
     """Read quality_bars.audio from company.default.json (never hardcode the bars)."""
     from .util import load_company_config
@@ -75,6 +80,12 @@ def _audio_quality_bars(root: Path) -> dict[str, Any]:
         "max_time_stretch": float(bars.get("max_time_stretch", 1.3)),
         "per_cue_drift_tolerance_ms": int(bars.get("per_cue_drift_tolerance_ms", 150)),
         "cumulative_drift_ceiling_ms": int(bars.get("cumulative_drift_ceiling_ms", 500)),
+        "freeze_frame_enabled": bool(bars.get("freeze_frame_enabled", False)),
+        "freeze_stretch_cap": float(bars.get("freeze_stretch_cap", 1.15)),
+        "max_freeze_ms_per_cue": int(bars.get("max_freeze_ms_per_cue", 4000)),
+        # Languages that use freeze-frame Model A (freeze + TRIM → residual 0); every other
+        # freeze-mode language uses Model B (freeze/hold only, honest residual). Default: none.
+        "freeze_trim_languages": [str(x) for x in bars.get("freeze_trim_languages", [])],
     }
 
 
@@ -101,6 +112,115 @@ def _natural_pause_before(cues: list[dict[str, Any]], idx: int, gap_ms: int = 70
         return True
     prev = cues[idx - 1]
     return (cues[idx]["start_ms"] - prev["end_ms"]) >= gap_ms
+
+
+def _plan_freezes(
+    cue_measures: list[dict[str, Any]],
+    bars: dict[str, Any],
+    *,
+    trim: bool = False,
+    source_duration_ms: int | None = None,
+) -> dict[str, list[dict[str, Any]]]:
+    """Pure: from per-cue measures (already gathered by run_dub), decide how to re-time the
+    picture at each cue boundary so it tracks the back-to-back dubbed audio.
+
+    Under freeze-frame policy the per-cue loop fits audio only to ``freeze_stretch_cap`` (gentle),
+    so a cue's rendered audio can run longer OR shorter than its slot. That mismatch does NOT stay
+    local: run_dub lays cue audio back-to-back (lead silence only when the audio is EARLY), so a
+    long cue pushes every following cue's audio *later* until a natural gap lets it catch up. We
+    therefore plan on a **running gap** between the audio playhead and the (already-retimed)
+    picture playhead. ``rendered_start_ms``/``caption_start_ms`` come straight from the audio
+    timeline run_dub built, so the gap is real, not modelled::
+
+        net   = cumulative_freeze - cumulative_trim          # picture shift so far
+        gap_i = rendered_start_ms[i] - (caption_start_ms[i] + net)
+
+    ``gap_i > 0`` — audio is later than picture: **hold** the frame for ``gap_i`` at this cue's
+    start (``at_ms == caption_start_ms``, always a cue boundary). Always emitted.
+
+    ``gap_i < 0`` — audio is earlier than picture: only in **trim mode** (Model A) do we **trim**
+    the picture by ``-gap_i`` there (skip that much source) so the picture catches up → residual 0
+    by construction. In hold-only mode (Model B) we clamp at 0 and never drop source frames, so a
+    one-sided residual (picture lagging the audio) remains and is surfaced honestly as drift in the
+    sync report. See CLAUDE.md rule 14.
+
+    **Tail reconciliation.** Cue-boundary gaps only align cue *starts*; the last cue's own
+    slot→render mismatch and any source that runs *past the last cue* (the video tail) are still
+    unaccounted, so the total picture length (``source_duration_ms + cum_freeze - cum_trim``) can
+    overshoot or undershoot the audio's total length (``rendered_end_ms`` of the last cue). When
+    ``source_duration_ms`` is given we emit one final tail entry at ``at_ms == source_duration_ms``
+    to reconcile the *ends*: ``tail_gap = final_audio_end - picture_end``. ``tail_gap > 0`` (audio
+    longer than picture) → **freeze** the last frame for ``tail_gap`` (always emitted, both modes,
+    so the picture never ends before the audio). ``tail_gap < 0`` (picture longer than audio, e.g.
+    an untrimmed video tail after the last cue) → in **trim mode** trim the picture tail by
+    ``-tail_gap`` so picture end == audio end; in hold-only mode leave the honest residual.
+
+    Returns ``{"freezes": [...], "trims": [...]}`` in cue order (trims empty unless ``trim``);
+    the tail entry, when present, sorts last by ``at_ms``.
+    """
+    freezes: list[dict[str, Any]] = []
+    trims: list[dict[str, Any]] = []
+    cum_freeze = 0
+    cum_trim = 0
+    last_measure: dict[str, Any] | None = None
+    for m in cue_measures:
+        cap_start = int(m["caption_start_ms"])
+        slot_ms = max(1, int(m["caption_end_ms"]) - cap_start)
+        natural_ms = int(m["natural_ms"])
+        sf = round(natural_ms / slot_ms, 4) if slot_ms else 1.0
+        gap = int(m["rendered_start_ms"]) - (cap_start + cum_freeze - cum_trim)
+        if gap > 0:
+            freezes.append({
+                "cue_id": int(m["id"]), "at_ms": cap_start, "freeze_ms": int(gap),
+                "natural_ms": natural_ms, "slot_ms": int(slot_ms), "stretch_factor": sf,
+            })
+            cum_freeze += gap
+        elif gap < 0 and trim:
+            trims.append({
+                "cue_id": int(m["id"]), "at_ms": cap_start, "trim_ms": int(-gap),
+                "natural_ms": natural_ms, "slot_ms": int(slot_ms), "stretch_factor": sf,
+            })
+            cum_trim += -gap
+        last_measure = m
+
+    # Tail reconciliation: make the picture END where the audio ENDS.
+    #   picture_end = source_duration_ms + cum_freeze - cum_trim
+    #   tail_gap    = final_audio_end - picture_end
+    # A tail FREEZE holds the last frame at at_ms == source_duration_ms (the full source slice is
+    # emitted first, then the hold). A tail TRIM drops [at, at+trim_ms); to shorten the *end* of the
+    # source it must land at at_ms == source_duration_ms - trim_ms so the dropped span is real source
+    # (a trim at source_duration_ms would drop nothing). The tail entry sorts last by at_ms.
+    if source_duration_ms is not None and last_measure is not None:
+        src_dur = int(source_duration_ms)
+        final_audio_end = int(last_measure["rendered_end_ms"])
+        picture_end = src_dur + cum_freeze - cum_trim
+        tail_gap = final_audio_end - picture_end
+        tail_cue = int(last_measure["id"])
+        if tail_gap > 0:
+            freezes.append({
+                "cue_id": tail_cue, "at_ms": src_dur, "freeze_ms": int(tail_gap),
+                "natural_ms": 0, "slot_ms": 1, "stretch_factor": 1.0, "tail": True,
+            })
+            cum_freeze += tail_gap
+        elif tail_gap < 0 and trim:
+            trim_ms = -tail_gap
+            trims.append({
+                "cue_id": tail_cue, "at_ms": max(0, src_dur - trim_ms), "trim_ms": int(trim_ms),
+                "natural_ms": 0, "slot_ms": 1, "stretch_factor": 1.0, "tail": True,
+            })
+            cum_trim += trim_ms
+    return {"freezes": freezes, "trims": trims}
+
+
+def _source_video_duration_ms(paths: ProjectPaths) -> int | None:
+    """Duration of the source picture in ms, resolved the same way packaging's mux does
+    (``audio_duration_ms`` over the source video container), or None if no source video is present.
+    Used for tail reconciliation in ``_plan_freezes`` so the retimed picture ends where the dub
+    audio ends."""
+    for child in sorted(paths.source_dir.glob("*")):
+        if child.suffix.lower() in {".mp4", ".mkv", ".webm"}:
+            return int(media_mod.audio_duration_ms(child))
+    return None
 
 
 # --- 1. render a dub ---------------------------------------------------------
@@ -148,7 +268,9 @@ def run_dub(
         raise DubbingError(f"captions for {language!r} have no cues to dub")
 
     bars = _audio_quality_bars(root)
-    cap = bars["max_time_stretch"]
+    # Under freeze-frame policy audio is fit only to a gentle cap (kept near natural length); the
+    # slot overflow is absorbed by freezing the picture at mux instead of over-speeding the audio.
+    cap = bars["freeze_stretch_cap"] if bars["freeze_frame_enabled"] else bars["max_time_stretch"]
     sr, ch = media_mod.DUB_SAMPLE_RATE, media_mod.DUB_CHANNELS
 
     clone_ref: Path | None = None
@@ -217,22 +339,48 @@ def run_dub(
     artifact = artifacts_mod.register_artifact(
         root, project_id, dub_path, "dub-wav", "DUBBING", actor, language=language,
     )
+    # Freeze plan: how to re-time the picture to the audio at mux. Languages in
+    # freeze_trim_languages use Model A (freeze + trim → residual 0); the rest use Model B
+    # (hold only, honest residual). Empty (but still written) plan when freeze mode is on and
+    # nothing needs adjusting; None when the policy is off (legacy clamp-and-drift, unchanged).
+    trim_mode = language in bars["freeze_trim_languages"]
+    # Tail reconciliation needs the source-picture length (the same duration the mux rebuilds
+    # against) so the retimed picture ends exactly where the dub audio ends. Resolve the source
+    # video the same way packaging does; if it's absent (e.g. source media pruned) fall back to
+    # None — the plan then only aligns cue boundaries (pre-fix behavior), no tail entry.
+    source_duration_ms = _source_video_duration_ms(paths)
+    freeze_plan = (
+        _plan_freezes(cue_measures, bars, trim=trim_mode,
+                      source_duration_ms=source_duration_ms)
+        if bars["freeze_frame_enabled"] else None
+    )
+    freeze_plan_rel: str | None = None
+    if freeze_plan is not None:
+        freeze_plan_rel = _write_freeze_plan(
+            root, project_id, language, freeze_plan, bars, trim_mode=trim_mode,
+            dub_sha256=artifact["sha256"], actor=actor,
+            source_artifact_id=artifact["artifact_id"],
+        )
     provider_used = provider or _resolved_provider_label(root, language)
     report = _build_sync_report(
         root, project_id, language, cue_measures, bars,
         provider=provider_used, model=model, dub_sha256=artifact["sha256"], actor=actor,
+        freeze_plan=freeze_plan,
     )
     _set_track(root, project_id, language, stage=TRACK_STAGE_DUBBED,
                status="in_progress", actor=actor, notes="dub rendered; sync measured")
     append_event(paths.events, project_id, "DUB_RENDERED", actor, {
         "language": language, "cues": len(cues), "provider": provider_used,
         "dub_sha256": artifact["sha256"], "cloned": bool(clone),
+        "freezes": len(freeze_plan["freezes"]) if freeze_plan is not None else 0,
+        "trims": len(freeze_plan["trims"]) if freeze_plan is not None else 0,
     })
     advanced = _maybe_advance_top(root, project_id, actor, advance, "CAPTION_VALIDATION",
                                   "DUBBING", TRACK_STAGE_DUBBED,
                                   _dub_langs(load_json(paths.state)))
     return {"dub": _rel(dub_path, paths), "artifact": artifact, "language": language,
-            "sync": report["languages"][language], "advanced_to": advanced}
+            "sync": report["languages"][language], "advanced_to": advanced,
+            "freeze_plan": freeze_plan_rel}
 
 
 def _resolved_provider_label(root: Path, language: str) -> str:
@@ -326,8 +474,17 @@ def import_dub(
     advanced = _maybe_advance_top(root, project_id, actor, advance, "CAPTION_VALIDATION",
                                   "DUBBING", TRACK_STAGE_DUBBED,
                                   _dub_langs(load_json(paths.state)))
-    return {"dub": _rel(dub_path, paths), "artifact": artifact, "language": language,
-            "sync": report["languages"][language], "advanced_to": advanced}
+    result = {"dub": _rel(dub_path, paths), "artifact": artifact, "language": language,
+              "sync": report["languages"][language], "advanced_to": advanced,
+              "freeze_plan": None}
+    if bars["freeze_frame_enabled"]:
+        # An opaque imported track has no per-cue natural durations, so a meaningful per-cue
+        # freeze plan can't be computed here — freeze-frame is real-TTS (`run_dub`) only.
+        result["freeze_plan_skipped_reason"] = (
+            "imported dub has no per-cue boundaries; freeze-frame planning applies to the "
+            "TTS render path (dub run) only"
+        )
+    return result
 
 
 # --- 3. sync report ----------------------------------------------------------
@@ -343,33 +500,71 @@ def _build_sync_report(
     model: str | None,
     dub_sha256: str | None,
     actor: str,
+    freeze_plan: dict[str, list[dict[str, Any]]] | None = None,
 ) -> dict[str, Any]:
     """Merge one language's cue measures into audio/sync-report.json and register it.
 
     Drift is rendered_end - caption_end. Cumulative offset is reset to 0 at natural pauses so
     a single long cue cannot poison the whole track. Preserves other languages' blocks.
+
+    Under freeze-frame policy (``freeze_plan`` given, a ``{"freezes", "trims"}`` dict) the picture
+    is retimed to the audio at mux by holding the frame for each freeze and skipping source for each
+    trim. Drift is then measured on the **post-adjust timeline**: a cue's residual is how far its
+    rendered-audio start still sits from its caption start after the accumulated adjustment has
+    shifted the picture, ``rendered_start - (caption_start + cum_freeze - cum_trim)``. In trim mode
+    (Model A) every cue reads ~0 residual by construction; in hold-only mode (Model B) a residual
+    remains where the audio *underruns* its slot (we never trim source frames there).
+    ``over_stretch_cap`` is always False here because the gentle cap is the only fit applied.
+    analyze_sync's blocker/major checks are unchanged code reading these truthful numbers.
     """
     paths = ProjectPaths(root, project_id).require()
     tol = bars["per_cue_drift_tolerance_ms"]
     cap = bars["max_time_stretch"]
+    freeze_mode = freeze_plan is not None
+    # Exclude tail entries: they reconcile the picture's *total length* to the audio (keyed by
+    # at_ms for the mux/windows), not a cue-START boundary, and they reuse the last cue's id — so
+    # counting them here would double-adjust that cue's residual. The mux (packaging) keys events by
+    # at_ms and DOES apply them.
+    frozen_ms_by_cue = {int(f["cue_id"]): int(f["freeze_ms"])
+                        for f in (freeze_plan or {}).get("freezes", []) if not f.get("tail")}
+    trim_ms_by_cue = {int(t["cue_id"]): int(t["trim_ms"])
+                      for t in (freeze_plan or {}).get("trims", []) if not t.get("tail")}
 
     cues_out: list[dict[str, Any]] = []
     cumulative = 0
     max_abs = 0
     over_tol: list[int] = []
     over_cap: list[int] = []
+    cumulative_freeze = 0
+    cumulative_trim = 0
     # Reconstruct the cue list for pause detection from the caption schedule.
     schedule = [{"start_ms": m["caption_start_ms"], "end_ms": m["caption_end_ms"]}
                 for m in cue_measures]
     for i, m in enumerate(cue_measures):
-        drift = int(m["rendered_end_ms"] - m["caption_end_ms"])
-        reset = _natural_pause_before(schedule, i)
-        if reset:
-            cumulative = 0
-        cumulative += drift
+        freeze_planned = m["id"] in frozen_ms_by_cue
+        trim_planned = m["id"] in trim_ms_by_cue
+        if freeze_mode:
+            # A freeze/trim on this cue is applied BEFORE it, shifting the picture; measure the
+            # residual audio-vs-picture gap on the post-adjust timeline. No cumulative-reset game —
+            # freezes/trims, not natural pauses, are what realign the picture here.
+            cumulative_freeze += frozen_ms_by_cue.get(m["id"], 0)
+            cumulative_trim += trim_ms_by_cue.get(m["id"], 0)
+            net = cumulative_freeze - cumulative_trim
+            drift = int(m["rendered_start_ms"]) - (int(m["caption_start_ms"]) + net)
+            cumulative = drift
+            reset = False
+            is_over_cap = False
+        else:
+            # Legacy clamp-and-drift model: drift accumulates against the caption slot, reset at
+            # natural pauses so one long cue can't poison the whole track.
+            drift = int(m["rendered_end_ms"] - m["caption_end_ms"])
+            reset = _natural_pause_before(schedule, i)
+            if reset:
+                cumulative = 0
+            cumulative += drift
+            is_over_cap = bool(m.get("over_stretch_cap"))
         max_abs = max(max_abs, abs(cumulative))
         is_over_tol = abs(cumulative) > tol
-        is_over_cap = bool(m.get("over_stretch_cap"))
         if is_over_tol:
             over_tol.append(m["id"])
         if is_over_cap:
@@ -385,6 +580,10 @@ def _build_sync_report(
             "over_tolerance": is_over_tol,
             "over_stretch_cap": is_over_cap,
             "reset_here": reset,
+            "freeze_planned": freeze_planned,
+            "freeze_ms": frozen_ms_by_cue.get(m["id"], 0),
+            "trim_planned": trim_planned,
+            "trim_ms": trim_ms_by_cue.get(m["id"], 0),
         })
 
     lang_block = {
@@ -399,6 +598,12 @@ def _build_sync_report(
         "max_abs_drift_ms": int(max_abs),
         "cues_over_tolerance": over_tol,
         "cues_over_stretch_cap": over_cap,
+        "freeze_frame_enabled": bool(freeze_plan is not None),
+        # Totals reflect the FULL plan including the tail entry (the picture-length reconciliation
+        # the mux applies), even though the tail is excluded from the per-cue residual accounting
+        # above — so the disclosed total matches the picture the mux actually builds.
+        "total_freeze_ms": int(sum(int(f["freeze_ms"]) for f in (freeze_plan or {}).get("freezes", []))),
+        "total_trim_ms": int(sum(int(t["trim_ms"]) for t in (freeze_plan or {}).get("trims", []))),
         "cues": cues_out,
     }
 
@@ -439,6 +644,66 @@ def load_sync_report(root: Path, project_id: str) -> dict[str, Any]:
     return load_json(path)
 
 
+def _write_freeze_plan(
+    root: Path,
+    project_id: str,
+    language: str,
+    freeze_plan: dict[str, list[dict[str, Any]]],
+    bars: dict[str, Any],
+    *,
+    trim_mode: bool,
+    dub_sha256: str | None,
+    actor: str,
+    source_artifact_id: str,
+) -> str:
+    """Persist a language's freeze plan to audio/freeze-plan.<lang>.json and register it.
+
+    Written whenever freeze-frame policy is on (even with an empty plan — a valid, informative
+    artifact). ``freeze_plan`` is the ``{"freezes", "trims"}`` dict from ``_plan_freezes``. In
+    hold-only mode (``trim_mode`` False, Model B) ``trims`` is empty; in trim mode (Model A) it
+    records where the picture is shortened so residual reaches 0. Registered as a `freeze-plan`
+    artifact tracing to the dub-wav (rule 6), so mux/package resolve the ACTIVE plan the same way
+    they resolve the active dub."""
+    paths = ProjectPaths(root, project_id).require()
+    freezes = freeze_plan["freezes"]
+    trims = freeze_plan["trims"]
+    doc = {
+        "schema_version": SCHEMA_VERSION,
+        "project_id": project_id,
+        "language": language,
+        "dub_sha256": dub_sha256,
+        "created_at": utc_now(),
+        "created_by": actor,
+        "mode": "trim" if trim_mode else "hold",
+        "quality_bars": {
+            "freeze_frame_enabled": bars["freeze_frame_enabled"],
+            "freeze_stretch_cap": bars["freeze_stretch_cap"],
+            "max_freeze_ms_per_cue": bars["max_freeze_ms_per_cue"],
+            "freeze_trim_languages": bars["freeze_trim_languages"],
+        },
+        "total_freeze_ms": int(sum(f["freeze_ms"] for f in freezes)),
+        "total_trim_ms": int(sum(t["trim_ms"] for t in trims)),
+        "freezes": freezes,
+        "trims": trims,
+    }
+    plan_path = paths.directory / freeze_plan_relpath(language)
+    with project_lock(paths.lock):
+        require_valid(root, doc, "freeze-plan.schema.json")
+        plan_path.parent.mkdir(parents=True, exist_ok=True)
+        atomic_write_json(plan_path, doc)
+    artifacts_mod.register_artifact(
+        root, project_id, plan_path, "freeze-plan", TRACK_STAGE_DUBBED, actor,
+        language=language, source_artifact_ids=[source_artifact_id],
+    )
+    return _rel(plan_path, paths)
+
+
+def load_freeze_plan(root: Path, project_id: str, language: str) -> dict[str, Any] | None:
+    paths = ProjectPaths(root, project_id).require()
+    path = paths.directory / freeze_plan_relpath(language)
+    return load_json(path) if path.is_file() else None
+
+
 # --- 4. audio-sync QA (aggregate gate report) --------------------------------
 
 def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, Any]:
@@ -473,6 +738,30 @@ def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, 
             f"({bars['per_cue_drift_tolerance_ms']}ms).",
             language=lang, cue_id=cid,
         ))
+    # Freeze-frame policy: over-slot cues are resolved by holding the picture at mux, not by
+    # audio drift. Each is an informational `note` (PASS-preserving — _aggregate_decision only
+    # escalates on blocker/major); an over-long freeze escalates to a `major` so a person sees it.
+    if lang_block.get("freeze_frame_enabled"):
+        cap_ms = bars["max_freeze_ms_per_cue"]
+        for cue in lang_block.get("cues", []):
+            if not cue.get("freeze_planned"):
+                continue
+            freeze_ms = int(cue.get("freeze_ms", 0))
+            if freeze_ms > cap_ms:
+                findings.append(_finding(
+                    "major", "audio-freeze-excessive",
+                    f"[{lang}] cue {cue['id']} needs a {freeze_ms}ms picture freeze, beyond the "
+                    f"{cap_ms}ms per-cue cap — the frozen frame will linger; tighten the "
+                    f"translation or split the source segment.",
+                    language=lang, cue_id=cue["id"],
+                ))
+            else:
+                findings.append(_finding(
+                    "note", "audio-freeze-planned",
+                    f"[{lang}] cue {cue['id']} audio runs long; picture will be frozen "
+                    f"{freeze_ms}ms at mux to keep the dub near natural speed.",
+                    language=lang, cue_id=cue["id"],
+                ))
     if any(f["severity"] == "blocker" for f in findings):
         decision = "FAIL"
     elif any(f["severity"] == "major" for f in findings):
@@ -485,6 +774,9 @@ def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, 
         "cues": len(lang_block.get("cues", [])),
         "cues_over_tolerance": len(lang_block.get("cues_over_tolerance", [])),
         "cues_over_stretch_cap": len(lang_block.get("cues_over_stretch_cap", [])),
+        "freeze_frame_enabled": bool(lang_block.get("freeze_frame_enabled")),
+        "total_freeze_ms": int(lang_block.get("total_freeze_ms", 0)),
+        "cues_frozen": sum(1 for c in lang_block.get("cues", []) if c.get("freeze_planned")),
     }
     return {"decision": decision, "findings": findings, "metrics": metrics}
 

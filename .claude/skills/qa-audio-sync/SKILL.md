@@ -36,6 +36,19 @@ tolerance, cues whose fit demanded a stretch beyond the cap), with cue-reference
      splitting the source segment, then re-render.
    - **audio-drift-over-tolerance** (minor): cue drifts past per-cue tolerance — note for the
      reviewer; not blocking on its own.
+   - **audio-freeze-planned** (note, only when `freeze_frame_enabled`): the picture is re-timed to
+     the audio at mux (running-gap holds, and — for languages in `freeze_trim_languages`, Model A —
+     picture *trims*) rather than by audio drift. In trim mode (`total_trim_ms > 0`) that cue's
+     `drift_ms` is `0`; in hold-only mode (Model B) an honest one-sided residual (picture lags audio)
+     may remain and is what the raised `per_cue_drift_tolerance_ms` covers. Either way it is *not* an
+     `audio-stretch-over-cap` cue. Informational; PASS is preserved. When disclosing at the gate,
+     tell the human whether the track is hold-only (residual accepted under a raised tolerance) or
+     trim (source frames dropped to hit residual 0), with the `total_freeze_ms`/`total_trim_ms`.
+     See CLAUDE.md rule 14 / OPERATING-GUIDE §9.
+   - **audio-freeze-excessive** (major, freeze mode only): the planned hold exceeds
+     `max_freeze_ms_per_cue` (default 4000ms) — a frame would linger visibly. Surface it to the
+     human; fix by tightening that cue's translation (shorter render → smaller overflow) rather
+     than accepting a long freeze.
 3. Spot-check: `Read` a couple of flagged cues in `captions/captions.<iso>.json` and confirm the
    translation is genuinely too long for its slot (vs. an engine artifact).
 4. Summarize a per-language recommendation (APPROVE / REVISE) with cue-referenced evidence and

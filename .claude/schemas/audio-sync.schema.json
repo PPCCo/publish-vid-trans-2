@@ -35,6 +35,9 @@
           "max_abs_drift_ms": { "type": "integer", "minimum": 0 },
           "cues_over_tolerance": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose |drift| exceeds per-cue tolerance." },
           "cues_over_stretch_cap": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose fit demanded a stretch beyond the cap (clamped, not forced)." },
+          "freeze_frame_enabled": { "type": "boolean", "description": "True when this dub was produced under freeze-frame policy (audio kept near natural length; the picture is frozen at mux to absorb overflow)." },
+          "total_freeze_ms": { "type": "integer", "minimum": 0, "description": "Sum of planned freeze durations across this track's cues." },
+          "total_trim_ms": { "type": "integer", "minimum": 0, "description": "Sum of planned picture-trim durations across this track's cues (trim mode / Model A only; 0 in hold mode)." },
           "cues": {
             "type": "array",
             "items": {
@@ -51,7 +54,11 @@
                 "stretch_factor": { "type": "number", "description": "Synthesized duration / target duration before fitting (1.0 = perfect fit)." },
                 "over_tolerance": { "type": "boolean" },
                 "over_stretch_cap": { "type": "boolean" },
-                "reset_here": { "type": "boolean", "description": "Cumulative offset was reset to 0 at this cue's natural pause." }
+                "reset_here": { "type": "boolean", "description": "Cumulative offset was reset to 0 at this cue's natural pause." },
+                "freeze_planned": { "type": "boolean", "description": "True when this cue's audio overflow is absorbed by a video freeze at mux (drift_ms is then 0 by construction)." },
+                "freeze_ms": { "type": "integer", "minimum": 0, "description": "Planned freeze duration for this cue (0 when not freeze-planned)." },
+                "trim_planned": { "type": "boolean", "description": "True when the picture is trimmed at this cue boundary (trim mode / Model A) so it catches up to earlier-running audio." },
+                "trim_ms": { "type": "integer", "minimum": 0, "description": "Planned picture-trim duration for this cue (0 when not trim-planned)." }
               }
             }
           }
