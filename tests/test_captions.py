@@ -278,3 +278,34 @@ def test_max_cue_ms_reads_config_with_fallback(tmp_path):
     cfg["quality_bars"]["captions"]["max_cue_duration_ms"] = 0
     cfg_path.write_text(json.dumps(cfg))
     assert captions.max_cue_ms(root) == captions.MAX_CUE_MS
+
+
+def test_max_reading_rate_reads_config_with_fallback(tmp_path):
+    root = tmp_path / "repo"
+    (root / ".claude" / "config").mkdir(parents=True)
+    shutil.copytree(REPO / ".claude" / "config", root / ".claude" / "config", dirs_exist_ok=True)
+    # isolate from any local overlay so we test the default keys deterministically
+    (root / ".claude" / "config" / "company.local.json").unlink(missing_ok=True)
+    cfg_path = root / ".claude" / "config" / "company.default.json"
+    cfg = json.loads(cfg_path.read_text())
+    cfg["quality_bars"]["captions"]["max_reading_speed_wpm"] = 300
+    cfg["quality_bars"]["captions"]["max_reading_speed_cjk_cpm"] = 640
+    cfg_path.write_text(json.dumps(cfg))
+    assert captions.max_reading_rate(root, "latin") == 300
+    assert captions.max_reading_rate(root, "rtl") == 300  # non-cjk shares the wpm bar
+    assert captions.max_reading_rate(root, "cjk") == 640
+    # a bad value falls back to the module default for the class
+    cfg["quality_bars"]["captions"]["max_reading_speed_wpm"] = 0
+    cfg_path.write_text(json.dumps(cfg))
+    assert captions.max_reading_rate(root, "latin") == captions.MAX_WPM_LATIN
+
+
+def test_validate_reading_rate_override_lifts_too_fast_cue_to_pass():
+    # ~12 words in 1s -> ~720 wpm -> over the 180 default (CONDITIONAL_PASS) ...
+    fast = "one two three four five six seven eight nine ten eleven twelve"
+    doc = _doc([{"id": 0, "start_ms": 0, "end_ms": 1000, "source_text": "s", "target_text": fast}])
+    assert captions.validate_captions(doc)["decision"] == "CONDITIONAL_PASS"
+    # ... but a raised override clears it to PASS with no reading-speed finding
+    result = captions.validate_captions(doc, max_reading_rate_override=800)
+    assert result["decision"] == "PASS"
+    assert not any(f["category"] == "reading-speed" for f in result["findings"])

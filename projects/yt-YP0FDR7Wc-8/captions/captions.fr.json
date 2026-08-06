@@ -1,0 +1,1909 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "language": "fr",
+  "source_language": "fa",
+  "script_class": "latin",
+  "glossary_id": null,
+  "engine": {
+    "provider": "agent",
+    "model": null,
+    "version": null
+  },
+  "has_word_timing": false,
+  "cues": [
+    {
+      "id": 0,
+      "start_ms": 0,
+      "end_ms": 6308,
+      "source_text": "اعود بالله برشیطان ردیم بسم الله الرحمن الرحیم و",
+      "target_text": "Je cherche refuge en Dieu contre Satan le maudit. Au nom de Dieu, le Tout-Miséricordieux, le Très-Miséricordieux.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 1,
+      "start_ms": 6308,
+      "end_ms": 12616,
+      "source_text": "العصده اندال انسان ننفی خوصر ایلالذین آمنوا و عملوا",
+      "target_text": "« Par le Temps !",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 2,
+      "start_ms": 12616,
+      "end_ms": 18924,
+      "source_text": "استالحاقی و تواصطا و بالحبی و تواصطا و مستبرو سوره",
+      "target_text": "En vérité, l'homme est en perdition, sauf ceux qui croient, accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement la patience.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 3,
+      "start_ms": 18924,
+      "end_ms": 25232,
+      "source_text": "ببارکه قلعص که عدم بالغلبش قلعصر است این سوره",
+      "target_text": "» Voici la sourate bénie Al-'Asr ; elle s'ouvre par « Par le Temps ».",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 4,
+      "start_ms": 25232,
+      "end_ms": 31540,
+      "source_text": "اون بارکه که می تواند مدنی مکی باشد و ظاهرن مکی است",
+      "target_text": "Cette sourate bénie pourrait être médinoise ou mecquoise, et elle est apparemment mecquoise.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 5,
+      "start_ms": 32640,
+      "end_ms": 37620,
+      "source_text": "با سوگند شروع می شود سوگند به اصر که همه این",
+      "target_text": "Elle commence par un serment — un serment par le Temps (al-'Asr)"
+    },
+    {
+      "id": 6,
+      "start_ms": 37620,
+      "end_ms": 42600,
+      "source_text": "سنها در خسارت هست مگر اون گروهی که دارای این",
+      "target_text": "— que tous ces gens sont en perdition, sauf ce groupe qui"
+    },
+    {
+      "id": 7,
+      "start_ms": 42600,
+      "end_ms": 47580,
+      "source_text": "ارکان ارمعه و اناسر مهبری شاهرگانه باشند",
+      "target_text": "possède ces quatre piliers et ces éléments fondamentaux."
+    },
+    {
+      "id": 8,
+      "start_ms": 49380,
+      "end_ms": 51180,
+      "source_text": "سوگند به اصر",
+      "target_text": "Un serment par le Temps (al-'Asr)."
+    },
+    {
+      "id": 9,
+      "start_ms": 52640,
+      "end_ms": 56180,
+      "source_text": "که روشن خواهد شد با حاست خدا که این چه اثریست",
+      "target_text": "— dont l'effet deviendra clair, si Dieu le veut.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 10,
+      "start_ms": 58460,
+      "end_ms": 64205,
+      "source_text": "با انه و جمله اسمیه با لام اینا همه نشانه",
+      "target_text": "Avec la particule d'emphase « inna », la phrase nominale, et le « lam » d'emphase"
+    },
+    {
+      "id": 11,
+      "start_ms": 64205,
+      "end_ms": 69950,
+      "source_text": "تأکید و احتمام به پیام این جمله اولاست که",
+      "target_text": "— tout cela est signe d'insistance et d'importance du message de cette première"
+    },
+    {
+      "id": 12,
+      "start_ms": 69950,
+      "end_ms": 75695,
+      "source_text": "حتما غافله انسانیت همه انسان ها در خسارت",
+      "target_text": "clause : à savoir que très certainement la caravane de l'humanité, tous les êtres"
+    },
+    {
+      "id": 13,
+      "start_ms": 75695,
+      "end_ms": 81440,
+      "source_text": "هم سرمایه را باختن فی ما را بهت تجارت هم",
+      "target_text": "humains, sont en perdition ; ils ont dilapidé leur capital dans un commerce,"
+    },
+    {
+      "id": 14,
+      "start_ms": 82640,
+      "end_ms": 84920,
+      "source_text": "شرفی نبستن سودی نبوردن",
+      "target_text": "n'y gagnant aucun honneur et n'en retirant aucun profit."
+    },
+    {
+      "id": 15,
+      "start_ms": 85940,
+      "end_ms": 91780,
+      "source_text": "سرمایه هم که حفظ شدنی نیست چون سرمایه عمرت که از",
+      "target_text": "Et ce capital ne peut pas non plus être préservé, car le capital est la durée de la vie même, qui s'écoule."
+    },
+    {
+      "id": 16,
+      "start_ms": 91780,
+      "end_ms": 97620,
+      "source_text": "بین می روید گفتن یخ فروشی در تابستان فریاد می",
+      "target_text": "Comme on dit, un vendeur de glace en été criait : « Venez à mon secours !"
+    },
+    {
+      "id": 17,
+      "start_ms": 97620,
+      "end_ms": 103460,
+      "source_text": "زد که به دادن برسید سرمایه هم در شرف آب شدن است",
+      "target_text": "» — car son capital aussi est sur le point de fondre."
+    },
+    {
+      "id": 18,
+      "start_ms": 104340,
+      "end_ms": 108040,
+      "source_text": "انسان در تابستان زندگی می کند",
+      "target_text": "L'homme vit un été où cette glace de sa"
+    },
+    {
+      "id": 19,
+      "start_ms": 108040,
+      "end_ms": 111740,
+      "source_text": "که مرتب این یخ عمرش درد آب می شود",
+      "target_text": "durée de vie fond continuellement."
+    },
+    {
+      "id": 20,
+      "start_ms": 112640,
+      "end_ms": 114000,
+      "source_text": "بر نمی گردد",
+      "target_text": "Elle ne revient pas."
+    },
+    {
+      "id": 21,
+      "start_ms": 115120,
+      "end_ms": 120995,
+      "source_text": "یقینا از این انده و جمله اسمیه و لام لفی و امثار ظالم",
+      "target_text": "Certainement, par cette particule d'emphase, la phrase nominale, le « lam » de « la-fi"
+    },
+    {
+      "id": 22,
+      "start_ms": 120995,
+      "end_ms": 126870,
+      "source_text": "تأکیدی به خوبی برمی آگد که همه این سنان در خسارت هست",
+      "target_text": "», et autres procédés d'insistance semblables, il est bien établi que tous ces gens"
+    },
+    {
+      "id": 23,
+      "start_ms": 126870,
+      "end_ms": 132745,
+      "source_text": "مگر کسانی که این اناسل چهارگانه نهفت بکنند از",
+      "target_text": "sont en perdition, sauf ceux qui réunissent ces quatre éléments. De l'exception, il"
+    },
+    {
+      "id": 24,
+      "start_ms": 132745,
+      "end_ms": 138620,
+      "source_text": "استثناء معلوم مشود که مستثنامه کل جوامع بشری هست",
+      "target_text": "devient clair que le groupe excepté se distingue de toutes les sociétés humaines."
+    },
+    {
+      "id": 25,
+      "start_ms": 140620,
+      "end_ms": 146273,
+      "source_text": "این دل انسان لفی خوص مگر کسی که ایمان بیاورد یک و",
+      "target_text": "C'est le sens de « l'homme est certes en perdition » — sauf celui qui : premièrement, croit"
+    },
+    {
+      "id": 26,
+      "start_ms": 146273,
+      "end_ms": 151926,
+      "source_text": "امن صالح داشته باشد دو و تواصیه به حق داشته باشند",
+      "target_text": "; deuxièmement, accomplit les bonnes œuvres ; troisièmement, s'enjoint mutuellement"
+    },
+    {
+      "id": 27,
+      "start_ms": 151926,
+      "end_ms": 157580,
+      "source_text": "نسویت به دیگه سه و تواصیه به سر داشته باشند چهار",
+      "target_text": "la vérité envers autrui ; et quatrièmement, s'enjoint mutuellement la patience."
+    },
+    {
+      "id": 28,
+      "start_ms": 160500,
+      "end_ms": 166860,
+      "source_text": "منظور از این عطر وجوه فراوان گفته شد اصل یعنی روزگار چون",
+      "target_text": "Quant à [au mot] « al-'Asr », de nombreuses interprétations ont été données."
+    },
+    {
+      "id": 29,
+      "start_ms": 166860,
+      "end_ms": 173220,
+      "source_text": "روزگار به داخره آموزنده است ابرت آموز است بمانند آن",
+      "target_text": "L'une est : il signifie « l'époque / le temps », car le temps est instructif et édifiant — comme..."
+    },
+    {
+      "id": 30,
+      "start_ms": 174500,
+      "end_ms": 180973,
+      "source_text": "یا منظور اصر است وقت نماز اصر است که از او به سلات وستا",
+      "target_text": "Ou bien ce qui est visé est la prière de l'Asr, l'heure de la prière de l'après-midi, désignée"
+    },
+    {
+      "id": 31,
+      "start_ms": 180973,
+      "end_ms": 187446,
+      "source_text": "یاد شده یا اصر هر روز است مقابل زهاک و شمسی به زهاها",
+      "target_text": "comme « la prière du milieu » (al-salat al-wusta) ; ou c'est la fin d'après-midi de chaque jour,"
+    },
+    {
+      "id": 32,
+      "start_ms": 187446,
+      "end_ms": 193920,
+      "source_text": "این هم پایان روز است اون هم تقریبا در اوائل روز است",
+      "target_text": "par opposition au matin — ceci étant la fin du jour, et cela étant à peu près le début du jour."
+    },
+    {
+      "id": 33,
+      "start_ms": 194920,
+      "end_ms": 201740,
+      "source_text": "یا اص به معنای فشار و شتاب و تلاش و کوشش است یا نه مناسبتر",
+      "target_text": "Ou bien « 'asr » signifie pression, hâte, effort et acharnement. Ou — le plus juste"
+    },
+    {
+      "id": 34,
+      "start_ms": 201740,
+      "end_ms": 208560,
+      "source_text": "از همه اصر وحی نبوت است اصری که موجود مبارک پیغمبر صلی",
+      "target_text": "de tous — al-'Asr est l'époque de la révélation et de la prophétie : l'époque"
+    },
+    {
+      "id": 35,
+      "start_ms": 208560,
+      "end_ms": 215380,
+      "source_text": "اللہ علیه و صلی اللہ علیه و صدر چیده است و اصری که موجود",
+      "target_text": "que l'être béni du Prophète (que la paix soit sur lui) a façonnée, et l'époque"
+    },
+    {
+      "id": 36,
+      "start_ms": 215380,
+      "end_ms": 222200,
+      "source_text": "مبارک خاتم اوسیاء ارواح و من سواح و فداح ظهور می کند که",
+      "target_text": "qui se manifeste par l'être béni du Sceau des Successeurs (que nos âmes soient"
+    },
+    {
+      "id": 37,
+      "start_ms": 222200,
+      "end_ms": 229020,
+      "source_text": "اشلقت الارضو به نور ربیه ها قاعد شد و مانندان به هر تقدیر",
+      "target_text": "sa rançon), lorsque « la terre resplendira de la lumière de son Seigneur »."
+    },
+    {
+      "id": 38,
+      "start_ms": 229020,
+      "end_ms": 235840,
+      "source_text": "یا به روزگار یا به عصر سلات عصر یا به عصر وحی نبوید سوگند",
+      "target_text": "En tout cas — que ce soit par le temps, par la prière de l'Asr, ou par l'époque de la"
+    },
+    {
+      "id": 39,
+      "start_ms": 235840,
+      "end_ms": 242660,
+      "source_text": "یاد شد برفی از بفستران نظیر فخر رازی می گویند به این",
+      "target_text": "révélation prophétique — le serment a été prêté. Certains exégètes, comme"
+    },
+    {
+      "id": 40,
+      "start_ms": 242660,
+      "end_ms": 249480,
+      "source_text": "که ذات اقدس اله نسبت به وجود مبارک پیغمبر صلی اللہ علیه",
+      "target_text": "Fakhr al-Razi, disent que l'Essence Divine Sacrée porte une révérence particulière"
+    },
+    {
+      "id": 41,
+      "start_ms": 249480,
+      "end_ms": 256300,
+      "source_text": "وسلم حرمت ویجه قائل است به مکانی سوگند یاد کرد که حضرت",
+      "target_text": "pour l'être béni du Prophète (que la paix soit sur lui) : Il a juré par un"
+    },
+    {
+      "id": 42,
+      "start_ms": 256300,
+      "end_ms": 263120,
+      "source_text": "در اون مکان باشد و اون لا اقصمو به حوض البلده و انتخلو به",
+      "target_text": "lieu parce que le Prophète s'y trouvait — « Je jure par cette cité » (la uqsimu bi-hadha"
+    },
+    {
+      "id": 43,
+      "start_ms": 263120,
+      "end_ms": 269940,
+      "source_text": "حوض البلد به عمر و حیات و زندگی اون حضرت سوگند یاد کرد",
+      "target_text": "al-balad) — et Il a juré par l'âge, la vie et l'existence du Prophète."
+    },
+    {
+      "id": 44,
+      "start_ms": 271140,
+      "end_ms": 277404,
+      "source_text": "هم نفید سکراتیم یه افرانه قسم به حیات و مدت",
+      "target_text": "« Par ta vie » (la-'amruka) — Il a juré par ta vie, ô Prophète. Il convient"
+    },
+    {
+      "id": 45,
+      "start_ms": 277404,
+      "end_ms": 283668,
+      "source_text": "زندگی شما قسم به عمر شما مناسب است که این عصرم",
+      "target_text": "que cet 'Asr soit l'époque de la mission de ce Prophète. Car lorsqu'Il dit"
+    },
+    {
+      "id": 46,
+      "start_ms": 283668,
+      "end_ms": 289933,
+      "source_text": "عصر به عصدون حضرت باشد این که فرماید لغم رو",
+      "target_text": "« la-'amruka » — par ta vie — c'est parce que cette époque de la révélation"
+    },
+    {
+      "id": 47,
+      "start_ms": 289933,
+      "end_ms": 296197,
+      "source_text": "که به عمر شما برای این که این عمر وحی نبوید",
+      "target_text": "prophétique est l'époque de l'enseignement du Livre et de la sagesse"
+    },
+    {
+      "id": 48,
+      "start_ms": 296197,
+      "end_ms": 302462,
+      "source_text": "عمر تعلیم کتاب و حکمت است از یک سو تذکیه نفوس",
+      "target_text": "d'une part, et de la purification des âmes d'autre part, qui a fait passer"
+    },
+    {
+      "id": 49,
+      "start_ms": 302462,
+      "end_ms": 308726,
+      "source_text": "است از سوی دیگر که جامعه را از جاهلیت به تمدن",
+      "target_text": "la société de l'ignorance (jahiliyya) à la civilisation. Comme vous"
+    },
+    {
+      "id": 50,
+      "start_ms": 308726,
+      "end_ms": 314991,
+      "source_text": "آبود مستحضر ای که در پایان سوره باکه بینه",
+      "target_text": "le savez, à la fin de la sourate al-Bayyina, Il a dit : vous êtes les meilleurs"
+    },
+    {
+      "id": 51,
+      "start_ms": 314991,
+      "end_ms": 321255,
+      "source_text": "فرمود شما بهتری مردم آلمی خیر البریه خب اگر",
+      "target_text": "des hommes, la meilleure des créatures (khayr al-bariyya). Or, si"
+    },
+    {
+      "id": 52,
+      "start_ms": 321255,
+      "end_ms": 327520,
+      "source_text": "جامعه اسلامی بهترین جوامه بشری است و اگر",
+      "target_text": "la société islamique est la meilleure des sociétés humaines, et si..."
+    },
+    {
+      "id": 53,
+      "start_ms": 332420,
+      "end_ms": 338517,
+      "source_text": "و اگر رهاورد وحی نبوهد طوریست که لیوزهره و علا الدین",
+      "target_text": "— et si le fruit de la révélation prophétique est tel qu'« Il la fasse prévaloir sur toute",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 54,
+      "start_ms": 338517,
+      "end_ms": 344614,
+      "source_text": "کلهی و لوکره المشتکون و کفا بالله شهیده در سه",
+      "target_text": "religion » (li-yuzhirahu 'ala al-din kullihi), et « Dieu suffit comme témoin » (wa kafa",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 55,
+      "start_ms": 344614,
+      "end_ms": 350711,
+      "source_text": "سوره این تأبیر بلند لیوزهره و علا الدین خوده آمده",
+      "target_text": "bi-llahi shahida) — dans trois sourates cette expression élevée « qu'Il la fasse prévaloir",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 56,
+      "start_ms": 350711,
+      "end_ms": 356808,
+      "source_text": "است نشانه آن است که عصر وحی نبوهد عصریست زرین و انسان",
+      "target_text": "sur toute religion » est venue, signe que l'époque de la révélation prophétique",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 57,
+      "start_ms": 356808,
+      "end_ms": 362905,
+      "source_text": "تربر و انسان ساز درست است که خبر داد ولی این خبر",
+      "target_text": "est un âge d'or, qui nourrit et façonne l'être humain. Il est vrai qu'Il en a donné la",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 58,
+      "start_ms": 362905,
+      "end_ms": 369002,
+      "source_text": "به دایه انشاء است که فرمود شما می توانید بهترین",
+      "target_text": "nouvelle, mais cette nouvelle a la force d'une injonction : que vous pouvez être la meilleure",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 59,
+      "start_ms": 369002,
+      "end_ms": 375100,
+      "source_text": "جامعه روی زمین باشید بکشید تا بشدید راهش چیست؟",
+      "target_text": "société sur terre — efforcez-vous jusqu'à le devenir. Quel en est le chemin ?",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 60,
+      "start_ms": 375100,
+      "end_ms": 380760,
+      "source_text": "راهش این است که این مکتب بالا ترین و برجسته ترین مکتب",
+      "target_text": "Le chemin est celui-ci : que cette école [de pensée] soit l'école la plus haute et la plus"
+    },
+    {
+      "id": 61,
+      "start_ms": 380760,
+      "end_ms": 386420,
+      "source_text": "در کنگره های جهانی باشند افکار و حکم های دیگر فلاسفه دیگر",
+      "target_text": "éminente dans les assemblées du monde. Les idées, les jugements des autres philosophes,"
+    },
+    {
+      "id": 62,
+      "start_ms": 386420,
+      "end_ms": 392080,
+      "source_text": "متطلبان دیگر دیگر اندیشه دیگر همه اینهای عرض دابی",
+      "target_text": "des autres prétendants, des autres penseurs — présentez tout cela, offrez une réponse"
+    },
+    {
+      "id": 63,
+      "start_ms": 392080,
+      "end_ms": 397740,
+      "source_text": "کنید پاسخ و مصوت اراغ کنید تره نو در اندازید اونگاه",
+      "target_text": "et une réfutation, proposez quelque chose de nouveau ; alors Nous accorderons la lumière"
+    },
+    {
+      "id": 64,
+      "start_ms": 397740,
+      "end_ms": 403400,
+      "source_text": "نور با فاق دهیم از دلخیش چون با فاق رسیدیم غمار آخر شد",
+      "target_text": "de Nous-mêmes — car une fois la lumière levée, l'obscurité de la nuit a pris fin."
+    },
+    {
+      "id": 65,
+      "start_ms": 404980,
+      "end_ms": 411710,
+      "source_text": "غمار آخر شد از بین رفت خب اگر اینها را به سراحه فرمود شما بهتری",
+      "target_text": "L'obscurité de la nuit a pris fin, elle s'est dissipée. Ainsi, lorsqu'Il a dit explicitement « vous êtes",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 66,
+      "start_ms": 411710,
+      "end_ms": 418440,
+      "source_text": "مردمی اون راهارا مشخص کرد که مکسب را ترزی تعلیم بدید، ارائه",
+      "target_text": "les meilleurs des hommes », Il a précisé ce chemin : que vous présentiez, enseigniez et offriez l'école",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 67,
+      "start_ms": 418440,
+      "end_ms": 425170,
+      "source_text": "کنید، اشتفا کنید که این کلمت الله یالعهی باشد، لیوظهره و",
+      "target_text": "[de l'Islam] pour qu'elle devienne « la parole de Dieu, la plus haute » (kalimatu-llahi hiya al-'ulya),",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 68,
+      "start_ms": 425170,
+      "end_ms": 431900,
+      "source_text": "علدین کلیه باشد اون بیان نورانی پیغمبر صلی اللہ علیه که فرمود",
+      "target_text": "pour qu'elle devienne « qu'Il la fasse prévaloir sur toute religion ». Cette parole lumineuse",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 69,
+      "start_ms": 431900,
+      "end_ms": 438630,
+      "source_text": "الاسلام و یعنی و لا یعنی و لا علیه که بارها به عرضتون رسید",
+      "target_text": "du Prophète (que la paix soit sur lui) — « L'Islam est élevé (ya'lu) et rien ne s'élève au-dessus de lui",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 70,
+      "start_ms": 438630,
+      "end_ms": 445360,
+      "source_text": "این گونه از جمله های خبری به دایی انشایلها شدن یعنی بکوشید مکتب",
+      "target_text": "» — qui vous a été rapportée bien des fois : de telles phrases déclaratives ont la force d'une injonction.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 71,
+      "start_ms": 445360,
+      "end_ms": 452090,
+      "source_text": "دین را بر فرازت همه مکتب ها قرار بدید مگر این قراردادیه",
+      "target_text": "C'est-à-dire, efforcez-vous de placer l'école de la religion au-dessus de toutes les [autres]",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 72,
+      "start_ms": 452090,
+      "end_ms": 458820,
+      "source_text": "مگر به دست کسیه تا حرف فلسفه دیگر حکمان دیگر دیگر اندیشان دیگر",
+      "target_text": "écoles — non par simple convention, ni par la force — de sorte que, tant que l'on n'a pas correctement",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 73,
+      "start_ms": 458820,
+      "end_ms": 465550,
+      "source_text": "را انسان خوب ازدابی نکند مکتب خود را تحلیل نکند تحلیل نکند",
+      "target_text": "présenté et analysé le discours des autres philosophies, des autres sages, des autres penseurs, affiné",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 74,
+      "start_ms": 465550,
+      "end_ms": 472280,
+      "source_text": "اغلانی نکند، ارائن ندهد که کلمت اللهیه الاوریان می شود.",
+      "target_text": "et expliqué sa propre école et ne l'a pas proposée, la parole de Dieu ne devient pas la plus haute.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 75,
+      "start_ms": 472940,
+      "end_ms": 476080,
+      "source_text": "لیوزهره و عالدین کنله نمی شود.",
+      "target_text": "« Qu'Il la fasse prévaloir sur toute religion » ne se réalise pas [autrement]."
+    },
+    {
+      "id": 76,
+      "start_ms": 476600,
+      "end_ms": 479120,
+      "source_text": "اونگاه خیرالبریه نخواهیم شد.",
+      "target_text": "Alors nous ne deviendrons pas « la meilleure des créatures » (khayr al-bariyya)."
+    },
+    {
+      "id": 77,
+      "start_ms": 479620,
+      "end_ms": 483250,
+      "source_text": "وقتی خیرالبریه می شودیم که مکتب ما کلمت",
+      "target_text": "Nous devenons « la meilleure des créatures » lorsque notre école — « la parole de Dieu est la plus haute » — [s'établit]",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 78,
+      "start_ms": 483250,
+      "end_ms": 486880,
+      "source_text": "اللهیه الاوریان در مقام اثبات نسبود.",
+      "target_text": "dans le domaine de la réalisation (ithbat), et non [seulement dans le domaine de l'essence].",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 79,
+      "start_ms": 487120,
+      "end_ms": 489140,
+      "source_text": "ثبوتش در جشن محفوظ است.",
+      "target_text": "Sa réalité essentielle (thubut) est préservée en elle-même."
+    },
+    {
+      "id": 80,
+      "start_ms": 490040,
+      "end_ms": 494660,
+      "source_text": "الاسلام و یعنی و یعنی و یعنی و یعنی در مقام اثبات نسبود.",
+      "target_text": "« L'Islam est élevé et rien ne s'élève au-dessus de lui » — dans le domaine de la réalisation (ithbat), cela ne [se manifeste] pas encore."
+    },
+    {
+      "id": 81,
+      "start_ms": 494780,
+      "end_ms": 496180,
+      "source_text": "ثبوتش محفوظ است.",
+      "target_text": "Sa réalité essentielle (thubut) est préservée."
+    },
+    {
+      "id": 82,
+      "start_ms": 497020,
+      "end_ms": 503706,
+      "source_text": "لیوزهره و علده کلیهی در مقام اثبات نسبوت ثبوتشو محبوظ است",
+      "target_text": "« Qu'Il la fasse prévaloir sur toute religion » — dans le domaine de la réalisation, sa réalité essentielle"
+    },
+    {
+      "id": 83,
+      "start_ms": 503706,
+      "end_ms": 510393,
+      "source_text": "فنابراین این کار رو باید انجام بدید وگر نمی تنها خیر البریه",
+      "target_text": "est préservée. Il faut donc accomplir ce travail ; sinon, non seulement vous ne serez pas la meilleure"
+    },
+    {
+      "id": 84,
+      "start_ms": 510393,
+      "end_ms": 517080,
+      "source_text": "نخواهید بود هم مقبون خواهید شد یومی اجمع کم لیوم الجمع",
+      "target_text": "des créatures, mais vous serez aussi parmi les perdants. « Le Jour où Il vous réunira pour le Jour du Rassemblement"
+    },
+    {
+      "id": 85,
+      "start_ms": 517080,
+      "end_ms": 523766,
+      "source_text": "زال که یوم التقابان هم بالاتر از قبل خسارت ببینید که",
+      "target_text": "— c'est le Jour de la Perte et du Gain mutuels (yawm al-taghabun) » ; plus grave qu'auparavant,"
+    },
+    {
+      "id": 86,
+      "start_ms": 523766,
+      "end_ms": 530453,
+      "source_text": "کل سرمایه رو میبازید یا را اینسان سرمایهش محفوظ از تلاش و",
+      "target_text": "vous subiriez une perte, perdant tout votre capital. Soit le capital d'une personne est préservé mais"
+    },
+    {
+      "id": 87,
+      "start_ms": 530453,
+      "end_ms": 537140,
+      "source_text": "کشش شد بهرهی نبرده این مغمون است یا را ات کل سرمایه را باخته",
+      "target_text": "elle ne tire aucun bénéfice de l'effort et de l'acharnement — c'est un sens [de la perte] ; soit elle a perdu"
+    },
+    {
+      "id": 88,
+      "start_ms": 537140,
+      "end_ms": 543826,
+      "source_text": "است که راهی برای تدارک نیست این میشه خسارت و این سوگن دمال",
+      "target_text": "tout son capital sans aucun moyen de le récupérer — c'est [la vraie] perte. Et ce serment concerne toutes"
+    },
+    {
+      "id": 89,
+      "start_ms": 543826,
+      "end_ms": 550513,
+      "source_text": "تمام جوامه بشریست به دلیل استثنام یه گروه خاصی مستثنان",
+      "target_text": "les sociétés humaines, puisque par l'exception un groupe particulier s'en distingue. Ce groupe spécial"
+    },
+    {
+      "id": 90,
+      "start_ms": 550513,
+      "end_ms": 557200,
+      "source_text": "است این گروه خاص کسانیان که اناصر مهوری شهارگانه را خوب",
+      "target_text": "est celui qui connaît bien les quatre piliers fondamentaux, sur le plan de la connaissance, les accepte"
+    },
+    {
+      "id": 91,
+      "start_ms": 557200,
+      "end_ms": 563886,
+      "source_text": "از نر معرفت بشناسند و از نر عمل بفضیرند و کوشا باشند یکی",
+      "target_text": "sur le plan de l'action, et s'efforce : premièrement, qu'ils croient — c'est-à-dire qu'après une connaissance"
+    },
+    {
+      "id": 92,
+      "start_ms": 563886,
+      "end_ms": 570573,
+      "source_text": "این که ایمان بیاورند یعنی به جمعی اصول دین بعد از معرفت کامل",
+      "target_text": "complète, ils tiennent conviction dans l'ensemble des principes de la religion (usul al-din),"
+    },
+    {
+      "id": 93,
+      "start_ms": 570573,
+      "end_ms": 577260,
+      "source_text": "معتقد باشند یعنی محقق علمی باشند که کار عقل نظری است",
+      "target_text": "c'est-à-dire qu'ils sont des chercheurs savants, ce qui est l'œuvre de l'intellect théorique."
+    },
+    {
+      "id": 94,
+      "start_ms": 578700,
+      "end_ms": 585316,
+      "source_text": "متحقق عملی باشند که کار عقل عملی است که العقل ما عابده به الرحمان",
+      "target_text": "— et qu'ils soient des réalisateurs pratiques, ce qui est l'œuvre de l'intellect pratique : « l'intellect est ce par quoi",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 95,
+      "start_ms": 585316,
+      "end_ms": 591932,
+      "source_text": "و دل را با این گره بزند و مؤمن باشد قبلنم روشن شد که آمنه",
+      "target_text": "le Miséricordieux est adoré », et l'on attache le cœur à ce lien et l'on devient croyant (mu'min). Il a été précisé plus",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 96,
+      "start_ms": 591932,
+      "end_ms": 598548,
+      "source_text": "به معنی اعتقده نیست آمنه یعنی دخل پر المأمن دخول در مأمن",
+      "target_text": "tôt que « amana » ne signifie pas [seulement] « i'taqada » (tenir une croyance) ; « amana » signifie entrer dans le lieu de",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 97,
+      "start_ms": 598548,
+      "end_ms": 605164,
+      "source_text": "به این اناسه چارگان است که اعتقاد به جمیع اون چه که مربوط به",
+      "target_text": "sécurité (al-ma'man). Entrer dans le lieu de sécurité se fait par ces quatre éléments — que l'on tienne conviction en",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 98,
+      "start_ms": 605164,
+      "end_ms": 611780,
+      "source_text": "قرآن و اعترد و بلایت و امامت حلبید علیه مسلم است داشته باشد",
+      "target_text": "tout ce qui concerne le Coran, le dépôt de confiance, la tutelle (wilaya) et l'Imamat de 'Ali (que la paix soit sur lui).",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 99,
+      "start_ms": 612680,
+      "end_ms": 618700,
+      "source_text": "اون چه که به امامت برمی کردد که بعضی خواستن بگوید این اصر اصر",
+      "target_text": "Quant à ce qui concerne l'Imamat : certains ont voulu dire que cet 'Asr est l'époque de la manifestation de l'être béni",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 100,
+      "start_ms": 618700,
+      "end_ms": 624720,
+      "source_text": "زهور وجود امبارک ولی اصر است اصر رجعت اون زباط قدسی است",
+      "target_text": "de l'Attendu (wali al-'asr). [Certains disent] que c'est l'époque du Retour (raj'a) de cette autorité sacrée ; que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 101,
+      "start_ms": 624720,
+      "end_ms": 630740,
+      "source_text": "اون اصر زهور بقیه تالله ارواخ من سباف دا اصر رجعت ایمه علیه",
+      "target_text": "cet 'Asr — l'époque de la manifestation du Reste de Dieu (baqiyyatu-llah, que nos âmes soient sa rançon) — [ou] l'époque",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 102,
+      "start_ms": 630740,
+      "end_ms": 636760,
+      "source_text": "و سلام ذرین ترین اصر خواهد دود اون هم درست است اون هم در",
+      "target_text": "du Retour des Imams (que la paix soit sur eux) serait l'époque la plus radieuse. Cela aussi est juste ; cela aussi",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 103,
+      "start_ms": 636760,
+      "end_ms": 642780,
+      "source_text": "حقیقت همیش شکوفایی اصر به اسد و نباوت و نطور قرآن کریم است",
+      "target_text": "fait en vérité partie du même épanouissement de l'époque par le Livre, la prophétie et la lumière du Noble Coran.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 104,
+      "start_ms": 644180,
+      "end_ms": 651067,
+      "source_text": "پس اولین انصر از این اناسر شارکان ایمان است که آمنه یعنی دخلت",
+      "target_text": "Ainsi, le premier de ces quatre piliers fondamentaux est la foi (iman) — car « amana » signifie « il est"
+    },
+    {
+      "id": 105,
+      "start_ms": 651067,
+      "end_ms": 657955,
+      "source_text": "المأمن مأمن همین عقیده داشتن به جمعی ما جاو به نبی از اصول دیر",
+      "target_text": "entré dans le lieu de sécurité », et le lieu de sécurité, c'est précisément le fait de tenir cette croyance"
+    },
+    {
+      "id": 106,
+      "start_ms": 657955,
+      "end_ms": 664843,
+      "source_text": "است و این ایمان سائب روکن اول است اون عمل صالح رو که دوبار است",
+      "target_text": ": croire en l'ensemble de ce que le Prophète a apporté des principes de la religion. Cette foi est"
+    },
+    {
+      "id": 107,
+      "start_ms": 664843,
+      "end_ms": 671730,
+      "source_text": "انجام باجبات ترک محرمات تا اونجا که ممکن است توفیق یابی به",
+      "target_text": "le premier pilier. La bonne œuvre ('amal salih), qui est le deuxième, consiste à accomplir les actes"
+    },
+    {
+      "id": 108,
+      "start_ms": 671730,
+      "end_ms": 678618,
+      "source_text": "نوافل پرهیز از مکروهات دو مانند ده این انصار دوبار الا الاسین",
+      "target_text": "obligatoires et à abandonner les actes interdits — dans la mesure du possible, atteindre la grâce des"
+    },
+    {
+      "id": 109,
+      "start_ms": 678618,
+      "end_ms": 685506,
+      "source_text": "آمن و یک و عمل و سالها دو و چون انسان جمعی زندگی می کند مسئولیت",
+      "target_text": "actes surérogatoires (nawafil) et éviter les actes réprouvés (makruhat) — ceci est le deuxième pilier"
+    },
+    {
+      "id": 110,
+      "start_ms": 685506,
+      "end_ms": 692393,
+      "source_text": "دیگران هم به احده اوست لان الالم قبل الجهل تعلم وقتی واجب",
+      "target_text": ": « sauf ceux qui croient » (un) « et accomplissent les bonnes œuvres » (deux). Et parce que l'homme"
+    },
+    {
+      "id": 111,
+      "start_ms": 692393,
+      "end_ms": 699281,
+      "source_text": "است که تعلیم قبلا واجب شده برهانی که آوردن لان الالم قبل الجهل",
+      "target_text": "vit collectivement, la responsabilité envers les autres lui incombe aussi — car l'enseignement"
+    },
+    {
+      "id": 112,
+      "start_ms": 699281,
+      "end_ms": 706169,
+      "source_text": "خلای صبحان از طبقه تحصیل نکرده هیچ توقعی ندارد ایدارو معاخزه",
+      "target_text": "(ta'lim) est obligatoire avant [de blâmer] l'ignorance. La preuve qu'ils ont donnée : Dieu, Glorifié"
+    },
+    {
+      "id": 113,
+      "start_ms": 706169,
+      "end_ms": 713056,
+      "source_text": "نمی کند که چرا یاد نگرفتی مگر این که قبلا از علمات احد بگیرد",
+      "target_text": "soit-Il, n'attend rien de la classe non instruite et ne lui demande pas compte de pourquoi elle n'a"
+    },
+    {
+      "id": 114,
+      "start_ms": 713056,
+      "end_ms": 719944,
+      "source_text": "که چرا یاد ندادی یا به شما واجب است کتاب بنویسید کتیبه بنگارید",
+      "target_text": "pas appris — sauf si elle a d'abord reçu le savoir d'un savant [et qu'on lui a demandé] pourquoi il n'a pas"
+    },
+    {
+      "id": 115,
+      "start_ms": 719944,
+      "end_ms": 726832,
+      "source_text": "سخنرانی کنید ارشاد کنید تبلیغ کنید معذی کنید تعلیم قبل",
+      "target_text": "enseigné. Il vous est obligatoire d'écrire des livres, de composer des traités, de donner des conférences,"
+    },
+    {
+      "id": 116,
+      "start_ms": 726832,
+      "end_ms": 733720,
+      "source_text": "است جهل است در اندال علم قبل الجهل تعلیم قبل است تعلیم است",
+      "target_text": "de guider, de prêcher, d'exhorter, d'enseigner — l'enseignement précède l'ignorance."
+    },
+    {
+      "id": 117,
+      "start_ms": 735020,
+      "end_ms": 739966,
+      "source_text": "پس انصر اولی تحشیم اقاعد اسلامی",
+      "target_text": "Ainsi, le premier pilier est la consolidation des doctrines islamiques sur la preuve [rationnelle]"
+    },
+    {
+      "id": 118,
+      "start_ms": 739966,
+      "end_ms": 744913,
+      "source_text": "روی برهان انصر و رکش دومی انجام واجبات",
+      "target_text": "et le raisonnement ; et le deuxième pilier est l'accomplissement des actes obligatoires"
+    },
+    {
+      "id": 119,
+      "start_ms": 744913,
+      "end_ms": 749860,
+      "source_text": "ترک محرمات بانوان عمل سالم",
+      "target_text": "et l'abandon des actes interdits — sous le titre de « bonne œuvre » ('amal salih)."
+    },
+    {
+      "id": 120,
+      "start_ms": 752120,
+      "end_ms": 758900,
+      "source_text": "سوام تواصیه به حق همون اصول دین است قبائد اقلانی دین",
+      "target_text": "Le troisième est l'exhortation mutuelle à la vérité (tawasi bi-l-haqq) — qui est précisément les principes de la religion, les",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 121,
+      "start_ms": 758900,
+      "end_ms": 765680,
+      "source_text": "است مسئله توحید است وحی هست معاد هست نبوت هست امامت هست",
+      "target_text": "doctrines rationnelles de la foi : la question de l'unicité divine (tawhid), la révélation, la résurrection (ma'ad), la prophétie",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 122,
+      "start_ms": 765680,
+      "end_ms": 772460,
+      "source_text": "بلایت هست حقیقت قرآن کریم هست و عظمت حدیث قدسی است",
+      "target_text": "(nubuwwa), l'Imamat, la tutelle (wilaya), la réalité du Noble Coran, et la majesté du hadith sacré (hadith qudsi).",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 123,
+      "start_ms": 782140,
+      "end_ms": 789058,
+      "source_text": "این تواسیه به حق است رکل چهارم که تواسیه به سبر است عبارت",
+      "target_text": "Ceci est l'exhortation mutuelle à la vérité. Le quatrième pilier est l'exhortation mutuelle à la patience",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 124,
+      "start_ms": 789058,
+      "end_ms": 795977,
+      "source_text": "از آن است که جامعه را و افراد دیگر را به سبری که سزیل",
+      "target_text": "(tawasi bi-l-sabr) : que l'on exhorte la société et les autres à la patience qui convient — comme",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 125,
+      "start_ms": 795977,
+      "end_ms": 802896,
+      "source_text": "ایست و در بحث سبر که وست اینو به سبر و سلات گذشت یک دیگر",
+      "target_text": "cela a été discuté dans la section sur la patience, « cherchez secours par la patience et la prière ».",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 126,
+      "start_ms": 802896,
+      "end_ms": 809814,
+      "source_text": "را به سبر توصیح کنن مستحضری که سبر در اسلام به سر",
+      "target_text": "Ils s'exhortent mutuellement à la patience. Comme vous le savez, la patience en Islam se divise en trois",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 127,
+      "start_ms": 809814,
+      "end_ms": 816733,
+      "source_text": "رفت تقسیم شده سبر علت تاست سبر اند المعصیت است سبر علمصیبت",
+      "target_text": "sortes : la patience dans l'obéissance (sabr 'ala al-ta'a), la patience dans [le renoncement à]",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 128,
+      "start_ms": 816733,
+      "end_ms": 823652,
+      "source_text": "است نیشه از این سبرم نیست تواصیه به سبرم لازم",
+      "target_text": "la désobéissance (sabr 'an al-ma'siya), et la patience dans l'épreuve (sabr 'ala al-musiba). Il n'y",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 129,
+      "start_ms": 823652,
+      "end_ms": 830570,
+      "source_text": "است اگر جامعه بخواهد خیر و بریه بشود اگر مکتب بشود",
+      "target_text": "a pas d'échappatoire à cette patience ; l'exhortation à la patience est nécessaire. Si la société",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 130,
+      "start_ms": 830570,
+      "end_ms": 837489,
+      "source_text": "لیوزیره و علاد دین کله اگر دین بشود کلمت الله الانیا",
+      "target_text": "doit devenir la meilleure des créatures, si l'école doit devenir « qu'Il la fasse prévaloir sur toute",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 131,
+      "start_ms": 837489,
+      "end_ms": 844408,
+      "source_text": "و اگر اسلام بشود الاسلام و یعنی و لا یعنی جامعه برین",
+      "target_text": "religion », si la religion doit devenir « la parole de Dieu est la plus haute », et si l'Islam doit devenir",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 132,
+      "start_ms": 844408,
+      "end_ms": 851326,
+      "source_text": "اسلامی باید این ارکان اربع را به این صورت داشته باشند",
+      "target_text": "« l'Islam est élevé et rien ne s'élève au-dessus de lui » — la meilleure société islamique doit posséder",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 133,
+      "start_ms": 851326,
+      "end_ms": 858245,
+      "source_text": "چهارومی هم تواصیه به سبر است یک دیگر را به سبر توصیه",
+      "target_text": "ces quatre piliers de cette manière. Le quatrième est l'exhortation à la patience : s'exhorter",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 134,
+      "start_ms": 858245,
+      "end_ms": 865164,
+      "source_text": "کردن سبرم سه قسم است انجام کارهای شرعی یک مقدار ممکن",
+      "target_text": "mutuellement à la patience. La patience est de trois sortes. Accomplir les devoirs religieux peut,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 135,
+      "start_ms": 865164,
+      "end_ms": 872082,
+      "source_text": "است دشار باشد دیگران را به سبر علطاق وادار کنیم بگیم",
+      "target_text": "dans une certaine mesure, être difficile ; nous nous exhortons mutuellement à la patience dans l'obéissance",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 136,
+      "start_ms": 872082,
+      "end_ms": 879001,
+      "source_text": "این فاعت این روزی گرفتن این تنظیم امول ماری این",
+      "target_text": "— [dans] ce jeûne, cette aumône, cette gestion de ses biens, cette abstention de l'ostentation",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 137,
+      "start_ms": 879001,
+      "end_ms": 885920,
+      "source_text": "پرهیز از روا و ریا و مانندهان اگر دشار است با سبر کرد",
+      "target_text": "et de l'hypocrisie, et ainsi de suite — si c'est difficile, [nous le supportons] avec patience.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 138,
+      "start_ms": 888320,
+      "end_ms": 895317,
+      "source_text": "و در هنگام معصیت سبر ان المعصیت است بادار کنیم یک دیگر",
+      "target_text": "Et au moment de la désobéissance, [il y a] la patience dans [le renoncement à] la faute (sabr",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 139,
+      "start_ms": 895317,
+      "end_ms": 902315,
+      "source_text": "را که هنگام تصمیم و گناه از این تصمیم سرفنظر کنیم توفیق",
+      "target_text": "'an al-ma'siya) : nous nous exhortons mutuellement, face à la résolution de pécher, à renoncer",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 140,
+      "start_ms": 902315,
+      "end_ms": 909312,
+      "source_text": "توبه فرام کنیم توفیق انابه در کنیم توفیق ادراک مشهد و",
+      "target_text": "à cette résolution, à rechercher la grâce du repentir (tawba), la grâce du retour vers",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 141,
+      "start_ms": 909312,
+      "end_ms": 916310,
+      "source_text": "محضر ذات اقدس اله را دعیه کنیم و مانند اون سبر علل مسیبت",
+      "target_text": "Dieu (inaba), et à prier pour la grâce de percevoir la présence de l'Essence Divine Sacrée,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 142,
+      "start_ms": 916310,
+      "end_ms": 923308,
+      "source_text": "است یعنی وقتی مسیبت وارد شد خداینا کرده کسی آسیبی دید",
+      "target_text": "et ainsi de suite. Et la patience dans l'épreuve (sabr 'ala al-musiba) : c'est-à-dire que lorsqu'une",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 143,
+      "start_ms": 923308,
+      "end_ms": 930305,
+      "source_text": "روی این انسان بتواند پرده سبر بپوشاند پرده دری نکند و نه",
+      "target_text": "épreuve survient — à Dieu ne plaise que quelqu'un soit blessé — cette personne est",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 144,
+      "start_ms": 930305,
+      "end_ms": 937303,
+      "source_text": "بر خود نه بر دیگرن تحمیل نکند بردبار باشد بردبار یعنی",
+      "target_text": "capable d'étendre un voile de patience sur elle, sans exposer la faute, ne l'imposant ni à",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 145,
+      "start_ms": 937303,
+      "end_ms": 944301,
+      "source_text": "این بار را بتواند به مقصد برساند آزمون الهی است پس سبر",
+      "target_text": "lui-même ni aux autres, restant endurant. « Endurant » (burdbar) signifie celui qui peut porter",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 146,
+      "start_ms": 944301,
+      "end_ms": 951298,
+      "source_text": "عل المصیبه وقتی که مسیبت وارد شد سب کنید این تعبیر علاوه",
+      "target_text": "ce fardeau jusqu'à destination — c'est une épreuve divine. Ainsi, « la patience dans",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 147,
+      "start_ms": 951298,
+      "end_ms": 958296,
+      "source_text": "این در باره تاعت و معصیت هم میتواند گناه کن باشد که سبر",
+      "target_text": "l'épreuve » [signifie] que lorsque l'épreuve survient, soyez patient. Cette expression,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 148,
+      "start_ms": 958296,
+      "end_ms": 965294,
+      "source_text": "اند تاعت یا سبر علت تاعت چنکه سبر اند المصیبه یا سبر عل",
+      "target_text": "en plus de [s'appliquer à] l'obéissance et à la désobéissance, peut aussi s'appliquer —",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 149,
+      "start_ms": 965294,
+      "end_ms": 972291,
+      "source_text": "المصیبه بر تقدیر این سه و اصفره سبرداره است پس این سبر",
+      "target_text": "ainsi la patience dans l'obéissance ou sur l'obéissance, tout comme la patience dans [le renoncement",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 150,
+      "start_ms": 972291,
+      "end_ms": 979289,
+      "source_text": "جوز ایک جوامل کلمه است که انجام واجبات را با سبر میشه تحمل",
+      "target_text": "à] l'épreuve ou sur l'épreuve ; dans les trois cas, la patience a de la valeur. Ainsi",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 151,
+      "start_ms": 979289,
+      "end_ms": 986287,
+      "source_text": "کرد ترک محرمات را با سبر میشه بردباری به استقامت زمان",
+      "target_text": "cette patience est un mot englobant : les actes obligatoires peuvent être supportés avec",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 152,
+      "start_ms": 986287,
+      "end_ms": 993284,
+      "source_text": "آزمون و مسیبت را با سبر میشه به مقصد نسون به پیون اگر",
+      "target_text": "patience, les actes interdits peuvent être abandonnés avec patience, et par l'endurance",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 153,
+      "start_ms": 993284,
+      "end_ms": 1000282,
+      "source_text": "کسی این ارکان چهار گانه را داشته باشد این خسارت نمی بیند",
+      "target_text": "et la persévérance, le temps de l'épreuve et de l'affliction peut être mené à destination",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 154,
+      "start_ms": 1000282,
+      "end_ms": 1007280,
+      "source_text": "بهره می برد هل ادلکم الى تجارت انتون دیگم اون تجارت نجاس",
+      "target_text": "et à son terme avec patience. Quiconque possède ces quatre piliers ne subit aucune perte,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 155,
+      "start_ms": 1007280,
+      "end_ms": 1014277,
+      "source_text": "بخش را مشخص کرده است اینجا هم پرهیز از خسارت را سوره",
+      "target_text": "mais en tire profit : « Vous indiquerai-je un commerce [qui vous sauvera] ? » — ce commerce salvateur,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 156,
+      "start_ms": 1014277,
+      "end_ms": 1021275,
+      "source_text": "تقابنم رحایی از غرب را مشخص کردن اومد پاداش دنیایش این",
+      "target_text": "Il l'a précisé. Ici aussi, Il a précisé l'évitement de la perte ; et dans la sourate",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 157,
+      "start_ms": 1021275,
+      "end_ms": 1028272,
+      "source_text": "است که خیر البریجه پاداش اخرمش این است که از خسارت مسون",
+      "target_text": "al-Taghabun, Il a précisé la délivrance d'être trompé. Sa récompense en ce monde est d'être",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 158,
+      "start_ms": 1028272,
+      "end_ms": 1035270,
+      "source_text": "از غبن مسون از هر گونه کاسدی مسون چون این اناسر چارگانه",
+      "target_text": "la meilleure des créatures ; sa récompense dans l'autre monde est la sécurité contre la perte,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 159,
+      "start_ms": 1035270,
+      "end_ms": 1042268,
+      "source_text": "را داره هستیم نتیجه این که ذات اقدسه الله ما را اجتماعی",
+      "target_text": "contre la tromperie, contre toute sorte de ruine — parce que nous possédons ces quatre",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 160,
+      "start_ms": 1042268,
+      "end_ms": 1049265,
+      "source_text": "باراورد که این درکش اینه که خود داریم در دیگران زنده",
+      "target_text": "piliers fondamentaux. Le résultat est que l'Essence Sacrée de Dieu nous a créés comme une communauté",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 161,
+      "start_ms": 1049265,
+      "end_ms": 1056263,
+      "source_text": "کنیم با دیگران در این در روشن زندگی کنید یکی تواصیه به",
+      "target_text": "dont la leçon est celle-ci : que nous nous maintenions [vivants dans la foi] et fassions",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 162,
+      "start_ms": 1056263,
+      "end_ms": 1063261,
+      "source_text": "حق یکی تواصیه به سبر اون که کتاب عقلی می نویسد در اصول دین",
+      "target_text": "revivre les autres, et qu'avec les autres nous vivions dans cette lumière radieuse",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 163,
+      "start_ms": 1063261,
+      "end_ms": 1070258,
+      "source_text": "تواصیه به حق دارد اون که کتاب کلامی می نگارد در اصول",
+      "target_text": "— l'un exhortant à la vérité, l'un exhortant à la patience. Celui qui écrit une œuvre rationnelle",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 164,
+      "start_ms": 1070258,
+      "end_ms": 1077256,
+      "source_text": "دین و در ولایت و در امامت و در ظهور عزد و در رجعت و ساهر مسائل",
+      "target_text": "sur les principes de la religion exhorte à la vérité ; celui qui compose une œuvre théologique",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 165,
+      "start_ms": 1077256,
+      "end_ms": 1084254,
+      "source_text": "کلامی این تواصیه به حق دارد اون که تبلیغ میکند، عمر",
+      "target_text": "sur les principes de la religion — sur la tutelle, l'Imamat, la manifestation de l'Attendu,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 166,
+      "start_ms": 1084254,
+      "end_ms": 1091251,
+      "source_text": "معروف میکند، نهی از منکر میکند، این تواصیه به سبر دارد",
+      "target_text": "le Retour, et d'autres questions théologiques — exhorte à la vérité ; celui qui prêche,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 167,
+      "start_ms": 1091251,
+      "end_ms": 1098249,
+      "source_text": "اگر جامعه این چین بود و هر کدام از این افراد در این امور",
+      "target_text": "exhorte au bien et interdit le mal exhorte à la patience. Si la société était ainsi, et",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 168,
+      "start_ms": 1098249,
+      "end_ms": 1105247,
+      "source_text": "چهارگانه نسبت به امکانات خود تلاش و کوشش داشته باشند و",
+      "target_text": "que chacun de ces individus s'efforçait dans ces quatre domaines selon sa capacité, être",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 169,
+      "start_ms": 1105247,
+      "end_ms": 1112244,
+      "source_text": "حتی خیل بری بودن درست است وقتی این سوره بارکه نازل شد جامعه",
+      "target_text": "la meilleure des créatures se réaliserait. En effet, lorsque cette sourate bénie a été révélée,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 170,
+      "start_ms": 1112244,
+      "end_ms": 1119242,
+      "source_text": "صدر اسلام اون مؤمنین دیگر که مسافه می کردن دست از دیگر",
+      "target_text": "la société croyante des premiers temps de l'Islam — ceux qui se séparaient les uns des",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 171,
+      "start_ms": 1119242,
+      "end_ms": 1126240,
+      "source_text": "بر نمی داشتن مگر این که این سوره بارکه ولعصد بخونن",
+      "target_text": "autres — ne se séparaient pas sans réciter cette sourate bénie « Par le Temps » (wa-l-'Asr).",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 172,
+      "start_ms": 1128540,
+      "end_ms": 1134611,
+      "source_text": "البته در سابق و لاحق و سالف و آنف تبه باران بودن ولی مردان",
+      "target_text": "Bien sûr, dans les temps anciens et plus récents, il y avait des gens pieux ; mais les hommes de Dieu, nourris",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 173,
+      "start_ms": 1134611,
+      "end_ms": 1140682,
+      "source_text": "الهی که دست پرورده این گونه از سوبر و آیات قرآن کریم",
+      "target_text": "par de telles sourates et versets du Noble Coran, ont gardé le caractère sacré de ces versets. Après",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 174,
+      "start_ms": 1140682,
+      "end_ms": 1146754,
+      "source_text": "حرمت این آیات نگه داشتند بعد از نزول این سنوی بارک بله",
+      "target_text": "la révélation de cette sourate bénie, l'état des croyants des premiers temps de l'Islam [était tel]",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 175,
+      "start_ms": 1146754,
+      "end_ms": 1152825,
+      "source_text": "حالم مؤمنان صدر اسلام هنگام برخور این سنوی را می خوندن",
+      "target_text": "qu'en se rencontrant ils récitaient cette sourate. La question du « conseil sincère aux dirigeants",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 176,
+      "start_ms": 1152825,
+      "end_ms": 1158897,
+      "source_text": "مسئله و نصیح لعیمت المسلمین دیون روز شکوفا شد نصیحتم",
+      "target_text": "des musulmans » (al-nasiha li-a'immat al-muslimin) a fleuri à partir de ce jour. Conseiller est une",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 177,
+      "start_ms": 1158897,
+      "end_ms": 1164968,
+      "source_text": "مستهدری درست است گفتن نصیحت است نوشتن نصیحت است اما",
+      "target_text": "chose louable — comme vous le savez, parler par conseil et écrire par conseil [sont tous deux du conseil].",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 178,
+      "start_ms": 1164968,
+      "end_ms": 1171040,
+      "source_text": "اونطوری که محققان عدب پرور ما در باره نصیحت گفتن که",
+      "target_text": "Mais dans la manière dont nos savants versés dans les belles-lettres ont parlé du « nasiha »...",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 179,
+      "start_ms": 1172920,
+      "end_ms": 1179685,
+      "source_text": "نصیحت لغتا اون خیاتی رو میگن نتا اون",
+      "target_text": "Linguistiquement, « nasiha » — ils appellent « niyata » la coupe, le"
+    },
+    {
+      "id": 180,
+      "start_ms": 1179685,
+      "end_ms": 1186450,
+      "source_text": "ساختن و بریدن و پشیدن و اون جامعه دوخت",
+      "target_text": "fait de découper, de coudre et de piquer, et le vêtement ainsi cousu,"
+    },
+    {
+      "id": 181,
+      "start_ms": 1186450,
+      "end_ms": 1193215,
+      "source_text": "شده را میگن نصاب اون سوزن خیاتی",
+      "target_text": "ils l'appellent « nisab » ; l'aiguille à coudre, ils l'appellent"
+    },
+    {
+      "id": 182,
+      "start_ms": 1193215,
+      "end_ms": 1199980,
+      "source_text": "را میگن منسهه خود خیات را میگن ناسه",
+      "target_text": "« minsaha » ; et la couture elle-même, ils l'appellent « niasa »."
+    },
+    {
+      "id": 183,
+      "start_ms": 1219120,
+      "end_ms": 1225617,
+      "source_text": "این معنی نصیحت است البته اون در غالب گفتند یا نوشتند",
+      "target_text": "Voici le sens de « nasiha ». Certes, il est [souvent] employé pour ce qu'on dit ou écrit,"
+    },
+    {
+      "id": 184,
+      "start_ms": 1225617,
+      "end_ms": 1232115,
+      "source_text": "یا تعبیرات فیلی بمانند اون میگون جد ولی اما",
+      "target_text": "ou pour des expressions verbales semblables — on dit [que cela signifie] la sincérité."
+    },
+    {
+      "id": 185,
+      "start_ms": 1232115,
+      "end_ms": 1238612,
+      "source_text": "اصل نصیحت این است به خیات میگوین ناسه به سوزن خیاتی",
+      "target_text": "Mais le sens racine de nasiha est ceci : la couture, ils l'appellent « niasa »,"
+    },
+    {
+      "id": 186,
+      "start_ms": 1238612,
+      "end_ms": 1245110,
+      "source_text": "میگن منسه به نخ خیاتی میگن نساه و به اون لباس دوخته",
+      "target_text": "l'aiguille à coudre « minsaha », le fil « nisa », et le vêtement cousu, ils l'appellent"
+    },
+    {
+      "id": 187,
+      "start_ms": 1245110,
+      "end_ms": 1251607,
+      "source_text": "شدن احیاناً میگن نساه خب وقتی این سر نازل شد",
+      "target_text": "parfois « nisa ». Ainsi, lorsque cette sourate fut révélée, la couture se mit en"
+    },
+    {
+      "id": 188,
+      "start_ms": 1251607,
+      "end_ms": 1258105,
+      "source_text": "خیاتی به راه افتاد یعنی جامع دوختن بر پیکر جامعه",
+      "target_text": "marche — c'est-à-dire coudre un vêtement sur le corps de la société, l'habiller, préserver"
+    },
+    {
+      "id": 189,
+      "start_ms": 1258105,
+      "end_ms": 1264602,
+      "source_text": "پوشندن آبروی جامعه را حفظ کردن که از نظر دفت یا رفت",
+      "target_text": "l'honneur de la société pour qu'elle ne soit pas souillée de défaut ou de faute"
+    },
+    {
+      "id": 190,
+      "start_ms": 1264602,
+      "end_ms": 1271100,
+      "source_text": "آلود نشوند و نشدن این میشه و نسیل عیبت المسلمی",
+      "target_text": "; et ainsi fut-il — ceci est le « conseil sincère aux dirigeants des musulmans »."
+    },
+    {
+      "id": 191,
+      "start_ms": 1272400,
+      "end_ms": 1277306,
+      "source_text": "و که این جامعه میشه خیرول بریه هر از این طور نیست که فقط",
+      "target_text": "— et ainsi cette société devient la meilleure des créatures. Il n'est pas vrai que la seule",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 192,
+      "start_ms": 1277306,
+      "end_ms": 1282213,
+      "source_text": "ادعای قرآن این باشد که شما بعد از مرک در بهشت میارمید",
+      "target_text": "prétention du Coran soit que vous entriez au Paradis après la mort et soyez la meilleure",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 193,
+      "start_ms": 1282213,
+      "end_ms": 1287120,
+      "source_text": "و خیرول بریه هستید اون سر جاش محفوظ به مال آره بفیه",
+      "target_text": "des créatures — cette [récompense] est préservée à sa place, oui, elle demeure.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 194,
+      "start_ms": 1306660,
+      "end_ms": 1312428,
+      "source_text": "تا روشن شود حرمت زمان حرمت زمین حرمت عمر",
+      "target_text": "— afin que le caractère sacré du temps, le caractère sacré de la terre, [et] le caractère sacré"
+    },
+    {
+      "id": 195,
+      "start_ms": 1312428,
+      "end_ms": 1318196,
+      "source_text": "به اون متزمن و متبکن و صاحب عمر است فرمون",
+      "target_text": "de la durée de la vie deviennent clairs, [appartenant] à celui qui est lié à ce temps et à ce lieu"
+    },
+    {
+      "id": 196,
+      "start_ms": 1318196,
+      "end_ms": 1323964,
+      "source_text": "به این که در این شرائط شما خیر البریه استیم",
+      "target_text": "et qui est le possesseur de cette vie. Il a ordonné que dans ces conditions vous soyez la meilleure"
+    },
+    {
+      "id": 197,
+      "start_ms": 1323964,
+      "end_ms": 1329732,
+      "source_text": "پس وظیفه چهارگانی ما این است یکی ایمان",
+      "target_text": "des créatures. Ainsi notre devoir quadruple est celui-ci : premièrement, la foi — «"
+    },
+    {
+      "id": 198,
+      "start_ms": 1329732,
+      "end_ms": 1335500,
+      "source_text": "آمنو یعنی به مسال اعتقادیه دوم عمل صالح",
+      "target_text": "ceux qui croient », c'est-à-dire en matière de doctrine ; deuxièmement, les bonnes œuvres."
+    },
+    {
+      "id": 199,
+      "start_ms": 1336660,
+      "end_ms": 1339360,
+      "source_text": "فروه است سوم",
+      "target_text": "— c'est une branche [de la religion] (furu'). Troisièmement :"
+    },
+    {
+      "id": 200,
+      "start_ms": 1340300,
+      "end_ms": 1347262,
+      "source_text": "توصیه به همون اصول دین که حق است چهارم توصیه به همون فروه دین که سبر",
+      "target_text": "— l'exhortation aux principes mêmes de la religion, qui est la vérité ; quatrièmement, l'exhortation",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 201,
+      "start_ms": 1347262,
+      "end_ms": 1354225,
+      "source_text": "است اگر کسی مرکه سبر داشته باشد هم طاعتهای الهی را انجام می دهد",
+      "target_text": "aux branches mêmes de la religion, qui est la patience. Si quelqu'un possède le pilier de la",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 202,
+      "start_ms": 1354225,
+      "end_ms": 1361187,
+      "source_text": "هم از معصیتهای الهی نجات فیدار بکنند هم هنگان مسیبت این بار را",
+      "target_text": "patience, il accomplit à la fois les actes divins d'obéissance, trouve la délivrance des péchés",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 203,
+      "start_ms": 1361187,
+      "end_ms": 1368150,
+      "source_text": "می برد برد بارست و آسیبی به کسی نمی رساند آسیبی به خودش نمی رساند",
+      "target_text": "divins [interdits], et au moment de l'épreuve porte ce fardeau — il est endurant et ne nuit à personne,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 204,
+      "start_ms": 1368150,
+      "end_ms": 1375112,
+      "source_text": "قرص این است که این سوره در این داره که کچکست محتوی چارگانه و ارکان",
+      "target_text": "ne se nuit même pas à lui-même. En bref, cette [sourate] est telle que, malgré sa brièveté, elle",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 205,
+      "start_ms": 1375112,
+      "end_ms": 1382075,
+      "source_text": "چارگانه امیغی دارد و وقتی که نازل شد وست مردم صدر اسلام کاملا",
+      "target_text": "contient un contenu quadruple et des piliers quadruples de grande importance. Lorsqu'elle fut",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 206,
+      "start_ms": 1382075,
+      "end_ms": 1389037,
+      "source_text": "برگشت دیگر که می دن این سوره نورانی رو می خوندن به روایات هم آمده",
+      "target_text": "révélée, l'état des gens des premiers temps de l'Islam changea entièrement — car en se rencontrant,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 207,
+      "start_ms": 1389037,
+      "end_ms": 1396000,
+      "source_text": "است که دو تا برادر مؤمن وقتی به یک دیگر میرسند مسافه میکنند مثل",
+      "target_text": "ils récitaient cette sourate lumineuse. Il est aussi rapporté dans les traditions que lorsque",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 208,
+      "start_ms": 1396000,
+      "end_ms": 1402962,
+      "source_text": "آنست که مثلا جده این تقصد و اهداه همال اخراب اگر این ترد و دست کرد",
+      "target_text": "deux frères croyants se rencontrent et se serrent la main, c'est comme [la parabole] que si [deux",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 209,
+      "start_ms": 1402962,
+      "end_ms": 1409925,
+      "source_text": "و غباری داشته باشند وقتی زیر آم یک شیر یعنی قرآن روایات اهل وید علیه",
+      "target_text": "mains se rencontrent], si elles étaient couvertes de poussière et avaient de la saleté sur elles,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 210,
+      "start_ms": 1409925,
+      "end_ms": 1416887,
+      "source_text": "و سلام آمد این ها وقتی به یک دیگر رسیدند و با هم دست میدند و مسافه",
+      "target_text": "alors sous un ruisseau — c'est-à-dire sous le Coran et les traditions des Gens de la Maison (que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 211,
+      "start_ms": 1416887,
+      "end_ms": 1423850,
+      "source_text": "میکنند و دستی به دستی دیگر دارند مثل المؤمنین از التغیا که مثل",
+      "target_text": "la paix soit sur eux) — lorsqu'ils se rencontrent et se serrent la main, [c'est] « la ressemblance",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 212,
+      "start_ms": 1423850,
+      "end_ms": 1430812,
+      "source_text": "الجدن تقصد و اهداح من اقرام دو تا برادر مؤمن وقتی به احتیگر میرسند",
+      "target_text": "de deux croyants qui se rencontrent est comme la ressemblance de deux mains, l'une lavant l'autre",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 213,
+      "start_ms": 1430812,
+      "end_ms": 1437775,
+      "source_text": "مثل آن از که دو تا دست به احتیگر رسیدن که از برخورد اینها و تماثد",
+      "target_text": "» — deux frères croyants, lorsqu'ils se rencontrent, sont comme deux mains qui se rencontrent",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 214,
+      "start_ms": 1437775,
+      "end_ms": 1444737,
+      "source_text": "اینها زیر شیر و آرد هر دو تدهیر میشوند به پاک میشوند به بیقبار",
+      "target_text": ": de leur contact et de leur toucher, sous l'eau ils sont tous deux nettoyés, purifiés, rendus sans",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 215,
+      "start_ms": 1444737,
+      "end_ms": 1451700,
+      "source_text": "میشوند که امیدواریم سات اغدسی الله اون توفیق رو ما بدهد که هم",
+      "target_text": "défaut. Nous espérons que l'Essence Sacrée de Dieu nous accorde cette grâce, que tous les deux —",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 216,
+      "start_ms": 1454600,
+      "end_ms": 1460055,
+      "source_text": "و هم معارف اینها را به عنوان تواصیه به حق منتشر کنیم",
+      "target_text": "— et que nous diffusions leurs enseignements sous le titre d'exhortation à la vérité, et aussi que nous transmettions les prescriptions et les jugements juridiques pratiques à la société sous le titre d'exhortation à la patience.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 217,
+      "start_ms": 1460055,
+      "end_ms": 1465510,
+      "source_text": "و هم احکام و حکم فرعی به فیقی اینها را به عنوان",
+      "target_text": "Et Il a dit : il n'y a de force [qu'en Dieu]...",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 218,
+      "start_ms": 1465510,
+      "end_ms": 1470965,
+      "source_text": "تواصیه به سر را در جامعه منتقل کنیم و فرند لا",
+      "target_text": "et pour nous [de même].",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 219,
+      "start_ms": 1470965,
+      "end_ms": 1476420,
+      "source_text": "هولنا و لکم و السلام علیکم و رحمت الله و ببرکاته",
+      "target_text": "Et que la paix soit sur vous, ainsi que la miséricorde de Dieu et Ses bénédictions.",
+      "flags": [
+        "editorial-religious"
+      ]
+    }
+  ],
+  "created_at": "2026-08-06T03:48:26Z",
+  "created_by": "ai"
+}

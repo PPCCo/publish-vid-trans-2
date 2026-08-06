@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-YP0FDR7Wc-8",
-  "current_state": "TRANSLATION",
-  "previous_state": "SEGMENT_RESOLUTION",
+  "current_state": "DUBBING",
+  "previous_state": "CAPTION_VALIDATION",
   "created_at": "2026-08-04T11:37:36Z",
   "created_by": "human",
-  "updated_at": "2026-08-06T03:33:58Z",
-  "updated_by": "human",
+  "updated_at": "2026-08-06T04:34:36Z",
+  "updated_by": "ai",
   "source_language": "fa",
   "target_languages": [
     "en",
@@ -28,60 +28,68 @@
       "notes": "translated; awaiting QA"
     },
     "ar": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:48:56Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "fa": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
       "dub_enabled": false,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "skip_translation": true
+      "updated_at": "2026-08-06T03:55:44Z",
+      "skip_translation": true,
+      "notes": "source language — verbatim captions, no translation"
     },
     "ur": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:49:15Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "zh": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:49:00Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "fr": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": false,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:48:26Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "es": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": false,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:48:19Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "pt": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": false,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:48:22Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "ru": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": false,
-      "updated_at": "2026-08-06T03:33:58Z",
-      "auto_translate": true
+      "updated_at": "2026-08-06T03:49:04Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     }
   },
   "active_artifacts": {
@@ -89,7 +97,15 @@
     "source-audio": "sha256:365ca98b3fd87a9bb0480bc281b02751cae1a2d7a359f1109c54130748b55414",
     "transcript@fa": "sha256:1177d0d1608b9a059a1f59ab66143d3ffb8844ec2986a1c068d43cdb5d6c43e8",
     "segments": "sha256:73341958c1d9892d8688e7c5ad503669a98943d85285485db9d01a86a50d86a9",
-    "captions-json@en": "sha256:fa0e296a3cd1dc7b1063abccaa198f4cd6d4777f8e94b40e1be5ac0e30432411"
+    "captions-json@en": "sha256:fa0e296a3cd1dc7b1063abccaa198f4cd6d4777f8e94b40e1be5ac0e30432411",
+    "captions-json@es": "sha256:02c0bea1595618c957ce66b1e81819429d84119689d12e19381ff5168376d345",
+    "captions-json@pt": "sha256:dfd34c6764a761cf3bab198ff1c33c20acd599dd8f390db9055b9518aa1e1afe",
+    "captions-json@fr": "sha256:d7557b7100bf5f813a21745a88cf81014d1977f57c7aad3f14a9a8354c509400",
+    "captions-json@ar": "sha256:afdeb9e6b4dda13791f33b8641215f9b4352e9753b49121a55d71b4a9b14097d",
+    "captions-json@zh": "sha256:3cbc71fea76fd40073c8149d9ae6ca9bdeb039a7fd06f12f41ce7dd72e336f72",
+    "captions-json@ru": "sha256:3901287975a2ec1f00f8f4a296f16389c1a6e4cb4f46949b12f1393c1d4527fd",
+    "captions-json@ur": "sha256:5d46a6ad426ce52c4ea0b55138968ab419be2c59f7620206ad6dbf1fe4a6e598",
+    "captions-json@fa": "sha256:5fe051d7025443ea933c78d13b3c40d0f882408a3fd277cccc63b8ff73c26cc1"
   },
   "blocked_reasons": []
 }

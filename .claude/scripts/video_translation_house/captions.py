@@ -123,6 +123,25 @@ def max_cue_ms(root: Path) -> int:
     return value if value > 0 else MAX_CUE_MS
 
 
+def max_reading_rate(root: Path, cls: str) -> int:
+    """Reading-speed ceiling for a script class, read from company config with a constant
+    fallback (same idiom as ``max_cue_ms``). CJK is chars/min (``max_reading_speed_cpm``);
+    every other script is words/min (``max_reading_speed_wpm``). Never hardcode the bar at
+    the call site — a project that translates fast-paced oratory raises it via config overlay
+    rather than editing approved caption artifacts (rules 6/8)."""
+    caps = load_company_config(root).get("quality_bars", {}).get("captions", {})
+    if cls == "cjk":
+        key, default = "max_reading_speed_cjk_cpm", MAX_CPM_CJK
+    else:
+        key, default = "max_reading_speed_wpm", MAX_WPM_LATIN
+    value = caps.get(key, default)
+    try:
+        value = int(value)
+    except (TypeError, ValueError):
+        return default
+    return value if value > 0 else default
+
+
 def _tokenize_for_split(text: str, cls: str) -> tuple[list[str], str]:
     """Tokens to distribute across sub-cues, plus the join separator. Sentences first; if a
     single 'sentence' (no sentence-final punctuation) it falls back to words, and CJK (no word
@@ -344,11 +363,17 @@ def _measure(text: str, cls: str) -> int:
     return len(text) if cls == "cjk" else len(text.split())
 
 
-def validate_captions(caption_doc: dict[str, Any]) -> dict[str, Any]:
+def validate_captions(
+    caption_doc: dict[str, Any], *, max_reading_rate_override: int | None = None
+) -> dict[str, Any]:
     """Pure readability + structural check -> {decision, findings, metrics}.
 
     Blocker -> FAIL (timing corrupt / empty); major -> CONDITIONAL_PASS (too-fast /
     too-long/short cues, over-long lines); else PASS.
+
+    ``max_reading_rate_override`` (words/min for alphabetic, chars/min for CJK) lets the
+    caller supply the config-derived ceiling; when ``None`` the module default for the
+    script class is used. Kept pure — the caller reads config and passes the value in.
     """
     language = caption_doc["language"]
     cls = caption_doc.get("script_class") or script_class(language)
@@ -364,7 +389,10 @@ def validate_captions(caption_doc: dict[str, Any]) -> dict[str, Any]:
         }
 
     limit = _max_chars(cls)
-    max_rate = MAX_CPM_CJK if cls == "cjk" else MAX_WPM_LATIN
+    if max_reading_rate_override is not None:
+        max_rate = max_reading_rate_override
+    else:
+        max_rate = MAX_CPM_CJK if cls == "cjk" else MAX_WPM_LATIN
     prev_end = 0
     fast_cues = 0
     for cue in cues:

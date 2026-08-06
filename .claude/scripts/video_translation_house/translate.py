@@ -543,7 +543,9 @@ def run_caption_validation(root: Path, project_id: str, *, actor: str = "agent")
     decisions: list[str] = []
     per_lang: dict[str, Any] = {}
     for doc in docs:
-        result = captions_mod.validate_captions(doc)
+        cls = doc.get("script_class") or captions_mod.script_class(doc["language"])
+        rate = captions_mod.max_reading_rate(root, cls)
+        result = captions_mod.validate_captions(doc, max_reading_rate_override=rate)
         decisions.append(result["decision"])
         for f in result["findings"]:
             f.setdefault("language", doc["language"])

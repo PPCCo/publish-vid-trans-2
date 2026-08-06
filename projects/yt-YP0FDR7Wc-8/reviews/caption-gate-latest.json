@@ -1,0 +1,5585 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "report_type": "caption",
+  "decision": "PASS",
+  "metrics": {
+    "languages": {
+      "en": {
+        "cue_count": 220,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "ar": {
+        "cue_count": 220,
+        "script_class": "rtl",
+        "too_fast_cues": 0
+      },
+      "fa": {
+        "cue_count": 220,
+        "script_class": "rtl",
+        "too_fast_cues": 0
+      },
+      "ur": {
+        "cue_count": 220,
+        "script_class": "rtl",
+        "too_fast_cues": 0
+      },
+      "zh": {
+        "cue_count": 220,
+        "script_class": "cjk",
+        "too_fast_cues": 0
+      },
+      "fr": {
+        "cue_count": 220,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "es": {
+        "cue_count": 220,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "pt": {
+        "cue_count": 220,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "ru": {
+        "cue_count": 220,
+        "script_class": "cyrillic",
+        "too_fast_cues": 0
+      }
+    }
+  },
+  "created_at": "2026-08-06T04:29:17Z",
+  "created_by": "ai",
+  "findings": [
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (45)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "Satan. In the name of God, the Most Gracious,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (44)",
+      "cue_id": 1,
+      "timestamp_ms": 6308,
+      "evidence": "mankind is in loss, except those who believe",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 11 line exceeds 42 chars (45)",
+      "cue_id": 11,
+      "timestamp_ms": 64205,
+      "evidence": "emphasis and of the importance of the message",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 21 line exceeds 42 chars (43)",
+      "cue_id": 21,
+      "timestamp_ms": 115120,
+      "evidence": "the nominal sentence, the 'lam' of 'la-fi',",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 29 line exceeds 42 chars (45)",
+      "cue_id": 29,
+      "timestamp_ms": 166860,
+      "evidence": "time is instructive and admonishing — like...",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 30 line exceeds 42 chars (53)",
+      "cue_id": 30,
+      "timestamp_ms": 174500,
+      "evidence": "time of the afternoon prayer, which is referred to as",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 31 line exceeds 42 chars (51)",
+      "cue_id": 31,
+      "timestamp_ms": 180973,
+      "evidence": "or it is the late afternoon of each day, as opposed",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 32 line exceeds 42 chars (58)",
+      "cue_id": 32,
+      "timestamp_ms": 187446,
+      "evidence": "the day, and that being roughly the early part of the day.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 59 line exceeds 42 chars (45)",
+      "cue_id": 59,
+      "timestamp_ms": 369002,
+      "evidence": "strive until you become so. What is its path?",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (47)",
+      "cue_id": 65,
+      "timestamp_ms": 404980,
+      "evidence": "So when He explicitly said 'you are the best of",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (47)",
+      "cue_id": 66,
+      "timestamp_ms": 411710,
+      "evidence": "present, teach, and offer the school [of Islam]",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 67 line exceeds 42 chars (43)",
+      "cue_id": 67,
+      "timestamp_ms": 418440,
+      "evidence": "highest' (kalimatu-llahi hiya al-'ulya), so",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 68 line exceeds 42 chars (51)",
+      "cue_id": 68,
+      "timestamp_ms": 425170,
+      "evidence": "prevail over all religion.' That luminous saying of",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (47)",
+      "cue_id": 69,
+      "timestamp_ms": 431900,
+      "evidence": "is exalted (ya'lu) and nothing is exalted above",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 70 line exceeds 42 chars (49)",
+      "cue_id": 70,
+      "timestamp_ms": 438630,
+      "evidence": "times: such declarative sentences carry the force",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 71 line exceeds 42 chars (48)",
+      "cue_id": 71,
+      "timestamp_ms": 445360,
+      "evidence": "the school of religion above all [other] schools",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 73 line exceeds 42 chars (50)",
+      "cue_id": 73,
+      "timestamp_ms": 458820,
+      "evidence": "philosophies, other sages, other thinkers, refines",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 74 line exceeds 42 chars (48)",
+      "cue_id": 74,
+      "timestamp_ms": 465550,
+      "evidence": "it, the word of God does not become the highest.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 77 line exceeds 42 chars (60)",
+      "cue_id": 77,
+      "timestamp_ms": 479620,
+      "evidence": "school — 'the word of God is the highest' — [is established]",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 42 chars (76)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "above it' — in the domain of realization (ithbat), it is not [yet manifest].",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (54)",
+      "cue_id": 82,
+      "timestamp_ms": 497020,
+      "evidence": "religion' — in the domain of realization its essential",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 83 line exceeds 42 chars (49)",
+      "cue_id": 83,
+      "timestamp_ms": 503706,
+      "evidence": "must be done; otherwise you will not only fail to",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (51)",
+      "cue_id": 84,
+      "timestamp_ms": 510393,
+      "evidence": "among the losers. 'The Day He assembles you for the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (53)",
+      "cue_id": 85,
+      "timestamp_ms": 517080,
+      "evidence": "Mutual Loss and Gain (yawm al-taghabun)'; higher than",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (52)",
+      "cue_id": 86,
+      "timestamp_ms": 523766,
+      "evidence": "your capital. Either a person's capital is preserved",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (47)",
+      "cue_id": 87,
+      "timestamp_ms": 530453,
+      "evidence": "striving — this is one meaning [of loss]; or he",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (56)",
+      "cue_id": 88,
+      "timestamp_ms": 537140,
+      "evidence": "make it up — this is [true] loss. And this oath concerns",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (55)",
+      "cue_id": 89,
+      "timestamp_ms": 543826,
+      "evidence": "exception a particular group is set apart. This special",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (59)",
+      "cue_id": 90,
+      "timestamp_ms": 550513,
+      "evidence": "fundamental pillars well, in terms of knowledge, and accept",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (60)",
+      "cue_id": 91,
+      "timestamp_ms": 557200,
+      "evidence": "first, that they believe — that is, after complete cognition",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 93 line exceeds 42 chars (47)",
+      "cue_id": 93,
+      "timestamp_ms": 570573,
+      "evidence": "which is the work of the theoretical intellect.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (77)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "which is the work of the practical intellect: 'the intellect is that by which",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (72)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "the heart to this bond and becomes a believer (mu'min). It was clarified",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (82)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "[merely] 'i'taqada' (to hold a belief); 'amana' means to enter the place of safety",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (65)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "is through these four elements — that one holds conviction in all",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (72)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "to guardianship (wilaya) and to the Imamate of 'Ali (peace be upon him).",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (75)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "wished to say that this 'Asr is the age of the manifestation of the blessed",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (77)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "[Some say] it is the age of the Return (raj'a) of that sacred authority; that",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (71)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "Remnant of God (baqiyyatu-llah, may our souls be his ransom) — [or] the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (78)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "upon them) would be the most radiant of ages. That too is correct; that too is",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (73)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "the age through the Book, prophethood, and the light of the Noble Qur'an.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 104 line exceeds 42 chars (55)",
+      "cue_id": 104,
+      "timestamp_ms": 644180,
+      "evidence": "pillars is faith (iman) — for 'amana' means 'he entered",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 105 line exceeds 42 chars (46)",
+      "cue_id": 105,
+      "timestamp_ms": 651067,
+      "evidence": "safety is precisely holding this creed: belief",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (51)",
+      "cue_id": 106,
+      "timestamp_ms": 657955,
+      "evidence": "brought from the principles of religion. This faith",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (49)",
+      "cue_id": 107,
+      "timestamp_ms": 664843,
+      "evidence": "('amal salih), which is the second, is performing",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 108 line exceeds 42 chars (45)",
+      "cue_id": 108,
+      "timestamp_ms": 671730,
+      "evidence": "forbidden ones — as far as possible attaining",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (48)",
+      "cue_id": 109,
+      "timestamp_ms": 678618,
+      "evidence": "(nawafil) and avoiding the disliked (makruhat) —",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 110 line exceeds 42 chars (50)",
+      "cue_id": 110,
+      "timestamp_ms": 685506,
+      "evidence": "who believe' (one) 'and do righteous deeds' (two).",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (50)",
+      "cue_id": 112,
+      "timestamp_ms": 699281,
+      "evidence": "before [censuring] ignorance. The proof they gave:",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (49)",
+      "cue_id": 113,
+      "timestamp_ms": 706169,
+      "evidence": "untaught class and does not hold them accountable",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (45)",
+      "cue_id": 114,
+      "timestamp_ms": 713056,
+      "evidence": "had first taken knowledge from a scholar [and",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (54)",
+      "cue_id": 115,
+      "timestamp_ms": 719944,
+      "evidence": "obligatory upon you to write books, compose treatises,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (80)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "bi-l-haqq) — which is the very principles of religion, the rational doctrines of",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 42 chars (79)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "(tawhid), revelation, the resurrection (ma'ad), prophethood (nubuwwa), Imamate,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 42 chars (66)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "Noble Qur'an, and the majesty of the sacred hadith (hadith qudsi).",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (49)",
+      "cue_id": 124,
+      "timestamp_ms": 789058,
+      "evidence": "others the patience that is proper — as discussed",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 125 line exceeds 42 chars (45)",
+      "cue_id": 125,
+      "timestamp_ms": 795977,
+      "evidence": "through patience and prayer.' They enjoin one",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (55)",
+      "cue_id": 126,
+      "timestamp_ms": 802896,
+      "evidence": "patience in Islam is divided into three kinds: patience",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (46)",
+      "cue_id": 129,
+      "timestamp_ms": 823652,
+      "evidence": "patience is necessary. If society is to become",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (55)",
+      "cue_id": 130,
+      "timestamp_ms": 830570,
+      "evidence": "become 'that He may make it prevail over all religion',",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (46)",
+      "cue_id": 131,
+      "timestamp_ms": 837489,
+      "evidence": "God is the highest', and if Islam is to become",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (43)",
+      "cue_id": 133,
+      "timestamp_ms": 851326,
+      "evidence": "The fourth is enjoining patience: enjoining",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (44)",
+      "cue_id": 134,
+      "timestamp_ms": 858245,
+      "evidence": "three kinds. Performing the religious duties",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (48)",
+      "cue_id": 135,
+      "timestamp_ms": 865164,
+      "evidence": "one another to patience in obedience — [in] this",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (49)",
+      "cue_id": 136,
+      "timestamp_ms": 872082,
+      "evidence": "of one's wealth, this abstaining from ostentation",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 142 line exceeds 42 chars (45)",
+      "cue_id": 142,
+      "timestamp_ms": 916310,
+      "evidence": "patience in affliction (sabr 'ala al-musiba):",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (47)",
+      "cue_id": 146,
+      "timestamp_ms": 944301,
+      "evidence": "destination — it is a divine test. So 'patience",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (43)",
+      "cue_id": 151,
+      "timestamp_ms": 979289,
+      "evidence": "obligatory acts can be borne with patience,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (44)",
+      "cue_id": 152,
+      "timestamp_ms": 986287,
+      "evidence": "patience, and by endurance and steadfastness",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (45)",
+      "cue_id": 156,
+      "timestamp_ms": 1014277,
+      "evidence": "specified the avoidance of loss; and in Surah",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (43)",
+      "cue_id": 158,
+      "timestamp_ms": 1028272,
+      "evidence": "creation; its otherworldly reward is safety",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (43)",
+      "cue_id": 161,
+      "timestamp_ms": 1049265,
+      "evidence": "that we keep ourselves [alive in faith] and",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (43)",
+      "cue_id": 163,
+      "timestamp_ms": 1063261,
+      "evidence": "rational work on the principles of religion",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (45)",
+      "cue_id": 165,
+      "timestamp_ms": 1077256,
+      "evidence": "manifestation of the Awaited One, the Return,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (45)",
+      "cue_id": 167,
+      "timestamp_ms": 1091251,
+      "evidence": "patience. If society were like this, and each",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (45)",
+      "cue_id": 169,
+      "timestamp_ms": 1105247,
+      "evidence": "realized. Indeed, when this blessed Surah was",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (53)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "there were pious people; but the men of God, nurtured",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (52)",
+      "cue_id": 173,
+      "timestamp_ms": 1134611,
+      "evidence": "Qur'an, kept the sanctity of these verses. After the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (53)",
+      "cue_id": 174,
+      "timestamp_ms": 1140682,
+      "evidence": "state of the believers of early Islam [was such that]",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (45)",
+      "cue_id": 175,
+      "timestamp_ms": 1146754,
+      "evidence": "The matter of 'sincere counsel to the leaders",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (49)",
+      "cue_id": 176,
+      "timestamp_ms": 1152825,
+      "evidence": "al-muslimin) flourished from that day. To counsel",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (56)",
+      "cue_id": 177,
+      "timestamp_ms": 1158897,
+      "evidence": "speaking counsel and writing counsel [are both counsel].",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (47)",
+      "cue_id": 194,
+      "timestamp_ms": 1306660,
+      "evidence": "sanctity of the land, [and] the sanctity of the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 196 line exceeds 42 chars (50)",
+      "cue_id": 196,
+      "timestamp_ms": 1318196,
+      "evidence": "lifespan. He commanded that under these conditions",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (51)",
+      "cue_id": 200,
+      "timestamp_ms": 1340300,
+      "evidence": "religion, which is the truth; fourth, enjoining the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 201 line exceeds 42 chars (54)",
+      "cue_id": 201,
+      "timestamp_ms": 1347262,
+      "evidence": "patience. If someone possesses the pillar of patience,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (47)",
+      "cue_id": 204,
+      "timestamp_ms": 1368150,
+      "evidence": "one, brings harm not even to himself. In short,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 205 line exceeds 42 chars (50)",
+      "cue_id": 205,
+      "timestamp_ms": 1375112,
+      "evidence": "small, it contains a fourfold content and fourfold",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 206 line exceeds 42 chars (48)",
+      "cue_id": 206,
+      "timestamp_ms": 1382075,
+      "evidence": "revealed, the state of the people of early Islam",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 208 line exceeds 42 chars (46)",
+      "cue_id": 208,
+      "timestamp_ms": 1396000,
+      "evidence": "believing brothers meet and shake hands, it is",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 209 line exceeds 42 chars (49)",
+      "cue_id": 209,
+      "timestamp_ms": 1402962,
+      "evidence": "meet], if they were dust-laden and had grime upon",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 210 line exceeds 42 chars (43)",
+      "cue_id": 210,
+      "timestamp_ms": 1409925,
+      "evidence": "the Qur'an and the reports of the People of",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 211 line exceeds 42 chars (47)",
+      "cue_id": 211,
+      "timestamp_ms": 1416887,
+      "evidence": "meet one another and clasp hands and shake, [it",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 212 line exceeds 42 chars (48)",
+      "cue_id": 212,
+      "timestamp_ms": 1423850,
+      "evidence": "they meet is like the likeness of two hands, one",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 213 line exceeds 42 chars (53)",
+      "cue_id": 213,
+      "timestamp_ms": 1430812,
+      "evidence": "brothers, when they meet, are like two hands meeting:",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (155)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "under the heading of enjoining truth, and also convey the ordinances and the practical juristic rulings to society under",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 2 line exceeds 42 chars (109)",
+      "cue_id": 2,
+      "timestamp_ms": 12616,
+      "evidence": "خُسْرٍ ۝ إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ».",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 15 line exceeds 42 chars (54)",
+      "cue_id": 15,
+      "timestamp_ms": 85940,
+      "evidence": "لأن رأس المال هو العمر (الحياة نفسها) الذي يمضي ويفنى.",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (87)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "بالحق، وأن نبلّغ المجتمع كذلك الأحكام والفروع الفقهية العملية تحت عنوان التواصي بالصبر.",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 29 line exceeds 42 chars (62)",
+      "cue_id": 29,
+      "timestamp_ms": 166860,
+      "evidence": "زمانہ سکھانے والا اور نصیحت کرنے والا ہے — جیسے کہا جاتا ہے...",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (49)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "عقلِ عملی کا کام ہے: 'عقل وہ ہے جس کے ذریعے رحمان",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (46)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "پرہیزگار لوگ موجود تھے؛ لیکن اللہ کے وہ مردانِ",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (113)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "نصیحت کے عنوان سے پھیلائیں، اور احکام اور فروعی فقہی مسائل کو بھی صبر کی نصیحت کے عنوان سے معاشرے میں منتقل کریں۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 16 chars (25)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "于它」——在实现（确证）的层面上，它尚未（显现）。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 16 chars (20)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "于实践理智的工作：「理智乃借之而敬拜至仁",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 16 chars (20)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "一个信仰者（穆民）。此前已阐明，「阿麦纳",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 16 chars (19)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "念」；「阿麦纳」意为进入安全之所（麦阿",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 16 chars (20)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "大要素——即对一切与《古兰经》、信托、监",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 16 chars (20)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "之）的伊玛目职分有关的事项，都持有确信。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 16 chars (22)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "想说，这个「阿萨尔」就是那位被期待者（时代监",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 16 chars (22)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "说）这是那位神圣权柄复归（拉贾阿）的时代；那",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 16 chars (23)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "们的灵魂为其赎身）显现的时代——（或者说）伊玛",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 16 chars (22)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "是最为光辉的时代。那也是正确的；那也确实是通",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 16 chars (22)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "之光而使这个时代繁荣兴盛的同一体现的一部分。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 16 chars (25)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "哈克）——这正是宗教的根本原则本身，是信仰的理性教",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 16 chars (25)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "启示、复生（马阿德）、先知使命（努布瓦）、伊玛目职",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 16 chars (25)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "经》的真相，以及神圣圣训（哈迪斯·古德西）的庄严。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (71)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "maudit. Au nom de Dieu, le Tout-Miséricordieux, le Très-Miséricordieux.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 2 line exceeds 42 chars (128)",
+      "cue_id": 2,
+      "timestamp_ms": 12616,
+      "evidence": "ceux qui croient, accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement la p",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (58)",
+      "cue_id": 4,
+      "timestamp_ms": 25232,
+      "evidence": "médinoise ou mecquoise, et elle est apparemment mecquoise.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 15 line exceeds 42 chars (67)",
+      "cue_id": 15,
+      "timestamp_ms": 85940,
+      "evidence": "préservé, car le capital est la durée de la vie même, qui s'écoule.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 21 line exceeds 42 chars (52)",
+      "cue_id": 21,
+      "timestamp_ms": 115120,
+      "evidence": "d'emphase, la phrase nominale, le « lam » de « la-fi",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 22 line exceeds 42 chars (48)",
+      "cue_id": 22,
+      "timestamp_ms": 120995,
+      "evidence": "semblables, il est bien établi que tous ces gens",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 23 line exceeds 42 chars (50)",
+      "cue_id": 23,
+      "timestamp_ms": 126870,
+      "evidence": "réunissent ces quatre éléments. De l'exception, il",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 25 line exceeds 42 chars (50)",
+      "cue_id": 25,
+      "timestamp_ms": 140620,
+      "evidence": "perdition » — sauf celui qui : premièrement, croit",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 26 line exceeds 42 chars (46)",
+      "cue_id": 26,
+      "timestamp_ms": 146273,
+      "evidence": "œuvres ; troisièmement, s'enjoint mutuellement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 27 line exceeds 42 chars (50)",
+      "cue_id": 27,
+      "timestamp_ms": 151926,
+      "evidence": "quatrièmement, s'enjoint mutuellement la patience.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 28 line exceeds 42 chars (43)",
+      "cue_id": 28,
+      "timestamp_ms": 160500,
+      "evidence": "nombreuses interprétations ont été données.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 29 line exceeds 42 chars (59)",
+      "cue_id": 29,
+      "timestamp_ms": 166860,
+      "evidence": "temps », car le temps est instructif et édifiant — comme...",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 30 line exceeds 42 chars (53)",
+      "cue_id": 30,
+      "timestamp_ms": 174500,
+      "evidence": "l'Asr, l'heure de la prière de l'après-midi, désignée",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 31 line exceeds 42 chars (56)",
+      "cue_id": 31,
+      "timestamp_ms": 180973,
+      "evidence": "al-wusta) ; ou c'est la fin d'après-midi de chaque jour,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 32 line exceeds 42 chars (55)",
+      "cue_id": 32,
+      "timestamp_ms": 187446,
+      "evidence": "fin du jour, et cela étant à peu près le début du jour.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 38 line exceeds 42 chars (45)",
+      "cue_id": 38,
+      "timestamp_ms": 229020,
+      "evidence": "par la prière de l'Asr, ou par l'époque de la",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 42 line exceeds 42 chars (46)",
+      "cue_id": 42,
+      "timestamp_ms": 256300,
+      "evidence": "« Je jure par cette cité » (la uqsimu bi-hadha",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 50 line exceeds 42 chars (46)",
+      "cue_id": 50,
+      "timestamp_ms": 308726,
+      "evidence": "al-Bayyina, Il a dit : vous êtes les meilleurs",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 53 line exceeds 42 chars (56)",
+      "cue_id": 53,
+      "timestamp_ms": 332420,
+      "evidence": "prophétique est tel qu'« Il la fasse prévaloir sur toute",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 54 line exceeds 42 chars (50)",
+      "cue_id": 54,
+      "timestamp_ms": 338517,
+      "evidence": "kullihi), et « Dieu suffit comme témoin » (wa kafa",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 55 line exceeds 42 chars (50)",
+      "cue_id": 55,
+      "timestamp_ms": 344614,
+      "evidence": "cette expression élevée « qu'Il la fasse prévaloir",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 57 line exceeds 42 chars (46)",
+      "cue_id": 57,
+      "timestamp_ms": 356808,
+      "evidence": "l'être humain. Il est vrai qu'Il en a donné la",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 58 line exceeds 42 chars (52)",
+      "cue_id": 58,
+      "timestamp_ms": 362905,
+      "evidence": "d'une injonction : que vous pouvez être la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 60 line exceeds 42 chars (49)",
+      "cue_id": 60,
+      "timestamp_ms": 375100,
+      "evidence": "[de pensée] soit l'école la plus haute et la plus",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (44)",
+      "cue_id": 61,
+      "timestamp_ms": 380760,
+      "evidence": "idées, les jugements des autres philosophes,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 62 line exceeds 42 chars (50)",
+      "cue_id": 62,
+      "timestamp_ms": 386420,
+      "evidence": "penseurs — présentez tout cela, offrez une réponse",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (46)",
+      "cue_id": 63,
+      "timestamp_ms": 392080,
+      "evidence": "de nouveau ; alors Nous accorderons la lumière",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (64)",
+      "cue_id": 65,
+      "timestamp_ms": 404980,
+      "evidence": "s'est dissipée. Ainsi, lorsqu'Il a dit explicitement « vous êtes",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (62)",
+      "cue_id": 66,
+      "timestamp_ms": 411710,
+      "evidence": "ce chemin : que vous présentiez, enseigniez et offriez l'école",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 67 line exceeds 42 chars (63)",
+      "cue_id": 67,
+      "timestamp_ms": 418440,
+      "evidence": "parole de Dieu, la plus haute » (kalimatu-llahi hiya al-'ulya),",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 68 line exceeds 42 chars (54)",
+      "cue_id": 68,
+      "timestamp_ms": 425170,
+      "evidence": "prévaloir sur toute religion ». Cette parole lumineuse",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (61)",
+      "cue_id": 69,
+      "timestamp_ms": 431900,
+      "evidence": "L'Islam est élevé (ya'lu) et rien ne s'élève au-dessus de lui",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 70 line exceeds 42 chars (63)",
+      "cue_id": 70,
+      "timestamp_ms": 438630,
+      "evidence": ": de telles phrases déclaratives ont la force d'une injonction.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 71 line exceeds 42 chars (55)",
+      "cue_id": 71,
+      "timestamp_ms": 445360,
+      "evidence": "l'école de la religion au-dessus de toutes les [autres]",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 72 line exceeds 42 chars (59)",
+      "cue_id": 72,
+      "timestamp_ms": 452090,
+      "evidence": "la force — de sorte que, tant que l'on n'a pas correctement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 73 line exceeds 42 chars (59)",
+      "cue_id": 73,
+      "timestamp_ms": 458820,
+      "evidence": "philosophies, des autres sages, des autres penseurs, affiné",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 74 line exceeds 42 chars (57)",
+      "cue_id": 74,
+      "timestamp_ms": 465550,
+      "evidence": "proposée, la parole de Dieu ne devient pas la plus haute.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 76 line exceeds 42 chars (45)",
+      "cue_id": 76,
+      "timestamp_ms": 476600,
+      "evidence": "meilleure des créatures » (khayr al-bariyya).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 77 line exceeds 42 chars (77)",
+      "cue_id": 77,
+      "timestamp_ms": 479620,
+      "evidence": "» lorsque notre école — « la parole de Dieu est la plus haute » — [s'établit]",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 78 line exceeds 42 chars (58)",
+      "cue_id": 78,
+      "timestamp_ms": 483250,
+      "evidence": "(ithbat), et non [seulement dans le domaine de l'essence].",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 42 chars (99)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "au-dessus de lui » — dans le domaine de la réalisation (ithbat), cela ne [se manifeste] pas encore.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (70)",
+      "cue_id": 82,
+      "timestamp_ms": 497020,
+      "evidence": "religion » — dans le domaine de la réalisation, sa réalité essentielle",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 83 line exceeds 42 chars (61)",
+      "cue_id": 83,
+      "timestamp_ms": 503706,
+      "evidence": "travail ; sinon, non seulement vous ne serez pas la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (72)",
+      "cue_id": 84,
+      "timestamp_ms": 510393,
+      "evidence": "les perdants. « Le Jour où Il vous réunira pour le Jour du Rassemblement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (56)",
+      "cue_id": 85,
+      "timestamp_ms": 517080,
+      "evidence": "mutuels (yawm al-taghabun) » ; plus grave qu'auparavant,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (63)",
+      "cue_id": 86,
+      "timestamp_ms": 523766,
+      "evidence": "votre capital. Soit le capital d'une personne est préservé mais",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (66)",
+      "cue_id": 87,
+      "timestamp_ms": 530453,
+      "evidence": "de l'acharnement — c'est un sens [de la perte] ; soit elle a perdu",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (65)",
+      "cue_id": 88,
+      "timestamp_ms": 537140,
+      "evidence": "récupérer — c'est [la vraie] perte. Et ce serment concerne toutes",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (67)",
+      "cue_id": 89,
+      "timestamp_ms": 543826,
+      "evidence": "l'exception un groupe particulier s'en distingue. Ce groupe spécial",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (65)",
+      "cue_id": 90,
+      "timestamp_ms": 550513,
+      "evidence": "piliers fondamentaux, sur le plan de la connaissance, les accepte",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (69)",
+      "cue_id": 91,
+      "timestamp_ms": 557200,
+      "evidence": "premièrement, qu'ils croient — c'est-à-dire qu'après une connaissance",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (54)",
+      "cue_id": 92,
+      "timestamp_ms": 563886,
+      "evidence": "l'ensemble des principes de la religion (usul al-din),",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 93 line exceeds 42 chars (53)",
+      "cue_id": 93,
+      "timestamp_ms": 570573,
+      "evidence": "savants, ce qui est l'œuvre de l'intellect théorique.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (85)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "pratiques, ce qui est l'œuvre de l'intellect pratique : « l'intellect est ce par quoi",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (81)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "attache le cœur à ce lien et l'on devient croyant (mu'min). Il a été précisé plus",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (89)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "[seulement] « i'taqada » (tenir une croyance) ; « amana » signifie entrer dans le lieu de",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (75)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "de sécurité se fait par ces quatre éléments — que l'on tienne conviction en",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (78)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "confiance, la tutelle (wilaya) et l'Imamat de 'Ali (que la paix soit sur lui).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (84)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "certains ont voulu dire que cet 'Asr est l'époque de la manifestation de l'être béni",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (75)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "disent] que c'est l'époque du Retour (raj'a) de cette autorité sacrée ; que",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (77)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "Reste de Dieu (baqiyyatu-llah, que nos âmes soient sa rançon) — [ou] l'époque",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (72)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "eux) serait l'époque la plus radieuse. Cela aussi est juste ; cela aussi",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (83)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "épanouissement de l'époque par le Livre, la prophétie et la lumière du Noble Coran.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 104 line exceeds 42 chars (64)",
+      "cue_id": 104,
+      "timestamp_ms": 644180,
+      "evidence": "fondamentaux est la foi (iman) — car « amana » signifie « il est",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 105 line exceeds 42 chars (67)",
+      "cue_id": 105,
+      "timestamp_ms": 651067,
+      "evidence": "lieu de sécurité, c'est précisément le fait de tenir cette croyance",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (62)",
+      "cue_id": 106,
+      "timestamp_ms": 657955,
+      "evidence": "Prophète a apporté des principes de la religion. Cette foi est",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (59)",
+      "cue_id": 107,
+      "timestamp_ms": 664843,
+      "evidence": "salih), qui est le deuxième, consiste à accomplir les actes",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 108 line exceeds 42 chars (62)",
+      "cue_id": 108,
+      "timestamp_ms": 671730,
+      "evidence": "interdits — dans la mesure du possible, atteindre la grâce des",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (60)",
+      "cue_id": 109,
+      "timestamp_ms": 678618,
+      "evidence": "les actes réprouvés (makruhat) — ceci est le deuxième pilier",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 110 line exceeds 42 chars (62)",
+      "cue_id": 110,
+      "timestamp_ms": 685506,
+      "evidence": "accomplissent les bonnes œuvres » (deux). Et parce que l'homme",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (56)",
+      "cue_id": 111,
+      "timestamp_ms": 692393,
+      "evidence": "envers les autres lui incombe aussi — car l'enseignement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (57)",
+      "cue_id": 112,
+      "timestamp_ms": 699281,
+      "evidence": "l'ignorance. La preuve qu'ils ont donnée : Dieu, Glorifié",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (59)",
+      "cue_id": 113,
+      "timestamp_ms": 706169,
+      "evidence": "instruite et ne lui demande pas compte de pourquoi elle n'a",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (66)",
+      "cue_id": 114,
+      "timestamp_ms": 713056,
+      "evidence": "le savoir d'un savant [et qu'on lui a demandé] pourquoi il n'a pas",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (63)",
+      "cue_id": 115,
+      "timestamp_ms": 719944,
+      "evidence": "des livres, de composer des traités, de donner des conférences,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 116 line exceeds 42 chars (49)",
+      "cue_id": 116,
+      "timestamp_ms": 726832,
+      "evidence": "d'enseigner — l'enseignement précède l'ignorance.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 117 line exceeds 42 chars (66)",
+      "cue_id": 117,
+      "timestamp_ms": 735020,
+      "evidence": "consolidation des doctrines islamiques sur la preuve [rationnelle]",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 118 line exceeds 42 chars (44)",
+      "cue_id": 118,
+      "timestamp_ms": 739966,
+      "evidence": "est l'accomplissement des actes obligatoires",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (84)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "la vérité (tawasi bi-l-haqq) — qui est précisément les principes de la religion, les",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 42 chars (91)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "question de l'unicité divine (tawhid), la révélation, la résurrection (ma'ad), la prophétie",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 42 chars (72)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "la réalité du Noble Coran, et la majesté du hadith sacré (hadith qudsi).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 123 line exceeds 42 chars (68)",
+      "cue_id": 123,
+      "timestamp_ms": 782140,
+      "evidence": "vérité. Le quatrième pilier est l'exhortation mutuelle à la patience",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (56)",
+      "cue_id": 124,
+      "timestamp_ms": 789058,
+      "evidence": "société et les autres à la patience qui convient — comme",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 125 line exceeds 42 chars (60)",
+      "cue_id": 125,
+      "timestamp_ms": 795977,
+      "evidence": "patience, « cherchez secours par la patience et la prière ».",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (70)",
+      "cue_id": 126,
+      "timestamp_ms": 802896,
+      "evidence": "patience. Comme vous le savez, la patience en Islam se divise en trois",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (56)",
+      "cue_id": 127,
+      "timestamp_ms": 809814,
+      "evidence": "(sabr 'ala al-ta'a), la patience dans [le renoncement à]",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (56)",
+      "cue_id": 128,
+      "timestamp_ms": 816733,
+      "evidence": "la patience dans l'épreuve (sabr 'ala al-musiba). Il n'y",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (57)",
+      "cue_id": 129,
+      "timestamp_ms": 823652,
+      "evidence": "l'exhortation à la patience est nécessaire. Si la société",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (60)",
+      "cue_id": 130,
+      "timestamp_ms": 830570,
+      "evidence": "si l'école doit devenir « qu'Il la fasse prévaloir sur toute",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (65)",
+      "cue_id": 131,
+      "timestamp_ms": 837489,
+      "evidence": "la parole de Dieu est la plus haute », et si l'Islam doit devenir",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (65)",
+      "cue_id": 132,
+      "timestamp_ms": 844408,
+      "evidence": "au-dessus de lui » — la meilleure société islamique doit posséder",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (54)",
+      "cue_id": 133,
+      "timestamp_ms": 851326,
+      "evidence": "quatrième est l'exhortation à la patience : s'exhorter",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (58)",
+      "cue_id": 134,
+      "timestamp_ms": 858245,
+      "evidence": "est de trois sortes. Accomplir les devoirs religieux peut,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (64)",
+      "cue_id": 135,
+      "timestamp_ms": 865164,
+      "evidence": "nous nous exhortons mutuellement à la patience dans l'obéissance",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (55)",
+      "cue_id": 136,
+      "timestamp_ms": 872082,
+      "evidence": "gestion de ses biens, cette abstention de l'ostentation",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (52)",
+      "cue_id": 137,
+      "timestamp_ms": 879001,
+      "evidence": "c'est difficile, [nous le supportons] avec patience.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (50)",
+      "cue_id": 138,
+      "timestamp_ms": 888320,
+      "evidence": "la patience dans [le renoncement à] la faute (sabr",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 139 line exceeds 42 chars (56)",
+      "cue_id": 139,
+      "timestamp_ms": 895317,
+      "evidence": "mutuellement, face à la résolution de pécher, à renoncer",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 140 line exceeds 42 chars (44)",
+      "cue_id": 140,
+      "timestamp_ms": 902315,
+      "evidence": "du repentir (tawba), la grâce du retour vers",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 141 line exceeds 42 chars (49)",
+      "cue_id": 141,
+      "timestamp_ms": 909312,
+      "evidence": "percevoir la présence de l'Essence Divine Sacrée,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 142 line exceeds 42 chars (61)",
+      "cue_id": 142,
+      "timestamp_ms": 916310,
+      "evidence": "l'épreuve (sabr 'ala al-musiba) : c'est-à-dire que lorsqu'une",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (47)",
+      "cue_id": 144,
+      "timestamp_ms": 930305,
+      "evidence": "elle, sans exposer la faute, ne l'imposant ni à",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (53)",
+      "cue_id": 145,
+      "timestamp_ms": 937303,
+      "evidence": "« Endurant » (burdbar) signifie celui qui peut porter",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 147 line exceeds 42 chars (52)",
+      "cue_id": 147,
+      "timestamp_ms": 951298,
+      "evidence": "l'épreuve survient, soyez patient. Cette expression,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (44)",
+      "cue_id": 148,
+      "timestamp_ms": 958296,
+      "evidence": "à la désobéissance, peut aussi s'appliquer —",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 149 line exceeds 42 chars (57)",
+      "cue_id": 149,
+      "timestamp_ms": 965294,
+      "evidence": "l'obéissance, tout comme la patience dans [le renoncement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 150 line exceeds 42 chars (44)",
+      "cue_id": 150,
+      "timestamp_ms": 972291,
+      "evidence": "trois cas, la patience a de la valeur. Ainsi",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (46)",
+      "cue_id": 151,
+      "timestamp_ms": 979289,
+      "evidence": "actes obligatoires peuvent être supportés avec",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (44)",
+      "cue_id": 152,
+      "timestamp_ms": 986287,
+      "evidence": "abandonnés avec patience, et par l'endurance",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 153 line exceeds 42 chars (47)",
+      "cue_id": 153,
+      "timestamp_ms": 993284,
+      "evidence": "et de l'affliction peut être mené à destination",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (49)",
+      "cue_id": 154,
+      "timestamp_ms": 1000282,
+      "evidence": "possède ces quatre piliers ne subit aucune perte,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (59)",
+      "cue_id": 155,
+      "timestamp_ms": 1007280,
+      "evidence": "un commerce [qui vous sauvera] ? » — ce commerce salvateur,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (44)",
+      "cue_id": 156,
+      "timestamp_ms": 1014277,
+      "evidence": "l'évitement de la perte ; et dans la sourate",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (51)",
+      "cue_id": 157,
+      "timestamp_ms": 1021275,
+      "evidence": "d'être trompé. Sa récompense en ce monde est d'être",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (51)",
+      "cue_id": 158,
+      "timestamp_ms": 1028272,
+      "evidence": "dans l'autre monde est la sécurité contre la perte,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (43)",
+      "cue_id": 159,
+      "timestamp_ms": 1035270,
+      "evidence": "ruine — parce que nous possédons ces quatre",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (58)",
+      "cue_id": 160,
+      "timestamp_ms": 1042268,
+      "evidence": "l'Essence Sacrée de Dieu nous a créés comme une communauté",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (45)",
+      "cue_id": 161,
+      "timestamp_ms": 1049265,
+      "evidence": "maintenions [vivants dans la foi] et fassions",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (62)",
+      "cue_id": 163,
+      "timestamp_ms": 1063261,
+      "evidence": "exhortant à la patience. Celui qui écrit une œuvre rationnelle",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 164 line exceeds 42 chars (51)",
+      "cue_id": 164,
+      "timestamp_ms": 1070258,
+      "evidence": "la vérité ; celui qui compose une œuvre théologique",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (49)",
+      "cue_id": 165,
+      "timestamp_ms": 1077256,
+      "evidence": "tutelle, l'Imamat, la manifestation de l'Attendu,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (54)",
+      "cue_id": 166,
+      "timestamp_ms": 1084254,
+      "evidence": "théologiques — exhorte à la vérité ; celui qui prêche,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (44)",
+      "cue_id": 167,
+      "timestamp_ms": 1091251,
+      "evidence": "à la patience. Si la société était ainsi, et",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (48)",
+      "cue_id": 168,
+      "timestamp_ms": 1098249,
+      "evidence": "dans ces quatre domaines selon sa capacité, être",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (52)",
+      "cue_id": 169,
+      "timestamp_ms": 1105247,
+      "evidence": "En effet, lorsque cette sourate bénie a été révélée,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (44)",
+      "cue_id": 170,
+      "timestamp_ms": 1112244,
+      "evidence": "l'Islam — ceux qui se séparaient les uns des",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (49)",
+      "cue_id": 171,
+      "timestamp_ms": 1119242,
+      "evidence": "cette sourate bénie « Par le Temps » (wa-l-'Asr).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (69)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "récents, il y avait des gens pieux ; mais les hommes de Dieu, nourris",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (57)",
+      "cue_id": 173,
+      "timestamp_ms": 1134611,
+      "evidence": "Coran, ont gardé le caractère sacré de ces versets. Après",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (61)",
+      "cue_id": 174,
+      "timestamp_ms": 1140682,
+      "evidence": "l'état des croyants des premiers temps de l'Islam [était tel]",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (56)",
+      "cue_id": 175,
+      "timestamp_ms": 1146754,
+      "evidence": "sourate. La question du « conseil sincère aux dirigeants",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (61)",
+      "cue_id": 176,
+      "timestamp_ms": 1152825,
+      "evidence": "al-muslimin) a fleuri à partir de ce jour. Conseiller est une",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (69)",
+      "cue_id": 177,
+      "timestamp_ms": 1158897,
+      "evidence": "parler par conseil et écrire par conseil [sont tous deux du conseil].",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (57)",
+      "cue_id": 178,
+      "timestamp_ms": 1164968,
+      "evidence": "versés dans les belles-lettres ont parlé du « nasiha »...",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 183 line exceeds 42 chars (49)",
+      "cue_id": 183,
+      "timestamp_ms": 1219120,
+      "evidence": "est [souvent] employé pour ce qu'on dit ou écrit,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (53)",
+      "cue_id": 184,
+      "timestamp_ms": 1225617,
+      "evidence": "semblables — on dit [que cela signifie] la sincérité.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (45)",
+      "cue_id": 186,
+      "timestamp_ms": 1238612,
+      "evidence": "nisa », et le vêtement cousu, ils l'appellent",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (49)",
+      "cue_id": 188,
+      "timestamp_ms": 1251607,
+      "evidence": "sur le corps de la société, l'habiller, préserver",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (55)",
+      "cue_id": 191,
+      "timestamp_ms": 1272400,
+      "evidence": "meilleure des créatures. Il n'est pas vrai que la seule",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (46)",
+      "cue_id": 192,
+      "timestamp_ms": 1277306,
+      "evidence": "au Paradis après la mort et soyez la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (52)",
+      "cue_id": 194,
+      "timestamp_ms": 1306660,
+      "evidence": "caractère sacré de la terre, [et] le caractère sacré",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 195 line exceeds 42 chars (57)",
+      "cue_id": 195,
+      "timestamp_ms": 1312428,
+      "evidence": "[appartenant] à celui qui est lié à ce temps et à ce lieu",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 196 line exceeds 42 chars (57)",
+      "cue_id": 196,
+      "timestamp_ms": 1318196,
+      "evidence": "a ordonné que dans ces conditions vous soyez la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 197 line exceeds 42 chars (49)",
+      "cue_id": 197,
+      "timestamp_ms": 1323964,
+      "evidence": "quadruple est celui-ci : premièrement, la foi — «",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 198 line exceeds 42 chars (54)",
+      "cue_id": 198,
+      "timestamp_ms": 1329732,
+      "evidence": "matière de doctrine ; deuxièmement, les bonnes œuvres.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (58)",
+      "cue_id": 200,
+      "timestamp_ms": 1340300,
+      "evidence": "religion, qui est la vérité ; quatrièmement, l'exhortation",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 201 line exceeds 42 chars (49)",
+      "cue_id": 201,
+      "timestamp_ms": 1347262,
+      "evidence": "la patience. Si quelqu'un possède le pilier de la",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 202 line exceeds 42 chars (52)",
+      "cue_id": 202,
+      "timestamp_ms": 1354225,
+      "evidence": "divins d'obéissance, trouve la délivrance des péchés",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 203 line exceeds 42 chars (67)",
+      "cue_id": 203,
+      "timestamp_ms": 1361187,
+      "evidence": "l'épreuve porte ce fardeau — il est endurant et ne nuit à personne,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (55)",
+      "cue_id": 204,
+      "timestamp_ms": 1368150,
+      "evidence": "cette [sourate] est telle que, malgré sa brièveté, elle",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 205 line exceeds 42 chars (56)",
+      "cue_id": 205,
+      "timestamp_ms": 1375112,
+      "evidence": "piliers quadruples de grande importance. Lorsqu'elle fut",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 206 line exceeds 42 chars (61)",
+      "cue_id": 206,
+      "timestamp_ms": 1382075,
+      "evidence": "temps de l'Islam changea entièrement — car en se rencontrant,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 207 line exceeds 42 chars (50)",
+      "cue_id": 207,
+      "timestamp_ms": 1389037,
+      "evidence": "est aussi rapporté dans les traditions que lorsque",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 208 line exceeds 42 chars (55)",
+      "cue_id": 208,
+      "timestamp_ms": 1396000,
+      "evidence": "serrent la main, c'est comme [la parabole] que si [deux",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 209 line exceeds 42 chars (57)",
+      "cue_id": 209,
+      "timestamp_ms": 1402962,
+      "evidence": "couvertes de poussière et avaient de la saleté sur elles,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 210 line exceeds 42 chars (53)",
+      "cue_id": 210,
+      "timestamp_ms": 1409925,
+      "evidence": "le Coran et les traditions des Gens de la Maison (que",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 211 line exceeds 42 chars (60)",
+      "cue_id": 211,
+      "timestamp_ms": 1416887,
+      "evidence": "rencontrent et se serrent la main, [c'est] « la ressemblance",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 212 line exceeds 42 chars (57)",
+      "cue_id": 212,
+      "timestamp_ms": 1423850,
+      "evidence": "comme la ressemblance de deux mains, l'une lavant l'autre",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 213 line exceeds 42 chars (53)",
+      "cue_id": 213,
+      "timestamp_ms": 1430812,
+      "evidence": "rencontrent, sont comme deux mains qui se rencontrent",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 214 line exceeds 42 chars (56)",
+      "cue_id": 214,
+      "timestamp_ms": 1437775,
+      "evidence": "l'eau ils sont tous deux nettoyés, purifiés, rendus sans",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 215 line exceeds 42 chars (53)",
+      "cue_id": 215,
+      "timestamp_ms": 1444737,
+      "evidence": "de Dieu nous accorde cette grâce, que tous les deux —",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (198)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "enseignements sous le titre d'exhortation à la vérité, et aussi que nous transmettions les prescriptions et les jugement",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (58)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "el nombre de Dios, el Clementísimo, el Misericordiosísimo.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (53)",
+      "cue_id": 3,
+      "timestamp_ms": 18924,
+      "evidence": "bendita sura Al-'Asr; su apertura es «Por el Tiempo».",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 16 line exceeds 42 chars (45)",
+      "cue_id": 16,
+      "timestamp_ms": 91780,
+      "evidence": "dice, un vendedor de hielo en verano gritaba:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 22 line exceeds 42 chars (47)",
+      "cue_id": 22,
+      "timestamp_ms": 120995,
+      "evidence": "queda bien establecido que todas estas personas",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 23 line exceeds 42 chars (47)",
+      "cue_id": 23,
+      "timestamp_ms": 126870,
+      "evidence": "cumplen estos cuatro elementos. De la excepción",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 25 line exceeds 42 chars (43)",
+      "cue_id": 25,
+      "timestamp_ms": 140620,
+      "evidence": "está ciertamente en pérdida' — salvo quien:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 29 line exceeds 42 chars (53)",
+      "cue_id": 29,
+      "timestamp_ms": 166860,
+      "evidence": "pues el tiempo es instructivo y amonestador — como...",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 30 line exceeds 42 chars (61)",
+      "cue_id": 30,
+      "timestamp_ms": 174500,
+      "evidence": "'Asr, el momento de la oración de la tarde, a la que se llama",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 31 line exceeds 42 chars (69)",
+      "cue_id": 31,
+      "timestamp_ms": 180973,
+      "evidence": "al-wusta); o es la última parte de la tarde de cada día, en contraste",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 32 line exceeds 42 chars (51)",
+      "cue_id": 32,
+      "timestamp_ms": 187446,
+      "evidence": "día, y aquella aproximadamente el comienzo del día.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 35 line exceeds 42 chars (44)",
+      "cue_id": 35,
+      "timestamp_ms": 208560,
+      "evidence": "forjó, y la época que se manifiesta a través",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 37 line exceeds 42 chars (51)",
+      "cue_id": 37,
+      "timestamp_ms": 222200,
+      "evidence": "resplandecerá con la luz de su Señor'. En cualquier",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 40 line exceeds 42 chars (43)",
+      "cue_id": 40,
+      "timestamp_ms": 242660,
+      "evidence": "Esencia Divina Sagrada tiene una reverencia",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 53 line exceeds 42 chars (44)",
+      "cue_id": 53,
+      "timestamp_ms": 332420,
+      "evidence": "es tal que 'Él la haga prevalecer sobre toda",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 56 line exceeds 42 chars (49)",
+      "cue_id": 56,
+      "timestamp_ms": 350711,
+      "evidence": "religión', señal de que la época de la revelación",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 60 line exceeds 42 chars (47)",
+      "cue_id": 60,
+      "timestamp_ms": 375100,
+      "evidence": "pensamiento] sea la escuela más alta y eminente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 62 line exceeds 42 chars (43)",
+      "cue_id": 62,
+      "timestamp_ms": 386420,
+      "evidence": "presenten todo esto, ofrezcan una respuesta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (61)",
+      "cue_id": 65,
+      "timestamp_ms": 404980,
+      "evidence": "desvaneció. Así, cuando dijo explícitamente 'sois los mejores",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (43)",
+      "cue_id": 66,
+      "timestamp_ms": 411710,
+      "evidence": "presentéis, enseñéis y ofrezcáis la escuela",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 67 line exceeds 42 chars (54)",
+      "cue_id": 67,
+      "timestamp_ms": 418440,
+      "evidence": "'la palabra de Dios, la más alta' (kalimatu-llahi hiya",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 68 line exceeds 42 chars (54)",
+      "cue_id": 68,
+      "timestamp_ms": 425170,
+      "evidence": "'que Él la haga prevalecer sobre toda religión'. Aquel",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (54)",
+      "cue_id": 69,
+      "timestamp_ms": 431900,
+      "evidence": "él) — 'el Islam es exaltado y nada se exalta sobre él'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 70 line exceeds 42 chars (51)",
+      "cue_id": 70,
+      "timestamp_ms": 438630,
+      "evidence": "tales oraciones declarativas tienen la fuerza de un",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 71 line exceeds 42 chars (57)",
+      "cue_id": 71,
+      "timestamp_ms": 445360,
+      "evidence": "la escuela de la religión por encima de todas las [demás]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 72 line exceeds 42 chars (52)",
+      "cue_id": 72,
+      "timestamp_ms": 452090,
+      "evidence": "la fuerza — de tal modo que, a menos que se presente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 73 line exceeds 42 chars (46)",
+      "cue_id": 73,
+      "timestamp_ms": 458820,
+      "evidence": "filosofías, otros sabios, otros pensadores, se",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 74 line exceeds 42 chars (55)",
+      "cue_id": 74,
+      "timestamp_ms": 465550,
+      "evidence": "ofrezca, la palabra de Dios no llega a ser la más alta.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 75 line exceeds 42 chars (44)",
+      "cue_id": 75,
+      "timestamp_ms": 472940,
+      "evidence": "religión' no llega a suceder [de otro modo].",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 77 line exceeds 42 chars (60)",
+      "cue_id": 77,
+      "timestamp_ms": 479620,
+      "evidence": "cuando nuestra escuela — 'la palabra de Dios es la más alta'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 78 line exceeds 42 chars (62)",
+      "cue_id": 78,
+      "timestamp_ms": 483250,
+      "evidence": "realización (izbat), no [meramente en el plano de la esencia].",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 42 chars (74)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "sobre él' — en el plano de la realización (izbat), aún no [se manifiesta].",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (63)",
+      "cue_id": 82,
+      "timestamp_ms": 497020,
+      "evidence": "religión' — en el plano de la realización, su realidad esencial",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 83 line exceeds 42 chars (62)",
+      "cue_id": 83,
+      "timestamp_ms": 503706,
+      "evidence": "debe hacerse; de otro modo no solo dejaréis de ser lo mejor de",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (64)",
+      "cue_id": 84,
+      "timestamp_ms": 510393,
+      "evidence": "entre los que pierden. 'El día en que os reúna para el Día de la",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (66)",
+      "cue_id": 85,
+      "timestamp_ms": 517080,
+      "evidence": "y Ganancia Mutua (yaum al-tagabun)'; más aún que antes, sufriríais",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (47)",
+      "cue_id": 86,
+      "timestamp_ms": 523766,
+      "evidence": "bien el capital de una persona se conserva pero",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (60)",
+      "cue_id": 87,
+      "timestamp_ms": 530453,
+      "evidence": "el empeño — este es un sentido [de la pérdida]; o ha perdido",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (62)",
+      "cue_id": 88,
+      "timestamp_ms": 537140,
+      "evidence": "recuperarlo — esto es la [verdadera] pérdida. Y este juramento",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (57)",
+      "cue_id": 89,
+      "timestamp_ms": 543826,
+      "evidence": "ya que por la excepción se distingue un grupo particular.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (58)",
+      "cue_id": 90,
+      "timestamp_ms": 550513,
+      "evidence": "conocen bien los cuatro pilares fundamentales, en términos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (57)",
+      "cue_id": 91,
+      "timestamp_ms": 557200,
+      "evidence": "de acción, y se esfuerzan: primero, que creen — es decir,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (59)",
+      "cue_id": 92,
+      "timestamp_ms": 563886,
+      "evidence": "convicción en la totalidad de los principios de la religión",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 93 line exceeds 42 chars (63)",
+      "cue_id": 93,
+      "timestamp_ms": 570573,
+      "evidence": "investigadores eruditos, lo cual es obra del intelecto teórico.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (82)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "cual es obra del intelecto práctico: 'el intelecto es aquello por lo cual se adora",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (77)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "este vínculo y se convierte en creyente (mu'min). Se aclaró antes que 'amana'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (87)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "(sostener una creencia); 'amana' significa entrar en el lugar de seguridad (al-ma'man).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (64)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "mediante estos cuatro elementos — que uno sostenga convicción en",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (77)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "confianza, a la guardianía (wilaya) y al Imamato de 'Ali (la paz sea con él).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (83)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "algunos quisieron decir que este 'Asr es la época de la manifestación de la bendita",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (87)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "al-'asr). [Algunos dicen] que es la época del Retorno (raj'a) de esa autoridad sagrada;",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (88)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "manifestación del Remanente de Dios (baqiyyatu-llah, que nuestras almas sean su rescate)",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (88)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "(la paz sea con ellos) sería la más radiante de las épocas. Eso también es correcto; eso",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (82)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "florecimiento de la época mediante el Libro, la profecía y la luz del Noble Corán.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 104 line exceeds 42 chars (62)",
+      "cue_id": 104,
+      "timestamp_ms": 644180,
+      "evidence": "pilares fundamentales es la fe (iman) — pues 'amana' significa",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 105 line exceeds 42 chars (48)",
+      "cue_id": 105,
+      "timestamp_ms": 651067,
+      "evidence": "lugar de seguridad es precisamente sostener esta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (52)",
+      "cue_id": 106,
+      "timestamp_ms": 657955,
+      "evidence": "Profeta trajo de los principios de la religión. Esta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (58)",
+      "cue_id": 107,
+      "timestamp_ms": 664843,
+      "evidence": "('amal salih), que es el segundo, consiste en realizar los",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 108 line exceeds 42 chars (59)",
+      "cue_id": 108,
+      "timestamp_ms": 671730,
+      "evidence": "prohibidos — en la medida de lo posible, alcanzar la gracia",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (45)",
+      "cue_id": 109,
+      "timestamp_ms": 678618,
+      "evidence": "evitar lo aborrecible (makruhat) — este es el",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 110 line exceeds 42 chars (48)",
+      "cue_id": 110,
+      "timestamp_ms": 685506,
+      "evidence": "'y obran rectamente' (dos). Y como el ser humano",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (72)",
+      "cue_id": 111,
+      "timestamp_ms": 692393,
+      "evidence": "responsabilidad por los demás también recae sobre él — pues la enseñanza",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (46)",
+      "cue_id": 112,
+      "timestamp_ms": 699281,
+      "evidence": "censurar] la ignorancia. La prueba que dieron:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (57)",
+      "cue_id": 113,
+      "timestamp_ms": 706169,
+      "evidence": "la clase no instruida y no la hace responsable de por qué",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (54)",
+      "cue_id": 114,
+      "timestamp_ms": 713056,
+      "evidence": "tomado conocimiento de un erudito [y se le dijera] por",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (62)",
+      "cue_id": 115,
+      "timestamp_ms": 719944,
+      "evidence": "vosotros escribir libros, componer tratados, dar conferencias,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 117 line exceeds 42 chars (56)",
+      "cue_id": 117,
+      "timestamp_ms": 735020,
+      "evidence": "consolidación de las doctrinas islámicas sobre [pruebas]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 118 line exceeds 42 chars (49)",
+      "cue_id": 118,
+      "timestamp_ms": 739966,
+      "evidence": "pilar es la realización de los actos obligatorios",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (83)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "bi-l-haqq) — que son los mismos principios de la religión, las doctrinas racionales",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 42 chars (79)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "divina (tawhid), la revelación, la resurrección (ma'ad), la profecía (nubuwwa),",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 42 chars (72)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "realidad del Noble Corán, y la majestad del hadiz sagrado (hadiz qudsi).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 123 line exceeds 42 chars (52)",
+      "cue_id": 123,
+      "timestamp_ms": 782140,
+      "evidence": "pilar es recomendar la paciencia (tawasi bi-l-sabr):",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (55)",
+      "cue_id": 124,
+      "timestamp_ms": 789058,
+      "evidence": "demás la paciencia debida — como se trató en la sección",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 125 line exceeds 42 chars (53)",
+      "cue_id": 125,
+      "timestamp_ms": 795977,
+      "evidence": "la paciencia y la oración'. Se recomiendan mutuamente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (46)",
+      "cue_id": 126,
+      "timestamp_ms": 802896,
+      "evidence": "el Islam se divide en tres tipos: paciencia en",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (55)",
+      "cue_id": 127,
+      "timestamp_ms": 809814,
+      "evidence": "paciencia en [abstenerse de] la desobediencia (sabr 'an",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (49)",
+      "cue_id": 128,
+      "timestamp_ms": 816733,
+      "evidence": "(sabr 'ala al-musiba). No hay escapatoria de esta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (56)",
+      "cue_id": 129,
+      "timestamp_ms": 823652,
+      "evidence": "necesario. Si la sociedad ha de llegar a ser lo mejor de",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (55)",
+      "cue_id": 130,
+      "timestamp_ms": 830570,
+      "evidence": "ser 'que Él la haga prevalecer sobre toda religión', si",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (57)",
+      "cue_id": 131,
+      "timestamp_ms": 837489,
+      "evidence": "de Dios es la más alta', y si el Islam ha de llegar a ser",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (56)",
+      "cue_id": 132,
+      "timestamp_ms": 844408,
+      "evidence": "sobre él' — la mejor sociedad islámica debe poseer estos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (51)",
+      "cue_id": 133,
+      "timestamp_ms": 851326,
+      "evidence": "es recomendar la paciencia: recomendarse mutuamente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (53)",
+      "cue_id": 134,
+      "timestamp_ms": 858245,
+      "evidence": "tipos. Cumplir los deberes religiosos puede resultar,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (51)",
+      "cue_id": 135,
+      "timestamp_ms": 865164,
+      "evidence": "unos a otros a la paciencia en la obediencia — [en]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (69)",
+      "cue_id": 136,
+      "timestamp_ms": 872082,
+      "evidence": "ordenamiento de los bienes propios, esta abstención de la ostentación",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (46)",
+      "cue_id": 138,
+      "timestamp_ms": 888320,
+      "evidence": "paciencia en [abstenerse del] pecado (sabr 'an",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 139 line exceeds 42 chars (46)",
+      "cue_id": 139,
+      "timestamp_ms": 895317,
+      "evidence": "ante la resolución de pecar, a renunciar a esa",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 140 line exceeds 42 chars (51)",
+      "cue_id": 140,
+      "timestamp_ms": 902315,
+      "evidence": "arrepentimiento (tawba), la gracia de volver a Dios",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 141 line exceeds 42 chars (53)",
+      "cue_id": 141,
+      "timestamp_ms": 909312,
+      "evidence": "percibir la presencia de la Esencia Divina Sagrada, y",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 142 line exceeds 42 chars (49)",
+      "cue_id": 142,
+      "timestamp_ms": 916310,
+      "evidence": "aflicción (sabr 'ala al-musiba): es decir, cuando",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (50)",
+      "cue_id": 143,
+      "timestamp_ms": 923308,
+      "evidence": "permita, alguien es dañado — esta persona es capaz",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (46)",
+      "cue_id": 144,
+      "timestamp_ms": 930305,
+      "evidence": "ello, sin exponer la falta, sin imponerla ni a",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (56)",
+      "cue_id": 145,
+      "timestamp_ms": 937303,
+      "evidence": "indulgente. 'Indulgente' (burdbar) significa quien puede",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (51)",
+      "cue_id": 146,
+      "timestamp_ms": 944301,
+      "evidence": "una prueba divina. Así, 'paciencia en la aflicción'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (55)",
+      "cue_id": 148,
+      "timestamp_ms": 958296,
+      "evidence": "desobediencia, también puede aplicarse — así, paciencia",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 150 line exceeds 42 chars (49)",
+      "cue_id": 150,
+      "timestamp_ms": 972291,
+      "evidence": "tres casos la paciencia tiene valor. Así que esta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (52)",
+      "cue_id": 152,
+      "timestamp_ms": 986287,
+      "evidence": "abandonarse con paciencia, y mediante la resistencia",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (46)",
+      "cue_id": 154,
+      "timestamp_ms": 1000282,
+      "evidence": "estos cuatro pilares no sufre pérdida sino que",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (51)",
+      "cue_id": 155,
+      "timestamp_ms": 1007280,
+      "evidence": "comercio [que os salvará]?' — ese comercio salvador",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (55)",
+      "cue_id": 156,
+      "timestamp_ms": 1014277,
+      "evidence": "especificado evitar la pérdida; y en la sura Al-Tagabun",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (46)",
+      "cue_id": 158,
+      "timestamp_ms": 1028272,
+      "evidence": "recompensa del más allá es la seguridad frente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (50)",
+      "cue_id": 159,
+      "timestamp_ms": 1035270,
+      "evidence": "toda clase de ruina — porque poseemos estos cuatro",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (53)",
+      "cue_id": 161,
+      "timestamp_ms": 1049265,
+      "evidence": "nos mantengamos [vivos en la fe] y revivamos a otros,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (45)",
+      "cue_id": 162,
+      "timestamp_ms": 1056263,
+      "evidence": "uno recomendando la verdad, otro recomendando",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (44)",
+      "cue_id": 163,
+      "timestamp_ms": 1063261,
+      "evidence": "racional sobre los principios de la religión",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (44)",
+      "cue_id": 165,
+      "timestamp_ms": 1077256,
+      "evidence": "Imamato, la manifestación del Guardián de la",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (47)",
+      "cue_id": 166,
+      "timestamp_ms": 1084254,
+      "evidence": "teológicas — está recomendando la verdad; quien",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (46)",
+      "cue_id": 167,
+      "timestamp_ms": 1091251,
+      "evidence": "está recomendando la paciencia. Si la sociedad",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (46)",
+      "cue_id": 168,
+      "timestamp_ms": 1098249,
+      "evidence": "se esforzara en estas cuatro materias según su",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (47)",
+      "cue_id": 169,
+      "timestamp_ms": 1105247,
+      "evidence": "realizaría. En efecto, cuando esta bendita sura",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (45)",
+      "cue_id": 170,
+      "timestamp_ms": 1112244,
+      "evidence": "primer Islam — aquellos que se despedían unos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (46)",
+      "cue_id": 171,
+      "timestamp_ms": 1119242,
+      "evidence": "esta bendita sura 'Por el Tiempo' (wa-l-'Asr).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (52)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "posteriores hubo personas piadosas; pero los hombres",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (58)",
+      "cue_id": 173,
+      "timestamp_ms": 1134611,
+      "evidence": "versículos del Noble Corán, guardaron la santidad de estos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (57)",
+      "cue_id": 174,
+      "timestamp_ms": 1140682,
+      "evidence": "bendita sura, el estado de los creyentes del primer Islam",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (55)",
+      "cue_id": 175,
+      "timestamp_ms": 1146754,
+      "evidence": "esta sura. El asunto del 'consejo sincero a los líderes",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (48)",
+      "cue_id": 176,
+      "timestamp_ms": 1152825,
+      "evidence": "al-muslimin) floreció desde aquel día. Aconsejar",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (55)",
+      "cue_id": 177,
+      "timestamp_ms": 1158897,
+      "evidence": "escribir consejo [son ambos consejo]. Pero en la manera",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (43)",
+      "cue_id": 178,
+      "timestamp_ms": 1164968,
+      "evidence": "la literatura han hablado sobre 'nasiha'...",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (43)",
+      "cue_id": 184,
+      "timestamp_ms": 1225617,
+      "evidence": "verbales semejantes — dicen [que significa]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (44)",
+      "cue_id": 188,
+      "timestamp_ms": 1251607,
+      "evidence": "sobre el cuerpo de la sociedad, vistiéndola,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (45)",
+      "cue_id": 191,
+      "timestamp_ms": 1272400,
+      "evidence": "de la creación. No es que la única afirmación",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (49)",
+      "cue_id": 194,
+      "timestamp_ms": 1306660,
+      "evidence": "tiempo, la santidad de la tierra, [y] la santidad",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (46)",
+      "cue_id": 200,
+      "timestamp_ms": 1340300,
+      "evidence": "religión, que es la verdad; cuarto, recomendar",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 201 line exceeds 42 chars (53)",
+      "cue_id": 201,
+      "timestamp_ms": 1347262,
+      "evidence": "paciencia. Si alguien posee el pilar de la paciencia,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 202 line exceeds 42 chars (48)",
+      "cue_id": 202,
+      "timestamp_ms": 1354225,
+      "evidence": "obediencia, como halla liberación de los pecados",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 203 line exceeds 42 chars (47)",
+      "cue_id": 203,
+      "timestamp_ms": 1361187,
+      "evidence": "la aflicción soporta esta carga — es indulgente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (53)",
+      "cue_id": 204,
+      "timestamp_ms": 1368150,
+      "evidence": "mismo. En resumen, esta [sura] es tal que, a pesar de",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 205 line exceeds 42 chars (51)",
+      "cue_id": 205,
+      "timestamp_ms": 1375112,
+      "evidence": "cuádruple y pilares cuádruples de gran importancia.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 206 line exceeds 42 chars (46)",
+      "cue_id": 206,
+      "timestamp_ms": 1382075,
+      "evidence": "del primer Islam cambió por completo — pues al",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 207 line exceeds 42 chars (44)",
+      "cue_id": 207,
+      "timestamp_ms": 1389037,
+      "evidence": "También se ha transmitido en los relatos que",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 208 line exceeds 42 chars (57)",
+      "cue_id": 208,
+      "timestamp_ms": 1396000,
+      "evidence": "encuentran y se dan la mano, es como [la parábola de] que",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 209 line exceeds 42 chars (54)",
+      "cue_id": 209,
+      "timestamp_ms": 1402962,
+      "evidence": "estaban cubiertas de polvo y tenían suciedad, entonces",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 210 line exceeds 42 chars (54)",
+      "cue_id": 210,
+      "timestamp_ms": 1409925,
+      "evidence": "Corán y los relatos de la Gente de la Casa (la paz sea",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 211 line exceeds 42 chars (50)",
+      "cue_id": 211,
+      "timestamp_ms": 1416887,
+      "evidence": "otros y se toman de la mano y se saludan, [es] 'la",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 212 line exceeds 42 chars (57)",
+      "cue_id": 212,
+      "timestamp_ms": 1423850,
+      "evidence": "encuentran es como la semejanza de dos manos, una lavando",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 213 line exceeds 42 chars (59)",
+      "cue_id": 213,
+      "timestamp_ms": 1430812,
+      "evidence": "cuando se encuentran, son como dos manos que se encuentran:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 215 line exceeds 42 chars (43)",
+      "cue_id": 215,
+      "timestamp_ms": 1444737,
+      "evidence": "de Dios nos conceda esa gracia, que ambos —",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (159)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "título de recomendar la verdad, y también transmitamos las ordenanzas y los fallos jurídicos prácticos a la sociedad baj",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (55)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "maldito. Em nome de Deus, o Clemente, o Misericordioso.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 2 line exceeds 42 chars (52)",
+      "cue_id": 2,
+      "timestamp_ms": 12616,
+      "evidence": "aconselham mutuamente com a verdade, e se aconselham",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (44)",
+      "cue_id": 3,
+      "timestamp_ms": 18924,
+      "evidence": "bendita Surata Al-'Asr; sua abertura é \"Pelo",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (46)",
+      "cue_id": 4,
+      "timestamp_ms": 25232,
+      "evidence": "medinense ou mecana, e aparentemente é mecana.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 15 line exceeds 42 chars (46)",
+      "cue_id": 15,
+      "timestamp_ms": 85940,
+      "evidence": "preservado, pois o capital é a duração da vida",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 21 line exceeds 42 chars (48)",
+      "cue_id": 21,
+      "timestamp_ms": 115120,
+      "evidence": "enfática, da frase nominal, do 'lam' de 'la-fi',",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 22 line exceeds 42 chars (45)",
+      "cue_id": 22,
+      "timestamp_ms": 120995,
+      "evidence": "está bem estabelecido que todas essas pessoas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 23 line exceeds 42 chars (44)",
+      "cue_id": 23,
+      "timestamp_ms": 126870,
+      "evidence": "cumprem estes quatro elementos. Pela exceção",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 25 line exceeds 42 chars (44)",
+      "cue_id": 25,
+      "timestamp_ms": 140620,
+      "evidence": "está certamente em perdição' — exceto aquele",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 30 line exceeds 42 chars (44)",
+      "cue_id": 30,
+      "timestamp_ms": 174500,
+      "evidence": "horário da oração da tarde, que é chamada de",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 31 line exceeds 42 chars (43)",
+      "cue_id": 31,
+      "timestamp_ms": 180973,
+      "evidence": "é o final da tarde de cada dia, em oposição",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 32 line exceeds 42 chars (45)",
+      "cue_id": 32,
+      "timestamp_ms": 187446,
+      "evidence": "aquele sendo aproximadamente o início do dia.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 56 line exceeds 42 chars (45)",
+      "cue_id": 56,
+      "timestamp_ms": 350711,
+      "evidence": "aparece, um sinal de que a época da revelação",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 60 line exceeds 42 chars (47)",
+      "cue_id": 60,
+      "timestamp_ms": 375100,
+      "evidence": "pensamento] seja a mais elevada e mais eminente",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (58)",
+      "cue_id": 65,
+      "timestamp_ms": 404980,
+      "evidence": "desapareceu. Assim, quando Ele disse explicitamente 'vocês",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (57)",
+      "cue_id": 66,
+      "timestamp_ms": 411710,
+      "evidence": "especificou aquele caminho: que vocês apresentem, ensinem",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 67 line exceeds 42 chars (57)",
+      "cue_id": 67,
+      "timestamp_ms": 418440,
+      "evidence": "torne 'a palavra de Deus, a mais elevada' (kalimatu-llahi",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 68 line exceeds 42 chars (46)",
+      "cue_id": 68,
+      "timestamp_ms": 425170,
+      "evidence": "o fará prevalecer sobre toda religião'. Aquele",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (51)",
+      "cue_id": 69,
+      "timestamp_ms": 431900,
+      "evidence": "ele) — 'o Islã é exaltado (ya'lu) e nada é exaltado",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 70 line exceeds 42 chars (50)",
+      "cue_id": 70,
+      "timestamp_ms": 438630,
+      "evidence": "muitas vezes: tais frases declarativas têm a força",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 71 line exceeds 42 chars (55)",
+      "cue_id": 71,
+      "timestamp_ms": 445360,
+      "evidence": "colocar a escola da religião acima de todas as [outras]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 72 line exceeds 42 chars (55)",
+      "cue_id": 72,
+      "timestamp_ms": 452090,
+      "evidence": "força — de modo que, a menos que se apresente e analise",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 73 line exceeds 42 chars (50)",
+      "cue_id": 73,
+      "timestamp_ms": 458820,
+      "evidence": "filosofias, outros sábios, outros pensadores, e se",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 74 line exceeds 42 chars (55)",
+      "cue_id": 74,
+      "timestamp_ms": 465550,
+      "evidence": "ofereça, a palavra de Deus não se torna a mais elevada.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 77 line exceeds 42 chars (58)",
+      "cue_id": 77,
+      "timestamp_ms": 479620,
+      "evidence": "quando nossa escola — 'a palavra de Deus é a mais elevada'",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 78 line exceeds 42 chars (46)",
+      "cue_id": 78,
+      "timestamp_ms": 483250,
+      "evidence": "(ithbat), não [apenas no domínio da essência].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 42 chars (66)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "ele' — no domínio da realização (ithbat), ainda não é [manifesto].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (61)",
+      "cue_id": 82,
+      "timestamp_ms": 497020,
+      "evidence": "religião' — no domínio da realização, sua realidade essencial",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 83 line exceeds 42 chars (43)",
+      "cue_id": 83,
+      "timestamp_ms": 503706,
+      "evidence": "ser feito; caso contrário, vocês não apenas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (60)",
+      "cue_id": 84,
+      "timestamp_ms": 510393,
+      "evidence": "mas também estarão entre os que perdem. 'O Dia em que Ele os",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (61)",
+      "cue_id": 85,
+      "timestamp_ms": 517080,
+      "evidence": "Dia da Perda e Ganho Mútuos (yawm al-taghabun)'; mais elevado",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (55)",
+      "cue_id": 86,
+      "timestamp_ms": 523766,
+      "evidence": "perdendo todo o seu capital. Ou o capital de uma pessoa",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (53)",
+      "cue_id": 87,
+      "timestamp_ms": 530453,
+      "evidence": "algum do esforço e do empenho — este é um significado",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (60)",
+      "cue_id": 88,
+      "timestamp_ms": 537140,
+      "evidence": "capital sem meio de recuperá-lo — isso é [verdadeira] perda.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (59)",
+      "cue_id": 89,
+      "timestamp_ms": 543826,
+      "evidence": "sociedades humanas, já que pela exceção um grupo particular",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (56)",
+      "cue_id": 90,
+      "timestamp_ms": 550513,
+      "evidence": "aqueles que conhecem bem os quatro pilares fundamentais,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (50)",
+      "cue_id": 91,
+      "timestamp_ms": 557200,
+      "evidence": "termos de ação, e se esforçam: primeiro, que creem",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (57)",
+      "cue_id": 92,
+      "timestamp_ms": 563886,
+      "evidence": "mantêm convicção na totalidade dos princípios da religião",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 93 line exceeds 42 chars (44)",
+      "cue_id": 93,
+      "timestamp_ms": 570573,
+      "evidence": "eruditos, o que é obra do intelecto teórico.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (77)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "é obra do intelecto prático: 'o intelecto é aquilo pelo qual o Misericordioso",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (66)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "laço e se torna crente (mu'min). Foi esclarecido anteriormente que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (88)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "'i'taqada' (ter uma crença); 'amana' significa entrar no lugar de segurança (al-ma'man).",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (64)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "meio destes quatro elementos — que se mantenha convicção em tudo",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (73)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "confiança, à guarda (wilaya) e ao Imamato de 'Ali (a paz esteja com ele).",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (82)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "quiseram dizer que este 'Asr é a época da manifestação do ser bendito do Aguardado",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (63)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "época do Retorno (raj'a) daquela autoridade sagrada; que 'Asr —",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (72)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "Deus (baqiyyatu-llah, que nossas almas sejam seu resgate) — [ou] a época",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (77)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "eles) seria a mais radiante das épocas. Isso também está correto; isso também",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (79)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "florescimento da época através do Livro, da profecia e da luz do Alcorão Nobre.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 104 line exceeds 42 chars (51)",
+      "cue_id": 104,
+      "timestamp_ms": 644180,
+      "evidence": "fundamentais é a fé (iman) — pois 'amana' significa",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 105 line exceeds 42 chars (53)",
+      "cue_id": 105,
+      "timestamp_ms": 651067,
+      "evidence": "lugar de segurança é precisamente manter esta crença:",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (48)",
+      "cue_id": 106,
+      "timestamp_ms": 657955,
+      "evidence": "dos princípios da religião. Esta fé é o primeiro",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (49)",
+      "cue_id": 107,
+      "timestamp_ms": 664843,
+      "evidence": "segundo, consiste em cumprir os atos obrigatórios",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 108 line exceeds 42 chars (55)",
+      "cue_id": 108,
+      "timestamp_ms": 671730,
+      "evidence": "possível, alcançando a graça dos atos supererrogatórios",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (44)",
+      "cue_id": 109,
+      "timestamp_ms": 678618,
+      "evidence": "(makruhat) — este é o segundo pilar: 'exceto",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (54)",
+      "cue_id": 111,
+      "timestamp_ms": 692393,
+      "evidence": "outros também recai sobre ele — pois o ensino (ta'lim)",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (48)",
+      "cue_id": 112,
+      "timestamp_ms": 699281,
+      "evidence": "ignorância. A prova que deram: Deus, Glorificado",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (54)",
+      "cue_id": 113,
+      "timestamp_ms": 706169,
+      "evidence": "instruída e não a responsabiliza por não ter aprendido",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (50)",
+      "cue_id": 114,
+      "timestamp_ms": 713056,
+      "evidence": "conhecimento de um erudito [e lhe tenha sido dito]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (48)",
+      "cue_id": 115,
+      "timestamp_ms": 719944,
+      "evidence": "para vocês escrever livros, compor tratados, dar",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 116 line exceeds 42 chars (43)",
+      "cue_id": 116,
+      "timestamp_ms": 726832,
+      "evidence": "ensinar — o ensino vem antes da ignorância.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (85)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "verdade (tawasi bi-l-haqq) — que são os próprios princípios da religião, as doutrinas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 42 chars (75)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "divina (tawhid), a revelação, a ressurreição (ma'ad), a profecia (nubuwwa),",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 42 chars (64)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "do Alcorão Nobre e a majestade do hadith sagrado (hadith qudsi).",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 123 line exceeds 42 chars (48)",
+      "cue_id": 123,
+      "timestamp_ms": 782140,
+      "evidence": "quarto pilar é aconselhar mutuamente a paciência",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (51)",
+      "cue_id": 124,
+      "timestamp_ms": 789058,
+      "evidence": "sociedade e aos outros a paciência que é apropriada",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 125 line exceeds 42 chars (60)",
+      "cue_id": 125,
+      "timestamp_ms": 795977,
+      "evidence": "paciência, 'busquem ajuda através da paciência e da oração'.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (44)",
+      "cue_id": 126,
+      "timestamp_ms": 802896,
+      "evidence": "sabem, a paciência no Islã se divide em três",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (51)",
+      "cue_id": 127,
+      "timestamp_ms": 809814,
+      "evidence": "al-ta'a), paciência em [abster-se da] desobediência",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (49)",
+      "cue_id": 128,
+      "timestamp_ms": 816733,
+      "evidence": "aflição (sabr 'ala al-musiba). Não há escapatória",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (43)",
+      "cue_id": 129,
+      "timestamp_ms": 823652,
+      "evidence": "paciência é necessário. Se a sociedade deve",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (52)",
+      "cue_id": 130,
+      "timestamp_ms": 830570,
+      "evidence": "deve se tornar 'que Ele o fará prevalecer sobre toda",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (54)",
+      "cue_id": 131,
+      "timestamp_ms": 837489,
+      "evidence": "palavra de Deus é a mais elevada', e se o Islã deve se",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (62)",
+      "cue_id": 132,
+      "timestamp_ms": 844408,
+      "evidence": "exaltado sobre ele' — a melhor sociedade islâmica deve possuir",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (57)",
+      "cue_id": 133,
+      "timestamp_ms": 851326,
+      "evidence": "quarto é aconselhar mutuamente a paciência: aconselhar-se",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (52)",
+      "cue_id": 135,
+      "timestamp_ms": 865164,
+      "evidence": "incentivamo-nos mutuamente à paciência na obediência",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (44)",
+      "cue_id": 136,
+      "timestamp_ms": 872082,
+      "evidence": "ordenação dos próprios bens, nesta abstenção",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (57)",
+      "cue_id": 137,
+      "timestamp_ms": 879001,
+      "evidence": "semelhantes — se for difícil, [suportamos] com paciência.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (44)",
+      "cue_id": 138,
+      "timestamp_ms": 888320,
+      "evidence": "paciência em [abster-se do] pecado (sabr 'an",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 140 line exceeds 42 chars (43)",
+      "cue_id": 140,
+      "timestamp_ms": 902315,
+      "evidence": "graça do arrependimento (tawba), a graça de",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 142 line exceeds 42 chars (45)",
+      "cue_id": 142,
+      "timestamp_ms": 916310,
+      "evidence": "aflição (sabr 'ala al-musiba): isto é, quando",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (44)",
+      "cue_id": 143,
+      "timestamp_ms": 923308,
+      "evidence": "que alguém seja ferido — esta pessoa é capaz",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (49)",
+      "cue_id": 145,
+      "timestamp_ms": 937303,
+      "evidence": "tolerante. 'Tolerante' (burdbar) significa aquele",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (47)",
+      "cue_id": 148,
+      "timestamp_ms": 958296,
+      "evidence": "desobediência, também pode se aplicar — assim a",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 149 line exceeds 42 chars (48)",
+      "cue_id": 149,
+      "timestamp_ms": 965294,
+      "evidence": "obediência, assim como a paciência em [abster-se",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (45)",
+      "cue_id": 152,
+      "timestamp_ms": 986287,
+      "evidence": "abandonados com paciência, e pela resistência",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (45)",
+      "cue_id": 154,
+      "timestamp_ms": 1000282,
+      "evidence": "pilares não sofre perda, mas obtém benefício:",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (43)",
+      "cue_id": 156,
+      "timestamp_ms": 1014277,
+      "evidence": "prevenção da perda; e na Surata al-Taghabun",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (44)",
+      "cue_id": 157,
+      "timestamp_ms": 1021275,
+      "evidence": "lesado. Sua recompensa mundana é [tornar-se]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (43)",
+      "cue_id": 158,
+      "timestamp_ms": 1028272,
+      "evidence": "além é a segurança da perda, de ser lesado,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (46)",
+      "cue_id": 161,
+      "timestamp_ms": 1049265,
+      "evidence": "e revivamos os outros, e com os outros vivamos",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (44)",
+      "cue_id": 162,
+      "timestamp_ms": 1056263,
+      "evidence": "verdade, um aconselhando a paciência. Aquele",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (46)",
+      "cue_id": 165,
+      "timestamp_ms": 1077256,
+      "evidence": "manifestação do Aguardado, o Retorno, e outras",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (45)",
+      "cue_id": 167,
+      "timestamp_ms": 1091251,
+      "evidence": "paciência. Se a sociedade fosse assim, e cada",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (46)",
+      "cue_id": 169,
+      "timestamp_ms": 1105247,
+      "evidence": "fato, quando esta bendita Surata foi revelada,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (58)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "posteriores havia pessoas piedosas; mas os homens de Deus,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (55)",
+      "cue_id": 173,
+      "timestamp_ms": 1134611,
+      "evidence": "Alcorão Nobre, guardaram a santidade destes versículos.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (45)",
+      "cue_id": 174,
+      "timestamp_ms": 1140682,
+      "evidence": "estado dos crentes do islã primitivo [era tal",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (50)",
+      "cue_id": 175,
+      "timestamp_ms": 1146754,
+      "evidence": "Surata. A questão do 'conselho sincero aos líderes",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (55)",
+      "cue_id": 176,
+      "timestamp_ms": 1152825,
+      "evidence": "al-muslimin) floresceu a partir daquele dia. Aconselhar",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (51)",
+      "cue_id": 177,
+      "timestamp_ms": 1158897,
+      "evidence": "conselho quanto escrever o conselho [são conselho].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (52)",
+      "cue_id": 178,
+      "timestamp_ms": 1164968,
+      "evidence": "cultivadores de literatura falaram sobre 'nasiha'...",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (54)",
+      "cue_id": 184,
+      "timestamp_ms": 1225617,
+      "evidence": "expressões verbais semelhantes — dizem [que significa]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (45)",
+      "cue_id": 188,
+      "timestamp_ms": 1251607,
+      "evidence": "veste sobre o corpo da sociedade, vestindo-a,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (43)",
+      "cue_id": 192,
+      "timestamp_ms": 1277306,
+      "evidence": "após a morte e serão os melhores da criação",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (43)",
+      "cue_id": 194,
+      "timestamp_ms": 1306660,
+      "evidence": "santidade da terra, [e] a santidade da vida",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (59)",
+      "cue_id": 200,
+      "timestamp_ms": 1340300,
+      "evidence": "princípios da religião, que é a verdade; quarto, aconselhar",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 202 line exceeds 42 chars (53)",
+      "cue_id": 202,
+      "timestamp_ms": 1354225,
+      "evidence": "atos divinos de obediência quanto encontra libertação",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 203 line exceeds 42 chars (45)",
+      "cue_id": 203,
+      "timestamp_ms": 1361187,
+      "evidence": "pecados, e no momento da aflição carrega este",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (52)",
+      "cue_id": 204,
+      "timestamp_ms": 1368150,
+      "evidence": "ninguém, nem mesmo a si mesmo. Em resumo, isto [esta",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 205 line exceeds 42 chars (49)",
+      "cue_id": 205,
+      "timestamp_ms": 1375112,
+      "evidence": "contém um conteúdo quádruplo e pilares quádruplos",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 206 line exceeds 42 chars (64)",
+      "cue_id": 206,
+      "timestamp_ms": 1382075,
+      "evidence": "revelada, o estado do povo do islã primitivo mudou completamente",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 208 line exceeds 42 chars (51)",
+      "cue_id": 208,
+      "timestamp_ms": 1396000,
+      "evidence": "encontram e se apertam as mãos, é como [a parábola]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 210 line exceeds 42 chars (48)",
+      "cue_id": 210,
+      "timestamp_ms": 1409925,
+      "evidence": "— isto é, sob o Alcorão e os relatos da Gente da",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 211 line exceeds 42 chars (55)",
+      "cue_id": 211,
+      "timestamp_ms": 1416887,
+      "evidence": "encontram uns aos outros e apertam as mãos e se saúdam,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 212 line exceeds 42 chars (46)",
+      "cue_id": 212,
+      "timestamp_ms": 1423850,
+      "evidence": "se encontram é como a semelhança de duas mãos,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 213 line exceeds 42 chars (52)",
+      "cue_id": 213,
+      "timestamp_ms": 1430812,
+      "evidence": "crentes, quando se encontram, são como duas mãos que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 214 line exceeds 42 chars (46)",
+      "cue_id": 214,
+      "timestamp_ms": 1437775,
+      "evidence": "a água ambas são limpas, purificadas, tornadas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 215 line exceeds 42 chars (52)",
+      "cue_id": 215,
+      "timestamp_ms": 1444737,
+      "evidence": "Essência de Deus nos conceda essa graça, que ambos —",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (153)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "o título de aconselhar a verdade, e também transmitamos os preceitos e as decisões jurídicas práticas à sociedade sob o ",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 2 line exceeds 42 chars (130)",
+      "cue_id": 2,
+      "timestamp_ms": 12616,
+      "evidence": "убытке, кроме тех, которые уверовали, совершали праведные деяния и заповедали друг другу истину и заповедали друг другу ",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (61)",
+      "cue_id": 4,
+      "timestamp_ms": 25232,
+      "evidence": "мединской или мекканской, и по всей видимости она мекканская.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 25 line exceeds 42 chars (45)",
+      "cue_id": 25,
+      "timestamp_ms": 140620,
+      "evidence": "убытке» — кроме того, кто: во-первых, верует;",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 27 line exceeds 42 chars (44)",
+      "cue_id": 27,
+      "timestamp_ms": 151926,
+      "evidence": "в-четвёртых, заповедует друг другу терпение.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 29 line exceeds 42 chars (52)",
+      "cue_id": 29,
+      "timestamp_ms": 166860,
+      "evidence": "ибо время поучительно и наставляет — подобно тому...",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 53 line exceeds 42 chars (50)",
+      "cue_id": 53,
+      "timestamp_ms": 332420,
+      "evidence": "таков, что «дабы возвысить её над всякой религией»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 56 line exceeds 42 chars (44)",
+      "cue_id": 56,
+      "timestamp_ms": 350711,
+      "evidence": "является знаком того, что эпоха пророческого",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (45)",
+      "cue_id": 65,
+      "timestamp_ms": 404980,
+      "evidence": "когда Он прямо сказал «вы — лучшие из людей»,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (54)",
+      "cue_id": 66,
+      "timestamp_ms": 411710,
+      "evidence": "представляли, обучали и предлагали школу [Ислама] так,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 68 line exceeds 42 chars (44)",
+      "cue_id": 68,
+      "timestamp_ms": 425170,
+      "evidence": "религией». Это светозарное изречение Пророка",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (43)",
+      "cue_id": 69,
+      "timestamp_ms": 431900,
+      "evidence": "возвышается над ним» — которое передавалось",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 71 line exceeds 42 chars (48)",
+      "cue_id": 71,
+      "timestamp_ms": 445360,
+      "evidence": "всех [других] школ — не просто по договорённости",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 72 line exceeds 42 chars (54)",
+      "cue_id": 72,
+      "timestamp_ms": 452090,
+      "evidence": "представить и не разобрать должным образом рассуждения",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 80 line exceeds 42 chars (66)",
+      "cue_id": 80,
+      "timestamp_ms": 490040,
+      "evidence": "над ним» — в области осуществления (исбат) это ещё не [проявлено].",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (48)",
+      "cue_id": 82,
+      "timestamp_ms": 497020,
+      "evidence": "в области осуществления её сущностная реальность",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 83 line exceeds 42 chars (48)",
+      "cue_id": 83,
+      "timestamp_ms": 503706,
+      "evidence": "выполнить; иначе вы не только не станете лучшими",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (54)",
+      "cue_id": 84,
+      "timestamp_ms": 510393,
+      "evidence": "потерпевших убыток. «В день, когда Он собирает вас для",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (47)",
+      "cue_id": 85,
+      "timestamp_ms": 517080,
+      "evidence": "(потерь и приобретений) (яум ат-тагабун)»; выше",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (45)",
+      "cue_id": 86,
+      "timestamp_ms": 523766,
+      "evidence": "свой капитал. Либо капитал человека сохранён,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (53)",
+      "cue_id": 87,
+      "timestamp_ms": 530453,
+      "evidence": "и старания — это один смысл [убытка]; либо он утратил",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (52)",
+      "cue_id": 88,
+      "timestamp_ms": 537140,
+      "evidence": "возместить его — это [истинный] убыток. И эта клятва",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (47)",
+      "cue_id": 89,
+      "timestamp_ms": 543826,
+      "evidence": "поскольку исключением выделяется особая группа.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (54)",
+      "cue_id": 90,
+      "timestamp_ms": 550513,
+      "evidence": "эти четыре фундаментальные основы в отношении познания",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (48)",
+      "cue_id": 91,
+      "timestamp_ms": 557200,
+      "evidence": "усердствует: во-первых, что они веруют — то есть",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (47)",
+      "cue_id": 92,
+      "timestamp_ms": 563886,
+      "evidence": "всей совокупности основ религии (усуль ад-дин),",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 94 line exceeds 42 chars (69)",
+      "cue_id": 94,
+      "timestamp_ms": 578700,
+      "evidence": "что есть работа практического разума: «разум есть то, чем поклоняются",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (65)",
+      "cue_id": 95,
+      "timestamp_ms": 585316,
+      "evidence": "связью и становится верующим (му'мин). Ранее было разъяснено, что",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (76)",
+      "cue_id": 96,
+      "timestamp_ms": 591932,
+      "evidence": "(иметь убеждение); «амана» означает войти в место безопасности (аль-ма'ман).",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (54)",
+      "cue_id": 97,
+      "timestamp_ms": 598548,
+      "evidence": "через эти четыре элемента — что человек твёрдо убеждён",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (74)",
+      "cue_id": 98,
+      "timestamp_ms": 605164,
+      "evidence": "доверенному (амана), к попечительству (вилайя) и к имамату 'Али (мир ему).",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (80)",
+      "cue_id": 99,
+      "timestamp_ms": 612680,
+      "evidence": "имамату: некоторые хотели сказать, что этот 'Аср — эпоха явления благословенного",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (49)",
+      "cue_id": 100,
+      "timestamp_ms": 618700,
+      "evidence": "[Некоторые говорят] это эпоха Возвращения (раджа)",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (63)",
+      "cue_id": 101,
+      "timestamp_ms": 624720,
+      "evidence": "эпоха явления Остатка Аллаха (бакийяту-Ллах, да будут наши души",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (65)",
+      "cue_id": 102,
+      "timestamp_ms": 630740,
+      "evidence": "имамов (мир им) была бы самой лучезарной из эпох. Это тоже верно;",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (58)",
+      "cue_id": 103,
+      "timestamp_ms": 636760,
+      "evidence": "эпохи через Книгу, пророчество и свет благородного Корана.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 104 line exceeds 42 chars (58)",
+      "cue_id": 104,
+      "timestamp_ms": 644180,
+      "evidence": "фундаментальных основ — вера (иман) — ибо «амана» означает",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 105 line exceeds 42 chars (46)",
+      "cue_id": 105,
+      "timestamp_ms": 651067,
+      "evidence": "безопасности — это именно твёрдая убеждённость",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (49)",
+      "cue_id": 106,
+      "timestamp_ms": 657955,
+      "evidence": "Пророк принёс из основ религии. Эта вера — первая",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (55)",
+      "cue_id": 107,
+      "timestamp_ms": 664843,
+      "evidence": "которое является второй, — это исполнение обязательного",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 108 line exceeds 42 chars (44)",
+      "cue_id": 108,
+      "timestamp_ms": 671730,
+      "evidence": "возможно, обретение благодати необязательных",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 110 line exceeds 42 chars (46)",
+      "cue_id": 110,
+      "timestamp_ms": 685506,
+      "evidence": "(один) «и совершали праведные деяния» (два). И",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (48)",
+      "cue_id": 111,
+      "timestamp_ms": 692393,
+      "evidence": "лежит и ответственность за других — ибо обучение",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (46)",
+      "cue_id": 112,
+      "timestamp_ms": 699281,
+      "evidence": "невежества. Довод, который они привели: Аллах,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (50)",
+      "cue_id": 113,
+      "timestamp_ms": 706169,
+      "evidence": "необученного класса и не спрашивает его, почему он",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (52)",
+      "cue_id": 114,
+      "timestamp_ms": 713056,
+      "evidence": "получил знание от учёного [и ему не сказали], почему",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (54)",
+      "cue_id": 115,
+      "timestamp_ms": 719944,
+      "evidence": "книги, составлять трактаты, читать лекции, наставлять,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 118 line exceeds 42 chars (46)",
+      "cue_id": 118,
+      "timestamp_ms": 739966,
+      "evidence": "основа — исполнение обязательного и оставление",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (67)",
+      "cue_id": 120,
+      "timestamp_ms": 752120,
+      "evidence": "би-ль-хакк) — что есть сами основы религии, рациональные вероучения",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 121 line exceeds 42 chars (63)",
+      "cue_id": 121,
+      "timestamp_ms": 758900,
+      "evidence": "откровение, воскресение (ма'ад), пророчество (нубувва), имамат,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 122 line exceeds 42 chars (62)",
+      "cue_id": 122,
+      "timestamp_ms": 765680,
+      "evidence": "благородного Корана и величие священного хадиса (хадис кудси).",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (47)",
+      "cue_id": 124,
+      "timestamp_ms": 789058,
+      "evidence": "то терпение, которое подобает — как обсуждалось",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (51)",
+      "cue_id": 127,
+      "timestamp_ms": 809814,
+      "evidence": "в [удержании от] непослушания (сабр 'ан аль-ма'сия)",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (46)",
+      "cue_id": 129,
+      "timestamp_ms": 823652,
+      "evidence": "общество должно стать лучшим из творений, если",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (43)",
+      "cue_id": 130,
+      "timestamp_ms": 830570,
+      "evidence": "всякой религией», если религия должна стать",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (48)",
+      "cue_id": 132,
+      "timestamp_ms": 844408,
+      "evidence": "общество должно обладать этими четырьмя основами",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (43)",
+      "cue_id": 133,
+      "timestamp_ms": 851326,
+      "evidence": "терпения: заповедовать друг другу терпение.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (47)",
+      "cue_id": 134,
+      "timestamp_ms": 858245,
+      "evidence": "религиозных обязанностей может быть в некоторой",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (46)",
+      "cue_id": 136,
+      "timestamp_ms": 872082,
+      "evidence": "своего имущества, этом воздержании от показухи",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (43)",
+      "cue_id": 138,
+      "timestamp_ms": 888320,
+      "evidence": "[удержании от] греха (сабр 'ан аль-ма'сия):",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (45)",
+      "cue_id": 145,
+      "timestamp_ms": 937303,
+      "evidence": "выдержанным. «Выдержанный» (бурдбар) означает",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (45)",
+      "cue_id": 148,
+      "timestamp_ms": 958296,
+      "evidence": "повиновению и непослушанию, может применяться",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 149 line exceeds 42 chars (45)",
+      "cue_id": 149,
+      "timestamp_ms": 965294,
+      "evidence": "повиновении, равно как терпение в [удержании]",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (43)",
+      "cue_id": 161,
+      "timestamp_ms": 1049265,
+      "evidence": "возрождаем других, и с другими живём в этом",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (46)",
+      "cue_id": 168,
+      "timestamp_ms": 1098249,
+      "evidence": "возможностям, быть лучшими из творений было бы",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (45)",
+      "cue_id": 170,
+      "timestamp_ms": 1112244,
+      "evidence": "расставались друг с другом — не расставались,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (51)",
+      "cue_id": 172,
+      "timestamp_ms": 1128540,
+      "evidence": "были благочестивые люди; но люди Божьи, воспитанные",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (46)",
+      "cue_id": 174,
+      "timestamp_ms": 1140682,
+      "evidence": "состояние верующих раннего Ислама [было таким,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (50)",
+      "cue_id": 175,
+      "timestamp_ms": 1146754,
+      "evidence": "Вопрос «искреннего совета руководителям мусульман»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (46)",
+      "cue_id": 178,
+      "timestamp_ms": 1164968,
+      "evidence": "воспитывающие культуру, говорили о «насиха»...",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (46)",
+      "cue_id": 191,
+      "timestamp_ms": 1272400,
+      "evidence": "творений. Не то чтобы единственное утверждение",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (43)",
+      "cue_id": 200,
+      "timestamp_ms": 1340300,
+      "evidence": "есть истина; в-четвёртых, заповедание самих",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 203 line exceeds 42 chars (43)",
+      "cue_id": 203,
+      "timestamp_ms": 1361187,
+      "evidence": "несёт эту ношу — он выдержан и не причиняет",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (46)",
+      "cue_id": 204,
+      "timestamp_ms": 1368150,
+      "evidence": "самому себе. Короче говоря, это [сура] такова,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 209 line exceeds 42 chars (48)",
+      "cue_id": 209,
+      "timestamp_ms": 1402962,
+      "evidence": "две руки], если они были покрыты пылью и грязью,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 211 line exceeds 42 chars (48)",
+      "cue_id": 211,
+      "timestamp_ms": 1416887,
+      "evidence": "руки и пожимают их, [это] «подобие двух верующих",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 213 line exceeds 42 chars (47)",
+      "cue_id": 213,
+      "timestamp_ms": 1430812,
+      "evidence": "двум встречающимся рукам: от их соприкосновения",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 216 line exceeds 42 chars (137)",
+      "cue_id": 216,
+      "timestamp_ms": 1454600,
+      "evidence": "заголовком заповедания истины, а также передавали обществу предписания и практические правовые нормы под заголовком запо",
+      "language": "ru"
+    }
+  ]
+}
