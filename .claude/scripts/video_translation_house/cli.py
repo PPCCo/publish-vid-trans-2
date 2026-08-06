@@ -62,11 +62,34 @@ def build_parser() -> argparse.ArgumentParser:
     for verb in ("status", "validate", "next", "plan"):
         pp = psub.add_parser(verb)
         pp.add_argument("project_id")
+    p_addlang = psub.add_parser(
+        "add-languages",
+        help="Add translation/dub tracks to an existing project (keeps existing work)")
+    p_addlang.add_argument("project_id")
+    p_addlang.add_argument("--targets", required=True,
+                           help="Comma-separated ISO 639-1 codes to add")
+    p_addlang.add_argument("--audio",
+                           help="Comma-separated subset of the added langs to dub (default: all added)")
+    p_addlang.add_argument("--actor", default="human")
     p_trans = psub.add_parser("transition")
     p_trans.add_argument("project_id")
     p_trans.add_argument("--to", required=True)
     p_trans.add_argument("--actor", default="human")
     p_trans.add_argument("--reason", default="")
+    p_reset = psub.add_parser("reset", help="Rewind a project, wiping downstream work (keeps source+transcript by default)")  # noqa: E501
+    p_reset.add_argument("project_id")
+    p_reset.add_argument("--to", help="Resume state (default: TRANSCRIPTION when transcript kept)")
+    p_reset.add_argument("--full", action="store_true",
+                         help="Drop source AND transcript too (like --drop-source --drop-transcript)")
+    p_reset.add_argument("--drop-source", action="store_true", help="Do not preserve source/ media")
+    p_reset.add_argument("--drop-transcript", action="store_true",
+                         help="Do not preserve the source ASR transcript")
+    p_reset.add_argument("--actor", default="agent")
+    p_delete = psub.add_parser("delete", help="Permanently remove a project directory + catalog entry")
+    p_delete.add_argument("project_id")
+    p_delete.add_argument("--keep-catalog", action="store_true",
+                          help="Leave the catalog entry in place (default: remove it)")
+    p_delete.add_argument("--actor", default="agent")
 
     art = sub.add_parser("artifact")
     asub = art.add_subparsers(dest="artifact_command", required=True)
@@ -353,6 +376,13 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 join_clips=not args.no_join_clips,
                 snap_edges=not args.no_snap_edges,
             )
+        if pc == "add-languages":
+            return project.add_languages(
+                root, args.project_id,
+                target_languages=parse_csv(args.targets),
+                audio_languages=parse_csv(args.audio) if args.audio else None,
+                actor=args.actor,
+            )
         if pc == "list":
             return project.list_projects(root)
         if pc == "status":
@@ -365,6 +395,19 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             return state.plan(root, args.project_id)
         if pc == "transition":
             return state.transition(root, args.project_id, args.to, args.actor, args.reason)
+        if pc == "reset":
+            keep_source = not (args.drop_source or args.full)
+            keep_transcript = not (args.drop_transcript or args.full)
+            return project.reset_project(
+                root, args.project_id,
+                keep_source=keep_source, keep_transcript=keep_transcript,
+                to_state=args.to, actor=args.actor,
+            )
+        if pc == "delete":
+            return project.delete_project(
+                root, args.project_id,
+                purge_catalog=not args.keep_catalog, actor=args.actor,
+            )
     if cmd == "artifact":
         if args.artifact_command == "list":
             return {"artifacts": artifacts.list_artifacts(root, args.project_id)}

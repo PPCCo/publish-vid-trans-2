@@ -57,13 +57,29 @@ machine flagged (low confidence, silence/music, timing anomalies, sensitive term
 - A written gate-packet summary for the human reviewer (source + English gloss, in your
   response, not a file the agent commits as an approval).
 
-## Stop / Escalate — HUMAN GATE
-This skill NEVER grants the approval or transitions the gate. `transcript_qa` is
-human-bound. Present findings + recommendation and stop. On REVISE, the human directs a
-transition back to `TRANSCRIPTION`; on APPROVE, the human runs the approval skill and then
-authorizes `TRANSCRIPT_QA_GATE -> SEGMENT_RESOLUTION`.
+## Stop / Escalate — HUMAN GATE (decide-not-operate, CLAUDE.md rule 13)
+`transcript_qa` is human-bound: a grant records the **human's** decision, executed by you only after
+an explicit confirmation. Run the gate as a conversation, not a command:
+1. **Surface + present options** (`AskUserQuestion`) — for each blocking/major finding give the real
+   choices with consequences, e.g. *accept-as-is (CONDITIONAL_PASS)* / *you edit
+   `transcript/source.<lang>.json` in VS Code, then I re-run gloss + QA* / *you dictate the fix and I
+   write it via the CLI, then re-QA* — **plus an explicit `Approve & advance` option**. Offer a
+   clickable file link for the edit path.
+2. **On *approve*, disclose then confirm** (the recorded decision): echo the **gate** (`transcript_qa`),
+   the **active** transcript **SHA-256** on disk (verify against the file, not just manifest order),
+   the **relative path** (`transcript/source.<lang>.json`), and any **concerns** worth a look, each
+   briefly explained. Get one explicit human confirmation and log it into `--notes` / a `reviews/` note.
+3. **Then execute it yourself** (no `!` needed) — verify flags with `--help` first:
+   ```bash
+   vid approval grant <id> --gate transcript_qa --approver "<human>" --scope transcript \
+       --artifact sha256:<active> --notes "<decision + disclosed concerns>"
+   vid project transition <id> --to SEGMENT_RESOLUTION --actor human
+   ```
+   On REVISE, run the human-directed transition back to `TRANSCRIPTION` instead. Never grant/transition
+   without the explicit confirmation (rule 2); never approve to unblock your own work. If the human
+   prefers, offer an `!` block, but the default is you execute on confirmation.
 
 ## Completion contract
-The gate report reflects the current transcript, every machine-flagged cue has a
-second-pass note, and a clear APPROVE/REVISE recommendation with evidence is presented for
-the human. No approval or transition performed by the agent.
+The gate report reflects the current transcript, every machine-flagged cue has a second-pass note, a
+clear APPROVE/REVISE recommendation with evidence is presented, and any grant/transition performed by
+the agent was the execution of an explicit, disclosed human confirmation.

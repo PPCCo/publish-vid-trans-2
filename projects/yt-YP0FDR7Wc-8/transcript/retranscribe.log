@@ -1,0 +1,51 @@
+{
+  "project_id": "yt-YP0FDR7Wc-8",
+  "language": "fa",
+  "provider": "mlx-whisper",
+  "has_word_timing": true,
+  "attempts_tried": 1,
+  "decode_config": {
+    "word_timestamps": true,
+    "condition_on_previous_text": false,
+    "hallucination_silence_threshold": 2.0,
+    "temperature": null
+  },
+  "quality_problems": [
+    "cue 0 spans 31540ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 13 spans 75020ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 14 spans 56380ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 15 spans 42680ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 17 spans 67300ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 24 spans 80240ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 25 spans 33080ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 26 spans 30100ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 27 spans 89540ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 30 spans 103780ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 31 spans 237920ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 32 spans 42500ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 34 spans 51980ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+    "cue 38 spans 111400ms (> 30000ms) — likely a merge over a hallucinated/blank stretch"
+  ],
+  "transcript": "transcript/source.fa.json",
+  "artifact": {
+    "artifact_id": "art-transcript-1177d0d1608b",
+    "project_id": "yt-YP0FDR7Wc-8",
+    "type": "transcript",
+    "language": "fa",
+    "stage": "TRANSCRIPTION",
+    "version": 2,
+    "path": "transcript/source.fa.json",
+    "sha256": "sha256:1177d0d1608b9a059a1f59ab66143d3ffb8844ec2986a1c068d43cdb5d6c43e8",
+    "size_bytes": 395979,
+    "created_at": "2026-08-05T12:40:49Z",
+    "created_by": "agent",
+    "source_artifact_ids": [],
+    "provenance": {},
+    "rights_status": "unreviewed",
+    "validation_status": "not-run",
+    "supersedes": "art-transcript-3f2ef0d29009",
+    "frozen": false
+  },
+  "cues": 40,
+  "advanced_to": "TRANSCRIPTION"
+}

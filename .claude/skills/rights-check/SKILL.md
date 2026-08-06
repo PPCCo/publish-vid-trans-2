@@ -20,25 +20,33 @@ dubbed derivative of this source video may be distributed, and whether the sourc
 voice may be cloned. The pipeline runs to `READY_FOR_REVIEW` regardless, but
 `PACKAGE → READY_FOR_REVIEW` is blocked while `rights_status ∈ {unreviewed, do-not-distribute}`.
 
-## Why this is human-only
+## Why this is human-only (tighter than the QA gates)
 "Downloadable via yt-dlp" is not "cleared for redistribution." Assessing copyright, platform
 ToS, fair-use posture, and a real person's likeness/consent are legal and ethical judgments a
-model must not make autonomously. `disable-model-invocation: true` enforces that: Claude can
-gather evidence, but only a person runs `vid_cli.py rights set`.
+model must not make autonomously. Unlike the editorial QA gates — where CLAUDE.md rule 13 now
+lets the agent execute the grant *after* an explicit, disclosed human confirmation — this is an
+**outward-facing / legal** gate and keeps the tighter posture: `disable-model-invocation: true`
+enforces that Claude can gather evidence and present options, but only a person runs
+`vid_cli.py rights set` (via the `!` block below).
 
-## What Claude MAY do (preparation only)
+## What Claude MAY do (preparation only — decide-not-operate, CLAUDE.md rule 13)
 - Read `source/metadata.json` and `catalog/videos.json` to summarize uploader, channel, license
   field, and any stated reuse terms into `rights/evidence/` for the human to review.
 - Note whether YouTube-provided captions exist and the video's stated license, if any.
-- Draft, but not submit, the recommended `rights_status`.
+- **Present the rights decision as selectable options** (`AskUserQuestion`) — the four
+  `rights_status` values (*self-authored* / *licensed* / *fair-use-claimed* / *do-not-distribute*)
+  plus whether voice-clone consent is on record — each with its consequence, recommending the safe
+  default (`do-not-distribute`) when evidence is thin. Log the human's pick as the decision of record.
+- **Assemble the paste-ready `!` block below** with the chosen status/flags and `--reviewer` filled
+  in and verified with `--help`. It may NOT run `rights set` itself.
 
 ## What only a HUMAN does
-Set the record:
+Run the prepared block (the `!` prefix executes it as you):
 ```
-vid_cli.py rights set <id> \
-  --status <self-authored|licensed|fair-use-claimed|do-not-distribute> \
-  --reviewer "<name>" \
-  [--voice-clone-consent] [--evidence path1,path2] [--notes "..."]
+! vid_cli.py rights set <id> \
+    --status <self-authored|licensed|fair-use-claimed|do-not-distribute> \
+    --reviewer "<name>" \
+    [--voice-clone-consent] [--evidence path1,path2] [--notes "<decision>"]
 ```
 - `--voice-clone-consent` may be set **only** with recorded consent from the rights holder;
   default dubbing uses a neutral, non-cloned voice.

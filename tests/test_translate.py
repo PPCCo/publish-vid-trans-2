@@ -128,6 +128,28 @@ def test_import_builds_canonical_captions_and_advances_track(repo: Path):
     assert st["language_tracks"]["en"]["stage"] == "TRANSLATION_QA_GATE"
 
 
+def test_build_caption_doc_auto_splits_long_cue(repo: Path):
+    # A 24s translated cue must come out as <=7s sub-cues (caption-timing auto-split), wired
+    # into the canonical caption build so downstream render/validate/dub inherit readable cues.
+    worksheet = {
+        "schema_version": "1.0", "project_id": VID, "language": "en", "source_language": "fa",
+        "cues": [{
+            "id": 0, "start_ms": 0, "end_ms": 24000,
+            "source_text": "یک. دو. سه. چهار.",
+            "target_text": "Sentence one. Sentence two. Sentence three. Sentence four.",
+        }],
+    }
+    doc = translate._build_caption_doc(repo, VID, worksheet, actor="agent")
+    assert len(doc["cues"]) == 4  # ceil(24000/7000) = 4, and 4 sentences fill them
+    assert all((c["end_ms"] - c["start_ms"]) <= 7000 for c in doc["cues"])
+    assert doc["cues"][0]["start_ms"] == 0 and doc["cues"][-1]["end_ms"] == 24000
+    assert [c["id"] for c in doc["cues"]] == [0, 1, 2, 3]
+    # the split output is clean captions (no 'very long' finding, not empty)
+    from video_translation_house import captions as captions_mod
+    result = captions_mod.validate_captions(doc)
+    assert not any("very long" in f["summary"] for f in result["findings"])
+
+
 # --- glossary hard-gate ------------------------------------------------------
 
 def _write_glossary(root: Path, must=True) -> None:

@@ -103,5 +103,27 @@ def upsert_entry(root: Path, entry: dict[str, Any], *, actor: str = "agent") -> 
         return merged
 
 
+def remove_entry(root: Path, video_id: str, *, actor: str = "agent") -> dict[str, Any]:
+    """Delete a catalog entry (the teardown twin of ``upsert_entry``).
+
+    Idempotent: removing a video_id that isn't in the catalog returns
+    ``{"removed": False}`` without raising, mirroring the tolerant style elsewhere.
+    Logs a ``CATALOG_ENTRY_REMOVED`` event so the removal is auditable (the catalog is
+    append-only history; deleting an entry does not rewrite that history).
+    """
+    with project_lock(_lock_path(root)):
+        data = _load(root)
+        videos = data["videos"]
+        existing = next((v for v in videos if v.get("video_id") == video_id), None)
+        if existing is None:
+            return {"video_id": video_id, "removed": False}
+        videos[:] = [v for v in videos if v is not existing]
+        atomic_write_json(catalog_path(root), data)
+        _log_catalog_event(root, video_id, "CATALOG_ENTRY_REMOVED",
+                           {"url": existing.get("url"), "project_id": existing.get("project_id")},
+                           actor)
+        return {"video_id": video_id, "removed": True}
+
+
 def _log_catalog_event(root: Path, video_id: str, event: str, details: dict[str, Any], actor: str) -> None:
     append_event(catalog_events_path(root), video_id, event, actor, details)

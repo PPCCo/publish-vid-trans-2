@@ -9,8 +9,18 @@ target_languages:
 - ar
 - fa
 - ur
+- zh
+- fr
+- es
+- pt
+- ru
 audio_languages:
 - en
+- zh
+- fr
+- es
+- pt
+- ru
 dubbing:
   voice_clone: false
 glossary_id: null

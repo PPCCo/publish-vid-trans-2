@@ -20,34 +20,36 @@ Record a **human's** decision to publish a specific video edition externally, by
 `release_authorization` approval bound to that edition's exact `dubbed-video@<lang>` hash. This
 opens `RELEASE_AUTHORIZATION -> YOUTUBE_UPLOAD`.
 
-## Why this is human-only
+## Why this is human-only (tighter than the QA gates)
 Publishing to a public platform is irreversible and outward-facing. Deciding that a particular
 rendered video — this exact hash — may leave the building is a human judgment (`rights` are also
-re-checked on this edge). `disable-model-invocation: true` enforces it: Claude may present the
-packet, but only a person grants the approval.
+re-checked on this edge). Unlike the editorial QA gates — where CLAUDE.md rule 13 now lets the
+agent execute the grant *after* an explicit, disclosed human confirmation — this **outward-facing**
+gate keeps the tighter posture: `disable-model-invocation: true` enforces it, so Claude may present
+the packet and options, but only a person grants the approval (via the `!` block below).
 
 ## Preconditions
 - The project is at `RELEASE_AUTHORIZATION` with a valid `distribution/platform-package.json`.
 - `rights_status` is distributable (self-authored / licensed / fair-use-claimed) — the edge
   carries a `rights` re-check that blocks otherwise.
 
-## What Claude MAY do (preparation only)
+## What Claude MAY do (preparation only — decide-not-operate, CLAUDE.md rule 13)
 - `Read` `distribution/platform-package.json` and the `platform-package` gate report and summarize
   each target: language, title, channel, privacy, and the bound `video_sha256`.
-- Recommend which editions to authorize. It may NOT run `approval grant`.
+- **Present the release decision as selectable options** (`AskUserQuestion`) per edition —
+  *authorize release* / *hold* / *revise the package first* — each with its consequence (publication
+  is irreversible and outward-facing). Log the human's pick as the decision of record.
+- **Assemble the paste-ready `!` block below** with the exact `video_sha256` filled in from the
+  manifest and flags verified with `--help` (`approval grant` → `--approver`; `project transition` →
+  `--actor`). It may NOT run `approval grant` or the transition itself.
 
 ## What only a HUMAN does
-For each edition to release, grant the approval bound to that edition's video hash:
+For each edition to release, run the prepared block (the `!` prefix executes it as you); use **backslash
+line-continuations** so a long command never wraps and splits mid-flag (CLAUDE.md rule 13):
 ```
-vid_cli.py approval grant <id> \
-  --gate release_authorization \
-  --approver "<name>" \
-  --artifact <video_sha256-or-path> \
-  --scope release
-```
-Then authorize the transition:
-```
-vid_cli.py project transition <id> --to YOUTUBE_UPLOAD --actor human --reason "release authorized"
+! vid_cli.py approval grant <id> --gate release_authorization --approver "<name>" \
+    --scope release --artifact <video_sha256-or-path> --notes "<decision>" \
+  && vid_cli.py project transition <id> --to YOUTUBE_UPLOAD --actor human --reason "release authorized"
 ```
 
 ## Completion contract

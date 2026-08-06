@@ -50,13 +50,28 @@ terms. The `translation_qa` gate is **per-language** — one approval per active
 - A written gate-packet summary per language for the human reviewer (in your response, not a
   committed approval).
 
-## Stop / Escalate — HUMAN GATE
-This skill NEVER grants an approval or transitions the gate. `translation_qa` is human-bound
-and per-language. Present findings + recommendation and stop. On REVISE, the human directs a
-transition back to `TRANSLATION`; on APPROVE, the human runs the approval skill (bound to that
-language's `captions-json` hash) and then authorizes `TRANSLATION_QA_GATE -> CAPTION_TIMING`.
+## Stop / Escalate — HUMAN GATE (decide-not-operate, CLAUDE.md rule 13)
+`translation_qa` is human-bound and per-language: a grant records the **human's** decision, executed
+by you only after an explicit confirmation. Run it as a conversation, **per language**:
+1. **Surface + present options** (`AskUserQuestion`) — REVISE with the specific fixes (glossary miss,
+   editorial cue) / edit-then-re-QA — **plus an explicit `Approve this language` option**, each with
+   its consequence.
+2. **On *approve*, disclose then confirm** (the recorded decision): echo the **gate**
+   (`translation_qa`) + **language**, the **active** `captions-json` **SHA-256** on disk (verify
+   against the file), the **relative path** (`captions/<iso>.json` or equivalent), and any **concerns**
+   worth a look, each briefly explained. Get one explicit confirmation; log it into `--notes` /
+   `reviews/`.
+3. **Then execute it yourself** (no `!` needed), flags verified with `--help`:
+   ```bash
+   vid approval grant <id> --gate translation_qa --lang <iso> --approver "<human>" --scope captions \
+       --artifact sha256:<active> --notes "<decision + disclosed concerns>"
+   ```
+   The `CAPTION_TIMING` transition opens only once **every** non-source language is approved — run
+   `vid project transition <id> --to CAPTION_TIMING --actor human` when the last one lands. On REVISE,
+   run the human-directed transition back to `TRANSLATION`. Never grant/transition without the explicit
+   confirmation (rule 2); never approve to unblock your own work.
 
 ## Completion contract
-The gate reports reflect the current captions; every glossary blocker and editorial-flagged
-cue has a second-pass note; a clear per-language APPROVE/REVISE recommendation with evidence
-is presented. No approval or transition performed by the agent.
+The gate reports reflect the current captions; every glossary blocker and editorial-flagged cue has a
+second-pass note; a clear per-language APPROVE/REVISE recommendation with evidence is presented; any
+grant/transition performed by the agent was the execution of an explicit, disclosed human confirmation.

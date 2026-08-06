@@ -5,8 +5,8 @@
     "use_intent": "personal-research"
   },
   "defaults": {
-    "target_languages": ["en", "ar", "fa", "ur"],
-    "audio_languages": ["en"],
+    "target_languages": ["en", "ur", "ar", "fa", "zh", "fr", "es", "pt", "ru"],
+    "audio_languages": ["en", "ur", "ar", "fa", "zh", "fr", "es", "pt", "ru"],
     "source_languages_expected": ["fa", "ar", "ur"]
   },
   "human_gates": {

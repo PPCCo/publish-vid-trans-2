@@ -1,49 +1,87 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-YP0FDR7Wc-8",
-  "current_state": "TRANSCRIPT_QA_GATE",
-  "previous_state": "TRANSCRIPTION",
+  "current_state": "TRANSLATION",
+  "previous_state": "SEGMENT_RESOLUTION",
   "created_at": "2026-08-04T11:37:36Z",
   "created_by": "human",
-  "updated_at": "2026-08-04T23:37:15Z",
-  "updated_by": "agent",
+  "updated_at": "2026-08-06T01:00:44Z",
+  "updated_by": "Qaiser Abbas",
   "source_language": "fa",
   "target_languages": [
     "en",
     "ar",
     "fa",
-    "ur"
+    "ur",
+    "zh",
+    "fr",
+    "es",
+    "pt",
+    "ru"
   ],
   "language_tracks": {
     "en": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-04T11:37:36Z"
+      "updated_at": "2026-08-05T13:48:21Z",
+      "notes": "translated; awaiting QA"
     },
     "ar": {
       "stage": "TRANSLATION",
       "status": "pending",
       "dub_enabled": false,
-      "updated_at": "2026-08-04T11:37:36Z"
+      "updated_at": "2026-08-05T12:39:19Z"
     },
     "fa": {
       "stage": "TRANSLATION",
       "status": "pending",
       "dub_enabled": false,
-      "updated_at": "2026-08-04T11:37:36Z"
+      "updated_at": "2026-08-05T12:39:19Z"
     },
     "ur": {
       "stage": "TRANSLATION",
       "status": "pending",
       "dub_enabled": false,
-      "updated_at": "2026-08-04T11:37:36Z"
+      "updated_at": "2026-08-05T12:39:19Z"
+    },
+    "zh": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T01:00:44Z"
+    },
+    "fr": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T01:00:44Z"
+    },
+    "es": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T01:00:44Z"
+    },
+    "pt": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T01:00:44Z"
+    },
+    "ru": {
+      "stage": "TRANSLATION",
+      "status": "pending",
+      "dub_enabled": true,
+      "updated_at": "2026-08-06T01:00:44Z"
     }
   },
   "active_artifacts": {
     "source-video": "sha256:3d60ede741d162d1a02c74d62b1f48f34cbc67013f3a0711ba5968bf0bf855a8",
     "source-audio": "sha256:365ca98b3fd87a9bb0480bc281b02751cae1a2d7a359f1109c54130748b55414",
-    "transcript@fa": "sha256:3f2ef0d29009416dd544f37b056513707ad24293a6c61df7542593eefe197ce6"
+    "transcript@fa": "sha256:1177d0d1608b9a059a1f59ab66143d3ffb8844ec2986a1c068d43cdb5d6c43e8",
+    "segments": "sha256:73341958c1d9892d8688e7c5ad503669a98943d85285485db9d01a86a50d86a9",
+    "captions-json@en": "sha256:fa0e296a3cd1dc7b1063abccaa198f4cd6d4777f8e94b40e1be5ac0e30432411"
   },
   "blocked_reasons": []
 }

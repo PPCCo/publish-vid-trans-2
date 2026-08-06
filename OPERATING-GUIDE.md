@@ -118,6 +118,39 @@ Each stage has a **skill** (invoke with `/<skill-name>` in Claude Code) and the 
 drives. Human gates are marked 🔒 — an agent prepares the packet, a **human** runs the
 `approval grant` / `rights set`.
 
+### How a human gate feels (you decide in plain language; the agent does the plumbing)
+
+You never type a CLI command to clear a gate. You decide in conversation; the agent executes
+(CLAUDE.md rule 13):
+
+1. **It surfaces the gate.** Ask "what's the current project, what stage is it at?" in *any* session
+   and if it's waiting on you the agent says so — "it's at human approval, the `<gate>` gate" — and
+   leads into the review.
+2. **It presents the decision as options to pick from** — e.g. for a flawed transcript cue: *accept
+   as-is* / *you edit the source in VS Code* / *you dictate the fix and I write it via the CLI* — plus
+   an explicit **Approve & advance** option. Approve is an option you *select*, not a command you run.
+3. **On approve, it discloses and asks you to confirm** — the gate, the exact artifact SHA-256 it will
+   bind, the relative path(s) under review, and any concerns it wants you to look at (each briefly
+   explained). Your confirmation is the recorded decision.
+4. **Then it runs the grant + transition for you** — no `!`, no pasting. It records you as the
+   approver and bakes the decision + concerns into the notes.
+
+The agent only grants/transitions **after** that explicit confirmation, and never to unblock its own
+work. If you'd rather run the command yourself, ask and it'll hand you an `!` block — but you don't
+have to.
+
+**Exception — the three outward-facing / legal gates** (`rights-check`, `video-release-authorize`,
+`video-promote-approve`) keep the tighter posture: the agent gathers evidence, presents options, and
+discloses, but **you** run the final `!` command (the skills are `disable-model-invocation: true`).
+Flags differ by subcommand — `approval grant` uses `--approver`, `project transition` uses `--actor`;
+the agent verifies with `--help` and fills them in, so you don't:
+
+```bash
+! vid approval grant <id> --gate <gate> --approver "Your Name" --scope <scope> \
+    --artifact sha256:… --notes "<your decision>" \
+  && vid project transition <id> --to <NEXT_STATE> --actor human
+```
+
 ```bash
 # LANGUAGE_ID — set the source language (auto-detect is a stub without ASR)
 vid langid set yt-YP0FDR7Wc-8 --language fa --source manual --confidence 0.95
@@ -156,6 +189,13 @@ vid translate qa yt-YP0FDR7Wc-8
 vid project transition yt-YP0FDR7Wc-8 --to CAPTION_TIMING --actor human
 
 # CAPTION_TIMING / CAPTION_VALIDATION
+# NOTE: `translate import` (and the source-verbatim path) now AUTO-SPLIT any caption cue longer
+# than quality_bars.captions.max_cue_duration_ms (default 7000ms) into N proportional ≤-cap
+# sub-cues — time divided into equal integer-ms slices, text divided at sentence→word→char
+# boundaries, sub-cues renumbered 0..M. This is deterministic (stable re-render hashes) and
+# CAPTION-ONLY: the human-approved source transcript and the TRANSCRIPT_QA_GATE English gloss keep
+# their original cues and are never re-timed. So the caption cue-list can be finer than the 30-cue
+# transcript, and `captions validate` no longer sees "very long" cues from long ASR merges.
 vid captions build yt-YP0FDR7Wc-8 --language en
 vid captions validate yt-YP0FDR7Wc-8
 
@@ -302,5 +342,50 @@ vid framework validate                               # state-machine + schema se
 .venv/bin/python3 -m ruff check .claude/scripts .claude/mcp .claude/hooks tests
 ```
 
+### Reset / delete a project
+
+Start a project over — or remove it entirely — **through the CLI**, never with `rm -rf` +
+hand-editing `catalog/videos.json` (that violates the CLI-owns-state rule and the pre-tool hook
+denies it). Both are recorded as events (append-only history is preserved, not rewritten).
+
+```bash
+# Reset: wipe downstream work and rewind. By DEFAULT keeps the (expensive) source/ media and the
+# source ASR transcript and resumes at TRANSCRIPTION, so the transcript-QA gate can be re-run
+# without re-downloading or re-running ASR. Clears gloss, QA reports, reviews, approvals,
+# segments, captions, audio, video, packages, chapters, distribution, rights.
+vid project reset yt-YP0FDR7Wc-8
+vid project reset yt-YP0FDR7Wc-8 --to LANGUAGE_ID     # rewind further
+vid project reset yt-YP0FDR7Wc-8 --drop-transcript    # keep media, re-run ASR from scratch
+vid project reset yt-YP0FDR7Wc-8 --full               # drop source+transcript too, back to INGEST
+
+# Delete: permanently remove the project directory AND its catalog entry (destructive).
+vid project delete yt-YP0FDR7Wc-8
+vid project delete yt-YP0FDR7Wc-8 --keep-catalog      # remove the dir, leave the catalog entry
+```
+
 Never hand-edit `state.json`, `manifest.json`, approvals, or events — the CLI owns them, and
 the pre-tool hook hard-denies those writes.
+
+### Add languages to a project already in flight
+
+To *widen* an in-progress project's language set — add more translation/dub tracks without
+throwing away work already done — use `project add-languages`. This is the sanctioned
+alternative to `reset` + re-`init` (which would discard existing translations, captions, and
+approvals). It appends fresh tracks at the `TRANSLATION` stage, leaves every existing track,
+approval, and registered artifact untouched, updates both `state.json` and the project config,
+and logs a `LANGUAGES_ADDED` event.
+
+```bash
+# Add 5 new languages, each translated AND dubbed (default: every added language is dub-enabled).
+vid project add-languages yt-YP0FDR7Wc-8 --targets zh,fr,es,pt,ru
+
+# Add captions-only for some (dub only the subset you name via --audio).
+vid project add-languages yt-YP0FDR7Wc-8 --targets zh,fr --audio zh
+```
+
+The new tracks are picked up automatically by the translation stage — run `translate export
+--language <new-lang>` when you're ready to produce them. Adding a language that's already a
+target is a no-op (idempotent, no event). If a newly-added language equals the confirmed
+`source_language`, it's marked `skip_translation` (rule 7: source→source isn't translated; it
+still gets verbatim captions). **Reset vs. add:** `reset` rewinds and rebuilds; `add-languages`
+widens in place.

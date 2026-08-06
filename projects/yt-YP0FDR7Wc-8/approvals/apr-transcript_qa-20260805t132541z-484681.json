@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-transcript_qa-20260805t132541z-484681",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "gate": "transcript_qa",
+  "language": null,
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:1177d0d1608b9a059a1f59ab66143d3ffb8844ec2986a1c068d43cdb5d6c43e8"
+  ],
+  "scope": "transcript",
+  "exclusions": [],
+  "notes": "Re-transcribed with whisper-large-v3-turbo (offline); cue-24 ASR gap recovered; QA PASS, 0 blockers/0 majors. Cue 38 (~111s) verified coherent, not a hallucination loop; will auto-split at caption build (rule 12). Human-confirmed in-session (rule 13 disclose+confirm).",
+  "created_at": "2026-08-05T13:25:41Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

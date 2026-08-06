@@ -205,6 +205,11 @@ def _export_source_verbatim(
         "source_text": cue["text"],
         "target_text": cue["text"],
     } for cue in transcript["cues"]]
+    # Auto-split over-long cues into <=cap sub-cues so the source-verbatim track's captions are
+    # readable too (same caption-timing transform as the translated tracks).
+    cues = captions_mod.split_long_cues(
+        cues, max_ms=captions_mod.max_cue_ms(root), language=language,
+    )
     doc = {
         "schema_version": SCHEMA_VERSION,
         "project_id": project_id,
@@ -246,7 +251,9 @@ def _export_source_verbatim(
 
 # --- 3. import ---------------------------------------------------------------
 
-def _build_caption_doc(project_id: str, worksheet: dict[str, Any], *, actor: str) -> dict[str, Any]:
+def _build_caption_doc(
+    root: Path, project_id: str, worksheet: dict[str, Any], *, actor: str,
+) -> dict[str, Any]:
     language = worksheet["language"]
     cues = []
     for wc in worksheet["cues"]:
@@ -261,6 +268,11 @@ def _build_caption_doc(project_id: str, worksheet: dict[str, Any], *, actor: str
             if wc.get(optional) not in (None, [], ""):
                 cue[optional] = wc[optional]
         cues.append(cue)
+    # Auto-split any over-long cue into readable <=cap sub-cues (caption-timing). Source
+    # transcript + gloss are unaffected — this only shapes the per-language caption cue-list.
+    cues = captions_mod.split_long_cues(
+        cues, max_ms=captions_mod.max_cue_ms(root), language=language,
+    )
     return {
         "schema_version": SCHEMA_VERSION,
         "project_id": project_id,
@@ -309,7 +321,7 @@ def import_worksheet(
             f"{missing[:10]}{'...' if len(missing) > 10 else ''}"
         )
 
-    doc = _build_caption_doc(project_id, worksheet, actor=actor)
+    doc = _build_caption_doc(root, project_id, worksheet, actor=actor)
     require_valid(root, doc, "captions.schema.json")
     dest = paths.captions_dir / captions_filename(language)
     with project_lock(paths.lock):

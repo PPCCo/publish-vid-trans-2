@@ -45,14 +45,25 @@ tolerance, cues whose fit demanded a stretch beyond the cap), with cue-reference
 - Refreshed `reviews/audio-sync-gate-latest.json` (decision read by the state machine).
 - A written per-language gate-packet summary for the human reviewer (in your response).
 
-## Stop / Escalate — HUMAN GATE
-This skill NEVER grants an approval or transitions the gate. `audio_qa` is human-bound and
-per-language. Present findings + recommendation and stop. On REVISE, the human directs a
-transition back to `AUDIO_SYNC_ADJUST` (or `DUBBING`); on APPROVE, the human runs the approval
-skill (bound to that language's `dub-wav` hash) and then authorizes
-`AUDIO_QA_GATE -> VIDEO_MUX`.
+## Stop / Escalate — HUMAN GATE (decide-not-operate, CLAUDE.md rule 13)
+`audio_qa` is human-bound and per-language: a grant records the **human's** decision, executed by you
+only after an explicit confirmation. Run it as a conversation, **per language**:
+1. **Surface + present options** (`AskUserQuestion`) — REVISE with the concrete fix (re-sync, re-dub)
+   — **plus an explicit `Approve this language` option**, each with its consequence.
+2. **On *approve*, disclose then confirm** (the recorded decision): echo the **gate** (`audio_qa`) +
+   **language**, the **active** `dub-wav` **SHA-256** on disk (verify against the file), the **relative
+   path** of the dub, and any **concerns** worth a look, each briefly explained. Get one explicit
+   confirmation; log it into `--notes` / `reviews/`.
+3. **Then execute it yourself** (no `!` needed), flags verified with `--help`:
+   ```bash
+   vid approval grant <id> --gate audio_qa --lang <iso> --approver "<human>" --scope audio \
+       --artifact sha256:<active> --notes "<decision + disclosed concerns>"
+   vid project transition <id> --to VIDEO_MUX --actor human
+   ```
+   On REVISE, run the human-directed transition back to `AUDIO_SYNC_ADJUST` (or `DUBBING`). Never
+   grant/transition without the explicit confirmation (rule 2); never approve to unblock your own work.
 
 ## Completion contract
-The `audio-sync` gate report reflects the current dubs; every blocker/major finding has a
-concrete recommended fix; a per-language APPROVE/REVISE recommendation with cue evidence is
-presented. No approval or transition performed by the agent.
+The `audio-sync` gate report reflects the current dubs; every blocker/major finding has a concrete
+recommended fix; a per-language APPROVE/REVISE recommendation with cue evidence is presented; any
+grant/transition performed by the agent was the execution of an explicit, disclosed human confirmation.

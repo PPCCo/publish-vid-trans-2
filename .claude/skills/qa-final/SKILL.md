@@ -43,13 +43,25 @@ stream present, audio/picture duration aligned within tolerance), with evidence.
 - Refreshed `reviews/final-gate-latest.json` (decision read by the state machine).
 - A written gate-packet summary for the human reviewer (in your response).
 
-## Stop / Escalate — HUMAN GATE
-This skill NEVER grants an approval or transitions the gate. `final_qa` is human-bound. Present
-findings + recommendation and stop. On REVISE, the human directs a transition back to
-`VIDEO_MUX` (or earlier); on APPROVE, the human runs the approval skill (bound to the
-dubbed-video hashes) and authorizes `FINAL_QA_GATE -> PACKAGE`. Never set rights or publish.
+## Stop / Escalate — HUMAN GATE (decide-not-operate, CLAUDE.md rule 13)
+`final_qa` is human-bound: a grant records the **human's** decision, executed by you only after an
+explicit confirmation. Never set rights or publish. Run it as a conversation:
+1. **Surface + present options** (`AskUserQuestion`) — REVISE with the concrete fix per blocker —
+   **plus an explicit `Approve & advance` option**, each with its consequence.
+2. **On *approve*, disclose then confirm** (the recorded decision): echo the **gate** (`final_qa`),
+   the **active** dubbed-video **SHA-256(s)** on disk (verify against the file(s)), the **relative
+   path(s)** of the video(s), and any **concerns** worth a look, each briefly explained. Get one
+   explicit confirmation; log it into `--notes` / a `reviews/` note.
+3. **Then execute it yourself** (no `!` needed), flags verified with `--help`:
+   ```bash
+   vid approval grant <id> --gate final_qa --approver "<human>" --scope video \
+       --artifact sha256:<active> --notes "<decision + disclosed concerns>"
+   vid project transition <id> --to PACKAGE --actor human
+   ```
+   On REVISE, run the human-directed transition back to `VIDEO_MUX` (or earlier). Never grant/transition
+   without the explicit confirmation (rule 2); never approve to unblock your own work.
 
 ## Completion contract
-The `final` gate report reflects the current dubbed videos; every blocker has a concrete
-recommended fix; a project-level APPROVE/REVISE recommendation with per-language evidence is
-presented. No approval or transition performed by the agent.
+The `final` gate report reflects the current dubbed videos; every blocker has a concrete recommended
+fix; a project-level APPROVE/REVISE recommendation with per-language evidence is presented; any
+grant/transition performed by the agent was the execution of an explicit, disclosed human confirmation.
