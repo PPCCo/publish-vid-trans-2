@@ -34,6 +34,31 @@ def glossary_path(root: Path, glossary_id: str) -> Path:
     return glossary_dir(root) / f"{glossary_id}.json"
 
 
+def list_glossaries(root: Path) -> list[dict[str, Any]]:
+    """List available glossaries (``glossary/<id>.json``) for the /new-video interview.
+
+    Best-effort: an unparseable/invalid glossary file is skipped rather than raising, so the
+    onboarding question can still enumerate the good ones. Returns id + display name + term count,
+    sorted by id.
+    """
+    directory = glossary_dir(root)
+    out: list[dict[str, Any]] = []
+    if not directory.is_dir():
+        return out
+    for path in sorted(directory.glob("*.json")):
+        try:
+            doc = load_json(path)
+        except Exception:  # noqa: BLE001
+            continue
+        gid = path.stem
+        out.append({
+            "id": gid,
+            "name": doc.get("name") or doc.get("glossary_id") or gid,
+            "terms": len(doc.get("terms", []) or []),
+        })
+    return out
+
+
 def load_glossary(root: Path, glossary_id: str) -> dict[str, Any]:
     """Load and schema-validate a glossary by id. Raises if missing or invalid."""
     path = glossary_path(root, glossary_id)

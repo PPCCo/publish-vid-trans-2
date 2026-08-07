@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from .util import executable, load_json, load_tools_config
+from .util import executable, load_company_config, load_json, load_tools_config
 from .validation import validate_framework
 
 
@@ -97,6 +97,30 @@ def run_doctor(root: Path) -> dict[str, Any]:
             False)
     except Exception as exc:  # noqa: BLE001
         add("engine:mt", "warn", str(exc), False)
+
+    # Company dub-voice registry (informational). Male is the hard default for every dubbed
+    # language; each gendered voice is a staged piper .onnx. Surface which are present on disk so
+    # the operator can see, e.g., that en/zh lack a MALE voice before a re-dub. Non-required —
+    # dub run itself fails loudly at render time if the needed gendered voice is missing.
+    try:
+        company = load_company_config(root)
+        voices = (company.get("dubbing", {}) or {}).get("voices", {}) or {}
+        if not voices:
+            add("dub-voices", "optional-missing",
+                "no company dubbing.voices configured (add to company.local.json)", False)
+        for lang in sorted(voices):
+            for gender in ("male", "female"):
+                entry = (voices.get(lang) or {}).get(gender)
+                model = entry.get("model") if isinstance(entry, dict) else None
+                if not model:
+                    continue
+                present = Path(model).is_file()
+                add(f"dub-voice:{lang}:{gender}",
+                    "pass" if present else "optional-missing",
+                    f"{Path(model).name} — {'present' if present else 'absent (stage the .onnx)'}",
+                    False)
+    except Exception as exc:  # noqa: BLE001
+        add("dub-voices", "warn", str(exc), False)
 
     required_fail = any(c["status"] == "fail" and c["required"] for c in checks)
     return {"status": "fail" if required_fail else "pass", "checks": checks}

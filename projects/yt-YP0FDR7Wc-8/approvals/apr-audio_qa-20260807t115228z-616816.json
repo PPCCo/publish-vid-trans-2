@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-audio_qa-20260807t115228z-616816",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "gate": "audio_qa",
+  "language": "es",
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:f9aa1f55b1ad7d1e3b3a96aa5a599272826f39be1b8b50812f24f1ec2fa7dc3b"
+  ],
+  "scope": "audio",
+  "exclusions": [],
+  "notes": "audio_qa APPROVE es (male, new dub). audio-sync PASS: 220 cues, 0 over-tol, 0 over-cap. Model B hold-only, 4 holds/5403ms, max single-cue drift 2110ms, residual -88ms. Accepted under disclosed raised per_cue_drift_tolerance_ms=3600. Human confirmed in-conversation 2026-08-07 (rule 13).",
+  "created_at": "2026-08-07T11:52:28Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

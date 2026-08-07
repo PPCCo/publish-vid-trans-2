@@ -61,6 +61,11 @@ def init_project(
     selection: dict[str, Any] | None = None,
     join_clips: bool = True,
     snap_edges: bool = True,
+    dub_voice_gender: str = "male",
+    voice_clone_requested: bool = False,
+    voice_clone: bool | None = None,
+    mux_mode: str = "soft-subs",
+    glossary_id: str | None = None,
 ) -> dict[str, Any]:
     if not is_valid_video_id(project_id):
         raise ConfigurationError(f"Invalid project/video id: {project_id!r}")
@@ -75,6 +80,21 @@ def init_project(
         "defaults", {}
     ).get("audio_languages", ["en"])
     dub_langs = [lang for lang in default_audio if lang in target_languages]
+
+    # Rights/clone posture (rule-5 authorized override, see company.default.json "rights").
+    # Voice cloning defaults ON company-wide; the caller can opt out per project (voice_clone
+    # False) restoring the neutral-voice default. Resolution order: explicit arg -> company
+    # default_voice_clone -> False.
+    rights_policy = company.get("rights", {}) or {}
+    if voice_clone is None:
+        resolved_clone = bool(rights_policy.get("default_voice_clone", False))
+    else:
+        resolved_clone = bool(voice_clone)
+
+    if mux_mode not in ("soft-subs", "burned-in", "no-subs"):
+        raise ConfigurationError(
+            f"mux_mode must be one of soft-subs/burned-in/no-subs, got {mux_mode!r}"
+        )
 
     for sub in PROJECT_DIRS:
         (paths.directory / sub).mkdir(parents=True, exist_ok=True)
@@ -94,8 +114,20 @@ def init_project(
         "source": {"url": url, "channel": channel, "title": title},
         "target_languages": target_languages,
         "audio_languages": dub_langs,
-        "dubbing": {"voice_clone": False},
-        "glossary_id": None,
+        # Male is the hard default dub voice gender for every language (TASK 2); the human
+        # confirms/overrides it at /new-video. `voice_clone` is the actual clone switch; it
+        # defaults ON via company policy (rule-5 authorized override, opt out with --no-clone).
+        # Cloning ALSO requires recorded voice_clone_consent in the RIGHTS record (rule 5) — when
+        # clone is on and company auto_consent_at_init is set, that consent is recorded below
+        # through the sanctioned `rights set` path (never hand-written). `voice_clone_requested`
+        # remains the advisory onboarding intent flag; it's forced True whenever clone is on.
+        "dubbing": {
+            "voice_clone": resolved_clone,
+            "voice_gender": (dub_voice_gender if dub_voice_gender in ("male", "female") else "male"),
+            "voice_clone_requested": bool(voice_clone_requested) or resolved_clone,
+        },
+        "glossary_id": glossary_id,
+        "mux_mode": mux_mode,
         "join_clips": bool(join_clips),
         "selection": selection,
         "created_at": utc_now(),
@@ -146,7 +178,33 @@ def init_project(
             paths.events, project_id, "PROJECT_CREATED", actor,
             {"url": url, "target_languages": target_languages, "audio_languages": dub_langs},
         )
-    return {"project_id": project_id, "state": state, "config": project_cfg}
+
+    # Auto-record the rights posture at init (rule-5 authorized override — see company.default.json
+    # "rights"). ONLY through the sanctioned rights writer (rule 1: the CLI owns the rights record;
+    # never hand-write rights/record.json). We record consent when cloning is on AND the company
+    # opts into init-time consent; the rights_status is set from company policy the same way.
+    # set_rights takes its own lock + appends RIGHTS_SET, so it runs after the init lock releases.
+    # A later human `rights set` at the rights-check gate still fully overrides this (set_rights
+    # overwrites), so this is a pre-population, not a lock-in.
+    rights_record = None
+    auto_consent = bool(rights_policy.get("auto_consent_at_init", False))
+    if resolved_clone and auto_consent:
+        from . import rights as rights_mod
+
+        rights_record = rights_mod.set_rights(
+            root, project_id,
+            status=rights_policy.get("default_rights_status", "self-authored"),
+            reviewer=rights_policy.get("default_reviewer", "company-standing-authorization"),
+            voice_clone_consent=True,
+            notes="auto-recorded at init under company standing authorization (rule-5 override)",
+        )
+
+    return {
+        "project_id": project_id,
+        "state": state,
+        "config": project_cfg,
+        "rights": rights_record,
+    }
 
 
 def add_languages(

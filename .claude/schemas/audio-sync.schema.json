@@ -27,6 +27,8 @@
           "language": { "type": "string" },
           "provider": { "type": ["string", "null"], "description": "TTS provider that produced the dub, or 'imported'." },
           "model": { "type": ["string", "null"] },
+          "voice_gender": { "type": ["string", "null"], "enum": ["male", "female", null], "description": "Gender of the dub voice actually rendered (male is the company default; see dubbing.voices registry). null when unknown (e.g. imported or explicit --model with no registry match)." },
+          "voice_source": { "type": ["string", "null"], "description": "How the voice was chosen: 'company.dubbing.voices' | 'explicit-model' | 'imported'." },
           "dub_path": { "type": "string", "description": "Project-relative path to the rendered dub WAV." },
           "dub_sha256": { "type": ["string", "null"] },
           "target_lufs": { "type": "number" },

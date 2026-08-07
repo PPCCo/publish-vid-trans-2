@@ -62,6 +62,21 @@ source-video dependency**, so you can turn dubbing on for a translate-only langu
      Per cue the adapter synthesizes, the CLI tempo-fits into the cue slot up to the configured
      stretch cap (default 1.3×). Beyond the cap it does **not** force an unnatural stretch — it
      clamps, flags the cue, and lets drift accrue (surfaced in the sync report).
+     - **Run ONE `dub run` at a time — don't run two ffmpeg-heavy jobs concurrently.** The concat
+       step now uses ffmpeg's **concat demuxer** (one input handle regardless of cue count), so a
+       single long-speech dub is robust. But two dubs (or a dub + a mux) running **at the same
+       time** still compete for process/FD resources and can make ffmpeg die early with only its
+       version banner emitted (`rc 232` — looks like a data bug, is actually contention). So run
+       multiple languages **sequentially**, each fully returning before the next; never background
+       several at once. (History: the older N-input concat form failed even for a single long dub
+       under any concurrent ffmpeg load — verified 2026-08-07 that synth/tempo-fit/concat each pass
+       in isolation; the demuxer rewrite removes the per-cue-handle scaling that caused it.)
+     - **A non-clone `dub run` needs NO network env** — no `source .env.local`,
+       `VIDTRANS_FETCH_ENABLED`, or CA bundle. It is fully local (piper TTS + ffmpeg) and reuses the
+       already-built captions. The fetch flag + CA bundle (§0 of OPERATING-GUIDE) are **only** for
+       media downloads: `ingest run`/`ingest ensure`, a `--clone` dub (needs the source WAV), or a
+       `package mux` that must re-fetch deleted source. Don't prepend `source .env.local` to a plain
+       dub command.
    - **Freeze-frame mode** (`quality_bars.audio.freeze_frame_enabled: true`, opt-in via
      `company.local.json` — no CLI flag): `dub run` instead fits audio only to the gentle
      `freeze_stretch_cap` (default 1.15×) and writes a per-language freeze plan

@@ -30,6 +30,15 @@ def _require(binary: str) -> str:
     return path
 
 
+def _stderr_tail(stderr: str, lines: int = 8) -> str:
+    """The last ``lines`` of ffmpeg stderr — the actual error.
+
+    ffmpeg prints its version/config banner FIRST, so ``stderr[:400]`` is all banner and hides
+    the real failure at the tail. Every ffmpeg error in this module surfaces the tail instead.
+    """
+    return "\n".join((stderr or "").strip().splitlines()[-lines:])
+
+
 def ffprobe_streams(media_path: Path | str, *, timeout: int = 120) -> dict[str, Any]:
     """Return the parsed `ffprobe -show_format -show_streams` JSON for a media file."""
     proc = subprocess.run(  # noqa: S603 - fixed binary, path arg, no shell
@@ -40,7 +49,7 @@ def ffprobe_streams(media_path: Path | str, *, timeout: int = 120) -> dict[str, 
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffprobe failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffprobe failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     return json.loads(proc.stdout)
 
 
@@ -103,7 +112,7 @@ def extract_wav(
     )
     if proc.returncode != 0:
         raise ConfigurationError(
-            f"ffmpeg WAV extraction failed ({proc.returncode}): {proc.stderr.strip()[:400]}"
+            f"ffmpeg WAV extraction failed ({proc.returncode}): {_stderr_tail(proc.stderr)}"
         )
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no WAV at {dest}")
@@ -132,7 +141,7 @@ def slice_wav(
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg slice failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg slice failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     return dest
 
 
@@ -174,7 +183,7 @@ def silent_wav(
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg silence failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg silence failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     return dest
 
 
@@ -234,7 +243,7 @@ def time_stretch(
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg atempo failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg atempo failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     return dest
 
 
@@ -254,7 +263,7 @@ def _reencode(
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg re-encode failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg re-encode failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if tmp != dest:
         tmp.replace(dest)
     return dest
@@ -268,24 +277,47 @@ def concat_wavs(
     channels: int = DUB_CHANNELS,
     timeout: int = 1800,
 ) -> Path:
-    """Concatenate WAV parts (silence + cue clips, in timeline order) into one track."""
+    """Concatenate WAV parts (silence + cue clips, in timeline order) into one track.
+
+    Uses ffmpeg's **concat demuxer** (a single ``-i playlist.txt`` input) rather than N separate
+    ``-i`` inputs fed to an N-way ``filter_complex`` concat. The demuxer opens **one** input handle
+    regardless of how many parts there are and builds no per-input filter graph, so it does not
+    scale file-descriptor / process pressure with cue count. The old N-input form worked at small N
+    but proved fragile on a long speech (hundreds of parts) under concurrent ffmpeg load — it could
+    die early with only the version banner emitted (observed `rc 232`), which looked like a data
+    bug but was resource contention. All parts here are already uniform ``pcm_s16le`` at the same
+    ``sample_rate``/``channels`` (written by ``silent_wav``/``time_stretch``/``_reencode``), so the
+    demuxer is exactly equivalent; we still set ``-ac``/``-ar``/``-c:a`` on the output as a guard.
+    """
     dest = Path(dest_wav)
     dest.parent.mkdir(parents=True, exist_ok=True)
     if not parts:
         raise ConfigurationError("concat_wavs: no parts to concatenate")
-    command = [_require("ffmpeg"), "-y"]
-    for part in parts:
-        command += ["-i", str(part)]
     n = len(parts)
-    filter_complex = "".join(f"[{i}:a]" for i in range(n)) + f"concat=n={n}:v=0:a=1[out]"
-    command += [
-        "-filter_complex", filter_complex,
-        "-map", "[out]", "-ac", str(channels), "-ar", str(sample_rate),
-        "-c:a", "pcm_s16le", str(dest),
-    ]
-    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
-    if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg concat failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+    # Concat-demuxer playlist: one `file '<abs-path>'` line per part, in order. Single quotes in a
+    # path are escaped per the demuxer's rule ('\'' ). Written next to the destination so cleanup is
+    # trivial; absolute paths mean the listfile location doesn't matter.
+    listfile = dest.with_suffix(dest.suffix + ".concat.txt")
+    lines = []
+    for part in parts:
+        p = str(Path(part).resolve()).replace("'", "'\\''")
+        lines.append(f"file '{p}'")
+    listfile.write_text("\n".join(lines) + "\n")
+    try:
+        command = [
+            _require("ffmpeg"), "-y",
+            "-f", "concat", "-safe", "0", "-i", str(listfile),
+            "-ac", str(channels), "-ar", str(sample_rate),
+            "-c:a", "pcm_s16le", str(dest),
+        ]
+        proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+        if proc.returncode != 0:
+            raise ConfigurationError(
+                f"ffmpeg concat failed ({proc.returncode}, {n} parts via concat demuxer): "
+                f"{_stderr_tail(proc.stderr)}"
+            )
+    finally:
+        listfile.unlink(missing_ok=True)
     return dest
 
 
@@ -312,7 +344,7 @@ def loudnorm(
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg loudnorm failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg loudnorm failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if tmp != dest:
         tmp.replace(dest)
     return dest
@@ -354,7 +386,7 @@ def mux_video(
     command += maps + codecs + ["-shortest", str(dest)]
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg mux failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg mux failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
@@ -406,7 +438,7 @@ def mux_video_burned_in(
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(
-            f"ffmpeg burned-in mux failed ({proc.returncode}): {proc.stderr.strip()[:400]}"
+            f"ffmpeg burned-in mux failed ({proc.returncode}): {_stderr_tail(proc.stderr)}"
         )
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
@@ -458,7 +490,7 @@ def slice_video(
     command += ["-avoid_negative_ts", "make_zero", str(dest)]
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg slice_video failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg slice_video failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
@@ -513,7 +545,7 @@ def freeze_segment(
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(
-            f"ffmpeg freeze_segment failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+            f"ffmpeg freeze_segment failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
@@ -553,7 +585,7 @@ def concat_videos(
     ]
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
-        raise ConfigurationError(f"ffmpeg concat_videos failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+        raise ConfigurationError(f"ffmpeg concat_videos failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest

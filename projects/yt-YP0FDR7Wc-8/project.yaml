@@ -19,9 +19,12 @@ audio_languages:
 - zh
 - ar
 - ur
+- es
+- ru
 dubbing:
   voice_clone: false
 glossary_id: null
+mux_mode: soft-subs
 join_clips: true
 selection: null
 created_at: '2026-08-04T11:37:35Z'

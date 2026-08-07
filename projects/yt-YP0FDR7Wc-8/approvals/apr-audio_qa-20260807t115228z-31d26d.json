@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-audio_qa-20260807t115228z-31d26d",
+  "project_id": "yt-YP0FDR7Wc-8",
+  "gate": "audio_qa",
+  "language": "ru",
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:efa2fac95dd3931087646fb774dd4621564fee5151c8ba00311f48052fcf1750"
+  ],
+  "scope": "audio",
+  "exclusions": [],
+  "notes": "audio_qa APPROVE ru (male, new dub). audio-sync PASS: 220 cues, 0 over-tol, 0 over-cap. Model B hold-only, 2 holds/2573ms. Accepted one-sided residual: picture lags audio 1388ms under disclosed raised per_cue_drift_tolerance_ms=3600. Human confirmed in-conversation 2026-08-07 (rule 13).",
+  "created_at": "2026-08-07T11:52:28Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

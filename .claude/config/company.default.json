@@ -9,6 +9,13 @@
     "audio_languages": ["en", "ur", "ar", "fa", "zh", "fr", "es", "pt", "ru"],
     "source_languages_expected": ["fa", "ar", "ur"]
   },
+  "rights": {
+    "_comment": "AUTHORIZED OVERRIDE of rule 5's neutral-voice default (human-approved 2026-08-07): the company owns/authorizes its source content, so new projects default to voice CLONING ON with voice_clone_consent auto-recorded at init, and rights_status pre-set to a distributable value. This is NOT a silent bypass — consent is written through the sanctioned `rights set` CLI path (rule 1), the /new-video interview offers a one-click Neutral-voice opt-out (`--no-clone`), and a human can still revise at the human-only `rights-check` gate. Set default_voice_clone:false here (or in company.local.json) to restore the rule-5 neutral default company-wide. The three outward-facing disable-model-invocation skills (rights-check, video-release-authorize, video-promote-approve) keep their human-only posture regardless.",
+    "default_voice_clone": true,
+    "auto_consent_at_init": true,
+    "default_rights_status": "self-authored",
+    "default_reviewer": "company-standing-authorization"
+  },
   "human_gates": {
     "transcript_qa": { "required_approvers": 1 },
     "translation_qa": { "required_approvers": 1 },
@@ -40,6 +47,21 @@
     },
     "translation": {
       "glossary_term_hit_rate_required": 1.0
+    }
+  },
+  "dubbing": {
+    "_comment": "Male voice is the HARD default for EVERY language (TASK 2). `dub run`/autopilot auto-select `voices[<lang>][<gender>]` with no --model needed; an explicit `dub run --model` still overrides. The per-project gender is chosen at `/new-video` (project.yaml dubbing.voice_gender, default male) and only overridden to female by an explicit human decision (e.g. a female source voice recorded at LANGUAGE_ID). Voice `.onnx` paths are machine-specific — put the real absolute paths in the gitignored company.local.json (which deep-merges over this); keep this file as the shape + policy. Missing gender for a lang => `dub run` fails with a stage-a-voice message rather than silently using the wrong gender. Voice-clone CONSENT is unrelated and stays a rights-gate fact (rule 5).",
+    "default_voice_gender": "male",
+    "voices": {
+      "en": {},
+      "ur": {},
+      "ar": {},
+      "fa": {},
+      "zh": {},
+      "fr": {},
+      "es": {},
+      "pt": {},
+      "ru": {}
     }
   },
   "revision_policy": {

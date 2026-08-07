@@ -27,6 +27,7 @@
     "updated_at": { "type": "string" },
     "updated_by": { "type": "string" },
     "source_language": { "type": ["string", "null"] },
+    "source_voice_gender": { "type": ["string", "null"], "enum": ["male", "female", null], "description": "Gender of the speaker's voice in the SOURCE video, recorded by the human at LANGUAGE_ID (default male). Advisory input to the dub-voice-gender decision; a female source prompts whether dubs should also be female." },
     "target_languages": {
       "type": "array",
       "items": { "type": "string" }

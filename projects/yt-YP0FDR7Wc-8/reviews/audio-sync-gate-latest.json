@@ -6,14 +6,14 @@
   "metrics": {
     "languages": {
       "en": {
-        "cumulative_offset_ms": -100,
-        "max_abs_drift_ms": 3305,
+        "cumulative_offset_ms": -924,
+        "max_abs_drift_ms": 1141,
         "cues": 220,
         "cues_over_tolerance": 0,
         "cues_over_stretch_cap": 0,
         "freeze_frame_enabled": true,
-        "total_freeze_ms": 3451,
-        "cues_frozen": 6
+        "total_freeze_ms": 2706,
+        "cues_frozen": 3
       },
       "ar": {
         "cumulative_offset_ms": 0,
@@ -44,6 +44,26 @@
         "freeze_frame_enabled": true,
         "total_freeze_ms": 1215,
         "cues_frozen": 7
+      },
+      "es": {
+        "cumulative_offset_ms": -88,
+        "max_abs_drift_ms": 2110,
+        "cues": 220,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": true,
+        "total_freeze_ms": 5403,
+        "cues_frozen": 4
+      },
+      "ru": {
+        "cumulative_offset_ms": -1388,
+        "max_abs_drift_ms": 1631,
+        "cues": 220,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": true,
+        "total_freeze_ms": 2573,
+        "cues_frozen": 2
       }
     },
     "quality_bars": {
@@ -59,48 +79,27 @@
       ]
     }
   },
-  "created_at": "2026-08-06T09:36:50Z",
+  "created_at": "2026-08-07T10:49:14Z",
   "created_by": "agent",
   "findings": [
     {
       "severity": "note",
       "category": "audio-freeze-planned",
-      "summary": "[en] cue 22 audio runs long; picture will be frozen 7ms at mux to keep the dub near natural speed.",
-      "language": "en",
-      "cue_id": 22
-    },
-    {
-      "severity": "note",
-      "category": "audio-freeze-planned",
-      "summary": "[en] cue 32 audio runs long; picture will be frozen 3ms at mux to keep the dub near natural speed.",
-      "language": "en",
-      "cue_id": 32
-    },
-    {
-      "severity": "note",
-      "category": "audio-freeze-planned",
-      "summary": "[en] cue 78 audio runs long; picture will be frozen 1257ms at mux to keep the dub near natural speed.",
+      "summary": "[en] cue 78 audio runs long; picture will be frozen 506ms at mux to keep the dub near natural speed.",
       "language": "en",
       "cue_id": 78
     },
     {
       "severity": "note",
       "category": "audio-freeze-planned",
-      "summary": "[en] cue 79 audio runs long; picture will be frozen 167ms at mux to keep the dub near natural speed.",
-      "language": "en",
-      "cue_id": 79
-    },
-    {
-      "severity": "note",
-      "category": "audio-freeze-planned",
-      "summary": "[en] cue 81 audio runs long; picture will be frozen 1871ms at mux to keep the dub near natural speed.",
+      "summary": "[en] cue 81 audio runs long; picture will be frozen 635ms at mux to keep the dub near natural speed.",
       "language": "en",
       "cue_id": 81
     },
     {
       "severity": "note",
       "category": "audio-freeze-planned",
-      "summary": "[en] cue 217 audio runs long; picture will be frozen 146ms at mux to keep the dub near natural speed.",
+      "summary": "[en] cue 217 audio runs long; picture will be frozen 1565ms at mux to keep the dub near natural speed.",
       "language": "en",
       "cue_id": 217
     },
@@ -782,6 +781,48 @@
       "summary": "[zh] cue 82 audio runs long; picture will be frozen 15ms at mux to keep the dub near natural speed.",
       "language": "zh",
       "cue_id": 82
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[es] cue 78 audio runs long; picture will be frozen 804ms at mux to keep the dub near natural speed.",
+      "language": "es",
+      "cue_id": 78
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[es] cue 79 audio runs long; picture will be frozen 409ms at mux to keep the dub near natural speed.",
+      "language": "es",
+      "cue_id": 79
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[es] cue 81 audio runs long; picture will be frozen 897ms at mux to keep the dub near natural speed.",
+      "language": "es",
+      "cue_id": 81
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[es] cue 217 audio runs long; picture will be frozen 3293ms at mux to keep the dub near natural speed.",
+      "language": "es",
+      "cue_id": 217
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[ru] cue 3 audio runs long; picture will be frozen 1631ms at mux to keep the dub near natural speed.",
+      "language": "ru",
+      "cue_id": 3
+    },
+    {
+      "severity": "note",
+      "category": "audio-freeze-planned",
+      "summary": "[ru] cue 217 audio runs long; picture will be frozen 942ms at mux to keep the dub near natural speed.",
+      "language": "ru",
+      "cue_id": 217
     }
   ]
 }

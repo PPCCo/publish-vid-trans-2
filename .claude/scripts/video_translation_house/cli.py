@@ -57,6 +57,27 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Emit each selected window as a separate clip (default: join into one video)")
     p_init.add_argument("--no-snap-edges", action="store_true",
                         help="Cut selection windows at exact requested timecodes (default: snap to cue boundaries)")  # noqa: E501
+    p_init.add_argument("--dub-voice-gender", choices=["male", "female"], default="male",
+                        help="Dub voice gender for ALL languages (default male). Overridden to "
+                             "female only by an explicit human decision (e.g. a female source voice).")
+    p_init.add_argument("--voice-clone-requested", action="store_true",
+                        help="Record the human's INTENT to clone the source speaker's voice. "
+                             "Advisory only — actual cloning still requires recorded consent in the "
+                             "rights record (rule 5); this never grants it.")
+    p_init.add_argument("--no-clone", action="store_true",
+                        help="Opt OUT of voice cloning for this project (neutral dub voice). By "
+                             "default cloning is ON per company policy (rule-5 authorized override) "
+                             "with consent auto-recorded at init; this restores the rule-5 neutral "
+                             "default for one project.")
+    p_init.add_argument("--mux-mode", choices=["soft-subs", "burned-in", "no-subs"],
+                        default="soft-subs",
+                        help="Default subtitle handling at `package mux`: soft-subs (toggleable "
+                             "track, default), burned-in (painted into the picture), or no-subs "
+                             "(clean video, captions only as sidecar files). A per-run `package mux "
+                             "--mode` still overrides.")
+    p_init.add_argument("--glossary",
+                        help="Glossary id (glossary/<id>.json) to pin term renderings for this "
+                             "project. Omit for none. See `glossary list`.")
     p_init.add_argument("--actor", default="human")
     psub.add_parser("list")
     for verb in ("status", "validate", "next", "plan"):
@@ -162,6 +183,10 @@ def build_parser() -> argparse.ArgumentParser:
     r_set.add_argument("--voice-clone-consent", action="store_true")
     r_set.add_argument("--evidence", help="Comma-separated evidence paths")
     r_set.add_argument("--notes")
+
+    gloss = sub.add_parser("glossary", help="Translation glossary operations")
+    glsub = gloss.add_subparsers(dest="glossary_command", required=True)
+    glsub.add_parser("list", help="List available glossaries (glossary/<id>.json) + term counts")
 
     ingest = sub.add_parser("ingest", help="Download + extract + catalog a project's source")
     isub = ingest.add_subparsers(dest="ingest_command", required=True)
@@ -275,6 +300,10 @@ def build_parser() -> argparse.ArgumentParser:
     d_run.add_argument("--provider", help="TTS provider (default: per-language config / first installed)")  # noqa: E501
     d_run.add_argument("--model", help="Engine voice/model name")
     d_run.add_argument("--voice", help="Named neutral voice for the engine")
+    d_run.add_argument("--gender", choices=["male", "female"],
+                       help="Dub voice gender to select from the company voices registry "
+                            "(default: project dubbing.voice_gender, else company default male). "
+                            "Ignored when --model is given (explicit model wins) or --clone.")
     d_run.add_argument("--clone", action="store_true", help="Clone source speaker (needs recorded consent)")  # noqa: E501
     d_run.add_argument("--advance", action="store_true", help="Advance top state once all dub tracks done")  # noqa: E501
     d_run.add_argument("--actor", default="agent")
@@ -293,10 +322,11 @@ def build_parser() -> argparse.ArgumentParser:
     pk_mux = pkgsub.add_parser("mux", help="Mux source video + a language's dub -> video/<lang>/dubbed.mp4")  # noqa: E501
     pk_mux.add_argument("project_id")
     pk_mux.add_argument("--language", required=True, help="Dub-enabled target language (ISO 639-1)")
-    pk_mux.add_argument("--mode", default="soft-subs", choices=["soft-subs", "burned-in", "no-subs"],
-                        help="soft-subs: toggleable mov_text track (default, picture copied "
-                             "bit-for-bit); burned-in: render VTT into the picture (re-encodes "
-                             "video, for platforms that drop soft subs); no-subs: dub audio only")
+    pk_mux.add_argument("--mode", default=None, choices=["soft-subs", "burned-in", "no-subs"],
+                        help="soft-subs: toggleable mov_text track (picture copied bit-for-bit); "
+                             "burned-in: render VTT into the picture (re-encodes video, for "
+                             "platforms that drop soft subs); no-subs: dub audio only. Omit to use "
+                             "the project's mux_mode (set at init, default soft-subs).")
     pk_mux.add_argument("--advance", action="store_true", help="Advance top state once all dub tracks muxed")  # noqa: E501
     pk_mux.add_argument("--actor", default="agent")
     pk_final = pkgsub.add_parser("final-qa", help="Aggregate `final` gate report across dubbed videos")  # noqa: E501
@@ -394,6 +424,10 @@ def build_parser() -> argparse.ArgumentParser:
     l_set.add_argument("--source", default="manual", choices=["manual", "auto-detect", "youtube-metadata"])
     l_set.add_argument("--confidence", type=float)
     l_set.add_argument("--dialect")
+    l_set.add_argument("--source-voice-gender", choices=["male", "female"],
+                       help="Gender of the speaker's voice in the SOURCE video (human observation; "
+                            "default male). A female source is the cue to ask whether dubs should be "
+                            "female too — it does not itself change the dub voice.")
     l_set.add_argument("--actor", default="human")
 
     ev = sub.add_parser("event")
@@ -431,6 +465,11 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 selection=selection,
                 join_clips=not args.no_join_clips,
                 snap_edges=not args.no_snap_edges,
+                dub_voice_gender=args.dub_voice_gender,
+                voice_clone_requested=args.voice_clone_requested,
+                voice_clone=False if args.no_clone else None,
+                mux_mode=args.mux_mode,
+                glossary_id=args.glossary,
             )
         if pc == "add-languages":
             return project.add_languages(
@@ -517,6 +556,10 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 evidence_paths=parse_csv(args.evidence) if args.evidence else None,
                 notes=args.notes,
             )
+    if cmd == "glossary":
+        from . import glossary as glossary_mod
+        if args.glossary_command == "list":
+            return {"glossaries": glossary_mod.list_glossaries(root)}
     if cmd == "ingest":
         from . import ingest as ingest_mod
         if args.ingest_command == "run":
@@ -624,7 +667,7 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         if dc == "run":
             return dubbing_mod.run_dub(
                 root, args.project_id, args.language, provider=args.provider,
-                model=args.model, voice=args.voice, clone=args.clone,
+                model=args.model, voice=args.voice, gender=args.gender, clone=args.clone,
                 actor=args.actor, advance=args.advance,
             )
         if dc == "import":
@@ -718,7 +761,8 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         if args.langid_command == "set":
             return langid_mod.set_language(
                 root, args.project_id, args.language, source=args.source,
-                confidence=args.confidence, dialect=args.dialect, actor=args.actor,
+                confidence=args.confidence, dialect=args.dialect,
+                source_voice_gender=args.source_voice_gender, actor=args.actor,
             )
     if cmd == "event":
         if args.event_command == "tail":

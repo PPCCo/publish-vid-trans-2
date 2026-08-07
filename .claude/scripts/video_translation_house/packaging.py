@@ -49,6 +49,7 @@ from .util import (
     atomic_write_text,
     load_json,
     load_tools_config,
+    load_yaml,
     project_lock,
     sha256_path,
     utc_now,
@@ -288,7 +289,7 @@ def run_mux(
     project_id: str,
     language: str,
     *,
-    mode: str = "soft-subs",
+    mode: str | None = None,
     actor: str = "agent",
     advance: bool = False,
 ) -> dict[str, Any]:
@@ -296,14 +297,19 @@ def run_mux(
 
     Guarded to state at/through AUDIO_QA_GATE + dub_enabled track. Uses the ACTIVE dub-wav
     artifact (so a superseded dub can't be muxed). `mode` selects how the language's VTT
-    captions are attached: "soft-subs" (default, a toggleable mov_text track, picture copied
+    captions are attached: "soft-subs" (a toggleable mov_text track, picture copied
     bit-for-bit), "burned-in" (rendered into the picture via ffmpeg's subtitles filter, video
     re-encoded — for platforms that don't reliably render soft subs), or "no-subs" (dub audio
-    only). Registers dubbed-video@<lang>; advances the track to FINAL_QA_GATE.
+    only). When `mode` is None it falls back to the project's `mux_mode` (project.yaml, chosen at
+    init; default "soft-subs"); an explicit `mode` always wins. Registers dubbed-video@<lang>;
+    advances the track to FINAL_QA_GATE.
     """
+    paths = ProjectPaths(root, project_id).require()
+    if mode is None:
+        cfg = load_yaml(paths.config)
+        mode = cfg.get("mux_mode") or "soft-subs"
     if mode not in _MUX_MODES:
         raise MuxError(f"mode must be one of {sorted(_MUX_MODES)}, got {mode!r}")
-    paths = ProjectPaths(root, project_id).require()
     state = load_json(paths.state)
     if state["current_state"] not in _STATES_ALLOWING_MUX:
         raise ConfigurationError(

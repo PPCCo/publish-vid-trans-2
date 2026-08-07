@@ -80,9 +80,16 @@ def set_language(
     source: str = "manual",
     confidence: float | None = None,
     dialect: str | None = None,
+    source_voice_gender: str | None = None,
     actor: str = "human",
 ) -> dict[str, Any]:
-    """Record the confirmed source language on project state + source metadata + catalog."""
+    """Record the confirmed source language on project state + source metadata + catalog.
+
+    ``source_voice_gender`` (male|female) records the gender of the speaker in the SOURCE video —
+    a human observation captured at LANGUAGE_ID (ASR can't detect it here). It defaults to male and
+    is advisory: it does not itself select the dub voice (that is the project's dubbing.voice_gender),
+    but a female source is the signal for the skill to ask whether dubs should also be female.
+    """
     normalized = normalize_language(language)
     if normalized is None:
         raise ConfigurationError(f"Unrecognized language code: {language!r}")
@@ -90,6 +97,10 @@ def set_language(
     with project_lock(paths.lock):
         state = load_json(paths.state)
         state["source_language"] = normalized
+        if source_voice_gender is not None:
+            state["source_voice_gender"] = (
+                source_voice_gender if source_voice_gender in ("male", "female") else "male"
+            )
         # If the source language is also a translation TARGET, that track skips TRANSLATION:
         # translating source->source is pointless. It still produces verbatim source captions
         # (see translate.export_worksheet), so mark it here and let the export short-circuit
@@ -121,7 +132,8 @@ def set_language(
 
         append_event(
             paths.events, project_id, "SOURCE_LANGUAGE_SET", actor,
-            {"language": normalized, "source": source, "confidence": confidence, "dialect": dialect},
+            {"language": normalized, "source": source, "confidence": confidence, "dialect": dialect,
+             "source_voice_gender": state.get("source_voice_gender")},
         )
 
     # Reflect into the repo-global catalog (best-effort; catalog entry may not exist yet).

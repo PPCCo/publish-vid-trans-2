@@ -121,6 +121,29 @@ on an `fa` source means: `fa` verbatim (skip), `en` human-reviewed, `ar`+`ur` AI
 For clip/selection projects (process only certain windows), see the README's
 [Selecting and clipping the source](README.md#selecting-and-clipping-the-source-selection--join_clips).
 
+**Decisions front-loaded at init (clone ON by default).** To cut friction on the scripted/manual
+route, `project init` now captures several choices up front (the `/new-video` interview asks each
+as an `AskUserQuestion`):
+
+- `--no-clone` — opt OUT of voice cloning (neutral dub voice). **By company policy cloning is ON
+  by default** (an authorized override of rule 5, see `company.default.json` `rights` block): when
+  cloning is on, init auto-records `voice_clone_consent: true` + `rights_status: self-authored` in
+  the rights record **through the sanctioned `rights set` path** (a `RIGHTS_SET` event is
+  appended), so `--clone` dubbing is unblocked and `PACKAGE → READY_FOR_REVIEW` is pre-cleared.
+  `--no-clone` records no consent and leaves the neutral rule-5 path intact.
+- `--mux-mode {soft-subs,burned-in,no-subs}` — the default subtitle handling used by `package mux`
+  when no per-run `--mode` is given (soft-subs = toggleable track; burned-in = painted into the
+  picture; no-subs = clean video + sidecar files). Recorded as `project.yaml mux_mode`.
+- `--glossary <id>` — pin a per-channel/speaker terminology glossary (`glossary/<id>.json`). List
+  what's available with `vid glossary list`. Omit for none.
+
+**Revert the clone-on default company-wide:** set `rights.default_voice_clone: false` in
+`company.local.json` (or `company.default.json`) — new projects then default to the neutral rule-5
+voice with no consent recorded at init. The three outward-facing gates (`rights-check`,
+`release_authorization`, `promotion_review`) stay human-only regardless, and a human can always
+revise the rights record at the `rights-check` gate (a later `rights set` fully overwrites the
+init-written one).
+
 ---
 
 ## 4. Walk the pipeline
@@ -234,6 +257,10 @@ vid captions validate yt-YP0FDR7Wc-8
 # FREEZE-FRAME: if the neutral dub voice runs slower than the source and `dub qa` reports
 #   CONDITIONAL_PASS with `audio-stretch-over-cap` cues, don't crank max_time_stretch — turn on
 #   freeze-frame (re-times the picture to the audio instead of over-speeding it). See §9.
+# MULTIPLE LANGUAGES: run `dub run` once PER language, sequentially — one ffmpeg-heavy job at a
+#   time (two concurrent dubs/muxes can contend → ffmpeg dies on banner, `concat failed (232)`).
+#   Concat now uses the demuxer (1 handle), so a single long dub is robust. A non-clone dub needs
+#   NO env (no `source .env.local`) — it's local piper+ffmpeg over the already-built captions.
 vid dub run    yt-YP0FDR7Wc-8 --language en --advance
 vid dub import yt-YP0FDR7Wc-8 --language en --from my-dub.wav --advance
 vid dub qa yt-YP0FDR7Wc-8
@@ -377,6 +404,73 @@ With no MT engine installed, `translate machine-fill` / `autopilot --mt` fail wi
 crash. MT-filled `en` still hits the human `translation_qa` gate; `auto_translate` targets skip
 it (rule 7) — MT is just the cheap draft the human/QA then reviews.
 
+### Dub voices & gender (male is the hard default)
+
+Dub voices are **owned by the company**, not hand-picked per run. `dub run` (with no `--model`)
+auto-selects a piper `.onnx` from the gender-tagged registry `dubbing.voices[<lang>][male|female]`,
+resolving the gender as **`--gender` (CLI) → project `dubbing.voice_gender` → company
+`default_voice_gender` (male)**. If the resolved gender isn't staged for that language, `dub run`
+**fails loudly** with a staging message — it never silently dubs the wrong gender. An explicit
+`dub run --model <path>` still overrides (operator escape hatch).
+
+- **Shape** lives in `.claude/config/company.default.json` (`default_voice_gender: "male"` + an
+  empty per-language `voices` map, kept portable — no machine paths).
+- **Real absolute `.onnx` paths** go in the gitignored `.claude/config/company.local.json`, which
+  deep-merges over the default:
+  ```json
+  "dubbing": {
+    "voices": {
+      "en": { "male": { "provider": "piper", "model": "/abs/…/en_US-ryan-high.onnx" } },
+      "ar": { "male": { "provider": "piper", "model": "/abs/…/ar_JO-kareem-medium.onnx" } }
+    }
+  }
+  ```
+- **Staging a voice** = same offline pattern as any piper model: download the voice on an
+  un-proxied device (piper voices ship as `<voice>.onnx` + `<voice>.onnx.json` — the `k2-fsa/
+  sherpa-onnx` GitHub releases mirror them, so no HuggingFace needed), stage under
+  `~/Dev/my-repos/pub/piper-voices-stage/`, and add the abs path to `company.local.json` under the
+  right `<lang>.<gender>`. Then `vid doctor` lists it (`dub-voice:<lang>:<gender>` → present/absent).
+- **Gender decisions.** The project's dub gender is set once at onboarding (`/new-video` →
+  `project init --dub-voice-gender`, default male; `--voice-clone-requested` records cloning
+  **intent** only — consent is still the `rights-check` gate). The **source speaker's** gender is a
+  separate human note at LANGUAGE_ID (`langid set --source-voice-gender`, default male); a female
+  source is the only prompt to consider female dubs — otherwise everything stays male. To render one
+  project's dubs female without changing its stored gender, pass `dub run --gender female` (needs a
+  staged female voice per language).
+
+> **piper male-voice availability.** en/es/ru/fa/ar/ur all have solid male piper voices
+> (`en_US-ryan`, `es_*`, `ru_*`, `ar_JO-kareem`, `ur_PK-fasih`, …). **zh (Mandarin) male options
+> on piper are thin** — if no acceptable male zh voice exists, keep zh **female as a disclosed,
+> recorded exception** (note it at the `audio_qa` gate) rather than shipping a broken track.
+
+**Running multiple dubs — one at a time, no network env.** When several languages need dubbing
+(e.g. re-dub en + first-dub es/ru), run them **sequentially, one `dub run` per command**, each
+fully returning before the next:
+
+```bash
+vid dub run yt-YP0FDR7Wc-8 --language en    # let it finish…
+vid dub run yt-YP0FDR7Wc-8 --language es    # …then the next…
+vid dub run yt-YP0FDR7Wc-8 --language ru    # …then the next.
+```
+
+- **Run only ONE ffmpeg-heavy job at a time** — don't background two `dub run`s (or a dub + a
+  `package mux`) concurrently, and don't chain them in a shell `for … do … done` loop that overlaps.
+  **Root cause (verified 2026-08-07):** the dub's final concat used to open one ffmpeg input handle
+  **per cue** (400+ on a long speech) via an N-way `filter_complex`; under concurrent ffmpeg load
+  that exhausted process/FD resources and ffmpeg died early emitting only its version banner
+  (`rc 232`), surfaced as a misleading `ffmpeg concat failed (232)`. Synthesis, tempo-fit, and
+  concat each pass in isolation — it was contention, not data. **Fixed in code:** `concat_wavs` now
+  uses ffmpeg's **concat demuxer** (a single `-i playlist.txt`), opening **one** handle regardless
+  of cue count, so a single long dub is robust. Running one job at a time is still the rule (two
+  concurrent ffmpeg jobs can contend regardless).
+- **A non-clone `dub run` needs NO env** — no `source .env.local`, `VIDTRANS_FETCH_ENABLED`, or CA
+  bundle. It is fully local (piper TTS + ffmpeg) over the already-built captions. The fetch flag + CA
+  bundle (§0) are **only** for media downloads: `ingest run`/`ingest ensure`, a `--clone` dub, or a
+  `package mux` that must re-fetch deleted source. Prepending `source .env.local` to a plain dub is
+  unnecessary (and errors if the file doesn't exist).
+- **`dub qa` is aggregate** (no `--language`) — run it **once** after all the language dubs are
+  rendered; it QAs every dubbed track together.
+
 ---
 
 ## 7. Phase 6 (distribution) — opt-in, human-bound
@@ -497,9 +591,12 @@ that one language:
 
 ```bash
 vid dub run yt-YP0FDR7Wc-8 --language ar --provider piper --model <ar.onnx>   # fresh dub-wav supersedes; rule 6 invalidates the stale audio_qa approval
-vid dub qa  yt-YP0FDR7Wc-8 --language ar                                       # expect PASS
+vid dub qa  yt-YP0FDR7Wc-8                                                     # aggregate over ALL tracks — no --language; expect the ar block PASS
 # …then re-surface the ar audio_qa gate (rule 13 disclose+confirm) and re-mux ar.
 ```
+
+> **`dub qa` takes no `--language`** — it QAs every dubbed track at once and writes the aggregate
+> `audio-sync` gate report. `dub run` **is** per-language (`--language <iso>`); `dub qa` is not.
 
 (The old advice to `project reset … --to CAPTION_VALIDATION` for a post-gate redub is superseded
 by this verb — reset is the whole-project teardown; `redub` is the one-track rewind.)

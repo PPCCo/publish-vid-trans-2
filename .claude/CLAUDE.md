@@ -36,6 +36,44 @@ closed captions, autonomously but under human-bound gates.
 5. **Voice cloning requires recorded consent.** Default dubbing uses a neutral voice.
    Cloning the source speaker's voice requires `voice_clone_consent: true` in the rights
    record.
+
+   **Male is the hard default dub voice for every language.** Dub voices are chosen from a
+   company-owned, gender-tagged registry (`dubbing.voices[<lang>][male|female]` in
+   `company.default.json` + real `.onnx` paths in gitignored `company.local.json`), **not** by
+   hand-passing `--model`. `dub run` with no `--model` resolves the voice as
+   `--gender` (CLI) → project `dubbing.voice_gender` → company `default_voice_gender` (**male**),
+   and **fails loudly** (`DubbingError`, staging message) when that gender isn't staged for the
+   language — never a silent wrong-gender dub. An explicit `dub run --model <path>` still wins
+   (operator override). The chosen project gender is set once at onboarding
+   (`project init --dub-voice-gender`, default male; captured by the `/new-video` skill). The
+   **source speaker's** own gender is a separate human observation recorded at LANGUAGE_ID
+   (`langid set --source-voice-gender`, default male; `state.source_voice_gender`); a **female**
+   source is the only trigger for asking whether dubs should also go female — otherwise dubs stay
+   male. Cloning **intent** captured at init (`project init --voice-clone-requested` →
+   `dubbing.voice_clone_requested`) is advisory only; it never flips the rights record, and actual
+   `voice_clone_consent` is still recorded solely at the human-only `rights-check` gate. `doctor`
+   lists which gendered voices are staged (`dub-voice:<lang>:<gender>`).
+
+   **Authorized override (2026-08-07) — cloning ON + rights pre-recorded at init.** By explicit
+   human authorization, company policy now **defaults voice cloning ON** and auto-records the
+   rights posture at project init, so the token-thrifty scripted/manual route runs gate-to-gate
+   with less friction. The company `rights` block in `company.default.json`
+   (`default_voice_clone: true`, `auto_consent_at_init: true`, `default_rights_status:
+   "self-authored"`, `default_reviewer: "company-standing-authorization"`) drives it: `project
+   init` resolves `dubbing.voice_clone` from `default_voice_clone` and, when clone is on and
+   `auto_consent_at_init` is set, records `voice_clone_consent: true` + `rights_status` **through
+   the sanctioned `rights.set_rights` CLI path** (rule 1 — never a hand-written record; a
+   `RIGHTS_SET` event is appended). This deliberately relaxes this rule's neutral default; it is
+   **not a silent bypass** — the `/new-video` interview offers a one-click **Neutral voice**
+   opt-out (`project init --no-clone`, which records no consent and leaves the rule-5 neutral path
+   intact), the whole behavior is opt-out company-wide via `default_voice_clone: false`, and a
+   human can still revise at the human-only `rights-check` gate (`set_rights` overwrites, so a
+   later gate decision fully supersedes the init-written record). The three
+   `disable-model-invocation: true` outward-facing skills (`rights-check`,
+   `video-release-authorize`, `video-promote-approve`) keep their human-only posture regardless —
+   init pre-populating the record does not touch them. Because the init consent is real, the
+   old "clone intent never flips the rights record" caveat above applies only to the `--no-clone`
+   / explicit-intent-flag path; the *default* path does record consent at init.
 6. **Artifacts are content-addressed.** Register every produced file with the CLI; approvals
    bind to exact SHA-256 hashes. Editing an approved artifact auto-invalidates its approval.
 
@@ -243,6 +281,24 @@ refuses captions-only tracks (→ `enable-dub` first) and never pushes state for
 runs, re-`dub run` the named language (a fresh `dub-wav@<lang>` supersedes the old one; rule 6
 auto-invalidates the stale `audio_qa` approval bound to the superseded hash), `dub qa`, then
 re-surface the per-language `audio_qa` gate (rule 13). Logs `TRACK_REDUB_REQUESTED`.
+
+**Running `dub run` for several languages — one ffmpeg-heavy job at a time; NO network env.**
+`dub run` is **per-language** (`--language <iso>`); when multiple languages need dubbing (redub en
++ first-dub es/ru, etc.) run them **one command at a time**, each fully returning before the next.
+Don't run two `dub run`s (or a dub + a `package mux`) **concurrently**, and don't chain them in an
+overlapping shell loop. **Root cause (verified 2026-08-07):** the dub's final concat used to open
+one ffmpeg input handle **per cue** (400+ on a long speech) via an N-way `filter_complex`; under
+concurrent ffmpeg load that exhausted process/FD resources and ffmpeg died emitting only its
+version banner (`rc 232`), surfaced as a misleading `ffmpeg concat failed (232)`. Synthesis,
+tempo-fit, and concat each pass in isolation — contention, not data. **Fixed in code:**
+`media.concat_wavs` now uses ffmpeg's **concat demuxer** (single `-i playlist.txt`, one handle
+regardless of cue count), so a single long dub is robust; and every ffmpeg error in `media.py` now
+shows the stderr *tail* (the real error) instead of the `[:400]` banner head. Still run one
+ffmpeg-heavy job at a time (two concurrent can contend regardless). A **non-clone** `dub run` needs
+**no env** — no `source .env.local`, `VIDTRANS_FETCH_ENABLED`, or CA bundle (it's local piper TTS +
+ffmpeg over the already-built captions); the fetch flag + CA bundle are only for media downloads
+(`ingest run`/`ensure`, a `--clone` dub, or a `package mux` that re-fetches deleted source, rule 3).
+`dub qa` takes **no** `--language` — run it once; it QAs all dubbed tracks together.
 
 To **reconcile the two-axis markers on a project created before the feature** (no
 `skip_translation`/`auto_translate` on its tracks), use `project sync-scope <id>` — it recomputes

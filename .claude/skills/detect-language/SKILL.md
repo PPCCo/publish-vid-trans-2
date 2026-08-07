@@ -4,7 +4,7 @@ description: >-
   Confirm or set the source language of a project's video. Runs a cheap automated detection
   pass when an ASR adapter is installed; otherwise presents the metadata hint and asks the
   human to confirm. Use when a project is at LANGUAGE_ID before transcription.
-allowed-tools: Bash, Read
+allowed-tools: Bash, Read, AskUserQuestion
 argument-hint: <video-id> [--language <iso>]
 user-invocable: true
 disable-model-invocation: false
@@ -35,13 +35,25 @@ religious speech), so a human confirmation is expected, not a failure mode.
    - Else if automated detection returned a confident result, use it.
    - Else propose the metadata hint (or your best judgment from the title/channel) and confirm
      with the human before setting.
-4. Record it: `vid_cli.py langid set <id> --language <iso> --source <manual|auto-detect|youtube-metadata> [--confidence <0-1>] [--dialect <tag>]`.
+4. **Source voice gender** — ask via `AskUserQuestion` (single-select): *"Is the speaker in the
+   source video male or female?"* — **Male** *(default)* / **Female**. This is a human observation
+   (ASR can't detect it here) and is advisory: it does **not** itself pick the dub voice (the
+   project's `dubbing.voice_gender`, set at onboarding, does), but it's the signal for the next
+   question.
+   - If **female**, a follow-up `AskUserQuestion`: *"The source speaker is female — should the dubs
+     also use a female voice?"* — **Keep male dubs** *(Recommended default)* / **Match source
+     (female dubs)**. If the operator chooses female, tell them the dub stage will render with
+     `dub run --gender female` for that project (the male-default `voice_gender` on the project is
+     overridden per-run at dubbing); note that a female voice must be staged for each dubbed
+     language or `dub run` will fail loudly.
+5. Record it: `vid_cli.py langid set <id> --language <iso> --source <manual|auto-detect|youtube-metadata> --source-voice-gender <male|female> [--confidence <0-1>] [--dialect <tag>]`.
    Capture dialect when known (MSA vs Gulf/Egyptian/Levantine Arabic; Iranian Persian vs Dari) —
    it routes dialectal segments to higher-quality translation later.
 
 ## Outputs
-- `state.json.source_language` set; `source/metadata.json` language fields updated;
-  catalog entry language reflected; `SOURCE_LANGUAGE_SET` event.
+- `state.json.source_language` set; `state.json.source_voice_gender` recorded (male|female);
+  `source/metadata.json` language fields updated; catalog entry language reflected;
+  `SOURCE_LANGUAGE_SET` event.
 
 ## Stop / Escalate
 - If the audio plausibly mixes languages (code-switching, embedded recitation), set the primary

@@ -43,7 +43,14 @@ from .translate import (
     _write_gate_report,
     load_captions,
 )
-from .util import atomic_write_json, load_json, project_lock, utc_now
+from .util import (
+    atomic_write_json,
+    load_company_config,
+    load_json,
+    load_yaml,
+    project_lock,
+    utc_now,
+)
 from .validation import require_valid
 
 # Language tracks pass through these stages during Phase 4.
@@ -58,6 +65,39 @@ _STATES_ALLOWING_DUB = {"CAPTION_VALIDATION", "DUBBING", "AUDIO_SYNC_ADJUST", "A
 def dub_relpath(language: str) -> str:
     """Project-relative path for a language's dub track: audio/<lang>/dub.wav."""
     return f"audio/{language}/dub.wav"
+
+
+# Male is the HARD default dub voice for every language (company rule / TASK 2). A voice is
+# chosen from the company `dubbing.voices` registry by (language, gender); an explicit
+# `dub run --model` still overrides. Voice-clone CONSENT is a separate rights-gate fact (rule 5)
+# and is NOT what selects gender.
+DEFAULT_VOICE_GENDER = "male"
+
+
+def company_default_voice_gender(root: Path) -> str:
+    """Company-wide default dub voice gender (male unless overridden in company config)."""
+    company = load_company_config(root)
+    g = (company.get("dubbing", {}) or {}).get("default_voice_gender", DEFAULT_VOICE_GENDER)
+    return g if g in ("male", "female") else DEFAULT_VOICE_GENDER
+
+
+def resolve_dub_voice(root: Path, language: str, gender: str) -> dict[str, str] | None:
+    """Look up the staged voice for (language, gender) in the company `dubbing.voices` registry.
+
+    Returns ``{"provider", "model", "gender", "voice_source"}`` when a voice with a real
+    ``model`` path is registered, else ``None`` (caller decides how to surface the gap).
+    """
+    company = load_company_config(root)
+    voices = (company.get("dubbing", {}) or {}).get("voices", {}) or {}
+    entry = (voices.get(language, {}) or {}).get(gender)
+    if not entry or not entry.get("model"):
+        return None
+    return {
+        "provider": entry.get("provider") or "piper",
+        "model": entry["model"],
+        "gender": gender,
+        "voice_source": "company.dubbing.voices",
+    }
 
 
 def sync_report_relpath() -> str:
@@ -233,6 +273,7 @@ def run_dub(
     provider: str | None = None,
     model: str | None = None,
     voice: str | None = None,
+    gender: str | None = None,
     clone: bool = False,
     actor: str = "agent",
     advance: bool = False,
@@ -284,6 +325,31 @@ def run_dub(
 
             ensure_source_present(root, project_id, actor=actor)
         clone_ref = src_wav if src_wav.is_file() else None
+
+    # Gender-aware voice selection (TASK 2). Male is the hard default for every language.
+    # When the operator did not pin an explicit --model and this is not a clone, resolve the
+    # dub voice from the company `dubbing.voices` registry by (language, gender), where gender
+    # is: an explicit override > the project's chosen dubbing.voice_gender > company default
+    # (male). If no voice is staged for that (language, gender) we FAIL loudly rather than let
+    # the engine fall back to whatever built-in (often wrong-gender) voice it ships with.
+    resolved_gender: str | None = None
+    if model is None and not clone:
+        cfg = load_yaml(paths.config) or {}
+        project_gender = (cfg.get("dubbing", {}) or {}).get("voice_gender")
+        resolved_gender = gender or project_gender or company_default_voice_gender(root)
+        if resolved_gender not in ("male", "female"):
+            resolved_gender = company_default_voice_gender(root)
+        picked = resolve_dub_voice(root, language, resolved_gender)
+        if picked is None:
+            raise DubbingError(
+                f"no {resolved_gender!r} dub voice is staged for language {language!r}. "
+                f"Male is the default; stage a {resolved_gender} piper .onnx and register it "
+                f"under company.local.json → dubbing.voices.{language}.{resolved_gender} "
+                f"(model = absolute .onnx path), or pass an explicit `dub run --model <path>` "
+                f"to override. See OPERATING-GUIDE.md (dub voice staging)."
+            )
+        provider = provider or picked["provider"]
+        model = picked["model"]
 
     parts: list[Path] = []
     cue_measures: list[dict[str, Any]] = []
@@ -362,16 +428,20 @@ def run_dub(
             source_artifact_id=artifact["artifact_id"],
         )
     provider_used = provider or _resolved_provider_label(root, language)
+    voice_source = (
+        "company.dubbing.voices" if resolved_gender is not None
+        else ("explicit-model" if model is not None else None)
+    )
     report = _build_sync_report(
         root, project_id, language, cue_measures, bars,
         provider=provider_used, model=model, dub_sha256=artifact["sha256"], actor=actor,
-        freeze_plan=freeze_plan,
+        freeze_plan=freeze_plan, voice_gender=resolved_gender, voice_source=voice_source,
     )
     _set_track(root, project_id, language, stage=TRACK_STAGE_DUBBED,
                status="in_progress", actor=actor, notes="dub rendered; sync measured")
     append_event(paths.events, project_id, "DUB_RENDERED", actor, {
         "language": language, "cues": len(cues), "provider": provider_used,
-        "dub_sha256": artifact["sha256"], "cloned": bool(clone),
+        "voice_gender": resolved_gender, "dub_sha256": artifact["sha256"], "cloned": bool(clone),
         "freezes": len(freeze_plan["freezes"]) if freeze_plan is not None else 0,
         "trims": len(freeze_plan["trims"]) if freeze_plan is not None else 0,
     })
@@ -501,6 +571,8 @@ def _build_sync_report(
     dub_sha256: str | None,
     actor: str,
     freeze_plan: dict[str, list[dict[str, Any]]] | None = None,
+    voice_gender: str | None = None,
+    voice_source: str | None = None,
 ) -> dict[str, Any]:
     """Merge one language's cue measures into audio/sync-report.json and register it.
 
@@ -590,6 +662,8 @@ def _build_sync_report(
         "language": language,
         "provider": provider,
         "model": model,
+        "voice_gender": voice_gender,
+        "voice_source": voice_source,
         "dub_path": dub_relpath(language),
         "dub_sha256": dub_sha256,
         "target_lufs": bars["target_lufs"],
