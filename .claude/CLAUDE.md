@@ -194,17 +194,18 @@ These govern *how you work*, not just what the pipeline does:
     It does NOT relax this rule: when *you* drive a gate in-conversation you still do
     surface→options→disclose→confirm→execute, and the three outward-facing gates stay human-run.
 
-14. **Freeze-frame dubbing re-times the picture to the audio (opt-in).** The default neutral
-    dub voice often speaks slower than fast source oratory, so a cue's synthesized audio can run
-    longer than its caption slot; the legacy behavior tempo-compresses up to
-    `quality_bars.audio.max_time_stretch` and, beyond the cap, clamps and lets drift accumulate
-    (an `audio-stretch-over-cap` major → the `audio-sync` gate reports `CONDITIONAL_PASS`, which
-    blocks `AUDIO_QA_GATE → VIDEO_MUX`). Setting `quality_bars.audio.freeze_frame_enabled: true`
-    (a company bar, opt-in via `company.local.json`; **no per-run CLI flag** — an agent can't
-    override company policy per-invocation) switches to the quality-correct fix: the per-cue loop
-    fits audio only to a **gentle** `freeze_stretch_cap` (default 1.15x, kept near natural length),
-    and `dub run` writes a per-language **freeze plan** (`audio/freeze-plan.<lang>.json`, a
-    registered artifact tracing to the dub-wav). **The plan is computed on a *running gap*, not
+14. **Constant audio speed — the picture is always re-timed to the audio (mandatory; rule 5 /
+    TASK 2).** Dubbed audio is **NEVER time-stretched** to fit a caption slot — the per-cue
+    rubber-banding (speeding/slowing each cue) sounded terrible, so it is **removed**. Every cue
+    plays at its natural TTS length and the **picture** absorbs 100% of the mismatch via
+    freeze/trim. The old `quality_bars.audio.max_time_stretch` / `freeze_stretch_cap` /
+    `freeze_frame_enabled` bars are retained only for **reporting/back-compat** and **no longer
+    gate audio speed** — freeze-planning is now unconditional: `dub run` **always** writes a
+    per-language **freeze plan** (`audio/freeze-plan.<lang>.json`, a registered artifact tracing to
+    the dub-wav) and `package mux` **always** rebuilds the picture from a non-empty plan. (An empty
+    plan — audio happened to match the slots — takes the plain `-c:v copy` path.) `media.normalize_wav`
+    is the per-cue path: format-normalize only, duration identity. `dub import` still produces no plan
+    (`freeze_plan_skipped_reason`) — it has no per-cue natural durations. **The plan is computed on a *running gap*, not
     each cue's own overflow** — because `dub run` lays cue audio **back-to-back** (lead silence
     only when the audio is *early*), a long cue's overrun propagates to every following cue until a
     natural pause, so per-cue-own-overflow freezing left the propagated backlog uncancelled (it
@@ -238,10 +239,42 @@ These govern *how you work*, not just what the pipeline does:
     freeze-planning is the **real-TTS `dub run` path only**; `dub import` has no per-cue natural
     durations, so it produces no freeze plan (its result carries a `freeze_plan_skipped_reason`).
     Freezes and trims always land on cue boundaries (`at_ms` == the corrected cue's
-    `caption_start_ms`), never mid-cue. Turning the
-    bar back off cleanly reverts future muxes to the plain `-c:v copy` path without deleting any
-    artifact. When this is on, prefer it over the earlier band-aid overrides (`max_time_stretch`,
-    `cumulative_drift_ceiling_ms`) — freeze-frame is the proper mechanism.
+    `caption_start_ms`), never mid-cue. The earlier band-aid overrides (`max_time_stretch`,
+    `cumulative_drift_ceiling_ms`) are dead as speed gates — freeze-frame is the only mechanism.
+
+15. **Per-language still image + deliberate playback speed (TASK 1 / TASK 3).** Two per-language
+    presentation choices live in `project.yaml` (which is `additionalProperties: true`) — **not**
+    `state.json` — as `lang=value` maps, set at init or adjusted later:
+    - **Still image** (`images: {ur: "/abs/a.jpg", …}`): a language showing a fixed image displays
+      that one frame for the whole runtime with the dub over it, **instead of** the source video —
+      a talking-head/backdrop speech, faster to render, and it needs **no source video and no freeze
+      plan** (a static frame can't desync). Other languages keep the source video. Set at
+      `project init --images "ur=/p/a.jpg,en=/p/b.png"` or adjust with `project set-image <id>
+      --language <iso> --path <file>` / `--clear` (event `IMAGE_SET`). Paths are validated (exists +
+      image suffix) and stored absolute. Applies to **dub-enabled** tracks (there must be a dub to
+      lay over the image).
+    - **Playback speed** (`playback_speed: {en: 1.25, …}`, default 1.0): a **deliberate, uniform,
+      whole-video** speed change applied at `package mux` — audio **and** video scaled by the **same**
+      factor, so they stay mutually in sync. This is the sanctioned way to speed up a slow source in
+      en/ur; it is **not** the per-cue rubber-banding rule 14 forbids (that scales cues
+      independently — this scales the whole finished track uniformly). Set at `project init --speeds
+      "en=1.25,ur=1.25"` or adjust with `project set-speed <id> --language <iso> --factor <f>`
+      (`--factor 1.0` resets; event `SPEED_SET`). Applied **last** in `run_mux`, after
+      freeze-retiming/still-image, so it scales whatever picture+audio pair was built.
+
+    **`lang=value` map convention:** `--images` / `--speeds` take a comma-separated `lang=value`
+    list (e.g. `en=1.25,ur=1.25`); a language absent from the map keeps the default (source video /
+    1.0x). The `/new-video` interview captures both in natural language and parses them to these
+    flags.
+
+    **Standalone helper verbs (no project needed):**
+    - `vid_cli.py size w 1042` / `size h 583` — from one axis, compute the full 16:9 (or
+      `--aspect W:H`) frame, even-rounded for H.264 (e.g. `1042x586`). Sizes the still-image canvas
+      and is a general operator helper. Pure math, no I/O.
+    - `vid_cli.py speed 1.25 <any.mp4> [--out <path>]` — uniformly re-time **any** video (audio+video
+      together), **source untouched**, output beside the source as `<stem>_<factor><suffix>` (e.g.
+      `my-file_1.25.mp4`) when `--out` is omitted. Works on files this tool didn't produce; refuses
+      to overwrite the source.
 
 ## Where to start
 

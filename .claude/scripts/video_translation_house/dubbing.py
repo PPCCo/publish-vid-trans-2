@@ -309,9 +309,10 @@ def run_dub(
         raise DubbingError(f"captions for {language!r} have no cues to dub")
 
     bars = _audio_quality_bars(root)
-    # Under freeze-frame policy audio is fit only to a gentle cap (kept near natural length); the
-    # slot overflow is absorbed by freezing the picture at mux instead of over-speeding the audio.
-    cap = bars["freeze_stretch_cap"] if bars["freeze_frame_enabled"] else bars["max_time_stretch"]
+    # CONSTANT AUDIO SPEED (rule 5 / TASK 2): dubbed audio is NEVER time-stretched to fit its
+    # caption slot — every cue plays at its natural TTS length and the PICTURE is re-timed
+    # (freeze/trim) around it at mux. `max_time_stretch`/`freeze_stretch_cap` are retained in
+    # the bars snapshot for reporting/back-compat only; they no longer gate any audio speed.
     sr, ch = media_mod.DUB_SAMPLE_RATE, media_mod.DUB_CHANNELS
 
     clone_ref: Path | None = None
@@ -373,13 +374,13 @@ def run_dub(
                 project_id=project_id,
             )
             natural_ms = media_mod.audio_duration_ms(raw)
+            # No tempo change — normalize format only so the back-to-back concat is uniform.
+            # stretch_factor is recorded for reporting (how far the natural length is from the
+            # slot, i.e. how much picture re-timing the plan will absorb), NOT applied to audio.
             stretch = (natural_ms / slot_ms) if slot_ms else 1.0
-            over_cap = stretch > cap
-            applied = min(stretch, cap) if over_cap else stretch
 
             fit = tmpdir / f"cue-{i}.fit.wav"
-            media_mod.time_stretch(raw, fit, factor=applied if applied > 0 else 1.0,
-                                   sample_rate=sr, channels=ch)
+            media_mod.normalize_wav(raw, fit, sample_rate=sr, channels=ch)
             parts.append(fit)
             rendered_ms = media_mod.audio_duration_ms(fit)
             rendered_start = timeline_ms
@@ -392,7 +393,7 @@ def run_dub(
                 "rendered_end_ms": timeline_ms,
                 "natural_ms": natural_ms,
                 "stretch_factor": round(stretch, 4),
-                "over_stretch_cap": over_cap,
+                "over_stretch_cap": False,  # audio is never stretched → never over cap
             })
 
         concat = tmpdir / "concat.wav"
@@ -405,21 +406,19 @@ def run_dub(
     artifact = artifacts_mod.register_artifact(
         root, project_id, dub_path, "dub-wav", "DUBBING", actor, language=language,
     )
-    # Freeze plan: how to re-time the picture to the audio at mux. Languages in
-    # freeze_trim_languages use Model A (freeze + trim → residual 0); the rest use Model B
-    # (hold only, honest residual). Empty (but still written) plan when freeze mode is on and
-    # nothing needs adjusting; None when the policy is off (legacy clamp-and-drift, unchanged).
+    # Freeze plan: how to re-time the picture to the audio at mux. Because audio is ALWAYS at
+    # natural speed now (rule 5 / TASK 2), the picture MUST absorb 100% of every slot mismatch,
+    # so the plan is ALWAYS computed (no opt-in flag gate). Languages in freeze_trim_languages
+    # use Model A (freeze + trim → residual 0); the rest use Model B (hold only, honest residual).
+    # A still-image language needs no plan (a static frame can't desync) — packaging skips it.
     trim_mode = language in bars["freeze_trim_languages"]
     # Tail reconciliation needs the source-picture length (the same duration the mux rebuilds
     # against) so the retimed picture ends exactly where the dub audio ends. Resolve the source
     # video the same way packaging does; if it's absent (e.g. source media pruned) fall back to
-    # None — the plan then only aligns cue boundaries (pre-fix behavior), no tail entry.
+    # None — the plan then only aligns cue boundaries, no tail entry.
     source_duration_ms = _source_video_duration_ms(paths)
-    freeze_plan = (
-        _plan_freezes(cue_measures, bars, trim=trim_mode,
-                      source_duration_ms=source_duration_ms)
-        if bars["freeze_frame_enabled"] else None
-    )
+    freeze_plan = _plan_freezes(cue_measures, bars, trim=trim_mode,
+                                source_duration_ms=source_duration_ms)
     freeze_plan_rel: str | None = None
     if freeze_plan is not None:
         freeze_plan_rel = _write_freeze_plan(

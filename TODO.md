@@ -17,32 +17,6 @@ Create a python script that I can run outside Claude, that would take a config (
 
 ---
 
-DO THESE THREE TASKS:
-
-## TASK 1: Accept Image to display during the Audio track
-
-There are some videos where I would like to keep an image shown throughout the video, and dub the audio track on it, so the same image will be displayed throughout the video playtime, along with the specific language. The image would be different for each language. It is also possible that some languages keep the source video while others have image displayed, so the configuration would be per-language. Since in those languages, only an image is displayed, it might be faster to use image instead of video.
-
-For the best proportions for the Image to be used for a youtube video, create a script (or add a verb to `vid_cli.py`) that would take either width or height of the image to be used and give the full dimensions. for instance, if I give the command `.venv/bin/python .claude/scripts/vid_cli.py size w 1042` or `.venv/bin/python .claude/scripts/vid_cli.py size h 583`, it might give the same result `1042x583`. This is not accurate, just as an example.
-
-## TASK 2: Varying audio speed is sounding terrible
-
-The audio speed going slow and fast sounds terrible. I want to set this as a hard requirement that the audio speed should stay the same. The video speed can be changed to fast or slow, but the audio speed should stay constant, ALWAYS. This should be very easy if the video to be dubbed in a language (see the above section).
-
-## TASK 3: Speed up any video+audio
-
-Some of the persian speeches (source) are quite slow. While in Persian language, it sounds fine, in ur and en, they seem a bit too slow. Can you ask at project initialization stage (at `/new-video`) if default audio+video speed of the dubbed video should be changed, where a human response can be in natural language, for example, "1.25x for en/ur" or something like that. The speed would be 1x (no change in speed) by default.
-
-Can you also create a python script that I can run outside Claude, that would keep the source-video-file untouched, and create a new file with the speed changed by a specific ratio. You can create a completely new python script for this, or give me the ffmpeg command to run, or add this as a speed verb, for example, `.venv/bin/python .claude/scripts/vid_cli.py speed 1.2 projects/yt-YP0FDR7Wc-8/video/en/dubbed.mp4` would speed up the whole audio+video of `projects/yt-YP0FDR7Wc-8/video/en/dubbed.mp4` by 1.2x
-
-Note that this command would even work on any, even an existing video.
-
----
-
-
-
----
-
 ## Manual Commands 
 
 - What each mode produces (soft-subs = toggleable caption track + picture copied bit-for-bit; burned-in = captions painted into the video,

@@ -48,6 +48,66 @@ def _is_auto_translate(lang: str, source_language: str | None) -> bool:
 _TRANSCRIPT_KEEP_GLOBS = ("source.*.json", "engine")
 
 
+# Per-language still-image files must be a readable image (by suffix). A talking-head speech can
+# be replaced by one fixed frame per language, with the dub over it (TASK 1).
+_IMAGE_SUFFIXES = {".jpg", ".jpeg", ".png", ".webp", ".bmp"}
+
+
+def _parse_lang_map(raw: str, *, kind: str) -> dict[str, str]:
+    """Parse a ``lang=value`` comma-map CLI arg (e.g. ``en=/p/a.jpg,ur=/p/b.png``).
+
+    The single-shot per-language-value convention (mirrors how a single value would be passed
+    but for many languages at once). Whitespace-tolerant; empty string => empty map. Raises
+    ConfigurationError on a malformed entry (missing ``=`` or empty lang/value).
+    """
+    from .langid import normalize_language
+
+    out: dict[str, str] = {}
+    for chunk in (raw or "").split(","):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        if "=" not in chunk:
+            raise ConfigurationError(f"malformed {kind} entry {chunk!r} — expected lang=value")
+        lang_raw, _, value = chunk.partition("=")
+        lang_raw, value = lang_raw.strip(), value.strip()
+        if not lang_raw or not value:
+            raise ConfigurationError(f"malformed {kind} entry {chunk!r} — empty lang or value")
+        norm = normalize_language(lang_raw)
+        if norm is None:
+            raise ConfigurationError(f"unrecognized language code in {kind}: {lang_raw!r}")
+        out[norm] = value
+    return out
+
+
+# Public alias for the CLI layer (parses --images / --speeds lang=value maps).
+parse_lang_map = _parse_lang_map
+
+
+def _validate_image_path(raw_path: str) -> str:
+    """Validate a still-image path (exists, readable-image suffix) and return it absolute."""
+    p = Path(raw_path).expanduser()
+    if not p.is_absolute():
+        p = p.resolve()
+    if not p.is_file():
+        raise ConfigurationError(f"still image not found: {raw_path}")
+    if p.suffix.lower() not in _IMAGE_SUFFIXES:
+        raise ConfigurationError(
+            f"still image {raw_path} must be one of {sorted(_IMAGE_SUFFIXES)} (got {p.suffix!r})")
+    return str(p)
+
+
+def _validate_speed_factor(value: Any) -> float:
+    """Validate a playback-speed factor: a positive float in a sane band (0.25–4.0)."""
+    try:
+        f = float(value)
+    except (TypeError, ValueError):
+        raise ConfigurationError(f"speed factor must be a number, got {value!r}") from None
+    if not (0.25 <= f <= 4.0):
+        raise ConfigurationError(f"speed factor must be in 0.25–4.0, got {f}")
+    return f
+
+
 def init_project(
     root: Path,
     project_id: str,
@@ -66,6 +126,8 @@ def init_project(
     voice_clone: bool | None = None,
     mux_mode: str = "soft-subs",
     glossary_id: str | None = None,
+    images: dict[str, str] | None = None,
+    playback_speed: dict[str, float] | None = None,
 ) -> dict[str, Any]:
     if not is_valid_video_id(project_id):
         raise ConfigurationError(f"Invalid project/video id: {project_id!r}")
@@ -95,6 +157,22 @@ def init_project(
         raise ConfigurationError(
             f"mux_mode must be one of soft-subs/burned-in/no-subs, got {mux_mode!r}"
         )
+
+    # Per-language still image (TASK 1) + playback speed (TASK 3). Both are per-language maps
+    # keyed by target language; a language absent from either map keeps the default (source
+    # video / 1.0x). Validate paths/factors here so a bad value fails at init, not at mux.
+    resolved_images: dict[str, str] = {}
+    for lang, path in (images or {}).items():
+        if lang not in target_languages:
+            raise ConfigurationError(f"image language {lang!r} is not a target language")
+        resolved_images[lang] = _validate_image_path(path)
+    resolved_speeds: dict[str, float] = {}
+    for lang, factor in (playback_speed or {}).items():
+        if lang not in target_languages:
+            raise ConfigurationError(f"speed language {lang!r} is not a target language")
+        f = _validate_speed_factor(factor)
+        if abs(f - 1.0) >= 1e-6:  # 1.0x is the default; no need to store it
+            resolved_speeds[lang] = f
 
     for sub in PROJECT_DIRS:
         (paths.directory / sub).mkdir(parents=True, exist_ok=True)
@@ -128,6 +206,11 @@ def init_project(
         },
         "glossary_id": glossary_id,
         "mux_mode": mux_mode,
+        # Per-language still-image display (TASK 1) and deliberate uniform playback speed (TASK 3);
+        # empty maps = every language keeps the source video at 1.0x. Adjustable post-init via
+        # `project set-image` / `project set-speed`.
+        "images": resolved_images,
+        "playback_speed": resolved_speeds,
         "join_clips": bool(join_clips),
         "selection": selection,
         "created_at": utc_now(),
@@ -515,6 +598,102 @@ def enable_dub(
         "disabled": changing if disable else None,
         "audio_languages": list(cfg["audio_languages"]),
     }
+
+
+def set_image(
+    root: Path,
+    project_id: str,
+    *,
+    language: str,
+    path: str | None = None,
+    clear: bool = False,
+    actor: str = "human",
+) -> dict[str, Any]:
+    """Set / change / clear the per-language still image on an existing project (TASK 1).
+
+    Some languages show one fixed image for the whole runtime with the dub over it instead of
+    the source video (different image per language; some keep the source video). This writes the
+    ``images`` map in ``project.yaml`` (rule 1: through the atomic+validated CLI path, never by
+    hand) and appends an ``IMAGE_SET`` event. ``clear=True`` (or ``path`` None) removes the
+    language's image, reverting it to the source-video picture. The image applies to the
+    dub-enabled mux path; a caption-only track has no dub to lay over an image.
+    """
+    from .langid import normalize_language
+
+    paths = ProjectPaths(root, project_id).require()
+    norm = normalize_language(language)
+    if norm is None:
+        raise ConfigurationError(f"Unrecognized language code: {language!r}")
+
+    with project_lock(paths.lock):
+        cfg = load_yaml(paths.config)
+        if norm not in cfg.get("target_languages", []):
+            raise ConfigurationError(f"{norm!r} is not a target language of {project_id}")
+        images = dict(cfg.get("images") or {})
+        if clear or path is None:
+            removed = images.pop(norm, None)
+            action = "cleared"
+            value = removed
+        else:
+            value = _validate_image_path(path)
+            images[norm] = value
+            action = "set"
+        cfg["images"] = images
+        errors = validate_data(root, cfg, "project.schema.json")
+        if errors:
+            raise ConfigurationError("project.yaml invalid after set-image: " + "; ".join(errors))
+        atomic_write_yaml(paths.config, cfg)
+        append_event(paths.events, project_id, "IMAGE_SET", actor,
+                     {"language": norm, "action": action, "path": value})
+
+    return {"project_id": project_id, "language": norm, "action": action,
+            "image": value if action == "set" else None, "images": images}
+
+
+def set_speed(
+    root: Path,
+    project_id: str,
+    *,
+    language: str,
+    factor: float,
+    actor: str = "human",
+) -> dict[str, Any]:
+    """Set the per-language deliberate playback speed on an existing project (TASK 3).
+
+    A uniform whole-video speed change applied at mux (audio AND video scaled by the same factor
+    — NOT the per-cue rubber-banding rule 5 forbids). Writes the ``playback_speed`` map in
+    ``project.yaml`` (rule 1) and appends a ``SPEED_SET`` event. ``factor`` 1.0 resets the
+    language to default speed (removes it from the map).
+    """
+    from .langid import normalize_language
+
+    paths = ProjectPaths(root, project_id).require()
+    norm = normalize_language(language)
+    if norm is None:
+        raise ConfigurationError(f"Unrecognized language code: {language!r}")
+    f = _validate_speed_factor(factor)
+
+    with project_lock(paths.lock):
+        cfg = load_yaml(paths.config)
+        if norm not in cfg.get("target_languages", []):
+            raise ConfigurationError(f"{norm!r} is not a target language of {project_id}")
+        speeds = dict(cfg.get("playback_speed") or {})
+        if abs(f - 1.0) < 1e-6:
+            speeds.pop(norm, None)
+            stored: float | None = None
+        else:
+            speeds[norm] = f
+            stored = f
+        cfg["playback_speed"] = speeds
+        errors = validate_data(root, cfg, "project.schema.json")
+        if errors:
+            raise ConfigurationError("project.yaml invalid after set-speed: " + "; ".join(errors))
+        atomic_write_yaml(paths.config, cfg)
+        append_event(paths.events, project_id, "SPEED_SET", actor,
+                     {"language": norm, "factor": stored if stored is not None else 1.0})
+
+    return {"project_id": project_id, "language": norm,
+            "factor": stored if stored is not None else 1.0, "playback_speed": speeds}
 
 
 def redub_track(

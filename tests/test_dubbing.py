@@ -223,3 +223,23 @@ def test_dub_run_guarded_before_caption_validation(repo: Path):
                          target_languages=["en"], audio_languages=["en"])
     with pytest.raises(ConfigurationError):
         dubbing.run_dub(repo, VID, "en")
+
+
+# --- constant audio speed (TASK 2 / rule 5) ----------------------------------
+
+@ffmpeg_required
+def test_normalize_wav_preserves_duration(tmp_path: Path):
+    """The run_dub per-cue path (media.normalize_wav) NEVER time-stretches — a cue's audio is
+    emitted at its natural length and the picture is re-timed around it. Format normalization
+    only: duration must be identical (within a couple ms of container rounding)."""
+    from video_translation_house import media
+
+    src = _silence_wav(tmp_path / "raw.wav", duration_ms=3700)
+    before = media.audio_duration_ms(src)
+    out = media.normalize_wav(src, tmp_path / "fit.wav")
+    after = media.audio_duration_ms(out)
+    assert after == pytest.approx(before, abs=20)
+    # And normalization to a different natural length is likewise preserved (no clamp to a slot).
+    src2 = _silence_wav(tmp_path / "raw2.wav", duration_ms=1200)
+    out2 = media.normalize_wav(src2, tmp_path / "fit2.wav")
+    assert media.audio_duration_ms(out2) == pytest.approx(1200, abs=20)

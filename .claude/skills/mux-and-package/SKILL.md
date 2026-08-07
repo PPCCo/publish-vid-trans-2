@@ -29,24 +29,43 @@ The pipeline **ends at READY_FOR_REVIEW** — nothing is uploaded or published.
 - **Rights precede distribution.** `PACKAGE -> READY_FOR_REVIEW` is blocked until a human sets a
   distributable `rights_status`. Until then, every package README carries a **NOT CLEARED FOR
   DISTRIBUTION** banner. Do not set rights yourself — that is a human-only action.
-- Mux runs as an **ffmpeg subprocess**; the CLI never imports an ML library. The source picture
-  is copied bit-for-bit (no re-encode); only the dub is encoded (AAC) — **except** in freeze-frame
-  mode (below), where the picture is re-encoded to absorb the freezes.
+- Mux runs as an **ffmpeg subprocess**; the CLI never imports an ML library. **Dubbed audio is
+  always emitted at its natural TTS speed — never time-stretched per cue** (rule 5 / TASK 2); the
+  *picture* is re-timed to the audio (freeze-frame, below). The picture is therefore re-encoded
+  whenever the timeline is adjusted; a plain `-c:v copy` only happens when the plan is empty (audio
+  already fits every cue).
 
-## Freeze-frame mode (when `freeze_frame_enabled` is on)
-If the dub was produced with `quality_bars.audio.freeze_frame_enabled: true` (opt-in via
-`company.local.json`), `dub run` wrote a per-language freeze plan (`audio/freeze-plan.<lang>.json`)
-recording how the picture is re-timed to the audio: running-gap **holds**, plus — for languages in
-`quality_bars.audio.freeze_trim_languages` (Model A) — picture **trims** (dropped source regions).
-When an **active** freeze plan exists for a language, `package mux` **rebuilds the picture on the
-post-adjust timeline** (source slices interleaved with frozen-frame inserts and with trimmed regions
-dropped, re-encoded H.264/AAC crf18 — not `-c:v copy`) and re-times **both** the embedded soft-subs
-and, at `package build`, the standalone `captions.<lang>.vtt/.srt` deliverables onto that timeline
-so they line up with the dubbed audio.
+## Freeze-frame mode (mandatory — audio speed is always constant)
+Because dubbed audio never changes speed, the picture must absorb 100% of every cue mismatch, so
+**freeze-frame is always on** (`quality_bars.audio.freeze_frame_enabled: true` is the company
+default — no longer opt-in). `dub run` writes a per-language freeze plan
+(`audio/freeze-plan.<lang>.json`) recording how the picture is re-timed to the audio: running-gap
+**holds**, plus — for languages in `quality_bars.audio.freeze_trim_languages` (Model A) — picture
+**trims** (dropped source regions). When an **active** freeze plan exists for a language, `package
+mux` **rebuilds the picture on the post-adjust timeline** (source slices interleaved with
+frozen-frame inserts and with trimmed regions dropped, re-encoded H.264/AAC crf18 — not `-c:v
+copy`) and re-times **both** the embedded soft-subs and, at `package build`, the standalone
+`captions.<lang>.vtt/.srt` deliverables onto that timeline so they line up with the dubbed audio.
 The **canonical approved caption doc is never edited** (rules 6/12) — retimed subs are derived
 mux/package outputs. No new command or flag: mux/build detect the active plan automatically.
-Turning the bar back off cleanly reverts future muxes to the plain `-c:v copy` path (no artifact
-deleted). See CLAUDE.md rule 14 / OPERATING-GUIDE §9.
+See CLAUDE.md rule 14 / OPERATING-GUIDE §9.
+
+## Per-language still image + playback speed (config-driven — no mux flag)
+`package mux` auto-detects two optional per-language settings from `project.yaml` (set at
+`project init --images/--speeds` or later with `project set-image` / `project set-speed`) — like
+the freeze-frame precedent, there is **no new mux flag**:
+- **Still image** (`images: {<lang>: <path>}`) — that language's picture becomes one fixed image
+  shown for the whole dub, instead of the source video. The still-image branch needs **no source
+  video** and **no freeze plan** (a static frame can't desync): mux builds a silent H.264 clip of
+  the image at the dub's length, lays the dub over it, and attaches captions normally. Meant for
+  **dub-enabled** tracks (there must be a dub to lay over the image).
+- **Playback speed** (`playback_speed: {<lang>: <factor>}`, absent → 1.0x) — a deliberate
+  **uniform** whole-video speedup applied **last**, after the picture+audio pair is built: audio
+  and video scale by the same factor, so they stay in sync (constant speed, no per-cue rubber —
+  compatible with TASK 2). E.g. a slow Persian source rendered `1.25x` for en/ur.
+Both are recorded in the `VIDEO_MUXED` event + artifact provenance. To re-time an **already
+finished** video outside the pipeline, use the standalone `vid_cli.py speed <factor> <file>` verb
+(source untouched → new `<stem>_<factor><suffix>`).
 
 ## Preconditions
 - The project is at (or through) `AUDIO_QA_GATE` with the per-language `audio_qa` approvals

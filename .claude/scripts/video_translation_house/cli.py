@@ -78,6 +78,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_init.add_argument("--glossary",
                         help="Glossary id (glossary/<id>.json) to pin term renderings for this "
                              "project. Omit for none. See `glossary list`.")
+    p_init.add_argument("--images",
+                        help="Per-language still image shown for the whole runtime with the dub "
+                             "over it (instead of the source video), as a lang=path comma map, e.g. "
+                             "'en=/p/a.jpg,ur=/p/b.png'. Languages omitted keep the source video.")
+    p_init.add_argument("--speeds",
+                        help="Per-language deliberate playback speed (audio+video scaled together) "
+                             "as a lang=factor comma map, e.g. 'en=1.25,ur=1.25'. Default 1.0 (no "
+                             "change); languages omitted play at 1x.")
     p_init.add_argument("--actor", default="human")
     psub.add_parser("list")
     for verb in ("status", "validate", "next", "plan"):
@@ -103,6 +111,23 @@ def build_parser() -> argparse.ArgumentParser:
                          help="Turn dubbing OFF for the named tracks (default: on)")
     p_endub.add_argument("--force", action="store_true",
                          help="With --disable, allow disabling even if a dub-wav artifact exists (rule 6)")
+    p_setimg = psub.add_parser(
+        "set-image",
+        help="Set/clear the per-language still image shown over the dub (instead of source video)")
+    p_setimg.add_argument("project_id")
+    p_setimg.add_argument("--language", required=True, help="Target language ISO code")
+    p_setimg.add_argument("--path", help="Image file (.jpg/.jpeg/.png/.webp/.bmp); omit with --clear")
+    p_setimg.add_argument("--clear", action="store_true",
+                          help="Remove the language's still image (revert to the source video)")
+    p_setimg.add_argument("--actor", default="human")
+    p_setspeed = psub.add_parser(
+        "set-speed",
+        help="Set the per-language uniform playback speed applied at mux (audio+video together)")
+    p_setspeed.add_argument("project_id")
+    p_setspeed.add_argument("--language", required=True, help="Target language ISO code")
+    p_setspeed.add_argument("--factor", required=True, type=float,
+                            help="Speed factor (>1 faster, <1 slower); 1.0 resets to default")
+    p_setspeed.add_argument("--actor", default="human")
     p_redub = psub.add_parser(
         "redub",
         help="Scoped rewind so ONE dub track can be re-rendered (preserves other tracks' work/approvals)")  # noqa: E501
@@ -436,6 +461,17 @@ def build_parser() -> argparse.ArgumentParser:
     e_tail.add_argument("project_id")
     e_tail.add_argument("-n", type=int, default=20)
 
+    sz = sub.add_parser("size", help="Compute full WxH from one axis + aspect (default 16:9)")
+    sz.add_argument("axis", choices=["w", "h", "width", "height"],
+                    help="Which axis the value is: w(idth) or h(eight)")
+    sz.add_argument("value", type=int, help="Pixel size of that axis")
+    sz.add_argument("--aspect", default="16:9", help="Target aspect ratio W:H (default 16:9)")
+
+    sp = sub.add_parser("speed", help="Uniformly re-time ANY video by a factor (audio+video together)")
+    sp.add_argument("factor", type=float, help="Speed factor (>1 faster/shorter, <1 slower/longer)")
+    sp.add_argument("path", help="Path to a video file (source is never modified)")
+    sp.add_argument("--out", help="Output path (default: <stem>_<factor><suffix> beside the source)")
+
     return parser
 
 
@@ -453,6 +489,12 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "framework":
         if args.framework_command == "validate":
             return validate_framework(root)
+    if cmd == "size":
+        from . import size as size_mod
+        return size_mod.compute_dimensions(args.axis, args.value, aspect=args.aspect)
+    if cmd == "speed":
+        from . import speed as speed_mod
+        return speed_mod.respeed(root, args.factor, args.path, dest=args.out)
     if cmd == "project":
         pc = args.project_command
         if pc == "init":
@@ -470,6 +512,21 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 voice_clone=False if args.no_clone else None,
                 mux_mode=args.mux_mode,
                 glossary_id=args.glossary,
+                images=project.parse_lang_map(args.images, kind="images") if args.images else None,
+                playback_speed=(
+                    {k: float(v) for k, v in
+                     project.parse_lang_map(args.speeds, kind="speeds").items()}
+                    if args.speeds else None),
+            )
+        if pc == "set-image":
+            return project.set_image(
+                root, args.project_id, language=args.language,
+                path=args.path, clear=args.clear, actor=args.actor,
+            )
+        if pc == "set-speed":
+            return project.set_speed(
+                root, args.project_id, language=args.language,
+                factor=args.factor, actor=args.actor,
             )
         if pc == "add-languages":
             return project.add_languages(

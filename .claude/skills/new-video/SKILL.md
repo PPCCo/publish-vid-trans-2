@@ -79,11 +79,26 @@ instead (metadata-only, no per-video kickoff yet).
      recurring source terms (names, honorifics, technical/Quranic terms) are rendered per language.
      Pass `--glossary <id>` for the chosen one; omit it for None. If the list is empty, skip the
      question (None implicitly).
+   - **Still image per language** (multiSelect over the **dub** set) — ask which dubbed languages
+     should show one fixed image for the whole runtime (dub over a static frame) instead of the
+     source video; leave unselected to keep the source video. For each selected language, collect an
+     image path (free text; must exist, `.jpg/.jpeg/.png/.webp/.bmp`). Build `--images
+     en=/p/a.jpg,ur=/p/b.png`. Skip entirely if none. (Only meaningful for dub-enabled languages —
+     there must be a dub to lay over the image. Tip: `vid_cli.py size w <px>` gives the 16:9 canvas
+     to size an image to.)
+   - **Playback speed** (free text / single-select, default **1x**) — "default 1x; e.g. '1.25x for
+     en/ur'". A deliberate uniform whole-video speedup (audio+video together, stays in sync) applied
+     at mux — the fix for a slow source that drags in en/ur. Parse the natural-language answer to
+     `--speeds en=1.25,ur=1.25` (only languages that change; omit the flag entirely for all-1x).
 3. **Init**: `vid_cli.py project init <id> --url <url> --targets <t1,t2,…> --audio <d1,d2,…>
-   --dub-voice-gender <male|female> --mux-mode <mode> [--glossary <id>] [--no-clone]`.
+   --dub-voice-gender <male|female> --mux-mode <mode> [--glossary <id>] [--no-clone]
+   [--images <lang=path,…>] [--speeds <lang=factor,…>]`.
    - Pass `--no-clone` iff the operator chose **Neutral voice** in step 2.5; otherwise cloning is on
      by company default and consent + rights are auto-recorded at init (report this to the operator).
    - Omit `--dub-voice-gender` to accept the male default. Omit `--glossary` for no glossary.
+   - Omit `--images` / `--speeds` when no language uses a still image / a non-1x speed. Both are
+     per-language `lang=value` maps; a language absent keeps the default (source video / 1.0x). They
+     can also be set/changed later with `project set-image` / `project set-speed`.
    - The two-axis review scope is applied automatically at track creation: `en` (and the source
      language, once confirmed) stay human-reviewed; every other target is marked
      `auto_translate` (AI-translated, deterministic QA only, no human gate). You do not set this

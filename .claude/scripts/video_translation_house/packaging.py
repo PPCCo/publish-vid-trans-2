@@ -126,6 +126,20 @@ def _source_video(paths: ProjectPaths) -> Path | None:
     return None
 
 
+def _still_image_for(cfg: dict[str, Any], language: str) -> str | None:
+    """The per-language still-image path from project.yaml, or None (keep source video)."""
+    img = (cfg.get("images") or {}).get(language)
+    return img or None
+
+
+def _playback_speed_for(cfg: dict[str, Any], language: str) -> float:
+    """The per-language deliberate playback-speed factor (default 1.0 = no change)."""
+    try:
+        return float((cfg.get("playback_speed") or {}).get(language, 1.0))
+    except (TypeError, ValueError):
+        return 1.0
+
+
 def _source_provenance(paths: ProjectPaths) -> dict[str, Any]:
     meta_path = paths.source_dir / "metadata.json"
     if not meta_path.is_file():
@@ -135,29 +149,21 @@ def _source_provenance(paths: ProjectPaths) -> dict[str, Any]:
 
 
 # --- freeze-frame retiming (re-time picture to audio) ------------------------
-# When a dub was produced under freeze-frame policy (quality_bars.audio.freeze_frame_enabled),
-# run_dub kept the audio near natural speed and wrote a per-language freeze plan of the picture
-# holds needed to absorb each over-slot cue. At mux we rebuild the picture on that post-freeze
-# timeline (source slices + frozen-frame inserts) so the dub never over-speeds or lags, and we
-# re-time BOTH the embedded soft-subs AND the standalone caption deliverables onto the same
-# timeline. The canonical approved caption doc is never edited — the retimed VTT/SRT are derived
-# (rules 6/12), produced by the existing _write_captions_for_timeline slice+re-offset helper.
-
-
-def _freeze_enabled(root: Path) -> bool:
-    return bool(dubbing_mod._audio_quality_bars(root)["freeze_frame_enabled"])
+# Audio is ALWAYS at natural speed (rule 5 / TASK 2), so run_dub ALWAYS writes a per-language
+# freeze plan of the picture holds/trims needed to absorb each cue's slot mismatch. At mux we
+# rebuild the picture on that post-freeze timeline (source slices + frozen-frame inserts) so the
+# dub never over-speeds or lags, and we re-time BOTH the embedded soft-subs AND the standalone
+# caption deliverables onto the same timeline. The canonical approved caption doc is never edited
+# — the retimed VTT/SRT are derived (rules 6/12), via _write_captions_for_timeline.
 
 
 def _active_freeze_plan(root: Path, project_id: str, language: str) -> dict[str, Any] | None:
     """The active freeze plan for a language, or None.
 
-    Returns the loaded plan JSON iff (a) freeze-frame policy is currently ON, (b) a freeze-plan
-    artifact is active (non-superseded) for this language, AND (c) it records at least one freeze
-    OR trim (Model A can be trim-only). Turning the bar back off cleanly reverts future muxes to
-    the plain copy path without deleting any artifact; an empty plan (freeze mode on, nothing
-    needed adjusting) also takes the plain path."""
-    if not _freeze_enabled(root):
-        return None
+    Returns the loaded plan JSON iff (a) a freeze-plan artifact is active (non-superseded) for
+    this language AND (b) it records at least one freeze OR trim (Model A can be trim-only). An
+    empty plan (nothing needed adjusting — e.g. audio happened to match the slots exactly, or a
+    still-image language whose picture can't desync) takes the plain path with no picture rebuild."""
     if not _active_artifact(root, project_id, "freeze-plan", language):
         return None
     plan = dubbing_mod.load_freeze_plan(root, project_id, language)
@@ -305,11 +311,13 @@ def run_mux(
     advances the track to FINAL_QA_GATE.
     """
     paths = ProjectPaths(root, project_id).require()
+    cfg = load_yaml(paths.config)
     if mode is None:
-        cfg = load_yaml(paths.config)
         mode = cfg.get("mux_mode") or "soft-subs"
     if mode not in _MUX_MODES:
         raise MuxError(f"mode must be one of {sorted(_MUX_MODES)}, got {mode!r}")
+    still_image = _still_image_for(cfg, language)
+    playback_speed = _playback_speed_for(cfg, language)
     state = load_json(paths.state)
     if state["current_state"] not in _STATES_ALLOWING_MUX:
         raise ConfigurationError(
@@ -318,17 +326,21 @@ def run_mux(
     if not _dub_enabled(state, language):
         raise MuxError(f"track {language!r} is not dub_enabled (caption-only); nothing to mux")
 
-    src_video = _source_video(paths)
-    if src_video is None:
-        # The source media may have been deleted after translation/dub (it's expensive to keep
-        # and only mux needs the picture). Try the sanctioned re-fetch — VIDTRANS_FETCH_ENABLED
-        # gated — before giving up, so a deleted source is recovered transparently at mux time.
-        from .ingest import ensure_source_present
-
-        ensure_source_present(root, project_id, actor=actor)
+    # A still-image language shows one fixed frame for the whole runtime with the dub over it
+    # (TASK 1); it needs NO source video (and no freeze plan — a static frame can't desync).
+    src_video: Path | None = None
+    if still_image is None:
         src_video = _source_video(paths)
-    if src_video is None:
-        raise MuxError("no source video in source/ to mux against")
+        if src_video is None:
+            # The source media may have been deleted after translation/dub (it's expensive to keep
+            # and only mux needs the picture). Try the sanctioned re-fetch — VIDTRANS_FETCH_ENABLED
+            # gated — before giving up, so a deleted source is recovered transparently at mux time.
+            from .ingest import ensure_source_present
+
+            ensure_source_present(root, project_id, actor=actor)
+            src_video = _source_video(paths)
+        if src_video is None:
+            raise MuxError("no source video in source/ to mux against")
 
     dub_artifact = _active_artifact(root, project_id, "dub-wav", language)
     if not dub_artifact:
@@ -346,8 +358,10 @@ def run_mux(
 
     # Freeze-frame policy: if this dub has an active, non-empty freeze plan, rebuild the picture on
     # the post-freeze timeline and re-time the embedded subs onto it so audio, picture, and captions
-    # all agree. Otherwise the picture is copied bit-for-bit (the plain path, unchanged).
-    freeze_plan = _active_freeze_plan(root, project_id, language)
+    # all agree. Otherwise the picture is copied bit-for-bit (the plain path, unchanged). A
+    # still-image language has NO freeze plan (a static frame can't desync) — the picture is a
+    # single looped frame of length == dub duration, and captions attach at their native timing.
+    freeze_plan = None if still_image is not None else _active_freeze_plan(root, project_id, language)
     freeze_artifact = (_active_artifact(root, project_id, "freeze-plan", language)
                        if freeze_plan else None)
 
@@ -356,7 +370,13 @@ def run_mux(
     with project_lock(paths.lock):
         dst.parent.mkdir(parents=True, exist_ok=True)
         video_source = src_video
-        if freeze_plan is not None:
+        if still_image is not None:
+            # Loop the still image for exactly the dub's length; the dub is laid over it below.
+            dub_dur_ms = media_mod.audio_duration_ms(dub_path)
+            still_mp4 = scratch / f"still.{language}.mp4"
+            video_source = media_mod.still_image_video(
+                still_image, still_mp4, duration_ms=dub_dur_ms)
+        elif freeze_plan is not None:
             video_source = _build_retimed_video(src_video, freeze_plan, scratch)
             if mode != "no-subs" and vtt.is_file():
                 # Re-time captions onto the post-freeze timeline (canonical doc untouched).
@@ -370,7 +390,16 @@ def run_mux(
             media_mod.mux_video_burned_in(video_source, dub_path, subs_path, dst, font_name=font)
         else:
             media_mod.mux_video(video_source, dub_path, dst, subs=subs_path)
-        # Retimed scratch (slices/freezes/retimed.mp4 + retimed VTT) is transient; dst is final.
+        # Deliberate uniform playback speed (TASK 3): after the in-sync dubbed.mp4 exists, re-time
+        # the WHOLE file (audio+video by the same factor — not per-cue rubber-banding) and replace
+        # dst with the sped-up result. Applied last so it scales whatever picture+audio was built.
+        if abs(playback_speed - 1.0) >= 1e-6:
+            sped = scratch / f"sped.{language}.mp4"
+            scratch.mkdir(parents=True, exist_ok=True)
+            media_mod.respeed_video(dst, sped, factor=playback_speed)
+            dst.unlink(missing_ok=True)
+            sped.replace(dst)
+        # Retimed scratch (slices/freezes/retimed.mp4 + retimed VTT + still/sped tmp) is transient.
         if scratch.is_dir():
             for child in sorted(scratch.glob("*")):
                 child.unlink(missing_ok=True)
@@ -378,22 +407,28 @@ def run_mux(
                 scratch.rmdir()
 
     source_ids = [dub_artifact["artifact_id"]]
-    provenance: dict[str, Any] | None = None
+    provenance: dict[str, Any] = {}
     if freeze_artifact is not None:
         source_ids.append(freeze_artifact["artifact_id"])
-        provenance = {"freeze_plan_artifact_id": freeze_artifact["artifact_id"],
-                      "total_freeze_ms": int(freeze_plan.get("total_freeze_ms", 0)),
-                      "total_trim_ms": int(freeze_plan.get("total_trim_ms", 0)),
-                      "mode": freeze_plan.get("mode", "hold")}
+        provenance.update({"freeze_plan_artifact_id": freeze_artifact["artifact_id"],
+                           "total_freeze_ms": int(freeze_plan.get("total_freeze_ms", 0)),
+                           "total_trim_ms": int(freeze_plan.get("total_trim_ms", 0)),
+                           "mode": freeze_plan.get("mode", "hold")})
+    if still_image is not None:
+        provenance["still_image"] = still_image
+    if abs(playback_speed - 1.0) >= 1e-6:
+        provenance["playback_speed"] = playback_speed
     artifact = artifacts_mod.register_artifact(
         root, project_id, dst, "dubbed-video", "VIDEO_MUX", actor, language=language,
-        source_artifact_ids=source_ids, provenance=provenance,
+        source_artifact_ids=source_ids, provenance=provenance or None,
     )
     _set_track(root, project_id, language, stage=TRACK_STAGE_MUXED,
                status="in_progress", actor=actor, notes="dubbed video muxed")
     append_event(paths.events, project_id, "VIDEO_MUXED", actor, {
         "language": language, "dubbed_sha256": artifact["sha256"], "mode": mode,
         "freeze_applied": bool(freeze_plan is not None),
+        "still_image": bool(still_image is not None),
+        "playback_speed": playback_speed,
     })
     dub_quorum = [lang for lang in _active_track_langs(state) if _dub_enabled(state, lang)]
     advanced = _maybe_advance_top(root, project_id, actor, advance, "AUDIO_QA_GATE",
@@ -401,6 +436,8 @@ def run_mux(
     return {"dubbed_video": _rel(dst, paths), "artifact": artifact, "language": language,
             "mode": mode, "advanced_to": advanced,
             "freeze_applied": bool(freeze_plan is not None),
+            "still_image": still_image,
+            "playback_speed": playback_speed,
             "total_freeze_ms": int(freeze_plan.get("total_freeze_ms", 0)) if freeze_plan else 0,
             "total_trim_ms": int(freeze_plan.get("total_trim_ms", 0)) if freeze_plan else 0}
 

@@ -589,3 +589,133 @@ def concat_videos(
     if not dest.exists():
         raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
     return dest
+
+
+def normalize_wav(
+    source: Path | str,
+    dest_wav: Path | str,
+    *,
+    sample_rate: int = DUB_SAMPLE_RATE,
+    channels: int = DUB_CHANNELS,
+    timeout: int = 600,
+) -> Path:
+    """Re-encode a WAV to the dub sample rate/channel layout WITHOUT changing its tempo.
+
+    The constant-audio-speed path (CLAUDE.md rule 5 / TASK 2): a dubbed cue's audio is
+    NEVER time-stretched to fit its caption slot — it is emitted at its natural TTS length
+    and the picture is re-timed around it. This is the public entry point for that pass; it
+    just normalizes format so the back-to-back concat is uniform (identity in duration).
+    """
+    return _reencode(source, dest_wav, sample_rate=sample_rate, channels=channels, timeout=timeout)
+
+
+# --- still-image picture (TASK 1) --------------------------------------------
+# Some languages display one fixed image for the whole runtime instead of the source video,
+# with the dub over it (different image per language; some keep the source video). A static
+# frame has no motion, so no freeze/trim re-timing is needed — we simply loop the image for
+# exactly the dub's length and mux the dub over it.
+
+def still_image_video(
+    image: Path | str,
+    dest_mp4: Path | str,
+    *,
+    duration_ms: int,
+    width: int | None = None,
+    height: int | None = None,
+    fps: int = 25,
+    video_crf: int = 18,
+    timeout: int = 1800,
+) -> Path:
+    """Build a silent H.264 MP4 that shows ``image`` frozen for ``duration_ms``.
+
+    ``-loop 1 -i img -t <seconds>`` repeats the single still frame; the picture is scaled to
+    fit inside ``width x height`` (preserving aspect) and padded to fill it with black, so the
+    output has the exact even-dimension canvas H.264/yuv420p needs. When ``width``/``height``
+    are omitted the image's own (even-snapped) dimensions are used. No audio stream is written
+    — the caller muxes the dub over this picture with ``mux_video``.
+    """
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    img = Path(image)
+    if not img.is_file():
+        raise ConfigurationError(f"still image not found: {img}")
+    seconds = max(0.001, duration_ms / 1000)
+    vf_parts: list[str] = []
+    if width and height:
+        w, h = int(width), int(height)
+        vf_parts.append(
+            f"scale={w}:{h}:force_original_aspect_ratio=decrease,"
+            f"pad={w}:{h}:(ow-iw)/2:(oh-ih)/2:color=black"
+        )
+    # Guarantee even output dimensions even when no explicit canvas is given.
+    vf_parts.append("scale=trunc(iw/2)*2:trunc(ih/2)*2")
+    vf = ",".join(vf_parts)
+    command = [
+        _require("ffmpeg"), "-y",
+        "-loop", "1", "-i", str(img),
+        "-t", f"{seconds:.3f}",
+        "-r", str(fps),
+        "-vf", vf,
+        "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+        "-pix_fmt", "yuv420p",
+        "-an", str(dest),
+    ]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(
+            f"ffmpeg still_image_video failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest
+
+
+# --- uniform whole-file re-time (TASK 3) -------------------------------------
+# A DELIBERATE, CONSTANT playback-speed change applied to a whole file: audio AND video are
+# scaled by the SAME factor so they stay in sync — this is NOT the per-cue rubber-banding that
+# rule 5 forbids. Used both for the per-language default speed at mux and for the standalone
+# `speed` verb (works on any video, even ones this tool didn't produce).
+
+def respeed_video(
+    source: Path | str,
+    dest_mp4: Path | str,
+    *,
+    factor: float,
+    video_crf: int = 18,
+    audio_bitrate: str = "192k",
+    timeout: int = 3600,
+) -> Path:
+    """Uniformly re-time a video by ``factor`` (>1 = faster/shorter) — audio+video together.
+
+    Video timestamps are scaled with ``setpts=PTS/factor`` and audio tempo with a chained
+    ``atempo`` (``_atempo_chain`` handles factors outside ffmpeg's 0.5–2.0 per-instance range),
+    so a 1.25x request shortens BOTH streams to 80% length while keeping them mutually aligned.
+    Re-encodes to H.264/AAC. The source file is never modified — output is a new file.
+    """
+    if factor <= 0:
+        raise ConfigurationError(f"speed factor must be positive, got {factor}")
+    src = Path(source)
+    if not src.is_file():
+        raise ConfigurationError(f"source video not found: {src}")
+    dest = Path(dest_mp4)
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    if abs(factor - 1.0) < 1e-6:
+        # No-op speed: still produce a distinct output file (re-encode) so callers get a file.
+        command = [
+            _require("ffmpeg"), "-y", "-i", str(src),
+            "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+            "-c:a", "aac", "-b:a", audio_bitrate, str(dest),
+        ]
+    else:
+        command = [
+            _require("ffmpeg"), "-y", "-i", str(src),
+            "-filter:v", f"setpts=PTS/{factor:.6f}",
+            "-filter:a", _atempo_chain(factor),
+            "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
+            "-c:a", "aac", "-b:a", audio_bitrate, str(dest),
+        ]
+    proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
+    if proc.returncode != 0:
+        raise ConfigurationError(f"ffmpeg respeed_video failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
+    if not dest.exists():
+        raise ConfigurationError(f"ffmpeg reported success but no MP4 at {dest}")
+    return dest

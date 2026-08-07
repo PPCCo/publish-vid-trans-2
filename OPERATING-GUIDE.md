@@ -136,6 +136,17 @@ as an `AskUserQuestion`):
   picture; no-subs = clean video + sidecar files). Recorded as `project.yaml mux_mode`.
 - `--glossary <id>` — pin a per-channel/speaker terminology glossary (`glossary/<id>.json`). List
   what's available with `vid glossary list`. Omit for none.
+- `--images "<lang>=<path>,…"` — per-language **still image**: that language's picture becomes one
+  fixed image shown for the whole dub, instead of the source video (dub over a static frame; needs
+  no source video; also renders faster). A `lang=value` comma map; a language absent keeps the
+  source video. Stored as `project.yaml images`. Change later with `vid project set-image`.
+- `--speeds "<lang>=<factor>,…"` — per-language **playback speed**: a deliberate **uniform**
+  whole-video speedup applied at mux (audio+video scale together → stay in sync; the fix for a slow
+  source that drags in en/ur). Default 1.0x; a `lang=factor` comma map (a language absent → 1.0x).
+  Stored as `project.yaml playback_speed`. Change later with `vid project set-speed`.
+
+Both `--images` and `--speeds` use the `lang=value` comma-map convention; omit the flag entirely
+when no language needs it.
 
 **Revert the clone-on default company-wide:** set `rights.default_voice_clone: false` in
 `company.local.json` (or `company.default.json`) — new projects then default to the neutral rule-5
@@ -658,30 +669,72 @@ already-catalogued video **moves that entry under the playlist** (keeping its `p
 shortcut; it does **not** bypass the gate protocol (rule 13) — when the agent drives a gate in
 conversation it still discloses and confirms before granting.
 
-## 9. Freeze-frame dubbing for over-length dub tracks
+### Per-language still image + playback speed (`set-image` / `set-speed`)
+
+Set (or change) a per-language **still image** or **playback speed** on an in-flight project —
+the same two settings `project init --images/--speeds` capture at onboarding — without re-init.
+Both write `project.yaml` through the CLI (a `lang`-keyed map) and log an event; `package mux`
+picks them up automatically (config-driven, no mux flag).
+
+```bash
+# Still image: this language's picture is one fixed image for the whole dub (dub over a static
+# frame), instead of the source video. Needs no source video; renders faster. Meant for a
+# dub-enabled track (there must be a dub to lay over it). Logs IMAGE_SET.
+vid project set-image yt-YP0FDR7Wc-8 --language ur --path ~/art/ur-cover.png
+vid project set-image yt-YP0FDR7Wc-8 --language ur --clear          # revert ur to source video
+
+# Playback speed: a deliberate UNIFORM whole-video speedup applied at mux (audio+video scale
+# together → stay in sync; the fix for a slow source that drags in en/ur). Logs SPEED_SET.
+vid project set-speed yt-YP0FDR7Wc-8 --language en --factor 1.25
+vid project set-speed yt-YP0FDR7Wc-8 --language en --factor 1.0     # 1.0 resets (removes the entry)
+```
+
+The speed is applied **last** at mux, after the picture+audio pair is built (still-image or
+freeze-retimed) — it scales the whole finished track uniformly, so it stays in sync and is fully
+compatible with the constant-audio rule (§9): the per-cue audio is still natural, only the global
+tempo is faster.
+
+### Re-time any existing video, and compute 16:9 dimensions (`speed` / `size`)
+
+Two standalone, project-free verbs:
+
+```bash
+# speed: uniformly re-time ANY video file (audio+video by the same factor → stay in sync). The
+# SOURCE IS NEVER TOUCHED; output lands beside it as <stem>_<factor><suffix> unless --out is given.
+vid speed 1.25 projects/yt-YP0FDR7Wc-8/video/en/dubbed.mp4          # → …/en/dubbed_1.25.mp4
+vid speed 2 some/clip.mp4 --out /tmp/fast.mp4                       # explicit destination
+
+# size: full 16:9 (YouTube) dimensions from a single given width OR height (rounded to even for
+# H.264). Handy for sizing a still image to the canvas before `set-image`.
+vid size w 1920        # → 1920x1080
+vid size h 1080        # → 1920x1080
+vid size w 1042        # → even-rounded WxH
+vid size h 480 --aspect 4:3
+```
+
+## 9. Constant audio speed + freeze-frame dubbing (mandatory)
+
+**Hard rule (TASK 2 / rule 5): dubbed audio always plays at its natural TTS speed — it is never
+time-stretched per cue.** Per-cue tempo-stretch produced audible rubber-banding, so it was removed
+entirely. The *picture* absorbs 100% of every cue mismatch (freeze/trim), which makes freeze-frame
+the **mandatory, only** behavior for every language — `quality_bars.audio.freeze_frame_enabled` is
+now the company **default** (`true`), not an opt-in. The legacy stretch bars
+(`max_time_stretch`, `freeze_stretch_cap`, `cumulative_drift_ceiling_ms`) are **reporting-only**:
+still read for back-compat, but they no longer speed the audio.
+
+## 9a. Freeze-frame dubbing for over-length dub tracks
 
 **Symptom.** The neutral piper voice (the only working TTS engine here — see the piper note in
 §6) speaks *slower* than fast source oratory, so many cues' synthesized audio runs longer than
-their caption slot. `vid dub qa` then reports `CONDITIONAL_PASS` with `audio-stretch-over-cap`
-**major** findings, and the `audio-sync` gate stays non-`PASS` — which blocks
-`AUDIO_QA_GATE → VIDEO_MUX` (`state.transition_blockers` requires an exact `PASS`).
+their caption slot. Because the audio is **never** sped up (§9, the hard rule), the picture must
+be re-timed to it — this is the mandatory freeze-frame mechanism.
 
-**Wrong fix.** Cranking `quality_bars.audio.max_time_stretch` higher just over-speeds the audio;
-past ~1.6x the listening quality is poor and you're loosening the bar rather than resolving the
-overflow.
-
-**Right fix — freeze the frame, re-time the picture to the audio.** Turn on the company bar:
-
-```jsonc
-// .claude/config/company.local.json  (deep-merges over company.default.json)
-{ "quality_bars": { "audio": { "freeze_frame_enabled": true } } }
-```
-
-This is a **company bar, opt-in via `company.local.json`** — there is deliberately **no per-run
-CLI flag** (an agent can't override company policy per-invocation, same governance as
-`max_time_stretch`). Optional companions: `freeze_stretch_cap` (default `1.15` — the gentle
-per-cue stretch the audio is still fit to, kept near natural length) and `max_freeze_ms_per_cue`
-(default `4000` — a hold longer than this escalates to a human-visible finding).
+**How it works (always on).** Freeze-frame re-times the picture to the audio: the audio plays at
+natural length and the picture holds/trims to stay in sync. It is the company default
+(`quality_bars.audio.freeze_frame_enabled: true`) — there is deliberately **no per-run CLI flag**
+(an agent can't override company policy per-invocation). Optional companions: `max_freeze_ms_per_cue`
+(default `4000` — a hold longer than this escalates to a human-visible finding). The legacy
+`freeze_stretch_cap` / `max_time_stretch` bars are reporting-only (audio is never stretched).
 
 **The plan is computed on a *running gap*, not each cue's own overflow.** `dub run` lays cue audio
 **back-to-back** (it inserts lead silence only when a cue's audio would start *early*), so a long
@@ -738,10 +791,10 @@ chooses each language's mode:
 one whole-track offset with no per-cue natural durations, so it produces **no** freeze plan (its
 result carries a `freeze_plan_skipped_reason`).
 
-**Reverting.** Turning the bar back off cleanly reverts future muxes to the plain `-c:v copy` path
-— no artifact is deleted. Once freeze-frame is validated for a project, prefer it over the earlier
-band-aid overrides: walk `max_time_stretch` / `cumulative_drift_ceiling_ms` back toward defaults,
-since freeze-frame is now the proper mechanism.
+**No opting out.** Freeze-frame is mandatory (audio is never stretched), so there is no "turn it
+off" — when a language's plan is empty (audio already fits every cue) mux naturally falls back to
+the plain `-c:v copy` path with no re-encode. The old band-aid overrides (`max_time_stretch`,
+`cumulative_drift_ceiling_ms`) are superseded and reporting-only.
 
 **Tradeoff (accepted for v1).** Retiming re-encodes the whole picture (libx264 crf18) instead of
 `-c:v copy` — slower and technically lossy on long videos, though crf18 is near-lossless and
