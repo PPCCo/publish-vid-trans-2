@@ -1,5 +1,23 @@
 # TODO
 
+Can you change the AskUserQuestions format a bit?
+
+When I run `/new-video`, and claude asks either `Which languages should this video be translated to?` or `Which of the translate languages should also get a dubbed audio track?`, in both cases, these should be the options:
+
+1. [ ] en
+2. [ ] All Languages (en, ur, fa, ar, zh, fr, es, pt, ru)
+3. [ ] Main Languages (en, ur, fa, ar)
+4. [ ] Type something
+
+**NOTE**:
+
+- In option 2 & 3, the source language would be removed, since it would never need translation
+- Type something could be given either as `en, ur, fa` or as `en/ur/fa` or language names or by natural language
+
+---
+`/new-video MFuUIoF5PSc` (a video id) is working fine, but `/new-video PLDvVOFNMIIG3snBzVLV65D9YHbmkN8s2Z` (a playlist id) is not working
+---
+
 Add one more framework enhancement. The frame should accept a playlist link, and for a playlist the framework should add all the files in the playlist to the index. I also want the index to have a next appropriate command as a property for human convenience, so that this index containing the playlist videos, each individual video will have the next command property which the user can just copy and paste to start the process. This next command will apply to all the phases so that for example at if a file is at QA gate that specific command for approving the gate would be the next command. In case of the QA gate the files to be reviewed should also be in an array of file relative parts that are to be reviewed. If a file ID within the playlist being added is already processed or is being processed, that file along with all its status will move to the playlist.
 
 ## zh, fr, es, pt, ru

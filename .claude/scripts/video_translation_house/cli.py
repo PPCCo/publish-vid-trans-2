@@ -472,6 +472,15 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("path", help="Path to a video file (source is never modified)")
     sp.add_argument("--out", help="Output path (default: <stem>_<factor><suffix> beside the source)")
 
+    dele = sub.add_parser(
+        "delete",
+        help="Permanently remove a project directory + catalog entry (top-level alias for "
+             "`project delete`)")
+    dele.add_argument("project_id")
+    dele.add_argument("--keep-catalog", action="store_true",
+                      help="Leave the catalog entry in place (default: remove it)")
+    dele.add_argument("--actor", default="agent")
+
     return parser
 
 
@@ -495,6 +504,11 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "speed":
         from . import speed as speed_mod
         return speed_mod.respeed(root, args.factor, args.path, dest=args.out)
+    if cmd == "delete":
+        return project.delete_project(
+            root, args.project_id,
+            purge_catalog=not args.keep_catalog, actor=args.actor,
+        )
     if cmd == "project":
         pc = args.project_command
         if pc == "init":
