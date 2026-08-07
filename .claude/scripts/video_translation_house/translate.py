@@ -344,6 +344,75 @@ def import_worksheet(
             "cues": len(doc["cues"]), "advanced_to": advanced}
 
 
+# --- 2b. machine-fill (scripted / manual route) ------------------------------
+
+def machine_fill_worksheet(
+    root: Path,
+    project_id: str,
+    language: str,
+    *,
+    provider: str | None = None,
+    model: str | None = None,
+    actor: str = "agent",
+) -> dict[str, Any]:
+    """Fill a translation worksheet's empty ``target_text`` slots via the MT engine adapter,
+    so the scripted / manual route (``project autopilot --mt``) can translate WITHOUT spending
+    Claude tokens. Does NOT import — the caller then runs the existing ``translate import``.
+
+    - Exports the worksheet first if it doesn't exist yet (reuses :func:`export_worksheet`).
+    - For a source-language track (``skip_translation``) export writes verbatim captions
+      directly and no worksheet exists — nothing to machine-fill; returns a skip result.
+    - Only empty cues are filled (idempotent: re-running skips already-translated cues), so a
+      partially human/Claude-filled worksheet is completed, never overwritten.
+    - Stamps ``worksheet['translator'] = 'mt:<provider>'`` so provenance flows through the
+      existing import (``_build_caption_doc`` records ``worksheet.get('translator')`` as the
+      engine provider). The worksheet is a fill-in artifact, not CLI-owned state (rule 1)."""
+    from .engines import mt as mt_mod
+
+    paths = ProjectPaths(root, project_id).require()
+    state = load_json(paths.state)
+    lt = state.get("language_tracks", {})
+    if lt.get(language, {}).get("skip_translation"):
+        return {"language": language, "filled": 0, "skipped": 0,
+                "note": "source language — verbatim captions, nothing to machine-translate",
+                "source_language_skip": True}
+
+    ws_path = paths.captions_dir / worksheet_filename(language)
+    if not ws_path.is_file():
+        # export_worksheet short-circuits the source track to verbatim captions (no worksheet);
+        # for a real target it writes the empty-slot worksheet we're about to fill.
+        result = export_worksheet(root, project_id, language, actor=actor)
+        if result.get("source_language_skip"):
+            return {"language": language, "filled": 0, "skipped": 0,
+                    "note": "source language — verbatim captions, nothing to machine-translate",
+                    "source_language_skip": True}
+    worksheet = load_json(ws_path)
+    src_lang = worksheet.get("source_language")
+
+    filled = 0
+    skipped = 0
+    resolved_provider: str | None = None
+    for cue in worksheet.get("cues", []):
+        if str(cue.get("target_text", "")).strip():
+            skipped += 1
+            continue
+        source_text = str(cue.get("source_text", ""))
+        cue["target_text"] = mt_mod.translate_text(
+            source_text, src_lang, language, provider=provider, model=model, root=root,
+        )
+        filled += 1
+    resolved_provider = mt_mod._resolve_provider(provider, root=root)
+    worksheet["translator"] = f"mt:{resolved_provider}"
+
+    with project_lock(paths.lock):
+        atomic_write_json(ws_path, worksheet)
+    append_event(paths.events, project_id, "TRANSLATION_MACHINE_FILLED", actor, {
+        "language": language, "filled": filled, "skipped": skipped, "provider": resolved_provider,
+    })
+    return {"worksheet": _rel(ws_path, paths), "language": language,
+            "filled": filled, "skipped": skipped, "provider": resolved_provider}
+
+
 def _maybe_advance_top(root: Path, project_id: str, actor: str, advance: bool,
                        from_state: str, to_state: str, track_stage: str,
                        quorum_langs: list[str] | None = None) -> str:

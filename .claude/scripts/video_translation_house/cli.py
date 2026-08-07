@@ -94,6 +94,16 @@ def build_parser() -> argparse.ArgumentParser:
         help="Reconcile two-axis review markers (skip_translation/auto_translate) on a pre-feature project")  # noqa: E501
     p_syncscope.add_argument("project_id")
     p_syncscope.add_argument("--actor", default="human")
+    p_auto = psub.add_parser(
+        "autopilot",
+        help="Run deterministic pipeline steps back-to-back until a human gate/blocker (scripted route)")  # noqa: E501
+    p_auto.add_argument("project_id")
+    p_auto.add_argument("--mt", action="store_true",
+                        help="Fill translation worksheets + English gloss via the MT engine (no Claude)")  # noqa: E501
+    p_auto.add_argument("--until", help="Stop when this state is reached (default: first human gate)")
+    p_auto.add_argument("--dry-run", action="store_true",
+                        help="Print the ordered steps without executing or mutating state")
+    p_auto.add_argument("--actor", default="agent")
     p_trans = psub.add_parser("transition")
     p_trans.add_argument("project_id")
     p_trans.add_argument("--to", required=True)
@@ -233,6 +243,15 @@ def build_parser() -> argparse.ArgumentParser:
     tl_import.add_argument("--from", dest="from_path", help="Worksheet path (default: captions/<lang>.worksheet.json)")  # noqa: E501
     tl_import.add_argument("--advance", action="store_true", help="Advance top state once all tracks done")
     tl_import.add_argument("--actor", default="agent")
+    tl_mfill = tlsub.add_parser(
+        "machine-fill",
+        help="Fill a worksheet's empty target_text via the MT engine (scripted/manual route)",
+    )
+    tl_mfill.add_argument("project_id")
+    tl_mfill.add_argument("--language", required=True, help="Target language (ISO 639-1)")
+    tl_mfill.add_argument("--provider", help="MT provider (default: tools config mt_baseline)")
+    tl_mfill.add_argument("--model", help="Engine model/package name")
+    tl_mfill.add_argument("--actor", default="agent")
     tl_qa = tlsub.add_parser("qa", help="Aggregate translation-qa + glossary gate reports")
     tl_qa.add_argument("project_id")
     tl_qa.add_argument("--actor", default="agent")
@@ -436,6 +455,12 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             )
         if pc == "sync-scope":
             return project.sync_scope(root, args.project_id, actor=args.actor)
+        if pc == "autopilot":
+            from . import autopilot as autopilot_mod
+            return autopilot_mod.autopilot(
+                root, args.project_id,
+                mt=args.mt, until=args.until, dry_run=args.dry_run, actor=args.actor,
+            )
         if pc == "list":
             return project.list_projects(root)
         if pc == "status":
@@ -575,6 +600,11 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             return translate_mod.import_worksheet(
                 root, args.project_id, args.language, from_path=args.from_path,
                 actor=args.actor, advance=args.advance,
+            )
+        if tlc == "machine-fill":
+            return translate_mod.machine_fill_worksheet(
+                root, args.project_id, args.language, provider=args.provider,
+                model=args.model, actor=args.actor,
             )
         if tlc == "qa":
             return translate_mod.run_translation_qa(root, args.project_id, actor=args.actor)

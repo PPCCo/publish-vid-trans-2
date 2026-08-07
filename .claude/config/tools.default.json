@@ -9,6 +9,7 @@
     "verified": false
   },
   "translation": {
+    "_comment": "`provider: claude` is the LLM-authored route (the create-closed-captions skill fills worksheets). `mt_baseline` is the OPT-IN machine-translation engine for the scripted/manual route (`project autopilot --mt` / `run_pipeline.sh`), which fills worksheets WITHOUT Claude tokens. null = auto-select the first installed MT engine; or pin one of engines/mt.py KNOWN_PROVIDERS (argos|ctranslate2|nllb|opus-mt) in the gitignored tools.local.json. HF is policy-blocked here — stage the MT model offline (OPERATING-GUIDE.md §6). MT-filled `en` still hits the human translation_qa gate; auto_translate targets skip it.",
     "provider": "claude",
     "volume_model": "@bedrock-eus1/us.anthropic.claude-sonnet-5",
     "hero_model": "@bedrock-eus2/us.anthropic.claude-opus-4-8",

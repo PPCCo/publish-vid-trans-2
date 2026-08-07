@@ -129,6 +129,13 @@ Each stage has a **skill** (invoke with `/<skill-name>` in Claude Code) and the 
 drives. Human gates are marked 🔒 — an agent prepares the packet, a **human** runs the
 `approval grant` / `rights set`.
 
+> **Token-thrifty alternative:** instead of driving each stage through Claude, run the whole
+> deterministic chain via the scripted route — `/process-manual <id>` (or directly
+> `bash .claude/scripts/run_pipeline.sh <id> --mt`). It runs ingest→…→dub with **no Claude
+> tokens** (translation-fill via the MT engine, §6) and stops at the first human gate; then tell
+> Claude *"the manual process for `<id>` is done"* and it does the editorial QA + gate walk.
+> The per-stage Claude skills below remain the alternate route when you want Claude authoring.
+
 ### How a human gate feels (you decide in plain language; the agent does the plumbing)
 
 You never type a CLI command to clear a gate. You decide in conversation; the agent executes
@@ -339,6 +346,36 @@ vid transcript run <id> --model <m> --no-condition-on-previous-text \
   --hallucination-silence-threshold 2.0 --no-retry
 # --temperature <t> also available (default 0 = deterministic)
 ```
+
+### MT engine (translation-fill for the scripted/manual route)
+
+The token-thrifty scripted route (`/process-manual`, `run_pipeline.sh --mt`, `project autopilot
+--mt`) fills translation worksheets + the rule-11 English gloss with a **machine-translation
+engine** instead of Claude — the one otherwise-non-deterministic step. It is **opt-in**; the
+Claude route (`create-closed-captions`) still works unchanged when no MT engine is installed.
+
+Enable it by pinning `translation.mt_baseline` in the gitignored `tools.local.json` (or leave it
+`null` in `tools.default.json` to auto-select the first installed engine), then install the
+engine into the venv. Supported providers (`engines/mt.py`): `argos`, `ctranslate2`, `nllb`,
+`opus-mt` — each driven as a stdin→stdout subprocess (no in-process import, no network in the
+adapter).
+
+```bash
+.venv/bin/pip install argostranslate          # simplest: offline .argosmodel packages
+# pin it (or another engine) in tools.local.json:
+#   { "translation": { "mt_baseline": "argos" } }
+vid doctor                                     # engine:mt should now list the provider
+vid translate machine-fill <id> --language en  # fills empty cues; does NOT import (autopilot does)
+```
+
+HF is policy-blocked here, so **stage MT model data offline** exactly like ASR/TTS — for Argos,
+download the `.argosmodel` language packages on an un-proxied device, ship them via a GitHub
+Release, and install them locally (`argospm install` from the local file, or point the engine at
+the staged package dir). Follow the "Offline model when HuggingFace is blocked" recipe above.
+With no MT engine installed, `translate machine-fill` / `autopilot --mt` fail with a graceful
+`EngineUnavailableError` (install an engine, translate via Claude, or fill by hand) — never a
+crash. MT-filled `en` still hits the human `translation_qa` gate; `auto_translate` targets skip
+it (rule 7) — MT is just the cheap draft the human/QA then reviews.
 
 ---
 

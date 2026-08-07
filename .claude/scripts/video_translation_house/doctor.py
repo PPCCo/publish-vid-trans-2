@@ -81,8 +81,22 @@ def run_doctor(root: Path) -> dict[str, Any]:
         for cap in ("asr", "translation", "tts"):
             prov = tools.get(cap, {}).get("provider")
             add(f"config:{cap}-provider", "pass", str(prov), False)
+        baseline = tools.get("translation", {}).get("mt_baseline")
+        add("config:mt-baseline", "pass", str(baseline),
+            False)
     except Exception as exc:  # noqa: BLE001
         add("tools-config", "warn", str(exc), False)
+
+    # MT engine binaries (drive the scripted/manual translation-fill route; all opt-in).
+    try:
+        from .engines import mt as mt_mod
+        avail = mt_mod.available_mt_providers()
+        add("engine:mt", "pass" if avail else "optional-missing",
+            (", ".join(avail) if avail else
+             "no MT engine installed (opt-in — needed only for --mt scripted translation)"),
+            False)
+    except Exception as exc:  # noqa: BLE001
+        add("engine:mt", "warn", str(exc), False)
 
     required_fail = any(c["status"] == "fail" and c["required"] for c in checks)
     return {"status": "fail" if required_fail else "pass", "checks": checks}

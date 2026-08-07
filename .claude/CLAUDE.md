@@ -256,6 +256,23 @@ add-playlist <url>` (flag-free enumeration; indexes each video under the playlis
 `catalog list` / `catalog show <id>` / `catalog playlist <plid>` surface each entry's derived
 `next_command` (+ `review_files` at gates) for the current phase.
 
+To **run the pipeline cheaply (token-thrifty scripted/manual route)**, use `/process-manual
+<id>` — the alternate to the Claude-driven skills, which stay intact. Almost the entire
+transcribe→translate→dub chain is pure deterministic script; the one non-deterministic step
+(translation worksheet + rule-11 English gloss fill) is handled by an **MT engine** (opt-in
+`translation.mt_baseline` in `tools.local.json`; staged offline per OPERATING-GUIDE.md §6),
+so with `--mt` the whole chain runs with **zero Claude tokens**. `project autopilot <id> [--mt]
+[--until <state>] [--dry-run]` drives the deterministic loop on `state.plan()` and stops at the
+**first human gate / blocker** — it can NEVER grant an approval or cross a gate (rules 2/13
+hold structurally; it only runs PROCEED-eligible non-gate verbs). `run_pipeline.sh <id> --mt`
+is the one-command wrapper (sets `VIDTRANS_FETCH_ENABLED=1` + the proxy CA bundle, idempotent).
+The contract: the operator runs the script → it halts at a gate → they say **"the manual
+process for `<id>` is done"** → Claude runs the editorial QA at each pending gate and walks the
+operator through approval (rule 13). That QA is the **only** place this route spends tokens.
+Without `--mt`, autopilot stops at `TRANSLATION` (worksheet-fill needs MT or the Claude route).
+Source-language confirmation at `LANGUAGE_ID` is still a human decision (ASR auto-detect is
+unavailable), so a fresh project halts there until the source is set.
+
 ## Models
 
 Only these three model IDs are permitted:

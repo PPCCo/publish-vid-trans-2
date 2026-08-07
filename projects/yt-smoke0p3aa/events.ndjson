@@ -32,3 +32,5 @@
 {"actor": "human", "details": {"from": "TRANSLATION_QA_GATE", "reason": "", "to": "CAPTION_TIMING"}, "event": "STATE_TRANSITIONED", "event_id": "evt-20260803T053549Z-89c4a59b", "project_id": "yt-smoke0p3aa", "time": "2026-08-03T05:35:49Z"}
 {"actor": "agent", "details": {"decision": "PASS", "languages": ["en", "zh"]}, "event": "CAPTION_VALIDATED", "event_id": "evt-20260803T053549Z-2870ebe3", "project_id": "yt-smoke0p3aa", "time": "2026-08-03T05:35:49Z"}
 {"actor": "human", "details": {"from": "CAPTION_TIMING", "reason": "", "to": "CAPTION_VALIDATION"}, "event": "STATE_TRANSITIONED", "event_id": "evt-20260803T053550Z-42e772c2", "project_id": "yt-smoke0p3aa", "time": "2026-08-03T05:35:50Z"}
+{"actor": "agent", "details": {"decision": "PASS", "languages": ["en", "zh"]}, "event": "CAPTION_VALIDATED", "event_id": "evt-20260807T052053Z-323cb356", "project_id": "yt-smoke0p3aa", "time": "2026-08-07T05:20:53Z"}
+{"actor": "agent", "details": {"from": "CAPTION_VALIDATION", "reason": "captions validated", "to": "DUBBING"}, "event": "STATE_TRANSITIONED", "event_id": "evt-20260807T052053Z-314f3511", "project_id": "yt-smoke0p3aa", "time": "2026-08-07T05:20:53Z"}
