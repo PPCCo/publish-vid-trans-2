@@ -721,6 +721,62 @@ vid size w 1042        # → even-rounded WxH
 vid size h 480 --aspect 4:3
 ```
 
+### Print the raw external command to run yourself (`cmd` / `nextcmd`)
+
+Sometimes you want to run the underlying tool **in a plain terminal** rather than through the
+CLI — e.g. paste the exact `yt-dlp` invocation into a shell that isn't this repo's venv. Two
+**read-only** verbs print (never execute, never mutate state) a copy-paste-ready runnable block
+for that: the full `cd`, the env preamble the step actually needs, and the command line.
+
+```bash
+# cmd: the onboarding/ingest equivalent for a URL, a bare id, a playlist, or a catalog video_id.
+vid cmd "https://youtube.com/watch?v=abc12345678"     # a fresh single video
+vid cmd abc12345678                                    # a bare 11-char id (same thing)
+vid cmd "https://youtube.com/playlist?list=PL..."      # a playlist → the flag-free enumeration
+vid cmd yt-abc12345678                                 # an already-catalogued/on-disk project
+
+# nextcmd: the raw-external equivalent of a project's CURRENT next step (the `next_command` analog).
+vid nextcmd yt-abc12345678
+```
+
+When a step maps to **both** a real external tool *and* a `vid_cli.py` verb, both are printed as
+labelled options:
+
+```
+Option A (raw external):
+cd projects/yt-abc12345678/source
+export VIDTRANS_FETCH_ENABLED=1
+yt-dlp -f 'bv*+ba/b' --merge-output-format mp4 … https://youtube.com/watch?v=abc12345678
+
+Option B (via vid_cli.py):
+source .env.local
+vid_cli.py ingest run yt-abc12345678
+```
+
+The two options carry **different env preambles by design** (verified against §0): raw `yt-dlp`
+(Option A) only needs `export VIDTRANS_FETCH_ENABLED=1` — a brew/PATH `yt-dlp` resolves its own
+working CA bundle — while `ingest run` (Option B) goes through the Python net layer and needs the
+full `source .env.local` (fetch flag **plus** the proxy CA bundle). **Playlist enumeration** is the
+flag-free carve-out (rule 3) and gets **no** env preamble on either option. Where there's no
+external tool (a pure state mutation — `langid set`, `translate import`, …) the block falls back to
+just the `vid_cli.py` verb ("CLI-only state op").
+
+Behavior by `autonomy_action`, mirroring `catalog show`'s `next_command`:
+
+- **PROCEED** → the runnable command(s) for the current step (raw+CLI at INGEST; CLI-only elsewhere).
+- **STOP_AT_GATE** → **no** runnable command. It prints the human-gate explanation (rule 13) plus the
+  `approval grant … && project transition …` line **as reference only** — the gate is decided in
+  conversation (disclose → confirm → execute), never by pasting that line.
+- **BLOCKED** (the common case: rights unset before PACKAGE) → the `rights set …` command.
+- **TERMINAL** → nothing to run, just a note.
+
+Output defaults to **bare terminal form** (no `!`). Add `--for-claude` to re-add the `!` prefix on
+runnable lines for pasting into Claude — with two deliberate exceptions: a gate reference line
+**never** gets `!` (it must not be run standalone), while a CLI-only *non-gate* state op **does**
+(Claude may run it, rule 1). The whole thing is template-driven off the same argv builders the real
+downloader uses and the same verb strings `catalog` emits, so the printed command can never drift
+from what actually runs.
+
 ## 9. Constant audio speed + freeze-frame dubbing (mandatory)
 
 **Hard rule (TASK 2 / rule 5): dubbed audio always plays at its natural TTS speed — it is never

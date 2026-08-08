@@ -275,6 +275,18 @@ These govern *how you work*, not just what the pipeline does:
       together), **source untouched**, output beside the source as `<stem>_<factor><suffix>` (e.g.
       `my-file_1.25.mp4`) when `--out` is omitted. Works on files this tool didn't produce; refuses
       to overwrite the source.
+    - `vid_cli.py cmd <video-id-or-url>` / `vid_cli.py nextcmd <project-id>` — **read-only command
+      printers**: print (never execute) the copy-paste-ready terminal block for onboarding/ingesting
+      a video/playlist (`cmd`) or a project's current next step (`nextcmd`). Where a step maps to both
+      a real external tool *and* a CLI verb, both are emitted as labelled options, each with its own
+      `cd` + the exact env preamble that flavor needs (raw `yt-dlp` → `export VIDTRANS_FETCH_ENABLED=1`
+      only; `ingest run` → full `source .env.local`; playlist enumeration → none, rule 3); a pure state
+      op falls back to just the CLI verb. At a `STOP_AT_GATE` step `nextcmd` prints only the human-gate
+      explanation + the approve line **as reference** (never runnable — rule 13). Bare-terminal form by
+      default; `--for-claude` re-adds `!` on runnable lines only (never on a gate reference line). It is
+      a **view** over state like the catalog `next_command` — template-driven off the same argv builders
+      the real downloader uses so the printed and executed commands can't drift; it never downloads or
+      mutates anything (rule 1).
 
 ## Where to start
 

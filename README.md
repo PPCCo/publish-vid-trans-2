@@ -19,6 +19,8 @@ full design rationale and every deliberate deviation from `publish-vid-trans-pla
 - [Selecting and clipping the source (`selection` / `join_clips`)](#selecting-and-clipping-the-source-selection--join_clips)
 - [Repository layout](#repository-layout)
 - [The CLI](#the-cli-vid_clipy)
+  - [Standalone helper verbs (`size` / `speed`)](#standalone-helper-verbs-size--speed)
+  - [Printing the equivalent terminal command (`cmd` / `nextcmd`)](#printing-the-equivalent-terminal-command-cmd--nextcmd)
 - [Skills (the `/`-invocable workflow)](#skills-the--invocable-workflow)
 - [Engines: ASR / MT / TTS](#engines-asr--mt--tts)
 - [Rights and voice-cloning consent](#rights-and-voice-cloning-consent)
@@ -345,35 +347,100 @@ find `.claude/CLAUDE.md` if omitted.
 
 | Noun | Verbs |
 |---|---|
-| `doctor` | (no verb) — probe Python deps, ffmpeg/ffprobe, every optional engine, `yt-dlp` |
+| `doctor` | (no verb) — probe Python deps, ffmpeg/ffprobe, every optional engine, `yt-dlp`, staged dub voices |
 | `framework` | `validate` — self-check the state machine + schemas |
-| `project` | `init`, `list`, `status`, `validate`, `next`, `plan`, `transition` |
+| `project` | `init`, `list`, `status`, `validate`, `next`, `plan`, `transition`, `add-languages`, `enable-dub`, `set-image`, `set-speed`, `redub`, `sync-scope`, `autopilot`, `reset`, `delete` |
 | `artifact` | `list`, `register` |
 | `approval` | `list`, `grant` *(human-only in practice — see below)* |
 | `rights` | `check`, `set` *(`set` is human-only)* |
-| `ingest` | `run` — download, extract WAV, probe, catalog, register, advance |
-| `transcript` | `run` (ASR), `import` (no-engine path), `qa` |
+| `glossary` | `list` — show the resolved company translation glossary (source→target term guidance) |
+| `ingest` | `run` — download, extract WAV, probe, catalog, register, advance; `ensure` — re-fetch deleted source media (no state change) |
+| `transcript` | `run` (ASR), `import` (no-engine path), `qa`, `english-export`/`english-import` (the rule-11 review-gloss round-trip) |
 | `segments` | `resolve` (selection → `segments.json`, `SEGMENT_RESOLUTION → TRANSLATION`), `cut`, `show`, `list` |
-| `translate` | `export`, `import`, `qa` |
+| `translate` | `export`, `import`, `machine-fill` (MT-engine worksheet fill, scripted/manual route), `qa` |
 | `captions` | `build` (SRT/VTT), `validate` |
-| `dub` | `run` (TTS), `import` (no-engine path), `qa` |
+| `dub` | `run` (TTS), `import` (no-engine path), `qa` *(aggregate — no `--language`)* |
 | `package` | `mux`, `final-qa`, `build` |
 | `distribute` *(Phase 6, opt-in)* | `chapters export`/`import`, `package`, `youtube` *(dry-run default)*, `promote queue`/`publish` *(dry-run default)*, `package-show`/`upload-show`/`promotion-show` |
-| `catalog` | `list`, `show` |
+| `catalog` | `list`, `show`, `add-playlist` (flag-free enumeration), `playlists`, `playlist` |
 | `budget` | `status` — read-only ceiling/spend/headroom |
 | `langid` | `detect`, `set` |
 | `event` | `tail` |
+| `size` | (positional) — compute the full 16:9 (or `--aspect`) frame from one axis; pure math, no project |
+| `speed` | (positional) — uniformly re-time **any** video by a factor (audio+video together); source untouched, no project |
+| `cmd` | (positional) — print the raw external command (+ `vid_cli.py` alternative) to onboard/ingest a video or playlist; read-only |
+| `nextcmd` | (positional) — print the raw external command (+ `vid_cli.py` alternative) for a project's current next step; read-only |
+| `delete` | (positional) — top-level alias for `project delete` |
 
 `approval grant` and `rights set` exist as CLI verbs because the CLI is the only code path
 allowed to write those files — but *invoking* them is restricted to humans by the skill
 layer (`disable-model-invocation: true` on `rights-check`) and by policy (rule 2 above). An
 agent should never run `approval grant` or `rights set` on a human's behalf.
 
+`cmd` and `nextcmd` are **read-only command printers**: given a URL/id or a project, they print
+the copy-paste-ready terminal block (the raw `yt-dlp`/etc. **and** the `vid_cli.py` verb, as
+labelled options) for onboarding or the current next step — including the working directory and
+the exact env preamble the step needs. They never download, execute, or mutate anything, and at a
+human gate they print only a reference line (rule 13). See
+[Printing the equivalent terminal command](#printing-the-equivalent-terminal-command-cmd--nextcmd).
+
 `project plan <id>` is the single most useful command for "what do I do next": it returns
 `autonomy_action` — `PROCEED` (keep going), `STOP_AT_GATE` (a human approval is needed),
 `BLOCKED` (something else is unmet, e.g. rights), or `TERMINAL` (nothing left to do) — plus
 `recommended_target` and the concrete `blockers` for every candidate transition. Treat it as
 authoritative.
+
+### Standalone helper verbs (`size` / `speed`)
+
+Two project-free utility verbs, pure operator helpers:
+
+- **`size <axis> <n> [--aspect W:H]`** — from one axis (`w`/`h`), compute the full 16:9 (default)
+  frame, even-rounded for H.264: `size w 1920` → `1920x1080`. Handy for sizing a still image to
+  the canvas before `project set-image`. Pure math, no I/O.
+- **`speed <factor> <video> [--out <path>]`** — uniformly re-time **any** video (audio + video by
+  the same factor, so they stay in sync). The **source is never touched**; output lands beside it
+  as `<stem>_<factor><suffix>` unless `--out` is given. Works on files this tool didn't produce and
+  refuses to overwrite the source. This is the same uniform whole-video re-timing that
+  `project set-speed` / `--speeds` applies per-language at mux, exposed as a one-off.
+
+### Printing the equivalent terminal command (`cmd` / `nextcmd`)
+
+`cmd` and `nextcmd` **print** (never execute) the runnable terminal block for a step, so you can
+run the underlying tool yourself in a plain shell instead of through the CLI:
+
+- **`cmd <video-id-or-url>`** — the onboarding/ingest equivalent for a video URL, bare id, playlist
+  URL/id, or an existing catalog `video_id`.
+- **`nextcmd <project-id>`** — the raw-external equivalent of a project's *current* next step (the
+  `next_command` analog from `state.plan()`).
+
+When a step maps to both a real external tool *and* a `vid_cli.py` verb, both are printed as
+labelled options, each with its own `cd` and the **exact env preamble that flavor needs**:
+
+```
+$ vid_cli.py cmd yt-abc12345678          # an existing project sitting at INGEST
+Option A (raw external):
+cd projects/yt-abc12345678/source
+export VIDTRANS_FETCH_ENABLED=1
+yt-dlp -f 'bv*+ba/b' --merge-output-format mp4 --write-info-json … https://youtube.com/watch?v=abc12345678
+
+Option B (via vid_cli.py):
+source .env.local
+vid_cli.py ingest run yt-abc12345678
+```
+
+Raw `yt-dlp` (Option A) only needs `VIDTRANS_FETCH_ENABLED=1` (a system/brew `yt-dlp` carries a
+working CA bundle), while `ingest run` (Option B) goes through the Python net layer and needs the
+full `source .env.local` (fetch flag **plus** proxy CA bundle) — the two preambles differ by
+design. **Playlist enumeration** is the flag-free carve-out (rule 3) and gets no preamble. A pure
+state mutation with no external tool falls back to just the `vid_cli.py` verb.
+
+At a **human gate** (`STOP_AT_GATE`), `nextcmd` prints **no** runnable command — only the
+explanation and the `approval grant … && project transition …` line as *reference*, because gates
+are decided in conversation (disclose → confirm → execute), never by pasting that line (rule 13).
+Output defaults to bare terminal form; `--for-claude` re-adds the `!` prefix on runnable lines,
+never on a gate reference line. The printer is template-driven off the same argv builders the real
+downloader runs and the same verb strings `catalog` emits, so what it prints can't drift from what
+actually executes.
 
 ## Skills (the `/`-invocable workflow)
 
