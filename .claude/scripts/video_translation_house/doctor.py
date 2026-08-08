@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import platform
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -36,8 +37,12 @@ def run_doctor(root: Path) -> dict[str, Any]:
             "installed" if found else "not installed", required)
 
     # Media tooling (ffmpeg required for extraction/mux; yt-dlp required for ingest).
+    # yt-dlp is resolved PATH-only (shutil.which), matching net/fetch.py._ytdlp() — a
+    # venv-pip-installed yt-dlp resolves its own isolated certifi bundle that can fail
+    # CERTIFICATE_VERIFY_FAILED behind a TLS-inspecting proxy even when a PATH install
+    # (e.g. `brew install yt-dlp`) works, so doctor must report what fetch.py will actually run.
     for tool, required in [("ffmpeg", True), ("ffprobe", True), ("yt-dlp", True), ("rubberband", False)]:
-        path = executable(tool)
+        path = shutil.which(tool) if tool == "yt-dlp" else executable(tool)
         if not path:
             version = None
         else:

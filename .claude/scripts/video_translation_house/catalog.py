@@ -184,7 +184,8 @@ def upsert_playlist(
         if existing is None:
             entry = {
                 "playlist_id": playlist_id, "url": url, "title": title,
-                "video_ids": sorted(set(video_ids)), "added_at": now, "updated_at": now,
+                "video_ids": list(dict.fromkeys(video_ids)),
+                "added_at": now, "updated_at": now,
             }
             playlists.append(entry)
             playlists.sort(key=lambda p: p.get("playlist_id", ""))
@@ -192,7 +193,17 @@ def upsert_playlist(
             _log_catalog_event(root, playlist_id, "PLAYLIST_ADDED",
                                {"url": url, "video_count": len(entry["video_ids"])}, actor)
             return entry
-        merged_ids = sorted(set(existing.get("video_ids", [])) | set(video_ids))
+        # Re-enumeration is authoritative for order (yt-dlp returns the live playlist
+        # sequence); a video removed from the source playlist between runs is dropped
+        # from the index rather than kept at a stale position. Fall back to appending any
+        # previously-known id that the fresh enumeration didn't include, so a partial/failed
+        # re-enumeration can't silently lose videos.
+        merged_ids = list(dict.fromkeys(video_ids)) if video_ids else list(
+            existing.get("video_ids", [])
+        )
+        for vid in existing.get("video_ids", []):
+            if vid not in merged_ids:
+                merged_ids.append(vid)
         existing["video_ids"] = merged_ids
         if title and not existing.get("title"):
             existing["title"] = title
@@ -285,9 +296,30 @@ def _cli() -> str:
     return "vid_cli.py"
 
 
+# autonomy_action -> a coarse, human-facing progress bucket. Mirrors autonomy_action 1:1
+# (TERMINAL splits into "done" only for the real terminal states below; PAUSED/CANCELLED/
+# ERROR are surfaced as their own buckets since "blocked" would understate a cancellation).
+_TERMINAL_DONE = {"READY_FOR_REVIEW", "MONITORING"}
+_STATUS_BUCKETS = {
+    "PROCEED": "in-progress",
+    "STOP_AT_GATE": "gate-pending",
+    "BLOCKED": "blocked",
+}
+
+
+def _status_for(current: str | None, action: str | None) -> str:
+    if current in {"CANCELLED", "ERROR"}:
+        return current.lower()
+    if action == "TERMINAL":
+        return "done" if current in _TERMINAL_DONE else "stopped"
+    return _STATUS_BUCKETS.get(action, "blocked")
+
+
 def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
-    """Return a copy of ``entry`` with a derived ``next_command`` (+ ``review_files`` at gate
-    steps). Pure/read-only: reads state.plan() for entries that have a project; never writes."""
+    """Return a copy of ``entry`` with a derived ``status``, ``next_command`` (+
+    ``review_files`` at gate steps). Pure/read-only: reads state.plan() for entries that have
+    a project; never writes. Nothing here is persisted — call this fresh on every read (rule 1:
+    the CLI owns state, this is a view over it)."""
     from . import state as state_mod
 
     vid = entry.get("video_id")
@@ -296,6 +328,8 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
 
     # Not yet a project: the next step is to kick one off (still flag-gated media download).
     if not project_id:
+        out["status"] = "not-started"
+        out["current_state"] = None
         targets = _default_targets_csv(root)
         out["next_command"] = (
             f"! {_cli()} project init {vid} --url {entry.get('url', '<url>')} "
@@ -309,12 +343,16 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
     except Exception:
         # Project referenced but unreadable (e.g. deleted dir) — surface no command rather
         # than a wrong one.
+        out["status"] = "unknown"
+        out["current_state"] = None
         out["next_command"] = None
         out.pop("review_files", None)
         return out
 
     action = plan.get("autonomy_action")
     current = plan.get("current_state")
+    out["status"] = _status_for(current, action)
+    out["current_state"] = current
 
     if action == "TERMINAL":
         out["next_command"] = None

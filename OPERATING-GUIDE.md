@@ -2,7 +2,8 @@
 
 Day-to-day operating guide for **publish-vid-trans**, for use *after* the one-time setup in
 [README.md](README.md#installation) is done (venv created, `pip install -e '.[dev,mcp]'`,
-`yt-dlp` installed into the venv, `ffmpeg`/`ffprobe` on `PATH`).
+`yt-dlp` installed system-wide on `PATH` — e.g. `brew install yt-dlp`, **not** into the venv —
+plus `ffmpeg`/`ffprobe` on `PATH`).
 
 For the *why* — the rules, the state machine, rights/consent, mux modes, distribution —
 read the README. This file is the "what do I type" reference.
@@ -34,7 +35,7 @@ export VIDTRANS_FETCH_ENABLED=1          # required for `ingest run` (yt-dlp) + 
 ### Behind a TLS-inspecting proxy (this machine)
 
 This machine sits behind a Palo Alto **Prisma Access** proxy that intercepts HTTPS. Without
-telling Python which CA to trust, `ingest run` and model downloads fail with
+telling Python which CA to trust, model downloads (huggingface_hub) fail with
 `CERTIFICATE_VERIFY_FAILED: self-signed certificate in certificate chain`. The bundle that
 contains the interception root here is `~/certs/aipe-certs.pem`. Export it before any egress:
 
@@ -43,9 +44,17 @@ export SSL_CERT_FILE="$HOME/certs/aipe-certs.pem"
 export REQUESTS_CA_BUNDLE="$HOME/certs/aipe-certs.pem"
 ```
 
-> yt-dlp and huggingface_hub both read their trust store from the stdlib `ssl` module, which
-> honors `SSL_CERT_FILE`. The proxy also sets `HTTP(S)_PROXY` for you. This is an environment
+> huggingface_hub reads its trust store from the stdlib `ssl` module, which honors
+> `SSL_CERT_FILE`. The proxy also sets `HTTP(S)_PROXY` for you. This is an environment
 > condition, not a framework setting — on an un-proxied network you can skip this block.
+>
+> **yt-dlp is different: use a system/Homebrew install, not a venv-pip one.** A `yt-dlp`
+> installed via `.venv/bin/pip install yt-dlp` carries its own isolated `certifi` bundle that
+> keeps failing `CERTIFICATE_VERIFY_FAILED` on this proxy *even with `SSL_CERT_FILE` exported*
+> (verified 2026-08-08). `brew install yt-dlp` resolves a different `certifi` bundle that
+> works here with **no CA env needed at all**. The CLI resolves `yt-dlp` via `PATH` only
+> (`shutil.which`, no venv-bindir fallback) for exactly this reason — see `net/fetch.py`. If
+> you have a stray venv-pip `yt-dlp`, remove it: `.venv/bin/pip uninstall yt-dlp`.
 
 A ready-to-source snippet (put in `.env.local`, **not** committed):
 

@@ -170,11 +170,17 @@ def executable(name: str) -> str | None:
 
     Checks PATH first (`shutil.which`), then falls back to the directory holding the current
     interpreter (`sys.executable`) — i.e. the active venv's `bin/` (or `Scripts/` on Windows).
-    Tools pip-installed into the project venv (yt-dlp, kokoro, faster-whisper, …) land there,
-    and the CLI is documented to run as `.venv/bin/python3 …` WITHOUT activating the venv, so
-    that bin dir is not on PATH. Without this fallback, doctor and ingest would report a
-    pip-installed yt-dlp as "not installed". Absolute paths / names containing a separator are
-    passed straight through to `shutil.which`."""
+    Tools pip-installed into the project venv (kokoro, faster-whisper, …) land there, and the
+    CLI is documented to run as `.venv/bin/python3 …` WITHOUT activating the venv, so that bin
+    dir is not on PATH. Without this fallback, doctor would report a pip-installed engine as
+    "not installed". Absolute paths / names containing a separator are passed straight through
+    to `shutil.which`.
+
+    NOTE: yt-dlp is deliberately NOT resolved through this venv-bindir fallback — see
+    net/fetch.py._ytdlp() and doctor.py, which call `shutil.which("yt-dlp")` directly so a
+    system/PATH install (e.g. Homebrew) is always preferred over a pip-installed copy in the
+    project venv (the venv copy's isolated `certifi` bundle can fail behind a TLS-inspecting
+    proxy even with SSL_CERT_FILE set)."""
     found = shutil.which(name)
     if found:
         return found

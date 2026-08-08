@@ -816,9 +816,17 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
             pl = catalog_mod.get_playlist(root, args.playlist_id)
             if pl is None:
                 raise VideoTranslationHouseError(f"No playlist: {args.playlist_id}")
-            videos = [catalog_mod.enrich_entry(root, e) for e in catalog_mod.list_entries(root)
-                      if e.get("playlist_id") == args.playlist_id]
-            return {**pl, "videos": videos}
+            # list_entries() is sorted by video_id (catalog.upsert_entry's master-list
+            # order) — reorder by pl["video_ids"] so the playlist's own sequence (yt-dlp's
+            # enumeration order) is what's returned, not an alphabetized one.
+            by_id = {e["video_id"]: e for e in catalog_mod.list_entries(root)
+                     if e.get("playlist_id") == args.playlist_id}
+            videos = [catalog_mod.enrich_entry(root, by_id[vid])
+                      for vid in pl.get("video_ids", []) if vid in by_id]
+            summary: dict[str, int] = {}
+            for v in videos:
+                summary[v["status"]] = summary.get(v["status"], 0) + 1
+            return {**pl, "video_count": len(videos), "status_summary": summary, "videos": videos}
     if cmd == "budget":
         from . import budget as budget_mod
         if args.budget_command == "status":

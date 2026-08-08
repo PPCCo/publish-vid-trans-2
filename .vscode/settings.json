@@ -1,0 +1,51 @@
+{
+  // Files the editor watches for change events. Excluding heavy/generated dirs
+  // stops VSCode from spinning up file-system watchers over media + caches.
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.venv/**": true,
+    "**/venv/**": true,
+    "**/__pycache__/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.pytest_cache/**": true,
+    "**/node_modules/**": true,
+    "**/projects/*/source/**": true,
+    "**/projects/*/audio/**": true,
+    "**/projects/*/video/**": true,
+    "**/projects/*/outputs/**": true,
+    "**/projects/*/packages/**": true,
+    "**/projects/*/tmp/**": true
+  },
+
+  // Dirs hidden from the search index / quick-open scan.
+  "search.exclude": {
+    "**/.venv/**": true,
+    "**/venv/**": true,
+    "**/__pycache__/**": true,
+    "**/.mypy_cache/**": true,
+    "**/.pytest_cache/**": true,
+    "**/node_modules/**": true,
+    "**/projects/*/source/**": true,
+    "**/projects/*/audio/**": true,
+    "**/projects/*/video/**": true,
+    "**/projects/*/outputs/**": true,
+    "**/projects/*/packages/**": true,
+    "**/projects/*/tmp/**": true,
+    "**/*.egg-info/**": true
+  },
+  "search.followSymlinks": false,
+
+  // Python analysis: don't index the whole workspace + big dirs; that's the
+  // most common source of "scanning on open" and slow new-file handling.
+  "python.analysis.indexing": false,
+  "python.analysis.exclude": [
+    "**/.venv/**",
+    "**/__pycache__/**",
+    "**/projects/*/source/**",
+    "**/projects/*/audio/**",
+    "**/projects/*/video/**",
+    "**/projects/*/outputs/**"
+  ],
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+}

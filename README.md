@@ -84,9 +84,9 @@ just documentation:
 python3 -m venv .venv
 .venv/bin/pip install -e '.[dev,mcp]'
 
-# ingest needs yt-dlp; install it into the SAME venv (the CLI finds venv-installed tools
-# even when the venv is not "activated" — see OPERATING-GUIDE.md).
-.venv/bin/pip install yt-dlp
+# ingest needs yt-dlp on PATH — install it system-wide, NOT into the venv (the CLI
+# resolves yt-dlp via PATH only; see OPERATING-GUIDE.md and the note below).
+brew install yt-dlp     # macOS; use your platform's package manager elsewhere
 
 # see what's installed / missing (ffmpeg, ffprobe, ASR/TTS engines, yt-dlp)
 .venv/bin/python3 .claude/scripts/vid_cli.py doctor
@@ -716,13 +716,15 @@ holds just the captions and README — no video, since `fa` was never in `--audi
 - **Ingest is allowlisted, not open.** The sanctioned network module only accepts
   `youtube.com`/`youtu.be`/`vimeo.com` URLs and only runs when `VIDTRANS_FETCH_ENABLED=1` —
   an agent cannot redirect ingest to an arbitrary host even if it tries.
-- **Behind a TLS-inspecting proxy, point `yt-dlp` at the corporate CA bundle.** On networks
-  that intercept HTTPS (e.g. Palo Alto Prisma Access), `ingest run` fails with
-  `CERTIFICATE_VERIFY_FAILED: self-signed certificate in certificate chain`. yt-dlp reads
-  the trust store from the standard-library `ssl` module, which honors `SSL_CERT_FILE` —
-  export it (and `REQUESTS_CA_BUNDLE`) to the bundle that contains the interception root
-  before running ingest. See OPERATING-GUIDE.md for the exact recipe. This is an environment
-  condition, not a framework bug.
+- **Behind a TLS-inspecting proxy, use a system-installed `yt-dlp`, not a venv-pip one.**
+  On networks that intercept HTTPS (e.g. Palo Alto Prisma Access), a `yt-dlp` pip-installed
+  into the project venv fails `CERTIFICATE_VERIFY_FAILED: self-signed certificate in
+  certificate chain` even with `SSL_CERT_FILE`/`REQUESTS_CA_BUNDLE` exported — its isolated
+  `certifi` bundle doesn't trust the interception root. A `brew install yt-dlp` (or
+  equivalent system package) resolves its own `certifi` bundle that has been observed to
+  work without any extra CA env at all. The CLI resolves yt-dlp via `PATH` only for exactly
+  this reason (see `net/fetch.py._ytdlp()`). See OPERATING-GUIDE.md for the full recipe.
+  This is an environment condition, not a framework bug.
 - **A source selection is resolved late and can be re-cut.** Selection windows are turned
   into a hashed `segments.json` at `SEGMENT_RESOLUTION` and only *applied* (cut/joined) at
   PACKAGE — translation/dub run on the whole timeline throughout. Empty `selection: []`,
@@ -770,9 +772,12 @@ inside the venv once installed, as an alternative to `python3 .claude/scripts/vi
 Optional, install as needed:
 - `ffmpeg`/`ffprobe` — required for any real media operation (mux, probe, audio ops).
 - `yt-dlp` — required for `ingest run`; not needed if you supply source video files directly.
-  Install it into the project venv (`.venv/bin/pip install yt-dlp`); the CLI resolves
-  tools on `PATH` **and** in the venv's own `bin/` (next to the running interpreter), so a
-  venv-installed `yt-dlp` is found without activating the venv.
+  Install it system-wide and on `PATH` (`brew install yt-dlp` on macOS), **not** via
+  `pip install yt-dlp` into the project venv. The CLI resolves yt-dlp through `PATH` only
+  (`shutil.which`), deliberately skipping the venv-bindir fallback it uses for other tools —
+  a venv-pip-installed yt-dlp carries its own isolated `certifi` bundle that can fail
+  `CERTIFICATE_VERIFY_FAILED` behind a TLS-inspecting proxy even with `SSL_CERT_FILE` set,
+  while a system/Homebrew install works. See the proxy note below.
 - An ASR engine (`mlx-whisper`, `faster-whisper`) — optional; `transcript import` works
   without one.
 - A TTS engine (`kokoro`, `piper`, `xtts`, `chatterbox`, or a vendor CLI) — optional; `dub

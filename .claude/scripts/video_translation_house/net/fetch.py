@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import subprocess
 from pathlib import Path
 from typing import Any
@@ -77,6 +78,36 @@ def check_publish_url(url: str) -> None:
         )
 
 
+# YouTube playlist ids carry a well-known prefix; video ids are exactly 11 URL-safe chars.
+# A bare id has no hostname, so the allowlist check below would reject it — normalize it to a
+# canonical youtube.com URL first so operators can paste either a full URL or a bare id.
+_PLAYLIST_PREFIXES = ("PL", "UU", "FL", "OL", "RD", "LL", "TL", "WL", "SP")
+_ID_SAFE = "-_"
+
+
+def _looks_like_bare_id(s: str) -> bool:
+    """True when s is a bare YouTube id (no scheme/host), not a URL or path."""
+    if not s or "/" in s or ":" in s or "." in s or " " in s:
+        return False
+    return all(c.isalnum() or c in _ID_SAFE for c in s)
+
+
+def normalize_youtube_url(url: str) -> str:
+    """Expand a bare YouTube playlist/video id into a canonical youtube.com URL.
+
+    Playlist ids (``PL…``/``UU…``/… prefixes, and always longer than an 11-char video id)
+    become ``https://www.youtube.com/playlist?list=<id>``; anything else that looks like a
+    bare id becomes ``https://www.youtube.com/watch?v=<id>``. A value that already parses to a
+    host is returned unchanged. Kept narrow so it can't turn arbitrary text into a URL.
+    """
+    if not _looks_like_bare_id(url):
+        return url
+    is_playlist = url.startswith(_PLAYLIST_PREFIXES) and len(url) > 11
+    if is_playlist:
+        return f"https://www.youtube.com/playlist?list={url}"
+    return f"https://www.youtube.com/watch?v={url}"
+
+
 def _check_url(url: str) -> None:
     host = (urlparse(url).hostname or "").lower()
     if host not in ALLOWED_HOSTS:
@@ -87,21 +118,25 @@ def _check_url(url: str) -> None:
 
 
 def _ytdlp() -> str:
-    # util.executable resolves PATH first, then the venv bin dir next to sys.executable —
-    # so a `pip install yt-dlp` into the project venv is found even when the venv isn't
-    # activated (the CLI is run as `.venv/bin/python3 …`). Keeps this in lockstep with
-    # what `doctor` reports as installed.
-    from ..util import executable
-
-    binary = executable("yt-dlp")
+    # PATH only — deliberately NOT util.executable's venv-bindir fallback. A `pip install
+    # yt-dlp` into the project venv resolves its own isolated `certifi` bundle, which on a
+    # TLS-inspecting proxy (Prisma Access) fails CERTIFICATE_VERIFY_FAILED even with
+    # SSL_CERT_FILE set, while a system-installed yt-dlp (e.g. `brew install yt-dlp`) works.
+    # Always use the PATH binary so behavior matches what an operator validated by hand.
+    # Keep this in lockstep with what `doctor` reports as installed (shutil.which too).
+    binary = shutil.which("yt-dlp")
     if not binary:
-        raise ConfigurationError("yt-dlp is not installed; see `vid_cli.py doctor`")
+        raise ConfigurationError(
+            "yt-dlp is not installed; install it on PATH, e.g. `brew install yt-dlp` "
+            "(see `vid_cli.py doctor`)"
+        )
     return binary
 
 
 def ytdlp_probe(url: str, *, timeout: int = 120) -> dict[str, Any]:
     """Fetch metadata only (no media download) via `yt-dlp --dump-single-json`."""
     require_fetch_enabled()
+    url = normalize_youtube_url(url)
     _check_url(url)
     proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
         [_ytdlp(), "--dump-single-json", "--no-warnings", "--skip-download", url],
@@ -124,6 +159,7 @@ def ytdlp_playlist_entries(url: str, *, timeout: int = 300) -> list[dict[str, An
     Uses ``--flat-playlist`` so yt-dlp lists entries without descending into each video.
     Returns one dict per entry: ``{id, url, title, channel, playlist_id, playlist_title}``.
     """
+    url = normalize_youtube_url(url)
     _check_url(url)
     proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
         [_ytdlp(), "--dump-single-json", "--flat-playlist", "--skip-download",
@@ -168,6 +204,7 @@ def ytdlp_download(
     is responsible for registering resulting files as artifacts.
     """
     require_fetch_enabled()
+    url = normalize_youtube_url(url)
     _check_url(url)
     dest_dir.mkdir(parents=True, exist_ok=True)
     out_tmpl = str(dest_dir / "%(id)s.%(ext)s")
