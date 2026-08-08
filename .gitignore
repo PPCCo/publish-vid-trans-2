@@ -32,3 +32,5 @@ projects/*/distribution/renders/
 dist/
 build/
 node_modules/
+
+images/

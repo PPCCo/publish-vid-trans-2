@@ -392,16 +392,39 @@ authoritative.
 
 ### Standalone helper verbs (`size` / `speed`)
 
-Two project-free utility verbs, pure operator helpers:
+Two project-free utility verbs, pure operator helpers — no project id, no CLI state touched.
 
-- **`size <axis> <n> [--aspect W:H]`** — from one axis (`w`/`h`), compute the full 16:9 (default)
-  frame, even-rounded for H.264: `size w 1920` → `1920x1080`. Handy for sizing a still image to
-  the canvas before `project set-image`. Pure math, no I/O.
-- **`speed <factor> <video> [--out <path>]`** — uniformly re-time **any** video (audio + video by
-  the same factor, so they stay in sync). The **source is never touched**; output lands beside it
-  as `<stem>_<factor><suffix>` unless `--out` is given. Works on files this tool didn't produce and
-  refuses to overwrite the source. This is the same uniform whole-video re-timing that
-  `project set-speed` / `--speeds` applies per-language at mux, exposed as a one-off.
+**`size {w|h|width|height} <n> [--aspect W:H]`** — from one known axis, compute the full frame,
+even-rounded for H.264. Default aspect is 16:9.
+
+```bash
+CLI=".venv/bin/python3 .claude/scripts/vid_cli.py"
+
+$CLI size w 1920                  # {"width": 1920, "height": 1080, "aspect": "16:9"}
+$CLI size width 1920               # same thing — "w"/"width" and "h"/"height" are aliases
+$CLI size h 583                    # from height instead: {"width": 1036, "height": 584, ...} (even-rounded)
+$CLI size w 1042 --aspect 4:3      # non-default aspect: {"width": 1042, "height": 782, "aspect": "4:3"}
+$CLI size w 1080 --aspect 1:1      # square canvas for a square still image
+```
+
+Handy for sizing a still image to the canvas before `project set-image` — pure math, no I/O, no
+project needed.
+
+**`speed <factor> <video> [--out <path>]`** — uniformly re-time **any** video (audio + video
+scaled by the same factor, so they stay in sync). The **source is never touched**; refuses to
+overwrite it.
+
+```bash
+$CLI speed 1.25 raw/lecture.mp4                       # -> raw/lecture_1.25.mp4 (25% faster/shorter)
+$CLI speed 0.9  raw/lecture.mp4                        # -> raw/lecture_0.9.mp4  (10% slower/longer)
+$CLI speed 1.5  raw/lecture.mp4 --out /tmp/preview.mp4 # explicit output path instead of the default name
+```
+
+Works on any video file, including ones this tool didn't produce — e.g. a raw source clip before
+you've even created a project. This is the same uniform whole-video re-timing that `project
+set-speed <id> --language <iso> --factor <f>` (or `project init --speeds "en=1.25,ur=1.25"`)
+applies per-language at mux — exposed here as a one-off you can run on any file, any time, with
+no project involved.
 
 ### Printing the equivalent terminal command (`cmd` / `nextcmd`)
 
