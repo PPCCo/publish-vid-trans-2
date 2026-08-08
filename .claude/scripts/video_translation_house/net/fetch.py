@@ -102,10 +102,23 @@ def normalize_youtube_url(url: str) -> str:
     """
     if not _looks_like_bare_id(url):
         return url
-    is_playlist = url.startswith(_PLAYLIST_PREFIXES) and len(url) > 11
-    if is_playlist:
+    if is_playlist_url(url):
         return f"https://www.youtube.com/playlist?list={url}"
     return f"https://www.youtube.com/watch?v={url}"
+
+
+def is_playlist_url(url_or_id: str) -> bool:
+    """True when the string looks like a YouTube playlist rather than a single video.
+
+    A bare id is a playlist when it carries a playlist prefix and is longer than an 11-char
+    video id; a full URL is a playlist when it carries a ``list=`` query param or a
+    ``/playlist`` path. Used both by ``normalize_youtube_url`` (bare-id branch) and by the
+    ``cmdgen`` command-printer to route between the flag-free ``add-playlist`` enumeration
+    path and the single-video ingest path.
+    """
+    if _looks_like_bare_id(url_or_id):
+        return url_or_id.startswith(_PLAYLIST_PREFIXES) and len(url_or_id) > 11
+    return "list=" in url_or_id or "/playlist" in url_or_id
 
 
 def _check_url(url: str) -> None:
@@ -162,8 +175,7 @@ def ytdlp_playlist_entries(url: str, *, timeout: int = 300) -> list[dict[str, An
     url = normalize_youtube_url(url)
     _check_url(url)
     proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
-        [_ytdlp(), "--dump-single-json", "--flat-playlist", "--skip-download",
-         "--no-warnings", url],
+        build_ytdlp_playlist_argv(url),
         capture_output=True, text=True, timeout=timeout, check=False,
     )
     if proc.returncode != 0:
@@ -190,6 +202,52 @@ def ytdlp_playlist_entries(url: str, *, timeout: int = 300) -> list[dict[str, An
     return out
 
 
+def build_ytdlp_download_argv(
+    url: str,
+    dest_dir: Path,
+    *,
+    write_subs: bool = True,
+    sub_langs: str = "all",
+    binary: str | None = None,
+) -> list[str]:
+    """Pure argv builder for the media-download command — no subprocess, no side effects.
+
+    Both ``ytdlp_download`` (the real downloader) and the ``cmdgen`` command-printer call
+    this, so the executed command and the printed command can never diverge. It does NOT
+    normalize the url or check the host allowlist — callers that actually invoke it must
+    still do both (``ytdlp_download`` does; the printer should pass an already-normalized
+    url so what it displays is exactly what would run). ``binary`` lets a print-only caller
+    pass the bare command name (``"yt-dlp"``) without requiring ``shutil.which`` to resolve
+    locally; the default (``None``) resolves via ``_ytdlp()`` as the real downloader needs.
+    """
+    resolved = binary if binary is not None else _ytdlp()
+    out_tmpl = str(dest_dir / "%(id)s.%(ext)s")
+    cmd = [
+        resolved,
+        "-f", "bv*+ba/b",
+        "--merge-output-format", "mp4",
+        "--write-info-json",
+        "--no-warnings",
+        "--no-playlist",
+        "-o", out_tmpl,
+    ]
+    if write_subs:
+        cmd += ["--write-auto-sub", "--write-sub", "--sub-langs", sub_langs, "--convert-subs", "srt"]
+    cmd.append(url)
+    return cmd
+
+
+def build_ytdlp_playlist_argv(url: str, *, binary: str | None = None) -> list[str]:
+    """Pure argv builder for the flag-free playlist-enumeration command (no side effects).
+
+    Shared by ``ytdlp_playlist_entries`` (the real enumerator) and the ``cmdgen`` printer so
+    they cannot drift. Same ``binary`` override semantics as ``build_ytdlp_download_argv``.
+    """
+    resolved = binary if binary is not None else _ytdlp()
+    return [resolved, "--dump-single-json", "--flat-playlist", "--skip-download",
+            "--no-warnings", url]
+
+
 def ytdlp_download(
     url: str,
     dest_dir: Path,
@@ -207,19 +265,7 @@ def ytdlp_download(
     url = normalize_youtube_url(url)
     _check_url(url)
     dest_dir.mkdir(parents=True, exist_ok=True)
-    out_tmpl = str(dest_dir / "%(id)s.%(ext)s")
-    cmd = [
-        _ytdlp(),
-        "-f", "bv*+ba/b",
-        "--merge-output-format", "mp4",
-        "--write-info-json",
-        "--no-warnings",
-        "--no-playlist",
-        "-o", out_tmpl,
-    ]
-    if write_subs:
-        cmd += ["--write-auto-sub", "--write-sub", "--sub-langs", sub_langs, "--convert-subs", "srt"]
-    cmd.append(url)
+    cmd = build_ytdlp_download_argv(url, dest_dir, write_subs=write_subs, sub_langs=sub_langs)
     proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
         cmd, capture_output=True, text=True, timeout=timeout, check=False,
     )

@@ -296,6 +296,28 @@ def _cli() -> str:
     return "vid_cli.py"
 
 
+# Named command builders shared by enrich_entry (the catalog next_command view) and cmdgen
+# (the raw-external command printer). Kept in one place so the two surfaces never drift — the
+# strings they produce are byte-identical.
+def _kickoff_command(cli: str, vid: str, url: str, targets_csv: str) -> str:
+    """The compound `project init … && ingest run …` for a not-yet-started video."""
+    return (f"{cli} project init {vid} --url {url} --targets {targets_csv} "
+            f"&& {cli} ingest run {vid}")
+
+
+def _gate_reference_command(cli: str, vid: str, gate: str, target: str) -> str:
+    """The disclose+confirm-first `approval grant … && project transition …` reference (rule 13)."""
+    return (f"{cli} approval grant {vid} --gate {gate} --approver \"<you>\" "
+            f"--scope project --artifact <sha256>  # disclose+confirm first (rule 13)"
+            f" && {cli} project transition {vid} --to {target} --actor human")
+
+
+def _rights_blocked_command(cli: str, vid: str) -> str:
+    """The `rights set …` a human runs to clear a rights-blocked PACKAGE → READY_FOR_REVIEW."""
+    return (f"{cli} rights set {vid} --status <self-authored|licensed|fair-use-claimed> "
+            f"--reviewer \"<you>\"")
+
+
 # autonomy_action -> a coarse, human-facing progress bucket. Mirrors autonomy_action 1:1
 # (TERMINAL splits into "done" only for the real terminal states below; PAUSED/CANCELLED/
 # ERROR are surfaced as their own buckets since "blocked" would understate a cancellation).
@@ -331,10 +353,8 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
         out["status"] = "not-started"
         out["current_state"] = None
         targets = _default_targets_csv(root)
-        out["next_command"] = (
-            f"! {_cli()} project init {vid} --url {entry.get('url', '<url>')} "
-            f"--targets {targets} && {_cli()} ingest run {vid}"
-        )
+        out["next_command"] = "! " + _kickoff_command(
+            _cli(), vid, entry.get("url", "<url>"), targets)
         out.pop("review_files", None)
         return out
 
@@ -368,11 +388,7 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
     if action == "STOP_AT_GATE":
         gate = plan.get("required_gate")
         target = plan.get("recommended_target")
-        out["next_command"] = (
-            f"! {_cli()} approval grant {vid} --gate {gate} --approver \"<you>\" "
-            f"--scope project --artifact <sha256>  # disclose+confirm first (rule 13)"
-            f" && {_cli()} project transition {vid} --to {target} --actor human"
-        )
+        out["next_command"] = "! " + _gate_reference_command(_cli(), vid, gate, target)
         rf = _gate_review_files(root, project_id, current, target)
         if rf:
             out["review_files"] = rf
@@ -382,10 +398,7 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
 
     # BLOCKED: the common cause is rights not yet set before PACKAGE->READY_FOR_REVIEW.
     if current == "PACKAGE":
-        out["next_command"] = (
-            f"! {_cli()} rights set {vid} --status <self-authored|licensed|fair-use-claimed> "
-            f"--reviewer \"<you>\""
-        )
+        out["next_command"] = "! " + _rights_blocked_command(_cli(), vid)
     else:
         out["next_command"] = None
     out.pop("review_files", None)

@@ -9,8 +9,12 @@ from __future__ import annotations
 
 from .fetch import (
     FetchDisabled,
+    build_ytdlp_download_argv,
+    build_ytdlp_playlist_argv,
     check_publish_url,
     fetch_enabled,
+    is_playlist_url,
+    normalize_youtube_url,
     publish_enabled,
     require_fetch_enabled,
     require_publish_enabled,
@@ -28,8 +32,12 @@ from .publish import (
 
 __all__ = [
     "FetchDisabled",
+    "build_ytdlp_download_argv",
+    "build_ytdlp_playlist_argv",
     "check_publish_url",
     "fetch_enabled",
+    "is_playlist_url",
+    "normalize_youtube_url",
     "publish_enabled",
     "require_fetch_enabled",
     "require_publish_enabled",

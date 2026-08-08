@@ -472,6 +472,23 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("path", help="Path to a video file (source is never modified)")
     sp.add_argument("--out", help="Output path (default: <stem>_<factor><suffix> beside the source)")
 
+    cg = sub.add_parser(
+        "cmd",
+        help="Print the raw external command (+ vid_cli.py alternative) to onboard/ingest a "
+             "video or playlist")
+    cg.add_argument("video_id_or_url",
+                    help="A video URL/bare-id, a playlist URL/id, or an existing catalog video_id")
+    cg.add_argument("--for-claude", dest="for_claude", action="store_true",
+                    help="Prefix runnable lines with `!` (default: bare terminal form)")
+
+    nc = sub.add_parser(
+        "nextcmd",
+        help="Print the raw external command (+ vid_cli.py alternative) for a project's current "
+             "next step")
+    nc.add_argument("project_id")
+    nc.add_argument("--for-claude", dest="for_claude", action="store_true",
+                    help="Prefix runnable lines with `!` (default: bare terminal form)")
+
     dele = sub.add_parser(
         "delete",
         help="Permanently remove a project directory + catalog entry (top-level alias for "
@@ -504,6 +521,12 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "speed":
         from . import speed as speed_mod
         return speed_mod.respeed(root, args.factor, args.path, dest=args.out)
+    if cmd == "cmd":
+        from . import cmdgen
+        return cmdgen.cmd_for_video(root, args.video_id_or_url, for_claude=args.for_claude)
+    if cmd == "nextcmd":
+        from . import cmdgen
+        return cmdgen.nextcmd_for_project(root, args.project_id, for_claude=args.for_claude)
     if cmd == "delete":
         return project.delete_project(
             root, args.project_id,
@@ -856,6 +879,11 @@ def main(argv: list[str] | None = None) -> int:
     try:
         root = Path(args.root).expanduser().resolve() if args.root else repo_root()
         result = dispatch(args, root)
+        # `cmd`/`nextcmd` return a paste-ready terminal block (a plain string), not a dict —
+        # print it raw so newlines/quotes survive for copy-paste (their whole purpose).
+        if args.command in ("cmd", "nextcmd"):
+            print(result)
+            return 0
         indent = None if args.compact else 2
         print(json.dumps(result, indent=indent, ensure_ascii=False, default=str))
         if isinstance(result, dict) and (result.get("valid") is False or result.get("status") == "fail"):
