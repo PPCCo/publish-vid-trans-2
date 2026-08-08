@@ -1,5 +1,7 @@
 project init
 /new-video
+/kickoff (batch onboarding with fixed settings; auto-resumes in-progress videos)
+/continue (resume an in-progress video from its own configured settings)
 catalog add-playlist
 cmd / nextcmd (print the equivalent terminal command)
 size (compute WxH from one axis)
@@ -28,6 +30,85 @@ not just INGEST.
 In short: project init is the mechanical primitive; /new-video is the human-facing onboarding flow that figures out the right project init (and
 follow-up ingest run) call for you, and handles the playlist carve-out. For normal onboarding you should use /new-video; call project init directly
 only if you already know every flag and want to skip the interview (e.g. scripting many similar projects).
+
+## /kickoff <video-id> (the skill)
+
+`/kickoff` is a **settings-aware command generator** for batch-onboarding videos from the Javadi
+playlist (`PLDvVOFNMIIG3snBzVLV65D9YHbmkN8s2Z`) with one uniform set of settings. It does **not**
+run anything or mutate state — it *prints* the external terminal commands you paste into a plain
+shell, then explains the handoff loop back into this framework. Think of it as `/new-video` with
+the interview pre-answered from a fixed SETTINGS table.
+
+The uniform settings (editable at the top of `.claude/commands/kickoff.md`): source `fa`,
+translate+dub `en,ur,ar,zh,fr,es,pt,ru`, male dub voice, voice cloning on, rights `self-authored`,
+soft-subs, no glossary, playback speed `1.1` for all languages, and a per-language still image at
+`images/<video-id>-<lang>.jpg`. Most of these are already company defaults, so the generated
+`project init` is short — voice-clone consent and `self-authored` rights are auto-recorded at init
+(the rule-5 override), so **no separate `rights set` is needed**.
+
+**In-progress detection.** `/kickoff` only applies the SETTINGS to a **fresh** video. Before doing
+anything it checks whether `projects/<ID>/` already exists; if it does, the video is already
+onboarded (possibly with different settings), so `/kickoff` **defers to `/continue`** and does not
+re-init or re-apply the SETTINGS. Fresh videos only get the onboarding procedure below.
+
+For a fresh video, `/kickoff <video-id>` prints, in one response:
+
+1. A still-image **preflight** — a ✅/⚠️ list of which `images/<video-id>-<lang>.jpg` files exist,
+   with a clear warning that `project init` will fail until the missing ones are supplied (or you
+   drop `--images`). The command is emitted regardless (emit-as-is + warn).
+2. **STEP 1** — the external `project init` block with all the SETTINGS flags baked in
+   (`--targets/--audio/--dub-voice-gender/--mux-mode/--speeds/--images`).
+3. **STEP 2** — the external `ingest run` block (media download; needs `source .env.local`),
+   generated from the sanctioned `cmd` printer so it can't drift.
+4. **STEP 3** — the token-thrifty scripted pipeline: `run_pipeline.sh <ID> --mt`, which runs the
+   deterministic chain outside Claude and halts at the first human gate.
+5. The **handoff loop** — run STEP 1 → 2 → 3 externally; when the pipeline halts, come back and say
+   *"the manual process for `<ID>` is done"*; Claude then does the editorial QA at each gate and
+   walks you through approval (rule 13), handing back the next external command when one is needed,
+   until the project reaches `READY_FOR_REVIEW`.
+
+```bash
+# fresh video — emits the 3 external STEP blocks + the image preflight + the handoff loop
+/kickoff yt-MFuUIoF5PSc
+
+# a video already onboarded — auto-defers to /continue (uses the project's own settings)
+/kickoff yt-MFuUIoF5PSc
+```
+
+To change the uniform settings for all future kickoffs, edit the SETTINGS table at the top of
+`.claude/commands/kickoff.md` (targets, speeds, gender, image path template, etc.) in one place.
+
+## /continue <video-id> (the skill)
+
+`/continue` resumes a video that is **already onboarded** (a `projects/<ID>/` directory exists). It
+routes entirely off the project's **own** `state`/`config`/`plan` — never the `/kickoff` SETTINGS —
+so a project onboarded with different values is resumed correctly. Like `/kickoff` it is read-only:
+it prints external commands and drives human gates, but never mutates state or crosses a gate on
+its own. `/kickoff` auto-invokes it when handed an in-progress video.
+
+`/continue <video-id>`:
+
+1. Confirms the project exists (`project status <ID>`); if not, tells you to `/kickoff <ID>` first.
+2. Surfaces the project's own configured settings for context (current state, target/audio
+   languages, clone posture, glossary, per-language speed/images, rights) — without proposing to
+   change them (for changes it points at `add-languages` / `enable-dub` / `set-speed` /
+   `set-image` / `redub`).
+3. Reads `project plan <ID>` → `autonomy_action` and branches:
+   - **PROCEED** — prints the next external command via `nextcmd <ID>` (or `run_pipeline.sh <ID>
+     --mt` when several deterministic steps remain), then reminds you to say *"the manual process
+     for `<ID>` is done"* when it halts.
+   - **STOP_AT_GATE / human gate** — drives the gate in-conversation per rule 13
+     (surface → options incl. *Approve & advance* → disclose → confirm → execute); the three
+     outward-facing gates stay human-run.
+   - **BLOCKED** — explains the blocker and hands over the exact command that clears it (e.g.
+     `langid set` to confirm `fa` at LANGUAGE_ID, or `ingest ensure` to re-fetch deleted source).
+   - **TERMINAL** — reports the terminal state; at `READY_FOR_REVIEW` offers `/prepare-distribution`
+     (human-gated, never uploads).
+
+```bash
+# resume wherever the project sits, off its own state/config
+/continue yt-MFuUIoF5PSc
+```
 
 ## `cmd <video-id-or-url>` / `nextcmd <project-id>` (print the equivalent terminal command)
 

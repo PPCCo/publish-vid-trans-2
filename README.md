@@ -22,6 +22,7 @@ full design rationale and every deliberate deviation from `publish-vid-trans-pla
   - [Standalone helper verbs (`size` / `speed`)](#standalone-helper-verbs-size--speed)
   - [Printing the equivalent terminal command (`cmd` / `nextcmd`)](#printing-the-equivalent-terminal-command-cmd--nextcmd)
 - [Skills (the `/`-invocable workflow)](#skills-the--invocable-workflow)
+  - [Batch onboarding: `/kickoff` and `/continue`](#batch-onboarding-kickoff-and-continue)
 - [Engines: ASR / MT / TTS](#engines-asr--mt--tts)
 - [Rights and voice-cloning consent](#rights-and-voice-cloning-consent)
 - [The vendor spend ceiling (cost guard)](#the-vendor-spend-ceiling-cost-guard)
@@ -493,6 +494,42 @@ gate, and never bypasses the CLI:
 Every QA skill's job is identical in shape: run the deterministic checker, summarize the
 findings in plain language, and hand the human an evidence-backed gate packet — never grant
 the approval itself.
+
+### Batch onboarding: `/kickoff` and `/continue`
+
+For running many videos through the pipeline with one uniform set of settings (e.g. a whole
+playlist), two operator-facing slash commands sit on top of the pipeline. Both are **read-only
+command generators** — they *print* the external terminal commands you paste into a plain shell
+and drive human gates in conversation; neither runs the pipeline or mutates state itself.
+
+| Command | For | What it does |
+|---|---|---|
+| `/kickoff <video-id>` | a **fresh** video | Emits the onboarding commands with a fixed SETTINGS table baked in (`project init` + `ingest run` + the scripted pipeline), plus a still-image preflight and the handoff loop. Auto-defers to `/continue` if the video is already onboarded. |
+| `/continue <video-id>` | an **in-progress** video | Reads the project's *own* state/config (never the kickoff SETTINGS), shows where it sits, and hands over the exact next external command — or drives the next human gate per rule 13. |
+
+`/kickoff`'s SETTINGS (editable at the top of `.claude/commands/kickoff.md`) bake in the uniform
+choices for the Javadi playlist `PLDvVOFNMIIG3snBzVLV65D9YHbmkN8s2Z`: source `fa`, translate+dub
+`en,ur,ar,zh,fr,es,pt,ru`, male dub voice, voice cloning on, `self-authored` rights, soft-subs, no
+glossary, playback speed `1.1` for all languages, and a per-language still image at
+`images/<video-id>-<lang>.jpg`. Most of these are already company defaults, so the generated
+`project init` is short and voice-clone consent + `self-authored` rights are auto-recorded at init
+(the rule-5 override) — no separate `rights set` step.
+
+```bash
+# fresh video: prints STEP 1 (project init) → STEP 2 (ingest run) → STEP 3 (run_pipeline.sh --mt)
+# plus the still-image preflight and the handoff loop
+/kickoff yt-MFuUIoF5PSc
+
+# already onboarded: /kickoff auto-defers to /continue, which resumes off the project's own state
+/continue yt-MFuUIoF5PSc
+```
+
+**The handoff loop.** You run the emitted STEP blocks in a plain terminal; `run_pipeline.sh <id>
+--mt` runs the deterministic transcribe→translate→dub chain **outside Claude** (zero tokens) and
+halts at the first human gate. You then come back and say *"the manual process for `<id>` is
+done"*; Claude runs the editorial QA at each pending gate and walks you through approval (rule 13),
+handing back the next external command when one is needed, until the project reaches
+`READY_FOR_REVIEW`. See `docs/guides/commands-index.md` for the full step-by-step.
 
 ## Engines: ASR / MT / TTS
 
