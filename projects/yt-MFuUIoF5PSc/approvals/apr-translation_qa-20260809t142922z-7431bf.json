@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-translation_qa-20260809t142922z-7431bf",
+  "project_id": "yt-MFuUIoF5PSc",
+  "gate": "translation_qa",
+  "language": "en",
+  "approver": "Qaiser",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:09aa6a97efc07a8ff4c89da503dc965f9e1bd7dad0bfb1596debd7362ee28dcf"
+  ],
+  "scope": "language",
+  "exclusions": [],
+  "notes": "en translation approved by Qaiser at translation_qa. Bound active captions.en.json (art-captions-json-09aa6a97efc0, 243 cues post rule-12 split). Deterministic translation-qa PASS + glossary PASS, 0 findings. Disclosed concerns: (1) built on Sonnet-5/high not Opus (per-agent model override did not apply; output verified faithful, rule 16 permits Sonnet for ordinary volume); (2) cue 5 is a citation-only caption line (Quran 100:1-11), inside keep-source window so not dubbed; (3) keep-source-audio on cues 0-5 (0-38840ms) splices reciter audio in every language, verified surviving the split. Auto_translate tracks (ur/ar/zh/fr/es/pt/ru) pass on deterministic QA, no human gate (rule 7).",
+  "created_at": "2026-08-09T14:29:22Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

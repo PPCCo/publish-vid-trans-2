@@ -1,3 +1,7 @@
+> **New here?** Read [transcribe-translate-dub-workflow.md](transcribe-translate-dub-workflow.md)
+> first — the concise end-to-end pipeline (states, gates, commands, and the
+> worksheet → import review loop). This file is the per-command reference.
+
 project init
 /new-video
 /kickoff (batch onboarding with fixed settings; auto-resumes in-progress videos)
@@ -136,6 +140,34 @@ command can never drift from what actually executes.
 
 Use these when you want the raw command (to run elsewhere, to inspect exactly what would run, or to audit the env a step needs); use the pipeline
 skills or the plain vid_cli.py verbs when you just want the step done.
+
+## `transcript reconcile-verses <id>` (merge verse-override edits into the gloss)
+
+Project-scoped, review-time only (`TRANSCRIPT_QA_GATE`). For a Quran/tafsir source, the framework
+may produce a companion review aid `transcript/english-verses-gloss.worksheet.json` listing only the
+verse-bearing gloss cues, each with the `(Quran s:a)` citation(s), the source text, the English
+`translated_text`, and an empty `modified_translation`. Fill `modified_translation` only for
+renderings you want changed.
+
+`reconcile-verses` copies every non-empty `modified_translation` into the matching cue's
+`target_text` in `english-gloss.worksheet.json` (by cue id) and mirrors it back into the verses
+file's `translated_text` so both stay in sync. Idempotent; a no-op if the verses file is absent or
+holds no overrides.
+
+It is **always run as the first action of `transcript english-import`** — so a plain
+`english-import` already applies your latest overrides before rebuilding the canonical
+`english-gloss.json`. The standalone verb is for applying + inspecting your edits *before* importing.
+Both files it touches are fill-in worksheets (not CLI-owned state, not registered artifacts), so it
+never touches `state.json`/manifest/approvals (rule 1); it appends an `ENGLISH_GLOSS_VERSES_RECONCILED`
+event when overrides are applied.
+
+```bash
+# apply your modified_translation edits, then inspect the gloss worksheet
+vid_cli.py transcript reconcile-verses yt-MFuUIoF5PSc
+
+# or just import — reconcile runs first automatically
+vid_cli.py transcript english-import yt-MFuUIoF5PSc
+```
 
 ## `size {w|h|width|height} <n> [--aspect W:H]` (compute the full WxH from one axis)
 

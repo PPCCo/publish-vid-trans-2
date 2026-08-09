@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-MFuUIoF5PSc",
-  "current_state": "TRANSCRIPT_QA_GATE",
-  "previous_state": "TRANSCRIPTION",
+  "current_state": "CAPTION_TIMING",
+  "previous_state": "TRANSLATION_QA_GATE",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-09T10:51:23Z",
-  "updated_by": "agent",
+  "updated_at": "2026-08-09T14:29:27Z",
+  "updated_by": "human",
   "source_language": "fa",
   "target_languages": [
     "en",
@@ -20,58 +20,81 @@
   ],
   "language_tracks": {
     "en": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:22Z",
+      "notes": "translated; awaiting QA"
     },
     "ur": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:22Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "ar": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:22Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "zh": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:23Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "fr": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:23Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "es": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:23Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "pt": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:23Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     },
     "ru": {
-      "stage": "TRANSLATION",
-      "status": "pending",
+      "stage": "TRANSLATION_QA_GATE",
+      "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T10:47:22Z"
+      "updated_at": "2026-08-09T14:07:24Z",
+      "auto_translate": true,
+      "notes": "translated; awaiting QA"
     }
   },
   "active_artifacts": {
     "source-video": "sha256:94917d2322d7a4e3e6bafe0ff8efe2d090d5f57c02e8bec97cfc0e60d351b259",
     "source-audio": "sha256:07d85e39ec82f2cc537f44aab582f03abdb06a711699af44b2d91f588d5ae27d",
-    "transcript@fa": "sha256:f7252c4047f7cb12e154642e39f01804f5e75a0514ae31929c28e46e5a86fba6"
+    "transcript@fa": "sha256:f7252c4047f7cb12e154642e39f01804f5e75a0514ae31929c28e46e5a86fba6",
+    "captions-json@en": "sha256:09aa6a97efc07a8ff4c89da503dc965f9e1bd7dad0bfb1596debd7362ee28dcf",
+    "captions-json@ur": "sha256:aec2e1238e392f57f30c3312c31036f0124c1cc2ead0afd08dd6052911523f79",
+    "captions-json@ar": "sha256:3c8e4376375ca1cd22ba83d6eed7f0565f1d5e468fea8f185107defed9748c65",
+    "captions-json@zh": "sha256:664020a963db181b3565355605aeaa1b580178649b39cf191004d763af0e326e",
+    "captions-json@fr": "sha256:8b89f87896419dcc696ec317013642490ed1e472e79d4f7264d32edb4ad8961f",
+    "captions-json@es": "sha256:42f4219a755ede8b271cf2d8fddb973f28317254afbe7e1aa6c26d1c5becb9b7",
+    "captions-json@pt": "sha256:cde010e38e0899da50dc0c20b477ef6322d22bcb262c5b12730e557e7512cdc7",
+    "captions-json@ru": "sha256:3842f127214373d75897a92cba2d2c88fc01d6cb7a2154e305ac8b3fe74dedea"
   },
   "blocked_reasons": []
 }

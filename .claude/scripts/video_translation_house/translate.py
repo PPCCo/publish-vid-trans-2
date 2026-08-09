@@ -20,6 +20,7 @@ that transition_blockers reads paths.gate_report(report_type).)
 """
 from __future__ import annotations
 
+import os
 from pathlib import Path
 from typing import Any
 
@@ -32,7 +33,15 @@ from .paths import ProjectPaths
 from .state import transition
 from .transcript import load_transcript
 from .transcript_qa import _SENSITIVE_TERMS
-from .util import atomic_write_json, atomic_write_text, load_json, load_yaml, project_lock, utc_now
+from .util import (
+    atomic_write_json,
+    atomic_write_text,
+    load_company_config,
+    load_json,
+    load_yaml,
+    project_lock,
+    utc_now,
+)
 from .validation import require_valid
 
 SCHEMA_VERSION = "1.0"
@@ -78,6 +87,42 @@ def _translatable_track_langs(state: dict[str, Any]) -> list[str]:
     tracks = state.get("language_tracks", {})
     return [lang for lang in _active_track_langs(state)
             if not tracks.get(lang, {}).get("skip_translation")]
+
+
+def _priority_model_check(root: Path, language: str) -> dict[str, Any] | None:
+    """Fail-loud model check for a priority language (rule 16, inline-fill path).
+
+    en/ar/ur are drafted INLINE in the main thread (not the fan-out) so they always land on
+    the session model — which must be the configured ``priority_model`` (Opus). We can't force
+    a session switch from here, so this returns a loud, human-readable warning dict when the
+    live session model (``ANTHROPIC_MODEL``) doesn't match the configured priority model. The
+    caller surfaces it in the export result. Returns None for a non-priority language, when no
+    priority model is configured, or when the session is already on it.
+
+    Worded as *verify* (not *you are on X*): ``ANTHROPIC_MODEL`` may not reflect a per-turn /
+    fast-mode override, so we ask the operator to confirm rather than assert a wrong tier."""
+    tm = load_company_config(root).get("translation_models", {})
+    priority = tm.get("priority_languages") or []
+    if language not in priority:
+        return None
+    want = tm.get("priority_model")
+    if not want:
+        return None
+    live = os.environ.get("ANTHROPIC_MODEL", "")
+    if live == want:
+        return None
+    return {
+        "language": language,
+        "required_model": want,
+        "session_model": live or "(unset)",
+        "message": (
+            f"PRIORITY LANGUAGE '{language}': this edition must be drafted on the priority "
+            f"model {want} (rule 16). The live session model is {live or '(unset)'}. Before "
+            f"filling this worksheet inline, switch to Opus (e.g. `/model opus`) and verify "
+            f"you are actually on {want}, or drive this track from an Opus-configured context. "
+            f"Do NOT fill '{language}' on a non-priority model."
+        ),
+    }
 
 
 def _flag_cue(text: str) -> list[str]:
@@ -187,8 +232,14 @@ def export_worksheet(
         "language": language, "cues": len(cues),
         "flagged": sum(1 for c in cues if c["flags"]),
     })
-    return {"worksheet": _rel(dest, paths), "language": language, "cues": len(cues),
-            "glossary_id": gid}
+    result: dict[str, Any] = {
+        "worksheet": _rel(dest, paths), "language": language, "cues": len(cues),
+        "glossary_id": gid,
+    }
+    warning = _priority_model_check(root, language)
+    if warning is not None:
+        result["priority_model_warning"] = warning
+    return result
 
 
 def _export_source_verbatim(

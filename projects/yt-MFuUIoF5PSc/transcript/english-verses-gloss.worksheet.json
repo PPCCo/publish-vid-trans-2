@@ -1,0 +1,321 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "language": "en",
+  "source_language": "fa",
+  "purpose": "REVIEW AID — lists ONLY the gloss cues that embed Quranic Arabic verse content (full recitation in cues 0-1; verses quoted inside the Persian tafsir in the rest). For each: the verse citation(s), the source text, my English rendering (translated_text, identical to target_text in english-gloss.worksheet.json), and an empty modified_translation. Fill modified_translation ONLY for cues you want changed; leave it \"\" to accept translated_text. After you finish, tell me and I will merge your modified_translation values back into english-gloss.worksheet.json by cue id, then transcript english-import + transcript qa. This file is a review aid, NOT a CLI-imported artifact.",
+  "cues": [
+    {
+      "id": 0,
+      "start_ms": 0,
+      "end_ms": 5500,
+      "kind": "recitation-opening",
+      "sure_verse_number": null,
+      "verses": [
+        {
+          "citation": null,
+          "arabic": "أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ ۝ بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
+          "note": "Isti'adha + Basmala (not a numbered al-'Adiyat verse)."
+        }
+      ],
+      "source_text": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم۔",
+      "translated_text": "I seek refuge in God from the accursed Satan. In the name of God, the Most Merciful, the Most Compassionate.",
+      "modified_translation": ""
+    },
+    {
+      "id": 1,
+      "start_ms": 5500,
+      "end_ms": 38840,
+      "kind": "recitation-full",
+      "sure_verse_number": "Quran 100:1-11",
+      "verses": [
+        {
+          "citation": "Quran 100:1-11",
+          "arabic": "وَالْعَادِيَاتِ ضَبْحًا … إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍ لَّخَبِيرٌ",
+          "note": "Full opening recitation of Surah al-'Adiyat, all 11 verses."
+        }
+      ],
+      "source_text": "وَالْعَادِيَاتِ ضَبْحًا فَالْمُورِيَاتِ قَدْحًا فَالْمُغِيرَاتِ صُبْحًا فَأَثَرْنَ بِهِ نَقْعًا فَوَسَطْنَ بِهِ جَمْعًا إِنَّ الْإِنسَانَ لِرَبِّهِ لَكَنُودٌ وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِي الْقُبُورِ وَحُصِّلَ مَا فِي الصُّدُورِ إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍ لَّخَبِيرٌ۔",
+      "translated_text": "By the racing chargers, panting, Striking sparks of fire, Making raids at dawn, Raising thereby a cloud of dust, Penetrating thereby into the midst en masse. Indeed, man is ungrateful to his Lord. And indeed, he bears witness to that. And indeed he is intense in his love for wealth. Does he not know when the contents of the graves are scattered? And that which is in the breasts (hearts) is obtained and made manifest? Indeed, that Day their Lord is fully aware of them. (Quran 100:1-11)",
+      "modified_translation": ""
+    },
+    {
+      "id": 3,
+      "start_ms": 47000,
+      "end_ms": 178760,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 16:8, 16:6",
+      "verses": [
+        {
+          "citation": "Quran 16:8",
+          "arabic": "وَالْخَيْلَ وَالْبِغَالَ وَالْحَمِيرَ لِتَرْكَبُوهَا",
+          "note": "an-Nahl — 'and the horses, mules and donkeys for you to ride'."
+        },
+        {
+          "citation": "Quran 16:6",
+          "arabic": "وَلَكُمْ فِيهَا جَمَالٌ حِينَ تُرِيحُونَ وَحِينَ تَسْرَحُونَ",
+          "note": "an-Nahl — 'and for you in them is beauty when you bring them in and drive them out'."
+        }
+      ],
+      "source_text": "سوگند به وسائل نظامی است که در دفاع از اسلام کار آمدن و سوگند به این وسائل نظامی به این اصفا در حالتهای گناگون چه اون حالتی که نفس نفس زنون می دوند و چه اون حالتی که سوم اونا در اثر برخورد با سنگ جرقه تولید می کند و چه اون اصفای تندروی که قدرت قارت کردن دشمنان مهاجم را و حمله به شمیخون و اینها را البته در بامداد فراهم می کنن و گرد و غباری در میدان نبرد تولید میکنن این سوکت بازگشتش به جهاد مجاهدان است و جنره عصب و سائر انعام و چارپاها برای باربری سید از سوره بارکه نهل اوزاشون گذشت و الخیله و البقاله و همینه لترکبوها و اینها هم برای سواری مسافران خال شدن هم برای حمل بار مسافران که در سوره بارک نهل اینها را به عنوان نعمتهای الهی یاد آور می شود نه به عنوان سوگند چین که در جریان گوزفند ها و امثالین ها هم فرمود به این که ویدکون فیاد جمال اون هین تریحون و هین تسرحون بامداد که به شراگاه می روند شامگاه که از شراگاه بر می گردن این رمه ها هر مادر کدکش را هر کدکی مادرش را اشتباه نمی کند به دنبال اون می روند این جمال دامداری است",
+      "translated_text": "It is an oath by the instruments of war that are effective in defending Islam — an oath by these military mounts in their various states: the state in which they run panting for breath, the state in which their hooves striking stone produce sparks, and the swift chargers whose power is to overrun the attacking enemies and to raid at daybreak, raising dust on the battlefield. The return of this oath is to the striving of the warriors (mujahidin). As for the mule, the donkey, and the other cattle and beasts used for carrying loads — mention of them passed in Surat al-Nahl, 'and the horses, mules and donkeys for you to ride' (Quran 16:8) — these are for the mounts of travelers and for carrying travelers' burdens, which Surat al-Nahl recalls as divine blessings, not as an oath; just as, concerning the sheep, it said, 'and you have in them beauty when you bring them in for the evening and when you drive them out to pasture' (Quran 16:6) — at dawn they go to pasture and at dusk they return, and these flocks never mistake mother for young nor young for mother; this is the beauty of animal husbandry.",
+      "modified_translation": ""
+    },
+    {
+      "id": 10,
+      "start_ms": 451120,
+      "end_ms": 570780,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 9:33 / 48:28 / 61:9; 98:7",
+      "verses": [
+        {
+          "citation": "Quran 9:33",
+          "arabic": "لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ",
+          "note": "'that He may make it prevail over all religion' — occurs in at-Tawba 9:33, al-Fath 48:28, as-Saff 61:9 (the 'three surahs' the speaker means)."
+        },
+        {
+          "citation": "Quran 98:7",
+          "arabic": "أُولَٰئِكَ هُمْ خَيْرُ الْبَرِيَّةِ",
+          "note": "al-Bayyina — 'those are the best of creatures'."
+        }
+      ],
+      "source_text": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به حسب ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پایانی سوره مبارکه بیان آمده است که مؤمنان و متقیان و مردان الهی بهترین مردم روی زمینن یعنی بهترین تمدون برترین تمدون و رستترین تمدون علمیترین تمدون و مؤمنین است اینها درست است که به حسب زاهر جمله خبریه است اما به دایی انشاء القا شده فرمو که اینها خیر بریان برعین خلقه خدا بارعست یعنی خالقه است ما یه بر داریم یعنی بیابان وسیع که ابرار کسانی نیستن که کارهای خوب میکنن اون کسی که کار خوب میکند جز ابرار نیست اون که دست و دلش مثل سهرهای وسیع باز است مثل بر است که محدود نیست قلم رو به مشخصی ندارد او جز ابرار است وگه انه کسی که کارهای خوب برای خودش میکند یا قوم خمیله خودش میکند او اهل بر نیست او اهل بر نیست این بر باون رشه لغویش با بر است که بیابان وسیع و گسترزه را میگن و اون که اهل شرح صدر است اون که میگوید اللهم مغفر لی و لمن فی مشارق الارضه و مغارب ها من المؤمنین و المؤمنات اون که می گوید من سر به بالین بگذارم در دورترین قلم را به حکومت من یک یتیمی باشد گرسنهی باشد مشلداری باشد بر من گوارانیست او اهل برست و بر این را بگم جد ابرار",
+      "translated_text": "This 'that He may make it prevail over all religion' (Quran 9:33) — which appears in three surahs of the Qur'an (also al-Fath 48:28 and as-Saff 61:9) — though outwardly a report, it is conveyed with the force of an injunction. And if in the closing portion of Surat al-Bayyina it is said that the believers, the God-fearing and the godly are the best of people on earth — meaning the best, highest, most upright, most knowledgeable civilization — these, though outwardly declarative sentences, are conveyed with the force of a command. He said they are 'the best of creatures' (Quran 98:7) — 'barr' (godly) derives from a root meaning a vast, open wilderness: the righteous (abrar) are not those who merely do good deeds; the one whose hand and heart are open like the vast plains, unbounded, having no fixed domain — he is of the abrar. Whereas one who does good only for himself or his own tribe is not a person of 'birr.' And the one of expansive breast — who says, 'O God, forgive me and all the believing men and women in the easts and wests of the earth' — the one who says, 'How can I lay my head on my pillow while in the farthest reaches of my domain there may be an orphan, a hungry one, a barefoot one' — for whom [comfort] is not pleasant; he is of the abrar. And by 'birr' I mean the very essence of the abrar.",
+      "modified_translation": ""
+    },
+    {
+      "id": 15,
+      "start_ms": 634280,
+      "end_ms": 672600,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 98:7",
+      "verses": [
+        {
+          "citation": "Quran 98:7",
+          "arabic": "إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ أُولَٰئِكَ هُمْ خَيْرُ الْبَرِيَّةِ",
+          "note": "al-Bayyina — 'those who believe and do righteous deeds — those are the best of creatures'."
+        }
+      ],
+      "source_text": "فرازان است که اگر در بخش پایانی سوره مبارکه البین آمد است که اینالذین آمنو و عملو صالحات اولا که هم خیر البریه اینگون از بیانات درست است و عده است اما امر حتمی را به هم راه دارد شما بهترین تمدون بهترین کشور بهترین ملت بهترین قانون بهترین رهبر بهترین امام امت را باید داشته باشید که تعین کرده است و اون میارش قرآن است و اتجه تاهرین",
+      "translated_text": "The point is that if, in the closing portion of Surat al-Bayyina, it was said 'Indeed, those who believe and do righteous deeds — those are the best of creatures' (Quran 98:7), such statements, though correct as a promise, carry with them a definitive command: you must have the best civilization, the best country, the best nation, the best law, the best leader, the best Imam of the community — which He has appointed, and its standard is the Qur'an and the purified ones (Ahl Al-Bayt).",
+      "modified_translation": ""
+    },
+    {
+      "id": 19,
+      "start_ms": 702660,
+      "end_ms": 742960,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 7:172",
+      "verses": [
+        {
+          "citation": "Quran 7:172",
+          "arabic": "أَلَسْتُ بِرَبِّكُمْ ۖ قَالُوا بَلَىٰ",
+          "note": "al-A'raf — the covenant of Alast: 'Am I not your Lord? They said, Yes.'"
+        }
+      ],
+      "source_text": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در باره انسان دارد اون به بخش فطرتش برمی گردد که فعل همه ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گردد که خدایی صبحان وز اخذ رب و که من منی آدمه من ظهورهم و اشهده هم غلا انفسه هم ان از سو برم بکن قالو بلا تمام فضائل علمی و فوازل عملی به اون بخش برمی گردد",
+      "translated_text": "Those passages of praise, exaltation, glorification and honoring that God bestows upon the human being go back to his innate nature (fitra) — that all virtues and excellences and nobilities go back to that universal covenant, when the Lord took from the children of Adam, from their loins, their descendants, and made them bear witness over themselves, 'Am I not your Lord? They said, Yes' (Quran 7:172). All scholarly virtues and practical excellences go back to that portion.",
+      "modified_translation": ""
+    },
+    {
+      "id": 22,
+      "start_ms": 817960,
+      "end_ms": 832960,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 9:17",
+      "verses": [
+        {
+          "citation": "Quran 9:17",
+          "arabic": "شَاهِدِينَ عَلَىٰ أَنفُسِهِم بِالْكُفْرِ",
+          "note": "at-Tawba — 'bearing witness against themselves of disbelief'."
+        }
+      ],
+      "source_text": "و هم آلم است هم آگاه است هم میبیند هم میداند هم میتواند سخن بگوید و در قیامت هم خود انسان علیه خود شهادت میدهد شاهدون نعلا نفسیم بلکفر",
+      "translated_text": "And he [the human] is both knowing and aware; he both sees and knows and is able to speak; and on the Day of Resurrection the human being himself testifies against himself — 'bearing witness against themselves of disbelief' (Quran 9:17).",
+      "modified_translation": ""
+    },
+    {
+      "id": 23,
+      "start_ms": 834260,
+      "end_ms": 917560,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 100:6-8, 2:180, 3:14",
+      "verses": [
+        {
+          "citation": "Quran 100:6",
+          "arabic": "إِنَّ الْإِنسَانَ لِرَبِّهِ لَكَنُودٌ",
+          "note": "al-'Adiyat — 'ungrateful to his Lord'."
+        },
+        {
+          "citation": "Quran 100:7",
+          "arabic": "وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ",
+          "note": "al-'Adiyat — 'and he is a witness to that'."
+        },
+        {
+          "citation": "Quran 100:8",
+          "arabic": "وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ",
+          "note": "al-'Adiyat — 'and he is violent in his love of good/wealth'."
+        },
+        {
+          "citation": "Quran 2:180",
+          "arabic": "إِن تَرَكَ خَيْرًا",
+          "note": "al-Baqara — '[if] he leaves behind good [wealth]'."
+        },
+        {
+          "citation": "Quran 3:14",
+          "arabic": "زُيِّنَ لِلنَّاسِ حُبُّ الشَّهَوَاتِ مِنَ النِّسَاءِ وَالْبَنِينَ وَالْقَنَاطِيرِ الْمُقَنطَرَةِ مِنَ الذَّهَبِ وَالْفِضَّةِ",
+          "note": "Al 'Imran — 'Beautified for people is the love of desires: women, sons, heaped-up hoards of gold and silver...'."
+        }
+      ],
+      "source_text": "همونطور که اعزاب و جواره شهادت میدهند فطرت هم علیه خود همین انسان شهادت میدهند این انسانی که در جهات نفس فطرت را خفه کرد و طبیعت را شکوفا کرد این انسان که لربهی لکنود است و خودش انهو علازالکه لشهید است و انهو لحب الخیره لشدید خیرتنها مال نیست که در سوره بغره آمد این ترک خیره للوسیه توره کذا و کذا مال هست و اون چه به مال برمی گردد مقام هست و به جا هست و به ریاست هست و مانند آن انسان تا می تواند از اون چه که در بستر زمین هست به عنوان ابزار کار استفاده بکند اون چه که در بستر زمین هست چهار تاست جماد هست و نبات هست و حیوان هست و انسان همه این چهار قصر را این بشر عادی که لربیل کنوده از زروزی و خود تبدیل میکنند این که در اوائل سوره بارکه آل امران گذشت زوینه لناسب و شهوات این شهوات که جمع محلاب و الفلامه است در همین چهارتا خلاصه شده زوینه لناسب و شهوات من النسای ولونی و قناتیر مغنتره من از زهب و الفضه",
+      "translated_text": "Just as the limbs and organs testify, the fitra too testifies against this very human being — this human who, in the striving of the self, throttled the fitra and let his [base] nature blossom; this human who is 'ungrateful to his Lord' (Quran 100:6), and he himself is a 'witness to that' (Quran 100:7), and he is 'violent in his love of good [wealth]' (Quran 100:8). 'Good' here is not only wealth — as came in Surat al-Baqara, 'if he leaves behind good [wealth]' (Quran 2:180) — it is wealth and what returns to wealth, and rank, and position, and leadership, and the like. The human being, as far as he can, uses as tools of his work whatever is in the bed of the earth. What is in the bed of the earth is fourfold: mineral, plant, animal, and human. This ordinary human — who is 'ungrateful to his Lord' — turns all four categories into his own provision and possession. This is what passed in the early part of Surat Al Imran: 'Beautified for people is the love of desires' — these desires, a general collective, are summed up in these four: 'Beautified for people is the love of desires: of women, and sons, and heaped-up hoards of gold and silver' (Quran 3:14).",
+      "modified_translation": ""
+    },
+    {
+      "id": 24,
+      "start_ms": 919180,
+      "end_ms": 948480,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 3:14",
+      "verses": [
+        {
+          "citation": "Quran 3:14",
+          "arabic": "وَالْخَيْلِ الْمُسَوَّمَةِ وَالْأَنْعَامِ وَالْحَرْثِ",
+          "note": "Al 'Imran (continuation) — '...and branded horses, and cattle, and tilled land'."
+        }
+      ],
+      "source_text": "مصومه و انعام وله هرس هرس که کشاورزیست خیل مصومه و انعام که دامداریست و قراطیر مغنتره که زهب و فضو و اشیاه اتیقه و اجرام جرمه ها و اکسام بهادار باشد که جماد هست بنین و نسا که انسان هست زویل ناسه و با شباد نسا بنین",
+      "translated_text": "'And branded horses, and cattle, and tilled land' (Quran 3:14) — 'harth' is agriculture; branded horses and cattle are livestock; and 'heaped-up hoards' are gold and silver, precious objects, antiquities, jewels and valuable items — that is the mineral [category]; 'sons and women' are the human. 'Beautified for people [is the love of desires: of women]' — 'women and sons.'",
+      "modified_translation": ""
+    },
+    {
+      "id": 29,
+      "start_ms": 1032920,
+      "end_ms": 1099020,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 27:34, 9:17",
+      "verses": [
+        {
+          "citation": "Quran 27:34",
+          "arabic": "إِنَّ الْمُلُوكَ إِذَا دَخَلُوا قَرْيَةً أَفْسَدُوهَا وَجَعَلُوا أَعِزَّةَ أَهْلِهَا أَذِلَّةً",
+          "note": "an-Naml — 'when [kings] enter a town they ruin it and make the honored of its people humbled'."
+        },
+        {
+          "citation": "Quran 9:17",
+          "arabic": "شَاهِدِينَ عَلَىٰ أَنفُسِهِم بِالْكُفْرِ",
+          "note": "at-Tawba — repeated 'bearing witness against themselves of disbelief'."
+        }
+      ],
+      "source_text": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن کریم رتور هست، کنود هست، شهید هست و به خیل شهید هست، مجاهم هست مشکلات عقیده پیدا میکند مشکلات ظلمی پیدا میکند این این نلمورو که ازا دخلو قریتن افسدوها فجده علو عیزت اهلی هست ماله گروه از همین بابست این بیش از پنجاه مورد که انسان حلو است انسان جزو است منو است امثال زاله بیش از پنجاه مورد که مزمز شده است ماله این نیمه خالی انسان است اون نیمه پر رو دفن کرده وقتی سحنه قیامت شد اولین کسی که علیه خود انسان فریب خورده بخش بدنی گواهی میدهد که شاهدین علا انفس ایم بلکفت همین جمعه فطرتوست",
+      "translated_text": "He has imprisoned his fitra within its own house; then he himself became a raider. This human who is a raider — in more than fifty places God, in the Noble Qur'an, [says he] is 'ungrateful' (kanud), is 'a witness,' and is 'violent in love of wealth,' is aggressive; he develops problems of creed, he develops problems of wrongdoing. This 'when [kings] enter a town, they ruin it and make the honored ones of its people humbled' (Quran 27:34) is of this same category. These more than fifty places where it is mentioned that man is 'anxious,' man is 'grasping,' 'restless' and the like — these belong to the empty half of the human; he has buried the full half. When the scene of the Resurrection comes, the first thing to testify against the deceived human is the bodily part — 'bearing witness against themselves of disbelief' (Quran 9:17) — this is that same statement of the fitra.",
+      "modified_translation": ""
+    },
+    {
+      "id": 30,
+      "start_ms": 1100140,
+      "end_ms": 1174920,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 41:20-21",
+      "verses": [
+        {
+          "citation": "Quran 41:21",
+          "arabic": "شَهِدَ عَلَيْهِمْ ... أَنطَقَنَا اللَّهُ / تَشْهَدُ عَلَيْهِمْ أَلْسِنَتُهُمْ",
+          "note": "Fussilat — the limbs/tongues testifying against them (41:20-21)."
+        }
+      ],
+      "source_text": "جرسی ای رو بعضی از بزرگان معنا کردن انسانی که به صورت حیمان در آمده کل محدود او علیه خود شهادت میدهد که این غارتگر است و قطاب شهادت عملی است او یه معنای لطیفی دارد این اولین شاهد شاهد خانوادگیست که شاهدین علا انفسهم بنگفر بعد به اعضا و جواره که میرسد تشد علیه ملسینتم عیدیم خب مستحذری که شهادت غیر اقرار است اگر مجرم خودش حرف میزنه که اقرار است اگر بیگانه علیه هستخن میگوز شهادت است معلوم می شود تو بحث هایی زیر و جلالتون مبسوتن گذشت که ما غیر از دستیم، ما غیر از پاییم، ما غیر از پوستیم، ما غیر از گشتیم اگر این دستی که رو میزی گرفت و زیر میزی گرفت و رو میزی داد و زیر میزی داد این دست گناه بکند، بعد حرف می زند، باید باید باید اقرار کرده است اما دستی که رو میزی و زیر میزی می دهد یا می گیرد، این دست ابزار کار است",
+      "translated_text": "Some of the great scholars interpreted its 'wound/scar': the human who has taken the form of a beast — his whole limited being testifies against himself that he is a plunderer; and this is a testimony of deeds. It has a subtle meaning: this first witness is the household witness, 'bearing witness against themselves of disbelief' (Quran 9:17). Then when it reaches the limbs and organs, 'their tongues will testify against them' (Quran 41:20-21). Now, bear in mind, testimony is other than confession: if the criminal himself speaks, that is confession; if a stranger speaks against him, that is testimony. It becomes clear — as passed in the discussions of Your Eminence, at length — that we are other than our hands, other than our feet, other than our skin, other than our flesh. If this hand that took a bribe over and under the table, gives over and under the table, sins — then afterward, when it speaks, one must say it 'confessed.' But the hand that gives or takes bribes over and under the table — this hand is an instrument of the work.",
+      "modified_translation": ""
+    },
+    {
+      "id": 31,
+      "start_ms": 1175760,
+      "end_ms": 1280780,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 3:31, 100:8",
+      "verses": [
+        {
+          "citation": "Quran 3:31",
+          "arabic": "إِن كُنتُمْ تُحِبُّونَ اللَّهَ فَاتَّبِعُونِي يُحْبِبْكُمُ اللَّهُ",
+          "note": "Al 'Imran — 'if you love God, follow me; God will love you'."
+        },
+        {
+          "citation": "Quran 100:8",
+          "arabic": "وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ",
+          "note": "al-'Adiyat — 'violent in love of wealth'."
+        }
+      ],
+      "source_text": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر اعزاب و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کردن در حالی که قرآن نمیگرد دست اقرار کرد میگرد دست شهادت داد معلومش خود انسان است که رو میزی میدهد یا میگیرد دیر میزی میدهد یا میگیرد این گناه مال انسان است اونم این نیمه خالی انسان این نیمه که بف سلسال و همه مسنون و تین و تراب و اینا برمی گردد و امون نیمه که به نفخت و فهم روحی برمی گردد که این مظلوم خانوادگیست این در اصر قط خواب من دسته ها دستیسه شده است پس شهادت یه وقتی از بیرون از سال یا مسجد شهادت بده یا افراد دیگر شهادت میدن این شهادت بیرونه شهادت درونی یا مال فطرت است علیه طبیعت یا مال اعزاب و جواره طبیعت است علیه خود طبیعت یعنی انسان طبیعت زده که اللہو بالخیر لشدید است به جایی که این کنتم توحبون الله فتبعون یهبه کم الله محبوبی به پذیرت که ازلی و عبدیست و اون خداست و حلق وسطیه و مدار و محور محبتم حبیب الهیست که در دور مطاف حبیب اراهی گشتن انسان محبوب را محبوب میکند و خدای سبحانم به حبیب خود فربود بگو",
+      "translated_text": "Hence this hand testifies that this person took [a bribe] and it carried out [the deed]. If the limbs and organs sinned, then when they speak, we would have to say they 'confessed' — whereas the Qur'an does not say the hand confessed; it says the hand testified. It is clear that it is the human himself who gives or takes over and under the table. This sin belongs to the human — indeed to this empty half of the human, this half that goes back to 'sounding clay of altered black mud,' to 'clay and dust'; whereas the [other] half that goes back to 'I breathed into him of My spirit,' that is the wronged household one. In the [state of] 'he buried it,' [the fitra] was subjected to intrigue. So testimony is sometimes external — from the hall or the mosque one testifies, or other people testify: that is external testimony. Inner testimony is either the fitra's against [base] nature, or the limbs' and organs' — [which are of base] nature — against nature itself; that is, the nature-stricken human who is 'violent in love of wealth' (Quran 100:8). Whereas 'if you love God, follow [the Messenger], God will love you' (Quran 3:31) — the beloved to be accepted is the pre-eternal and everlasting, and that is God; and the axis and pivot of love is the divine Beloved, around whose circumambulation the human makes the beloved beloved, and God the Exalted said to His own Beloved, 'Say...'",
+      "modified_translation": ""
+    },
+    {
+      "id": 33,
+      "start_ms": 1300940,
+      "end_ms": 1337200,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 100:7",
+      "verses": [
+        {
+          "citation": "Quran 100:7",
+          "arabic": "وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ",
+          "note": "al-'Adiyat — 'and he is a witness to that'."
+        }
+      ],
+      "source_text": "جماد است و نبات است و حیوان است و انسان به اینها دل می بندند خب فرما دیم که انسانیم نسبت به ذات اقدس الاخ بعد از این که فطرت خود را خفه کرد قد خواه من دستاها این بیمهری میکند بعد ادبی میکند بی اخلاقی میکند و خودشم میدوند در درون او علیه او شهادت میدن این فطرت که مردنی نیست این فطرت هست و انتا حبس شده و انهو علا ظالکل شهید",
+      "translated_text": "It is mineral and plant and animal and human, and he sets his heart on them. Well, we said that the human, with respect to God the Most Holy — after he has throttled his own fitra, 'he buried it' — behaves unkindly, then behaves discourteously, behaves without morals, and he himself is a raider; and within him [these things] testify against him. This fitra is not something that dies; this fitra exists, though it has been imprisoned — 'and he is a witness to that' (Quran 100:7).",
+      "modified_translation": ""
+    },
+    {
+      "id": 36,
+      "start_ms": 1424600,
+      "end_ms": 1452920,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 18:49",
+      "verses": [
+        {
+          "citation": "Quran 18:49",
+          "arabic": "مَالِ هَٰذَا الْكِتَابِ لَا يُغَادِرُ صَغِيرَةً وَلَا كَبِيرَةً إِلَّا أَحْصَاهَا",
+          "note": "al-Kahf — 'What is this record that leaves nothing small or great but has enumerated it?'"
+        }
+      ],
+      "source_text": "خود انسان می داند که وقتی ما نبشه قبر بکنیم از درون او اینها رو بیرون بیاریم و اون چی که در صدر است به روی میز بیاید اونگاه خود انسان که با خبر بود می گوید مال آزال کتاب لایقاد رو سقیرتن ولا کبیرتن الا احساها هیچ نمی توانا این کار بکنند",
+      "translated_text": "The human being himself knows that when we dig up the grave and bring these out from within him, and what is in the breast is laid out on the table, then the human — who was [all along] aware — says, 'What is this record that leaves out nothing small or great but has enumerated it?' (Quran 18:49). They can do nothing [to escape].",
+      "modified_translation": ""
+    },
+    {
+      "id": 37,
+      "start_ms": 1454120,
+      "end_ms": 1488020,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 18:49",
+      "verses": [
+        {
+          "citation": "Quran 18:49",
+          "arabic": "مَالِ هَٰذَا الْكِتَابِ لَا يُغَادِرُ صَغِيرَةً وَلَا كَبِيرَةً إِلَّا أَحْصَاهَا",
+          "note": "al-Kahf — repeated."
+        }
+      ],
+      "source_text": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر کتاب لایقاد رو سرید هستن ولا کبید هستن الا احساها دفترهای بزرگ و کلان پیش خدا و مدبران الهیست اما اون دفتر روزان و رسمی که فراموش شده نیست علمت نفسون ما احضرت انسان با خودش دارد",
+      "translated_text": "He is aware now; he is an inner witness — but he suppresses that inner witness; he has locked it away in the state of 'he buried it,' and at the scene of the Resurrection [he says], 'What is this record that leaves nothing small or great but has enumerated it?' (Quran 18:49). The great, weighty ledgers are with God and the divine administrators; but that everyday, ordinary record that has been forgotten is not [lost] — 'a soul will know what it has brought forward' (Quran 82:5); the human carries it with himself.",
+      "modified_translation": ""
+    },
+    {
+      "id": 38,
+      "start_ms": 1489060,
+      "end_ms": 1549080,
+      "kind": "quoted-in-commentary",
+      "sure_verse_number": "Quran 82:5",
+      "verses": [
+        {
+          "citation": "Quran 82:5",
+          "arabic": "عَلِمَتْ نَفْسٌ مَّا قَدَّمَتْ وَأَخَّرَتْ",
+          "note": "al-Infitar — 'a soul will know what it has sent forward and left behind'. (The speaker also alludes to كِرَامًا كَاتِبِينَ, al-Infitar 82:11, 'noble scribes'.)"
+        }
+      ],
+      "source_text": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید عمومه شدی که اینجا هست معمولا نکره در سیاق نف مفید عمومه ما جاانی اهدون یعنی این اما نکره در سیاق اثبات همه جا مفید اومنیست اینجا طبق شباهد و قرار اینی که هست علمت نفسون یعنی کلو نفسین ما احذرت خود انسان حاضر بکنند بنابراین گرچه در بابه حجو ابل حجو اینها وارد شده است ولی اولا اینست که مربوط به مسائل جهاد باشد و انسان را آگاه می کند که تو یک صاحب خانه ای داری که او شاهد اعمال و سیعات تو است و اون را محصول کرده",
+      "translated_text": "It is not merely that another has recorded it — though yes, the 'noble scribes' (Quran 82:11) also recorded it — but 'a soul will know what it has brought forward' (Quran 82:5). From the places where an indefinite noun in the framework of an affirmative universal is used — as here — usually an indefinite noun in a negative context yields generality, 'no helper came to me,' meaning [none at all]; but an indefinite noun in an affirmative context does not everywhere yield universality. Here, according to the evidence and context, 'a soul will know what it has brought forward' (Quran 82:5) means every soul — 'every soul, what it has brought forward,' the human himself will bring present. Therefore, although in the matter of Hajj and the pack-camel of Hajj these [interpretations] have been reported, yet foremost it [befits] that it be connected to the affairs of jihad; and it makes the human aware that you have a master of the house who is a witness to your deeds and evil deeds, and He has confined it.",
+      "modified_translation": ""
+    }
+  ]
+}

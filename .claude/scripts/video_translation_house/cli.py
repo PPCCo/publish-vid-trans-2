@@ -275,6 +275,12 @@ def build_parser() -> argparse.ArgumentParser:
     t_gimp.add_argument("--from", dest="from_path",
                         help="Worksheet path (default: transcript/english-gloss.worksheet.json)")
     t_gimp.add_argument("--actor", default="agent")
+    t_grec = trsub.add_parser(
+        "reconcile-verses",
+        help="Merge english-verses-gloss.worksheet.json modified_translation overrides into "
+             "the gloss worksheet (also run automatically as the first step of english-import)")
+    t_grec.add_argument("project_id")
+    t_grec.add_argument("--actor", default="agent")
 
     seg = sub.add_parser("segments", help="Resolve a source selection into cut/join segments")
     segsub = seg.add_subparsers(dest="segments_command", required=True)
@@ -734,11 +740,23 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         if tc == "english-export":
             from . import english_gloss
             return english_gloss.export_gloss_worksheet(root, args.project_id, actor=args.actor)
+        if tc == "reconcile-verses":
+            from . import verses_gloss
+            return verses_gloss.reconcile_verses_into_gloss(
+                root, args.project_id, actor=args.actor,
+            )
         if tc == "english-import":
-            from . import english_gloss
-            return english_gloss.import_gloss_worksheet(
+            from . import english_gloss, verses_gloss
+            # Always reconcile human verse overrides FIRST, then import the (possibly updated)
+            # worksheet into the canonical gloss doc.
+            reconciled = verses_gloss.reconcile_verses_into_gloss(
+                root, args.project_id, actor=args.actor,
+            )
+            result = english_gloss.import_gloss_worksheet(
                 root, args.project_id, from_path=args.from_path, actor=args.actor,
             )
+            result["verses_reconciled"] = reconciled
+            return result
     if cmd == "segments":
         from . import segments as segments_mod
         sc = args.segments_command

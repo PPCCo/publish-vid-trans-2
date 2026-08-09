@@ -51,6 +51,13 @@
       "glossary_term_hit_rate_required": 1.0
     }
   },
+  "translation_models": {
+    "_comment": "Fixed priority-language model policy (2026-08-10). The TRANSLATION fan-out (rule 16) drafts each track by language: a PRIORITY language uses `priority_model` (Opus-4.8/high), every other target uses `default_model` (Sonnet-5/high). No verify pass, no escalation, no tracking — a language is either priority or it isn't. en/ar/ur are the priority (most-important) editions; the rest (zh/fr/es/pt/ru/…) render on Sonnet. An explicit operator `dub`/translate model override still wins. Tune the list here or in company.local.json.",
+    "priority_languages": ["en", "ar", "ur"],
+    "priority_model": "@bedrock-eus2/us.anthropic.claude-opus-4-8",
+    "default_model": "@bedrock-eus1/us.anthropic.claude-sonnet-5",
+    "effort": "high"
+  },
   "dubbing": {
     "_comment": "Male voice is the HARD default for EVERY language (TASK 2). `dub run`/autopilot auto-select `voices[<lang>][<gender>]` with no --model needed; an explicit `dub run --model` still overrides. The per-project gender is chosen at `/new-video` (project.yaml dubbing.voice_gender, default male) and only overridden to female by an explicit human decision (e.g. a female source voice recorded at LANGUAGE_ID). Voice `.onnx` paths are machine-specific — put the real absolute paths in the gitignored company.local.json (which deep-merges over this); keep this file as the shape + policy. Missing gender for a lang => `dub run` fails with a stage-a-voice message rather than silently using the wrong gender. Voice-clone CONSENT is unrelated and stays a rights-gate fact (rule 5).",
     "default_voice_gender": "male",

@@ -96,37 +96,47 @@ Check each track's markers with `vid_cli.py project status <id>` (or read
 `state.language_tracks.<iso>`): `skip_translation` → verbatim; `auto_translate` → AI-fill no
 gate; neither (i.e. `en`) → human gate.
 
-## Model policy
-Translate volume cues with `@bedrock-eus1/us.anthropic.claude-sonnet-5` at `high` effort
-(this is the skill's default — a bounded per-cue rendering task, not a capability problem).
-For cues the worksheet marks with an `editorial-religious` / `editorial-political` flag,
-escalate to `@bedrock-eus2/us.anthropic.claude-opus-4-8` at `high` effort — these references
-are high-stakes and must be rendered with care, not paraphrased away. The transcription stage
-above (ASR-adapter invocation, QA triage) stays on the skill default; only the flagged
-translation cues need the capability upgrade.
+## Model policy — priority languages on Opus (inline), the rest on Sonnet (fan-out) (2026-08-10, company-config-driven)
+The **most-important editions (`en`, `ar`, `ur`) render on
+`@bedrock-eus2/us.anthropic.claude-opus-4-8` at `high` effort**; **every other target renders on
+`@bedrock-eus1/us.anthropic.claude-sonnet-5` at `high`**. Fixed per-language split — no verify
+pass, no escalation, no tracking; a language is either in the priority list or it isn't. The list
++ both models come from company config `translation_models` (`priority_languages`,
+`priority_model`, `default_model`, `effort`; tune in `company.local.json`). `en` still stops at
+its `translation_qa` human gate regardless of model. An explicit operator model override still
+wins. The transcription stage above (ASR-adapter invocation, QA triage) stays on the skill
+default.
 
-## ALWAYS fan out the translation stage in parallel (≥2 tracks) — no opt-in
+**The split is enforced by PLACEMENT, because the Workflow `agent()` `model:` opt is silently
+ignored** (a fan-out agent runs on the session-default model, not a passed override — root-cause
+pending). So:
+- **Priority langs (`en`/`ar`/`ur`) are filled INLINE in the main thread** — never as fan-out
+  agents — so they land on the *session* model, which must be Opus. `translate export` runs a
+  **fail-loud check**: if `ANTHROPIC_MODEL` isn't the configured `priority_model`, the export
+  result carries a loud `priority_model_warning`. **Do not fill a priority worksheet while that
+  warning is present — switch to Opus (`/model opus`) first**, then fill (rule 11 bounded batches).
+  Multiple priority tracks → do them sequentially inline on the Opus session.
+- **Non-priority langs fan out on Sonnet** (the ≥2-track Workflow below).
+
+## Priority langs INLINE (Opus), non-priority langs fan out (Sonnet) — the ≥2-track rule
 The dense per-cue fill is the token-heavy, embarrassingly-parallel part of this stage, and
-every language is independent. So **whenever ≥2 language tracks need their worksheets filled,
-you MUST fan them out with a `Workflow` — one agent per language, run concurrently — rather
-than filling them inline one after another.** This is the standing behavior, not an opt-in you
-offer or a choice you weigh: at `TRANSLATION` with ≥2 unfilled tracks, reach for the workflow
-first. (Only when exactly **one** track needs filling do you fill inline in the main thread —
-a one-agent fan-out is pure overhead.)
+every language is independent. But because the `agent()` `model:` opt is ignored (Model policy
+above), the split is by **placement**:
+- **`en`, `ar`, `ur` (priority) are filled INLINE** in the main thread, one at a time, on the
+  Opus session (fail-loud checked at `translate export`) — **never fan-out agents**. Use the
+  rule 11 bounded-batch idiom for each. `en` **STOPS at the per-language `translation_qa` human
+  gate** after import — you produce the draft; you never cross the gate. `ar`/`ur` are
+  `auto_translate` (no human gate) but still Opus-inline for quality.
+- **Every non-priority `auto_translate` track** (`fr`, `es`, `zh`, `pt`, `ru`, …) fans out on
+  Sonnet. **Whenever ≥2 of them need filling, you MUST fan them out with a `Workflow` — one agent
+  per language, concurrently** — not inline one after another. Standing behavior, not an opt-in.
+  (Exactly one non-priority track → fill inline; a one-agent fan-out is pure overhead.) No human
+  gate.
+- The **source track** is `skip_translation` (verbatim, no worksheet) — neither path.
 
-Which tracks join the fan-out:
-- **`en`** (the human-reviewed track) is **included** as a fan-out agent — run its agent on
-  `@bedrock-eus2/us.anthropic.claude-opus-4-8` at `high` effort (its rendering is high-stakes:
-  it's the one that stops at a human gate, and it carries the editorial-religious/political
-  care). It still **STOPS at the per-language `translation_qa` human gate** after import — the
-  fan-out produces the draft; it never crosses the gate.
-- **Every `auto_translate` track** (`fr`, `es`, `zh`, `pt`, `ru`, `ur`, …) is a fan-out agent —
-  Opus/high when the source is editorial-religious/political (tafsir, sermons, political
-  speech), else Sonnet/high for ordinary volume. No human gate.
-- The **source track** is `skip_translation` (verbatim, no worksheet) — it never joins the
-  fan-out.
-
-How the fan-out works (see rule 16 in `.claude/CLAUDE.md` for the canonical pattern):
+How the non-priority fan-out works (priority `en`/`ar`/`ur` are filled inline instead — see the
+placement rule above; the shared pivot below still serves them). See rule 16 in `.claude/CLAUDE.md`
+for the canonical pattern:
 1. Export every worksheet first (`translate export <id> --language <iso>` per track) so cue
    ids/timing exist. Build one compact **pivot** the agents share — for a tafsir/Quran video,
    the pivot is `{cue: {source, en_gloss, en_meaning}}` so every agent renders from the same
@@ -143,10 +153,13 @@ How the fan-out works (see rule 16 in `.claude/CLAUDE.md` for the canonical patt
    **carry that flag through unchanged** (it rides the worksheet's `flags` array) and still fill
    `target_text` normally: non-`ar` = the verse translation + `(Quran s:a)`, `ar`/source = Arabic
    verbatim. Never drop the flag and never put Arabic script into a non-`ar` `target_text`.
-2. Launch a `Workflow` with `parallel(langs.map(...))`, one `agent()` per language, each with a
-   `schema` that forces a validated `{cues:[{id,target_text}]}` return. The agent reads the
-   pivot, renders **all** cues into its language, and returns the map. Keep timing fixed: never
-   change `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues.
+2. Launch a `Workflow` with `parallel(langs.map(...))` over the **non-priority** langs only, one
+   `agent()` per language, each with a `schema` that forces a validated
+   `{cues:[{id,target_text}]}` return. The agent reads the pivot, renders **all** cues into its
+   language, and returns the map. Keep timing fixed: never change
+   `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues. These run on the Sonnet session
+   (the `model:` opt is ignored — don't rely on it). Priority `en`/`ar`/`ur` are NOT in this
+   fan-out — fill them inline on the Opus session (placement rule above).
 3. Back in the main thread, write each returned map into `captions/<iso>.worksheet.json` by cue
    id (a throwaway merge-by-id helper — scaffolding, delete after), then `translate import`
    each track through the normal CLI chokepoint. The worksheet is a fill-in artifact, not
@@ -161,8 +174,9 @@ serially. The bounded-batch idiom (rule 11) remains the fallback for a single in
    fixed timing, empty `target_text` slots, per-cue editorial flags, and (if
    `project.yaml.glossary_id` is set) the glossary's required renderings in
    `glossary_instructions`.
-2. Fill: **fan out per the section above** (≥2 tracks → one `Workflow` agent per language;
-   exactly 1 track → fill inline in bounded batches). **Do not** change `id`, `start_ms`,
+2. Fill: **priority `en`/`ar`/`ur` inline on Opus (fail-loud checked), non-priority via the
+   Sonnet fan-out per the placement rule above** (≥2 non-priority tracks → one `Workflow` agent
+   per language; a single track → fill inline in bounded batches). **Do not** change `id`, `start_ms`,
    `end_ms`, or `source_text` — timing is the contract, and merging/splitting cues corrupts
    downstream sync. Honour the glossary: `[MUST]` terms must appear verbatim (or an accepted
    alias). Optionally add a `back_translation` per cue to aid QA. Merge each agent's returned

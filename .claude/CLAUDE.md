@@ -165,6 +165,24 @@ These govern *how you work*, not just what the pipeline does:
     source transcript** — source edits are human/CLI-only (they change an approved artifact and
     re-trigger ASR QA).
 
+    **Verse-override review aid + auto-reconcile (Quran/tafsir sources).** For a Quranic source a
+    companion review aid `transcript/english-verses-gloss.worksheet.json` may list **only** the
+    verse-bearing gloss cues — each with its `(Quran s:a)` citation(s), the source text, the English
+    `translated_text` (== that cue's `target_text` in the gloss worksheet) and an empty
+    `modified_translation` the human fills **only** for renderings they want changed. `transcript
+    reconcile-verses <id>` copies each non-empty `modified_translation` into the matching cue's
+    `target_text` in `english-gloss.worksheet.json` (by cue id) and mirrors it back into the verses
+    file's `translated_text`; it is **always run as the first action of `transcript english-import`**
+    (import returns it under `verses_reconciled`), so a plain import always picks up the latest
+    overrides — the standalone verb just lets the human apply + inspect edits first. Idempotent;
+    no-op when the verses file is absent or has no overrides. Both files are **fill-in worksheets**
+    (not CLI-owned state, not registered artifacts — only the canonical `english-gloss.json` is), so
+    reconcile never touches `state.json`/manifest/approvals (rule 1); it appends an
+    `ENGLISH_GLOSS_VERSES_RECONCILED` event. **Every cited verse renders inline** in the gloss
+    `target_text`: the English rendering followed by the numeric `(Quran s:a)` citation after each
+    quoted verse, **no Arabic script** (consistent with rule 16 — the gloss is still a review aid,
+    not the shipped caption). `ar`'s later TRANSLATION captions remain the sole Arabic-verbatim path.
+
     **Filling the gloss worksheet in batches (avoid the single-response timeout).** When the AI is
     the gloss translator, do **not** try to write all cues' `target_text` in one response — a dense
     source (dozens of cues, some 900–1600 chars of Persian/Arabic) overflows a single turn and yields
@@ -333,14 +351,40 @@ These govern *how you work*, not just what the pipeline does:
     parallelize and do **not** weigh it as a choice; reach for the workflow first. The only
     inline case is exactly **one** unfilled track (a one-agent fan-out is pure overhead) — there
     the rule 11 bounded-batch idiom still applies.
-    **Which tracks join the fan-out.** `en` (the human-reviewed track) **is included** as a
-    fan-out agent on `@bedrock-eus2/us.anthropic.claude-opus-4-8` / `high` (its render is
-    high-stakes and it's the one that later stops at the human gate); it still **STOPS at the
-    per-language `translation_qa` human gate** after import — the fan-out produces the draft, it
-    never crosses the gate (rules 2/13 hold). Every `auto_translate` target joins too
-    (Opus/high for editorial-religious/political sources like tafsir/sermons/political speech,
-    else Sonnet/high for ordinary volume; no human gate). The `skip_translation` source track
-    never joins (verbatim, no worksheet).
+    **Which tracks are inline vs fan-out — priority langs are filled INLINE, the rest fan out.**
+    Because the Workflow `agent()` `model:` opt is silently ignored (a fan-out agent runs on the
+    session-default model, not a passed override — root-cause pending), a priority track routed
+    into the fan-out would silently draft on Sonnet. So the priority editions are filled **inline
+    in the main thread** where they land on the *session* model, which must be Opus:
+    - **`en`, `ar`, `ur` (the priority languages) are filled INLINE**, one at a time, in the main
+      thread — never as fan-out agents — so they draft on the session model. `translate export`
+      runs a **fail-loud model check** (`_priority_model_check`): if the live session model
+      (`ANTHROPIC_MODEL`) isn't the configured `priority_model` (Opus), the export result carries a
+      loud `priority_model_warning` telling you to switch to Opus (`/model opus`) **before** filling
+      that worksheet. Do not fill a priority worksheet while that warning is present — switch first
+      (or drive it from an Opus context), then fill. `en` still **STOPS at its `translation_qa`
+      human gate** after import (rules 2/13). Use the rule 11 bounded-batch idiom for each inline
+      track. When several priority tracks are unfilled, do them sequentially inline (they share the
+      Opus session), not via a fan-out.
+    - **Every non-priority target** (`zh`, `fr`, `es`, `pt`, `ru`, … — all `auto_translate`) is a
+      **fan-out agent on Sonnet** (`default_model`). When ≥2 of them need filling, you MUST drive
+      them with a `Workflow`, one agent per language, concurrently (this is the standing ≥2-track
+      fan-out behavior — no opt-in, no human choice). Exactly one non-priority track → fill it
+      inline (a one-agent fan-out is pure overhead). No human gate on these.
+    - The `skip_translation` source track never joins either path (verbatim, no worksheet).
+
+    **Model policy — priority languages on Opus, the rest on Sonnet (2026-08-10;
+    company-config-driven).** The per-cue *render* is bounded, but the **most-important editions
+    (`en`, `ar`, `ur`) are rendered on `@bedrock-eus2/us.anthropic.claude-opus-4-8` / `high`** and
+    **every other target on `@bedrock-eus1/us.anthropic.claude-sonnet-5` / `high`**. It is a fixed
+    per-language split — **no verify pass, no escalation, no redo tracking**: a language is either
+    in the priority list or it isn't. The list + both models live in company config
+    (`translation_models.priority_languages` / `priority_model` / `default_model` / `effort`;
+    tune in `company.local.json`). The split is enforced by *placement*, not by the ignored
+    `agent()` `model:` opt: priority langs are filled inline on the Opus session (fail-loud checked
+    at `translate export`); non-priority langs fan out on the Sonnet session. `en` (a priority
+    language) still **STOPS at its `translation_qa` human gate** regardless of model. An explicit
+    operator model override still wins.
     **Canonical pattern.** (a) `translate export` every worksheet first so cue ids/timing exist;
     (b) build one compact shared **pivot** the agents render from — for a tafsir/Quran video that
     is `{cue: {source, en_gloss, en_meaning}}` so every language renders the same meaning + the
@@ -349,7 +393,16 @@ These govern *how you work*, not just what the pipeline does:
     `(Quran 100:6)`. Original Arabic script (and transliteration) NEVER appears in a non-`ar`
     caption's `target_text`, `.srt`, or `.vtt`, and therefore never in that language's dubbed
     audio (rule 14 speaks `target_text` verbatim). The ONLY exception is target `ar`, whose own
-    narration is Arabic — its captions/dub carry the verse in Arabic verbatim.** (Reversed
+    narration is Arabic — its captions/dub carry the verse in Arabic verbatim.**
+    **The `(Quran s:a)` citation is caption-only, never spoken.** The numeric citation is a
+    reader's reference — dubbing it (piper voicing "Quran one hundred six" mid-verse) sounds wrong.
+    So the citation stays inline in `target_text` (captions/`.srt`/`.vtt` render it verbatim) but
+    `dub run` synthesizes from a **citation-stripped copy** of each cue: `dubbing._strip_citations`
+    (`re.sub(r"\s*\(Quran[^)]*\)", "", text)` + space-collapse) is applied at the TTS branch of
+    `run_dub` in **every** language incl. `ar` (the Arabic caption still shows the citation; the
+    Arabic dub doesn't speak it). The caption artifact is never mutated — only the string handed to
+    `synthesize_cue` is stripped; the keep-source-audio splice branch and the caption render path are
+    untouched. (Reversed
     2026-08-09 from the earlier "Arabic script + translation in every language" convention: the
     Arabic strings corrupted the non-Arabic piper dubs. The separate per-language
     `distribution/notes/<lang>.txt` upload-description docs are unaffected — they keep Arabic verse

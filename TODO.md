@@ -4,6 +4,50 @@ I also want you to collect info on the token usage of all the major activities. 
 
 ---
 
+## Translation model policy — priority languages on Opus  ✅ DONE (2026-08-10)
+
+**Final decision (Qaiser):** simpler than the escalation idea below — **Opus for en/ar/ur
+(most-important editions), Sonnet for every other target.** Fixed per-language split; no verify
+pass, no escalation, no tracking. Config `translation_models` in `company.default.json`
+(`priority_languages`/`priority_model`/`default_model`/`effort`). Documented in CLAUDE.md rule 16
++ `create-closed-captions` skill; memory `translation-priority-language-models`. The briefly-built
+Sonnet-first + Opus-escalation machinery (translation_model.py + `translate model-stats`/
+`record-outcome` verbs + `translation_strategy` config) was **removed** in favor of this.
+`agent()` `model:` opt silent-ignore still root-cause-pending.
+
+**Superseded escalation write-up (kept for provenance):**
+
+**Original idea (Qaiser):** Most translations are `editorial-religious`, so rule 16 makes
+`Opus/high` the common case = high cost. Sonnet looked strong here. Proposal: default to Sonnet;
+if faithful verification says the output is genuinely good → keep it; if not → spawn an Opus agent
+to redo. Track this; if too many redos happen, set the default back to Opus.
+
+**Evaluation (agreed):** the shape is right (speculative-execution: try cheap first, escalate on
+failure) but three flaws had to be fixed before it became policy:
+1. **Deterministic `translation-qa` does NOT verify doctrinal faithfulness** — it checks reading
+   speed / line length / glossary / round-trip. So "faithful verification is done" needs a real
+   **model-based faithfulness verifier** (Opus/high), not deterministic QA. That's the load-bearing
+   piece.
+2. **Escalate-and-redo can cost more per item** than starting on Opus — it only wins if the Sonnet
+   pass-rate is high. The revert threshold must come from break-even math, not a gut "too many."
+3. **Faithfulness risk isn't uniform** — high for dense tafsir, low for narrative/political speech.
+   Track pass-rate **per content-type**, not one global dial, or you over-escalate easy content and
+   under-protect hard content.
+
+**Agreed design being implemented:**
+- Default fan-out translator = **Sonnet/high**.
+- Add a **faithfulness-verify pass** (Opus/high, or diverse-lens) reading source + target, judging
+  doctrinal faithfulness / verse-citation correctness / no-editorializing — the honest gate
+  deterministic QA can't be.
+- **Escalate only the flagged cues/tracks** to an Opus redo — not whole tracks blindly.
+- **Track pass-rate per content-type** (events + a small telemetry file); revert a content-type's
+  default to Opus when its Opus-redo-rate exceeds break-even.
+- Edit **rule 16** + the **`create-closed-captions`** skill + a **company-config threshold**
+  deliberately (this is standing behavior).
+- Note: this session's "Sonnet looks strong" is n=1 and happened because a per-agent `model:` opt
+  to `agent()` in the Workflow was silently ignored (agents ran on Sonnet-5, not the Opus I passed)
+  — root-cause that override behavior too.
+
 ---
 
 Can you change the AskUserQuestions format a bit?

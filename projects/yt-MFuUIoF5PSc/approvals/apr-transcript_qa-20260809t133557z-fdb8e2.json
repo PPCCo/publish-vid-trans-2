@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-transcript_qa-20260809t133557z-fdb8e2",
+  "project_id": "yt-MFuUIoF5PSc",
+  "gate": "transcript_qa",
+  "language": null,
+  "approver": "Qaiser",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:f7252c4047f7cb12e154642e39f01804f5e75a0514ae31929c28e46e5a86fba6"
+  ],
+  "scope": "project",
+  "exclusions": [],
+  "notes": "transcript_qa APPROVED by Qaiser. Bound active transcript v3 transcript/source.fa.json. Concerns disclosed & accepted: (1) 33s opening recitation recovered as cue 1 (al-'Adiyat 100:1-11 Arabic), former void gone (max gap now 5220ms); (2) 5220ms silence before cue 32 accepted (pause/music); (3) many >30s granularity cues accepted (rule-12 caption auto-split downstream); report PASS, 0 blockers/0 major/43 info notes. English gloss (v3 sha256:5a3f55da93d0) reviewed as advisory review aid with inline (Quran s:a) citations.",
+  "created_at": "2026-08-09T13:35:57Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}

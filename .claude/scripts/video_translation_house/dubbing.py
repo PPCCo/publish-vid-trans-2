@@ -69,6 +69,27 @@ def dub_relpath(language: str) -> str:
     return f"audio/{language}/dub.wav"
 
 
+# Inline Quran citations like "(Quran 100:6)" / "(Quran 41:20-21)" belong in the CAPTION text
+# (rule 16) but must NOT be spoken by the dub — piper would voice "Quran one hundred six" mid-verse.
+# So the dub synthesizes from a citation-stripped copy of target_text; the caption doc/render path
+# keep target_text verbatim (this never mutates the caption artifact). Applies in EVERY language
+# incl. `ar` (the Arabic caption shows the citation, but the Arabic dub shouldn't say "(Quran …)").
+# The `[^)]*` class matches ranges and multi-part refs; the leading `\s*` prevents a double space.
+_QURAN_CITATION_RE = re.compile(r"\s*\(Quran[^)]*\)")
+
+
+def _strip_citations(text: str) -> str:
+    """Remove inline ``(Quran s:a)`` citations from a caption string before TTS synthesis.
+
+    Caption text carries the citation for the reader; the spoken dub does not. Pure/deterministic:
+    strips every citation token, then collapses the whitespace the removal frees up so no double
+    spaces remain. No-op on citation-free text."""
+    stripped = _QURAN_CITATION_RE.sub("", text)
+    # Collapse any run of spaces/tabs the removal left mid-line; keep newlines intact.
+    stripped = re.sub(r"[ \t]{2,}", " ", stripped)
+    return stripped.strip()
+
+
 # Male is the HARD default dub voice for every language (company rule / TASK 2). A voice is
 # chosen from the company `dubbing.voices` registry by (language, gender); an explicit
 # `dub run --model` still overrides. Voice-clone CONSENT is a separate rights-gate fact (rule 5)
@@ -461,8 +482,10 @@ def run_dub(
                     sample_rate=sr, channels=ch,
                 )
             elif cue["target_text"].strip():
+                # Speak the verse only — strip any inline (Quran s:a) caption citation (rule 16).
+                spoken = _strip_citations(cue["target_text"])
                 tts_mod.synthesize_cue(
-                    cue["target_text"], raw, provider=provider, language=language,
+                    spoken, raw, provider=provider, language=language,
                     model=model, voice=voice, clone_ref=clone_ref, root=root,
                     project_id=project_id,
                 )

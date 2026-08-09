@@ -1,3 +1,12 @@
+# Guides
+
+**Production pipeline (transcribe → translate → dub → package):**
+[transcribe-translate-dub-workflow.md](transcribe-translate-dub-workflow.md) — the concise
+end-to-end path: every state, human gate, command, and the worksheet → import review loop.
+Command-by-command reference in [commands-index.md](commands-index.md).
+
+---
+
 # Distribution & promotion guides
 
 How-to guides for publishing a finished, **rights-cleared** video edition and promoting it.

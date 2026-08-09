@@ -11,124 +11,135 @@
       "id": 0,
       "start_ms": 0,
       "end_ms": 5500,
-      "source_text": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم",
-      "target_text": "Me refugio en Dios del maldito Satanás; en el nombre de Dios, el Compasivo, el Misericordioso.",
+      "source_text": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم۔",
+      "target_text": "Me refugio en Dios del maldito Satanás. En el nombre de Dios, el Clementísimo, el Misericordiosísimo.",
       "flags": [
-        "editorial-religious"
+        "editorial-religious",
+        "keep-source-audio"
       ]
     },
     {
       "id": 1,
-      "start_ms": 38840,
-      "end_ms": 45440,
-      "source_text": "این سوره باید که زاهرن در مدینه نازر شد",
-      "target_text": "Esta sura —al parecer— fue revelada en Medina.",
-      "flags": []
-    },
-    {
-      "id": 2,
-      "start_ms": 47000,
-      "end_ms": 178760,
-      "source_text": "سوگند به وسائل نظامی است که در دفاع از اسلام کار آمدن و سوگند به این وسائل نظامی به این اصفا در حالتهای گناگون چه اون حالتی که نفس نفس زنون می دوند و چه اون حالتی که سوم اونا در اثر برخورد با سنگ جرقه تولید می کند و چه اون اصفای تندروی که قدرت قارت کردن دشمنان مهاجم را و حمله به شمیخون و اینها را البته در بامداد فراهم می کنن و گرد و غباری در میدان نبرد تولید میکنن این سوکت بازگشتش به جهاد مجاهدان است و جنره عصب و سائر انعام و چارپاها برای باربری سید از سوره بارکه نهل اوزاشون گذشت و الخیله و البقاله و همینه لترکبوها و اینها هم برای سواری مسافران خال شدن هم برای حمل بار مسافران که در سوره بارک نهل اینها را به عنوان نعمتهای الهی یاد آور می شود نه به عنوان سوگند چین که در جریان گوزفند ها و امثالین ها هم فرمود به این که ویدکون فیاد جمال اون هین تریحون و هین تسرحون بامداد که به شراگاه می روند شامگاه که از شراگاه بر می گردن این رمه ها هر مادر کدکش را هر کدکی مادرش را اشتباه نمی کند به دنبال اون می روند این جمال دامداری است",
-      "target_text": "Es un juramento por los corceles de guerra que sirvieron en la defensa del Islam: un juramento por estos corceles en sus diversos estados, cuando galopan resollando, cuando sus cascos hacen brotar chispas de la roca, y cuando esos veloces corceles asaltan al enemigo agresor y cargan en medio de ellos al amanecer, levantando polvo en el campo de batalla. Este juramento remite a la yihad de los combatientes. En cuanto a los camellos y las bestias de carga, fueron mencionados en la Sura al-Nahl: 'y caballos, mulas y asnos, para que los montéis' (Quran 16:8), recordados allí como bendiciones divinas, no como objeto de juramento. Igualmente, respecto de los rebaños dijo: 'y en ellos hay hermosura para vosotros cuando los recogéis al anochecer y cuando los sacáis a pastar' (Quran 16:6): esta es la hermosura del pastoreo.",
+      "start_ms": 5500,
+      "end_ms": 38840,
+      "source_text": "وَالْعَادِيَاتِ ضَبْحًا فَالْمُورِيَاتِ قَدْحًا فَالْمُغِيرَاتِ صُبْحًا فَأَثَرْنَ بِهِ نَقْعًا فَوَسَطْنَ بِهِ جَمْعًا إِنَّ الْإِنسَانَ لِرَبِّهِ لَكَنُودٌ وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِي الْقُبُورِ وَحُصِّلَ مَا فِي الصُّدُورِ إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍ لَّخَبِيرٌ۔",
+      "target_text": "¡Por los corceles que corren jadeantes, que hacen saltar chispas de fuego, que atacan al amanecer, levantando así una nube de polvo, penetrando así en medio de la hueste! En verdad, el hombre es ingrato con su Señor. Y en verdad, él mismo es testigo de ello. Y en verdad, es intenso en su amor por la riqueza. ¿Acaso no sabe que cuando el contenido de las tumbas sea esparcido, y lo que hay en los pechos (corazones) sea sacado y manifestado, ese Día su Señor estará plenamente informado de ellos? (Quran 100:1-11)",
       "flags": [
-        "editorial-religious"
+        "keep-source-audio"
       ]
     },
     {
+      "id": 2,
+      "start_ms": 38840,
+      "end_ms": 45440,
+      "source_text": "این سوره باید که زاهرن در مدینه نازر شد",
+      "target_text": "Esta sura —parece que fue revelada, en apariencia, en Medina.",
+      "flags": []
+    },
+    {
       "id": 3,
-      "start_ms": 180740,
-      "end_ms": 397840,
-      "source_text": "قدرت باربری این خیل و بقال و همیر است که در اون سحنه جریان همیر هم دخالت دارد جریان بقال هم دخالت دارد اما در تاخت و تازه نظامی نه همیر دخالت دارد و نه بقال نه قاطر دخالت دارد و نه حمار اون چه که با اون میتوان مبارزه کرد و حمله کرد اصب است لذا بازگشتش در حقیقت به جهاد مجاهدان است که سوگند به جهاد مجاهدانی که دوندگی دارن در میدان نبرد نفس نفس زنان حمله می کنند و اصفای اینها در اثر سرعت سیر اون سومشون که نعلیس و آهنیس به سنگ برخورد میکند و جرقیت حولید میکند قدهیت حولید میکند که شما به وسیل این یک آتش روشن میکنید در حقیقت در میدان جنگ و بامداد که شد اون حمله شما در صبح شروع می شود و غارت کردن کفاری که خون و جان و مالشون از حرام تشکیل شده است سورت می پذیرد و در این حمله کردن و دویدن و نفس نفس زدن راکب و نفس زدن مرکب و امثالیدها نقعی و گرد و غباری به راه می اندازن و به وسط جمعیت دشمن حمله می کنن و در وسط اینها حضور پیدا بکنند و اینها رو خلی صلاح بکنند این سوکندها مناصب با مسئله جهاد است گرسه در باری شطرهایی که بار مسافران مکه را از مکه تا عرفات و از اونجا تا مشعر و از مشعر تا منا و از منا در برگشت بمکه نقل و انتقال میدهند بر اونها هم نقل شده است اونجایی ابن عباس برابر نقل که از تبری شده به بعد در کشاف زمق شریف آمده بر اون هم نقل شده لیکن مناسبه با خود مثل این سوکندها همون جریان اصفهای مجاهدان است که داد اقدسی الاب اینا سوکند یاد میکنند وگر نه در جریان حج اون شطرهای تند روی که گرد و خاک بکنند و موریات غط باشند و وسط جمعه اینا نیست در باره حج آمده است که زامرات شطرهای لاغری فج عمیق حرکت میکنند اونجا تهه در رست فج عمیق است اونجا شطرهای لاغر است از اونها سخن به میان بیاید نه دوندگی دوندگی و سرعت سیر و ایجاد برغ کردن و سمه مرکبشون به سنگ خوردن و جرد و آتش جولید کردن و اینا ما فج عمیق و زامرات و لاغرها و اینا همه های نیست",
-      "target_text": "La capacidad de carga pertenece al caballo, la mula y el asno, que tienen un papel en el transporte; pero en una carga militar solo participa el corcel de guerra, no la mula, ni el asno, ni el burro. Así que el juramento remite en verdad a la yihad de los combatientes que corren resollando en el campo de batalla, cuyos cascos herrados hacen saltar fuego de la roca; y cuando llega el amanecer comienza su asalto, y se lleva a cabo el pillaje de los incrédulos, levantando polvo y estrépito mientras cargan contra las huestes enemigas y las derrotan. Aunque también se transmitió —de Ibn 'Abbas, a través de al-Tabari y luego de al-Kashshaf de al-Zamakhshari— que esto se refiere a los camellos de carga que transportan las cargas de los peregrinos desde Meca hasta Arafat, luego Mash'ar, luego Mina y de vuelta, lo que verdaderamente corresponde a tal juramento es la carga de los combatientes. En el Hajj son los camellos delgados del barranco profundo (fajj 'amiq) de los que se habla, no de esta carrera, esta velocidad y este brotar de chispas; nada de eso pertenece aquí.",
+      "start_ms": 47000,
+      "end_ms": 178760,
+      "source_text": "سوگند به وسائل نظامی است که در دفاع از اسلام کار آمدن و سوگند به این وسائل نظامی به این اصفا در حالتهای گناگون چه اون حالتی که نفس نفس زنون می دوند و چه اون حالتی که سوم اونا در اثر برخورد با سنگ جرقه تولید می کند و چه اون اصفای تندروی که قدرت قارت کردن دشمنان مهاجم را و حمله به شمیخون و اینها را البته در بامداد فراهم می کنن و گرد و غباری در میدان نبرد تولید میکنن این سوکت بازگشتش به جهاد مجاهدان است و جنره عصب و سائر انعام و چارپاها برای باربری سید از سوره بارکه نهل اوزاشون گذشت و الخیله و البقاله و همینه لترکبوها و اینها هم برای سواری مسافران خال شدن هم برای حمل بار مسافران که در سوره بارک نهل اینها را به عنوان نعمتهای الهی یاد آور می شود نه به عنوان سوگند چین که در جریان گوزفند ها و امثالین ها هم فرمود به این که ویدکون فیاد جمال اون هین تریحون و هین تسرحون بامداد که به شراگاه می روند شامگاه که از شراگاه بر می گردن این رمه ها هر مادر کدکش را هر کدکی مادرش را اشتباه نمی کند به دنبال اون می روند این جمال دامداری است",
+      "target_text": "Es un juramento por los instrumentos de guerra eficaces en la defensa del Islam: un juramento por estas monturas militares en sus diversos estados: el estado en que corren jadeando, el estado en que sus cascos, al golpear la piedra, producen chispas, y los veloces corceles cuyo poder consiste en arrollar a los enemigos atacantes y en atacar al amanecer, levantando polvo en el campo de batalla. El objeto de este juramento remite al esfuerzo de los combatientes (muyahidin). En cuanto a la mula, el asno y el resto del ganado y las bestias de carga —de los que se habló en la Sura an-Nahl: 'y los caballos, las mulas y los asnos para que los cabalguéis' (Quran 16:8)— estos son monturas de viajeros y para llevar sus cargas, y esa misma sura los recuerda como bendiciones divinas, no como objeto de juramento; igual que, respecto a las ovejas, dijo: 'y en ellas tenéis belleza cuando las traéis de vuelta al atardecer y cuando las sacáis a pastar' (Quran 16:6) —al alba salen a pastar y al anochecer regresan, y esos rebaños nunca confunden a la madre con la cría ni a la cría con la madre; esa es la belleza de la cría de ganado.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 4,
-      "start_ms": 398700,
-      "end_ms": 417840,
-      "source_text": "گرچه در جریان حج و عمر و امثال زاله شطرهای قدرتمندی و توانمندی از راه دور می آین ولی اونی که قرآن نقل کرده است بخشی به زامرات و شطرهای لاغر بر می گردد بخشی به فجعمیق بر می گردد",
-      "target_text": "Aunque en el Hajj y la 'Umra llegan camellos poderosos desde lejos, lo que el Corán relata se refiere en parte a los camellos delgados de los peregrinos y en parte al barranco profundo (fajj 'amiq).",
+      "start_ms": 180740,
+      "end_ms": 397840,
+      "source_text": "قدرت باربری این خیل و بقال و همیر است که در اون سحنه جریان همیر هم دخالت دارد جریان بقال هم دخالت دارد اما در تاخت و تازه نظامی نه همیر دخالت دارد و نه بقال نه قاطر دخالت دارد و نه حمار اون چه که با اون میتوان مبارزه کرد و حمله کرد اصب است لذا بازگشتش در حقیقت به جهاد مجاهدان است که سوگند به جهاد مجاهدانی که دوندگی دارن در میدان نبرد نفس نفس زنان حمله می کنند و اصفای اینها در اثر سرعت سیر اون سومشون که نعلیس و آهنیس به سنگ برخورد میکند و جرقیت حولید میکند قدهیت حولید میکند که شما به وسیل این یک آتش روشن میکنید در حقیقت در میدان جنگ و بامداد که شد اون حمله شما در صبح شروع می شود و غارت کردن کفاری که خون و جان و مالشون از حرام تشکیل شده است سورت می پذیرد و در این حمله کردن و دویدن و نفس نفس زدن راکب و نفس زدن مرکب و امثالیدها نقعی و گرد و غباری به راه می اندازن و به وسط جمعیت دشمن حمله می کنن و در وسط اینها حضور پیدا بکنند و اینها رو خلی صلاح بکنند این سوکندها مناصب با مسئله جهاد است گرسه در باری شطرهایی که بار مسافران مکه را از مکه تا عرفات و از اونجا تا مشعر و از مشعر تا منا و از منا در برگشت بمکه نقل و انتقال میدهند بر اونها هم نقل شده است اونجایی ابن عباس برابر نقل که از تبری شده به بعد در کشاف زمق شریف آمده بر اون هم نقل شده لیکن مناسبه با خود مثل این سوکندها همون جریان اصفهای مجاهدان است که داد اقدسی الاب اینا سوکند یاد میکنند وگر نه در جریان حج اون شطرهای تند روی که گرد و خاک بکنند و موریات غط باشند و وسط جمعه اینا نیست در باره حج آمده است که زامرات شطرهای لاغری فج عمیق حرکت میکنند اونجا تهه در رست فج عمیق است اونجا شطرهای لاغر است از اونها سخن به میان بیاید نه دوندگی دوندگی و سرعت سیر و ایجاد برغ کردن و سمه مرکبشون به سنگ خوردن و جرد و آتش جولید کردن و اینا ما فج عمیق و زامرات و لاغرها و اینا همه های نیست",
+      "target_text": "La capacidad de carga corresponde al caballo, a la mula y al asno —en esa escena el asno cumple un papel y la mula cumple un papel—; pero en una carga militar y un ataque, ni el asno ni la mula, ni el macho ni la hembra del asno, cumplen ningún papel. Aquello con lo que se puede combatir y lanzar un ataque es el caballo. Por eso, el objeto verdadero del juramento es el esfuerzo de los guerreros: un juramento por el esfuerzo de los guerreros que corren en el campo de batalla, cargando mientras jadean; y las chispas de estas monturas, por la velocidad de su carrera, provienen de sus cascos herrados que golpean la piedra y producen fuego, de modo que así se enciende un fuego. En verdad, en el campo de batalla, al amanecer comienza vuestro asalto, y así se logra la derrota de los incrédulos —cuya sangre, vidas y riqueza están constituidas por lo ilícito—; y en esa carga, esa carrera y ese jadeo, tanto el jinete como la montura jadean, y levantan una nube de polvo y cargan hacia el centro de la multitud enemiga, penetrando en su núcleo y poniéndolos completamente en fuga. Estos juramentos convienen al asunto de la yihad. Aunque respecto a los camellos de carga que llevan las provisiones de los peregrinos desde Meca hasta Arafat, y de allí a Mash'ar, y de Mash'ar a Mina, y de Mina de vuelta a Meca, también se ha transmitido algo —como relata Ibn Abbas, según la narración de Tabari, citada luego en el Kashshaf de Zamakhshari—; sin embargo, lo que conviene propiamente a estos juramentos es ese mismo asunto del esfuerzo de los guerreros, por el cual Dios, el Santísimo, jura. De otro modo, en el asunto del Hajj no están presentes esos veloces corceles que levantan polvo, ni los 'que hacen saltar chispas de fuego' ni los 'que penetran en medio de la hueste'. Respecto al Hajj se dice que los camellos flacos recorren una honda garganta —allí el camino es una honda garganta, allí los camellos son flacos—; de eso se hablaría, no de la carrera, la velocidad, las chispas, los cascos que golpean la piedra y producen fuego; eso de la honda garganta y los camellos flacos no tiene nada que ver con esto.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 5,
-      "start_ms": 418760,
-      "end_ms": 430440,
-      "source_text": "علایی حالین اون که هست مرکبهایی که اول و غیر شطران باشد بلاخره من فجعمیق هست و زامر اما اونی که در سحن نبرده است این هاست.",
-      "target_text": "En cualquier caso, las monturas distintas de los camellos de los peregrinos —al final está el barranco profundo y el camello del peregrino—, pero la que está en el campo de batalla es el corcel de guerra.",
-      "flags": []
-    },
-    {
-      "id": 6,
-      "start_ms": 430540,
-      "end_ms": 437420,
-      "source_text": "غرص این است که این دوگور هر دو نر شده ولی مناسب با مسئله جهاد است که در مدینه صورت پذیرفت.",
-      "target_text": "El punto es que, aunque ambas imágenes aparecen, lo que corresponde al asunto de la yihad es lo que tuvo lugar en Medina.",
+      "start_ms": 398700,
+      "end_ms": 417840,
+      "source_text": "گرچه در جریان حج و عمر و امثال زاله شطرهای قدرتمندی و توانمندی از راه دور می آین ولی اونی که قرآن نقل کرده است بخشی به زامرات و شطرهای لاغر بر می گردد بخشی به فجعمیق بر می گردد",
+      "target_text": "Aunque en el asunto del Hajj, la Umra y cosas semejantes vienen monturas poderosas y capaces desde lejos, lo que relata el Corán se remite en parte a los camellos flacos y en parte a la honda garganta.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
+      "id": 6,
+      "start_ms": 418760,
+      "end_ms": 430440,
+      "source_text": "علایی حالین اون که هست مرکبهایی که اول و غیر شطران باشد بلاخره من فجعمیق هست و زامر اما اونی که در سحن نبرده است این هاست.",
+      "target_text": "En todo caso, esas monturas, sean camellos o de otro tipo, en definitiva pertenecen a la honda garganta y al camello flaco; pero la que está en el campo de batalla es esta —los caballos de guerra—.",
+      "flags": []
+    },
+    {
       "id": 7,
-      "start_ms": 437780,
-      "end_ms": 444300,
-      "source_text": "و اون جهاد است که توانه است اسلام را مستقر کند.",
-      "target_text": "Y fue la yihad la que pudo establecer el Islam.",
+      "start_ms": 430540,
+      "end_ms": 437420,
+      "source_text": "غرص این است که این دوگور هر دو نر شده ولی مناسب با مسئله جهاد است که در مدینه صورت پذیرفت.",
+      "target_text": "El punto es que ambas cosas tienen su fundamento, pero lo que conviene al asunto de la yihad es lo que ocurrió en Medina.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 8,
-      "start_ms": 444540,
-      "end_ms": 451120,
-      "source_text": "این الاسلام و یعروب لا یعلا علیه که جمعه خبری است به داوی انشاقل غاشده.",
-      "target_text": "'El Islam es exaltado y nada se exalta sobre él': una oración declarativa pronunciada con intención de mandato.",
-      "flags": []
+      "start_ms": 437780,
+      "end_ms": 444300,
+      "source_text": "و اون جهاد است که توانه است اسلام را مستقر کند.",
+      "target_text": "Y fue la yihad la que logró establecer firmemente el Islam.",
+      "flags": [
+        "editorial-religious"
+      ]
     },
     {
       "id": 9,
-      "start_ms": 451120,
-      "end_ms": 570780,
-      "source_text": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به حسب ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پایانی سوره مبارکه بیان آمده است که مؤمنان و متقیان و مردان الهی بهترین مردم روی زمینن یعنی بهترین تمدون برترین تمدون و رستترین تمدون علمیترین تمدون و مؤمنین است اینها درست است که به حسب زاهر جمله خبریه است اما به دایی انشاء القا شده فرمو که اینها خیر بریان برعین خلقه خدا بارعست یعنی خالقه است ما یه بر داریم یعنی بیابان وسیع که ابرار کسانی نیستن که کارهای خوب میکنن اون کسی که کار خوب میکند جز ابرار نیست اون که دست و دلش مثل سهرهای وسیع باز است مثل بر است که محدود نیست قلم رو به مشخصی ندارد او جز ابرار است وگه انه کسی که کارهای خوب برای خودش میکند یا قوم خمیله خودش میکند او اهل بر نیست او اهل بر نیست این بر باون رشه لغویش با بر است که بیابان وسیع و گسترزه را میگن و اون که اهل شرح صدر است اون که میگوید اللهم مغفر لی و لمن فی مشارق الارضه و مغارب ها من المؤمنین و المؤمنات اون که می گوید من سر به بالین بگذارم در دورترین قلم را به حکومت من یک یتیمی باشد گرسنهی باشد مشلداری باشد بر من گوارانیست او اهل برست و بر این را بگم جد ابرار",
-      "target_text": "Esto —'para que prevalezca sobre toda religión' (Quran 9:33; también 48:28, 61:9)— aunque en apariencia es un enunciado informativo, se pronuncia con intención performativa. Y al final de la Sura al-Bayyina, que los creyentes y los temerosos de Dios son los mejores de la gente en la tierra —la mejor, más recta y más docta civilización—, dijo: 'ellos son lo mejor de la creación' (Quran 98:7). Los verdaderamente justos (abrar) no son solo quienes hacen buenas obras; el hombre de birr es aquel cuyo corazón está abierto como las vastas llanuras, sin límites, quien dice: 'Oh Dios, perdóname a mí y a todos los creyentes y creyentes en los oriente y occidentes de la tierra', y: 'No me es dulce descansar mientras en el confín más lejano de mi gobierno haya un huérfano, un hambriento o alguien en apuro.' Ese es el hombre de birr.",
-      "flags": [
-        "editorial-religious"
-      ]
+      "start_ms": 444540,
+      "end_ms": 451120,
+      "source_text": "این الاسلام و یعروب لا یعلا علیه که جمعه خبری است به داوی انشاقل غاشده.",
+      "target_text": "'El Islam es exaltado y nada se exalta por encima de él' —una frase declarativa expresada con la fuerza de un mandato (un imperativo bajo la forma de un informe).",
+      "flags": []
     },
     {
       "id": 10,
-      "start_ms": 571900,
-      "end_ms": 608500,
-      "source_text": "بریه یعنی مخلوق فهموت شما مسلمان ها بهترین مخلوقان عالمید خب این در صورتی که انسان با کفر و جهاز مبارزه کنه با استعمار مبارزه کنه با استعمار مبارزه کنه با استبدان مبارزه کنه اینا یا مبارزه قلمی یا قدمی این هاست این کنه جمله های خبریه به دایی انشاقل قاشده فبود چما خیر و بریه اصید این یه اصل کلی رو مخاطر زید کند بدون رحبری و اصرار و امر و ایجاب",
-      "target_text": "'Bariyya' significa 'lo creado', así que vosotros, musulmanes, sois lo mejor de las criaturas, a condición de que la persona luche contra la incredulidad, el colonialismo y la tiranía, sea con la pluma o con la acción. Estas oraciones declarativas se pronuncian con intención performativa: 'sois lo mejor de la creación'. Se dirige al oyente como un principio universal, sin preámbulo ni mandato.",
-      "flags": []
-    },
-    {
-      "id": 11,
-      "start_ms": 609560,
-      "end_ms": 620800,
-      "source_text": "بدون آدیات زب، موریات قدر، مغیران صبح، اثرن نقل و زدبی جمع، بدون مبارزه، بدون جهاد یا با اینها.",
-      "target_text": "Sin 'Por los corceles que resoplan jadeantes, que hacen saltar chispas, que atacan al amanecer, y levantan allí una nube de polvo' (Quran 100:1-4): sin lucha, sin yihad, o con ellos.",
+      "start_ms": 451120,
+      "end_ms": 570780,
+      "source_text": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به حسب ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پایانی سوره مبارکه بیان آمده است که مؤمنان و متقیان و مردان الهی بهترین مردم روی زمینن یعنی بهترین تمدون برترین تمدون و رستترین تمدون علمیترین تمدون و مؤمنین است اینها درست است که به حسب زاهر جمله خبریه است اما به دایی انشاء القا شده فرمو که اینها خیر بریان برعین خلقه خدا بارعست یعنی خالقه است ما یه بر داریم یعنی بیابان وسیع که ابرار کسانی نیستن که کارهای خوب میکنن اون کسی که کار خوب میکند جز ابرار نیست اون که دست و دلش مثل سهرهای وسیع باز است مثل بر است که محدود نیست قلم رو به مشخصی ندارد او جز ابرار است وگه انه کسی که کارهای خوب برای خودش میکند یا قوم خمیله خودش میکند او اهل بر نیست او اهل بر نیست این بر باون رشه لغویش با بر است که بیابان وسیع و گسترزه را میگن و اون که اهل شرح صدر است اون که میگوید اللهم مغفر لی و لمن فی مشارق الارضه و مغارب ها من المؤمنین و المؤمنات اون که می گوید من سر به بالین بگذارم در دورترین قلم را به حکومت من یک یتیمی باشد گرسنهی باشد مشلداری باشد بر من گوارانیست او اهل برست و بر این را بگم جد ابرار",
+      "target_text": "Esto de 'para hacerlo prevalecer sobre toda religión' (Quran 9:33) —que aparece en tres suras del Corán (también en al-Fath 48:28 y as-Saff 61:9)— aunque en apariencia es un informe, se expresa con la fuerza de un mandato. Y si en la parte final de la Sura al-Bayyina se dice que los creyentes, los temerosos de Dios y los piadosos son los mejores de la gente en la tierra —es decir, la mejor, la más elevada, la más recta, la civilización más sabia—, estas, aunque en apariencia son frases declarativas, se expresan con la fuerza de un mandato. Dijo que son 'la mejor de las criaturas' (Quran 98:7) —'barr' (piadoso) deriva de una raíz que significa un desierto vasto y abierto: los justos (abrar) no son solamente quienes hacen buenas obras; el que tiene la mano y el corazón abiertos como las vastas llanuras, sin límites, sin un dominio fijo, ese es de los abrar. Mientras que quien hace el bien solo para sí mismo o para su propia tribu no es una persona de 'birr'. Y el de pecho amplio —el que dice: 'Oh Dios, perdóname a mí y a todos los creyentes y creyentes en los orientes y occidentes de la tierra'—, el que dice: '¿Cómo puedo reposar mi cabeza en la almohada mientras en los confines más lejanos de mi dominio pueda haber un huérfano, un hambriento, un descalzo?' —para quien eso no es placentero—, ese es de los abrar. Y por 'birr' me refiero a la esencia misma de los abrar.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
-      "id": 12,
-      "start_ms": 621640,
-      "end_ms": 630760,
-      "source_text": "اگر با اینها شد میشه فیرول بریه بهترین تمدون مال شما، بهترین فرهنگ مال شما، بهترین زندگی مال شما.",
-      "target_text": "Si es con ellos, entonces se convierte en 'lo mejor de la creación': la mejor civilización es vuestra, la mejor cultura es vuestra, la mejor vida es vuestra.",
+      "id": 11,
+      "start_ms": 571900,
+      "end_ms": 608500,
+      "source_text": "بریه یعنی مخلوق فهموت شما مسلمان ها بهترین مخلوقان عالمید خب این در صورتی که انسان با کفر و جهاز مبارزه کنه با استعمار مبارزه کنه با استعمار مبارزه کنه با استبدان مبارزه کنه اینا یا مبارزه قلمی یا قدمی این هاست این کنه جمله های خبریه به دایی انشاقل قاشده فبود چما خیر و بریه اصید این یه اصل کلی رو مخاطر زید کند بدون رحبری و اصرار و امر و ایجاب",
+      "target_text": "'Bariyya' significa 'creación' —entiéndase entonces: vosotros, los musulmanes, sois los mejores de las criaturas del mundo. Esto se cumple siempre que la persona luche contra la incredulidad y la ignorancia, luche contra el colonialismo, luche contra la tiranía —ya sea con la lucha de la pluma o con la del pie—. Estas frases declarativas se expresan con la fuerza de un mandato. Dijo 'sois los mejores de la creación' —desea dirigir esto como un principio universal a cualquiera (es decir, a todos), pero sin liderazgo, insistencia, mandato y exhortación no se realizará—.",
       "flags": []
     },
     {
+      "id": 12,
+      "start_ms": 609560,
+      "end_ms": 620800,
+      "source_text": "بدون آدیات زب، موریات قدر، مغیران صبح، اثرن نقل و زدبی جمع، بدون مبارزه، بدون جهاد یا با اینها.",
+      "target_text": "Sin los corceles que cargan jadeantes, los que hacen saltar chispas de fuego, los que atacan al amanecer, los que levantan polvo y penetran en medio de la hueste —es decir, sin esfuerzo, sin yihad— o con estos.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
       "id": 13,
+      "start_ms": 621640,
+      "end_ms": 630760,
+      "source_text": "اگر با اینها شد میشه فیرول بریه بهترین تمدون مال شما، بهترین فرهنگ مال شما، بهترین زندگی مال شما.",
+      "target_text": "Si se logra con estos, entonces se convierte en 'la mejor de las criaturas' —la mejor civilización es la vuestra, la mejor cultura es la vuestra, la mejor vida es la vuestra—.",
+      "flags": []
+    },
+    {
+      "id": 14,
       "start_ms": 631140,
       "end_ms": 634280,
       "source_text": "نشد این وعده الهی محقق نمیشود.",
@@ -136,226 +147,226 @@
       "flags": []
     },
     {
-      "id": 14,
+      "id": 15,
       "start_ms": 634280,
       "end_ms": 672600,
       "source_text": "فرازان است که اگر در بخش پایانی سوره مبارکه البین آمد است که اینالذین آمنو و عملو صالحات اولا که هم خیر البریه اینگون از بیانات درست است و عده است اما امر حتمی را به هم راه دارد شما بهترین تمدون بهترین کشور بهترین ملت بهترین قانون بهترین رهبر بهترین امام امت را باید داشته باشید که تعین کرده است و اون میارش قرآن است و اتجه تاهرین",
-      "target_text": "Al final de la Sura al-Bayyina vino: 'quienes creen y hacen buenas obras, ellos son lo mejor de la creación' (Quran 98:7). Tales enunciados, aunque son una promesa, llevan consigo un mandato definitivo: debéis tener la mejor civilización, la mejor nación, la mejor ley y el mejor líder —el imam de la comunidad que Él ha designado— y su medida es el Corán y los Puros (los Ahl al-Bayt).",
+      "target_text": "El punto es que si, en la parte final de la Sura al-Bayyina, se dijo 'En verdad, quienes creen y obran rectamente, esos son la mejor de las criaturas' (Quran 98:7), tales afirmaciones, aunque correctas como promesa, llevan consigo un mandato definitivo: debéis tener la mejor civilización, el mejor país, la mejor nación, la mejor ley, el mejor líder, el mejor Imam de la comunidad —al que Él ha designado, y cuyo estandarte es el Corán y los purificados (ahl al-bayt)—.",
       "flags": [
         "editorial-religious",
         "editorial-political"
       ]
     },
     {
-      "id": 15,
+      "id": 16,
       "start_ms": 674560,
       "end_ms": 680700,
       "source_text": "بنابراین اونجا که سخن از باربریست سخن از خیل است",
-      "target_text": "Por lo tanto, donde el discurso trata sobre el transporte de cargas, el discurso trata sobre el caballo.",
-      "flags": []
-    },
-    {
-      "id": 16,
-      "start_ms": 683700,
-      "end_ms": 692680,
-      "source_text": "اونجا که مبارزه است فقط سخرست خیل است و خیل است و خیل است و خیل است و خیل دیگه بقال و همین درش دقیق نیست انترسد به ابل",
-      "target_text": "Donde se trata de combate, el discurso es únicamente sobre el caballo; la mula y el asno no tienen parte precisa en ello, y mucho menos el camello.",
+      "target_text": "Por tanto, donde el discurso trata de la capacidad de carga, el discurso trata del caballo y de los animales de carga.",
       "flags": []
     },
     {
       "id": 17,
-      "start_ms": 694080,
-      "end_ms": 701620,
-      "source_text": "بعد از سوگت ها ذات اقدسه الله در باره این سال بیش از پنجاه بار او رو مذیبت شد",
-      "target_text": "Después de los juramentos, Dios el Santísimo reprocha a este ser humano más de cincuenta veces.",
-      "flags": [
-        "editorial-religious"
-      ]
+      "start_ms": 683700,
+      "end_ms": 692680,
+      "source_text": "اونجا که مبارزه است فقط سخرست خیل است و خیل است و خیل است و خیل است و خیل دیگه بقال و همین درش دقیق نیست انترسد به ابل",
+      "target_text": "Donde trata del combate, el discurso trata únicamente del caballo —el caballo, el caballo, el caballo—; la mula y el asno no son precisos para ello, y menos aún el camello.",
+      "flags": []
     },
     {
       "id": 18,
-      "start_ms": 702660,
-      "end_ms": 742960,
-      "source_text": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در باره انسان دارد اون به بخش فطرتش برمی گردد که فعل همه ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گردد که خدایی صبحان وز اخذ رب و که من منی آدمه من ظهورهم و اشهده هم غلا انفسه هم ان از سو برم بکن قالو بلا تمام فضائل علمی و فوازل عملی به اون بخش برمی گردد",
-      "target_text": "Esas partes de alabanza, exaltación y honor que Dios tiene respecto del ser humano se remontan a su naturaleza primordial (fitra), a ese pacto universal: 'Y cuando tu Señor tomó de los lomos de los hijos de Adán a su descendencia y les hizo testificar sobre sí mismos: ¿No soy vuestro Señor? Dijeron: Sí' (Quran 7:172). Toda virtud y excelencia se remonta a esa dimensión.",
+      "start_ms": 694080,
+      "end_ms": 701620,
+      "source_text": "بعد از سوگت ها ذات اقدسه الله در باره این سال بیش از پنجاه بار او رو مذیبت شد",
+      "target_text": "Después de los juramentos, Dios el Santísimo, respecto a este ser humano, lo reprendió más de cincuenta veces.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 19,
-      "start_ms": 743900,
-      "end_ms": 753800,
-      "source_text": "و تمام نقد ها و نقص ها به این خلق الانسان او یا خلق الانسان منتین به همه این مسلون از این لجن برمی گردد",
-      "target_text": "Y todos los defectos y carencias se remontan a 'el hombre fue creado', a este ser humano hecho de barro/légamo (lajin); todo eso se remonta a aquello.",
-      "flags": []
-    },
-    {
-      "id": 20,
-      "start_ms": 755500,
-      "end_ms": 816940,
-      "source_text": "ترمود قد خواب من دسته ها اگر کسی اون فطرت الهی را که در کنگره عظیم علسو بربکوم قال و بلاغ داشت اون رو دفن کند جلوی دهن او رو ببندد و نگذارد این فکرت سخن بگوید قد خواب من دستاها اونگاه سخنگوی انسان می شود هوا و هواست این روی گمان حرکت می کند روی میل عمل می کند کارهای فرهنگی و روی خیال است و کارهای عملی و روی حواست چه این انسانی هم منکر مبدع می شود به آزالله یا بیرسوات مبدع می شود و درون خود شاهد است چون فطرت از بینرفتنی نیست فطرت زنده است منطقه دسیسه شده دهن او رو بست و نمی گذارد فطرت سخن بگوید",
-      "target_text": "Dijo: 'en verdad fracasa quien la entierra' (Quran 91:10): si alguien entierra la fitra divina que testificó 'Sí' en el gran pacto, le cierra la boca y no le deja hablar, entonces su portavoz se convierte en su capricho y deseo; se mueve por conjetura e inclinación. Aunque en apariencia niegue el Origen, en su propia conciencia lo afirma y dentro de sí mismo es testigo, pues la fitra no puede destruirse; está viva, solo intrigada en su contra y silenciada.",
+      "start_ms": 702660,
+      "end_ms": 742960,
+      "source_text": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در باره انسان دارد اون به بخش فطرتش برمی گردد که فعل همه ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گردد که خدایی صبحان وز اخذ رب و که من منی آدمه من ظهورهم و اشهده هم غلا انفسه هم ان از سو برم بکن قالو بلا تمام فضائل علمی و فوازل عملی به اون بخش برمی گردد",
+      "target_text": "Aquellos pasajes de alabanza, exaltación, glorificación y honra que Dios concede al ser humano se remontan a su naturaleza innata (fitra) —que todas las virtudes, excelencias y nobles cualidades se remontan a aquel pacto universal, cuando el Señor tomó de los hijos de Adán, de sus lomos, a su descendencia, y los hizo testificar sobre sí mismos: '¿No soy vuestro Señor? Dijeron: Sí' (Quran 7:172). Todas las virtudes del saber y las excelencias prácticas se remontan a esa porción.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
-      "id": 21,
-      "start_ms": 817960,
-      "end_ms": 832960,
-      "source_text": "و هم آلم است هم آگاه است هم میبیند هم میداند هم میتواند سخن بگوید و در قیامت هم خود انسان علیه خود شهادت میدهد شاهدون نعلا نفسیم بلکفر",
-      "target_text": "Es conocedora y consciente; ve, sabe y puede hablar; y en el Día de la Resurrección el ser humano testifica contra sí mismo: 'testificando contra sí mismos que no creyeron' (Quran 9:17).",
+      "id": 20,
+      "start_ms": 743900,
+      "end_ms": 753800,
+      "source_text": "و تمام نقد ها و نقص ها به این خلق الانسان او یا خلق الانسان منتین به همه این مسلون از این لجن برمی گردد",
+      "target_text": "Y todo reproche y toda deficiencia se remontan a esto: 'el hombre fue creado inquieto' —el origen bajo del que esta criatura fue formada, esa dimensión ligada a aquella arcilla básica.",
       "flags": []
     },
     {
+      "id": 21,
+      "start_ms": 755500,
+      "end_ms": 816940,
+      "source_text": "ترمود قد خواب من دسته ها اگر کسی اون فطرت الهی را که در کنگره عظیم علسو بربکوم قال و بلاغ داشت اون رو دفن کند جلوی دهن او رو ببندد و نگذارد این فکرت سخن بگوید قد خواب من دستاها اونگاه سخنگوی انسان می شود هوا و هواست این روی گمان حرکت می کند روی میل عمل می کند کارهای فرهنگی و روی خیال است و کارهای عملی و روی حواست چه این انسانی هم منکر مبدع می شود به آزالله یا بیرسوات مبدع می شود و درون خود شاهد است چون فطرت از بینرفتنی نیست فطرت زنده است منطقه دسیسه شده دهن او رو بست و نمی گذارد فطرت سخن بگوید",
+      "target_text": "Dijo: 'la sofocó' —es decir, a la disposición innata. Si alguien entierra esa fitra divina que estuvo presente en el gran pacto de '¿No soy vuestro Señor? Dijeron: Sí', le cierra la boca y no deja que esa fitra hable —'la enterró'—, entonces el vocero del ser humano pasa a ser el capricho y el deseo; se mueve por conjeturas, actúa según sus inclinaciones; sus obras culturales se apoyan en la fantasía y sus obras prácticas en los sentidos. Tal ser humano se convierte en negador del Origen —niega a Dios o al Mensajero—, y sin embargo, dentro de sí mismo, es testigo, porque la fitra no puede destruirse; la fitra está viva, pero ha sido enterrada por la intriga, con la boca cerrada para que no pueda hablar.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
       "id": 22,
-      "start_ms": 834260,
-      "end_ms": 917560,
-      "source_text": "همونطور که اعزاب و جواره شهادت میدهند فطرت هم علیه خود همین انسان شهادت میدهند این انسانی که در جهات نفس فطرت را خفه کرد و طبیعت را شکوفا کرد این انسان که لربهی لکنود است و خودش انهو علازالکه لشهید است و انهو لحب الخیره لشدید خیرتنها مال نیست که در سوره بغره آمد این ترک خیره للوسیه توره کذا و کذا مال هست و اون چه به مال برمی گردد مقام هست و به جا هست و به ریاست هست و مانند آن انسان تا می تواند از اون چه که در بستر زمین هست به عنوان ابزار کار استفاده بکند اون چه که در بستر زمین هست چهار تاست جماد هست و نبات هست و حیوان هست و انسان همه این چهار قصر را این بشر عادی که لربیل کنوده از زروزی و خود تبدیل میکنند این که در اوائل سوره بارکه آل امران گذشت زوینه لناسب و شهوات این شهوات که جمع محلاب و الفلامه است در همین چهارتا خلاصه شده زوینه لناسب و شهوات من النسای ولونی و قناتیر مغنتره من از زهب و الفضه",
-      "target_text": "Así como los miembros del cuerpo testifican, también la fitra testifica contra este mismo ser humano, que sofocó la fitra en su interior y dejó florecer su naturaleza animal; este ser humano que es 'ingrato con su Señor' (Quran 100:6), 'y de ello él mismo es testigo' (Quran 100:7), y 'violento en su amor por la riqueza' (Quran 100:8). La 'riqueza' no es solo propiedad: es rango, posición, liderazgo. El hombre usa todo lo que hay en la tierra —mineral, planta, animal, humano— como herramientas. Como en la Sura Al 'Imran: 'se ha hecho hermoso para la gente el amor a los deseos: de mujeres e hijos, y montones amontonados de oro y plata' (Quran 3:14).",
+      "start_ms": 817960,
+      "end_ms": 832960,
+      "source_text": "و هم آلم است هم آگاه است هم میبیند هم میداند هم میتواند سخن بگوید و در قیامت هم خود انسان علیه خود شهادت میدهد شاهدون نعلا نفسیم بلکفر",
+      "target_text": "Y él es tanto conocedor como consciente; ve, sabe y puede hablar; y en el Día de la Resurrección el propio ser humano testifica contra sí mismo —'dando testimonio contra sí mismos de incredulidad' (Quran 9:17).",
       "flags": []
     },
     {
       "id": 23,
-      "start_ms": 919180,
-      "end_ms": 948480,
-      "source_text": "مصومه و انعام وله هرس هرس که کشاورزیست خیل مصومه و انعام که دامداریست و قراطیر مغنتره که زهب و فضو و اشیاه اتیقه و اجرام جرمه ها و اکسام بهادار باشد که جماد هست بنین و نسا که انسان هست زویل ناسه و با شباد نسا بنین",
-      "target_text": "'y caballos marcados, y ganado y labranza' (Quran 3:14): 'harth' (labranza) es la agricultura; 'caballos marcados y ganado' es la ganadería; los 'montones amontonados' son oro, plata, objetos preciosos y antigüedades, lo mineral; y 'hijos y mujeres' es lo humano.",
+      "start_ms": 834260,
+      "end_ms": 917560,
+      "source_text": "همونطور که اعزاب و جواره شهادت میدهند فطرت هم علیه خود همین انسان شهادت میدهند این انسانی که در جهات نفس فطرت را خفه کرد و طبیعت را شکوفا کرد این انسان که لربهی لکنود است و خودش انهو علازالکه لشهید است و انهو لحب الخیره لشدید خیرتنها مال نیست که در سوره بغره آمد این ترک خیره للوسیه توره کذا و کذا مال هست و اون چه به مال برمی گردد مقام هست و به جا هست و به ریاست هست و مانند آن انسان تا می تواند از اون چه که در بستر زمین هست به عنوان ابزار کار استفاده بکند اون چه که در بستر زمین هست چهار تاست جماد هست و نبات هست و حیوان هست و انسان همه این چهار قصر را این بشر عادی که لربیل کنوده از زروزی و خود تبدیل میکنند این که در اوائل سوره بارکه آل امران گذشت زوینه لناسب و شهوات این شهوات که جمع محلاب و الفلامه است در همین چهارتا خلاصه شده زوینه لناسب و شهوات من النسای ولونی و قناتیر مغنتره من از زهب و الفضه",
+      "target_text": "Así como los miembros y órganos testifican, también la fitra testifica contra este mismo ser humano —este humano que, en el esfuerzo del yo, estranguló la fitra y dejó florecer su naturaleza baja; este humano que es 'ingrato con su Señor' (Quran 100:6), y él mismo es 'testigo de ello' (Quran 100:7), y es 'intenso en su amor por el bien [la riqueza]' (Quran 100:8). 'El bien' aquí no es solo riqueza —como en la Sura al-Baqara, 'si deja bienes tras de sí' (Quran 2:180)—; es riqueza y lo que a ella se relaciona: rango, posición, liderazgo y cosas semejantes. El ser humano, en la medida en que puede, usa como herramientas de su labor todo lo que hay en el seno de la tierra. Lo que hay en el seno de la tierra es de cuatro tipos: mineral, vegetal, animal y humano. Este hombre ordinario —que es 'ingrato con su Señor'— convierte las cuatro categorías en su propia provisión y posesión. Esto es lo que se trató al inicio de la Sura Al Imran: 'Se ha embellecido para la gente el amor por los deseos' —estos deseos, en su conjunto general, se resumen en estos cuatro: 'Se ha embellecido para la gente el amor por los deseos: de mujeres, de hijos, y de tesoros amontonados de oro y plata' (Quran 3:14).",
       "flags": []
     },
     {
       "id": 24,
+      "start_ms": 919180,
+      "end_ms": 948480,
+      "source_text": "مصومه و انعام وله هرس هرس که کشاورزیست خیل مصومه و انعام که دامداریست و قراطیر مغنتره که زهب و فضو و اشیاه اتیقه و اجرام جرمه ها و اکسام بهادار باشد که جماد هست بنین و نسا که انسان هست زویل ناسه و با شباد نسا بنین",
+      "target_text": "'Y caballos de raza marcados, y ganado, y tierras cultivadas' (Quran 3:14) —'harth' es la agricultura; los caballos de raza marcados y el ganado son la ganadería; y los 'tesoros amontonados' son el oro, la plata, los objetos preciosos, las antigüedades, las joyas y los bienes valiosos —eso es lo mineral—; 'hijos y mujeres' es lo humano. 'Se ha embellecido para la gente [el amor por los deseos: de mujeres]' —'mujeres e hijos'.",
+      "flags": []
+    },
+    {
+      "id": 25,
       "start_ms": 949800,
       "end_ms": 990740,
       "source_text": "غناطیر مغندتر مال جماد خیل مسببم و انعام انها مال حیوان و امور دامی هر امور کشاورزی مال نباتات است دامداری مال حیوانات است غناطیر مغندتر مال جمادات است نسا و بنین هم مال انسان انسان و نبات و جماد و حیوان همه را به عنوان شهود افراد استخدام بکنند این شخص وقتی وارد قیامت شد اولین شاهد او فترت اوستی شاهدی نقالا انفرز این بلگفر",
-      "target_text": "Los montones amontonados pertenecen a lo mineral, los caballos marcados y el ganado a la cría de animales, la labranza a las plantas, y 'mujeres e hijos' a lo humano. Pone a los cuatro —humano, planta, mineral, animal— al servicio como herramientas. Cuando esta persona entra en la Resurrección, su primer testigo es su fitra: 'testificando contra sí mismos que no creyeron' (Quran 9:17).",
+      "target_text": "Los 'tesoros amontonados' pertenecen a lo mineral; los caballos marcados y el ganado pertenecen a lo animal y a los asuntos pecuarios. La agricultura pertenece al reino vegetal; el pastoreo pertenece a los animales; los tesoros amontonados pertenecen a los minerales; las mujeres y los hijos pertenecen a lo humano. El hombre pone al hombre, la planta, el mineral y el animal, a todos, al servicio de los individuos como instrumentos. Cuando esta persona entra en la Resurrección, su primer testigo es su propia fitra: 'dando testimonio contra sí mismos de incredulidad'.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
-      "id": 25,
+      "id": 26,
       "start_ms": 992060,
       "end_ms": 1001640,
       "source_text": "نستحضر ایتی شاهد غیر از متهم است این نفس وقتی فترت خود را قد خواب من",
-      "target_text": "Tengan presente que el testigo es distinto del acusado. Este yo, cuando su fitra —'fracasa quien la entierra' (Quran 91:10)...",
-      "flags": []
-    },
-    {
-      "id": 26,
-      "start_ms": 1003480,
-      "end_ms": 1024120,
-      "source_text": "و مدسوس کرد و در بین اغراض و غرائز دفن کرد و میری کنار ولی در درون اوست خود اوست همین فترات در کنگریه الاسد و برب بکن حضور داشت گفت بلا الان که به این بستر آمدن این انسانی که",
-      "target_text": "...la ocultó y la enterró entre apetitos e instintos hasta que murió; sin embargo, está dentro de él, es su propio yo; esta misma fitra estuvo presente en '¿No soy vuestro Señor? Dijeron: Sí' (Quran 7:172). Ahora que ha llegado a este estado, este ser humano que...",
+      "target_text": "Tengan presente: un testigo es distinto del acusado. Este yo, cuando 'enterró su fitra' —",
       "flags": []
     },
     {
       "id": 27,
-      "start_ms": 1024940,
-      "end_ms": 1031120,
-      "source_text": "روی طبیعت دارد حرکت می کند این فترات خودشو زنده بگور کرده",
-      "target_text": "...se mueve conforme a su naturaleza animal, ha enterrado viva su propia fitra.",
+      "start_ms": 1003480,
+      "end_ms": 1024120,
+      "source_text": "و مدسوس کرد و در بین اغراض و غرائز دفن کرد و میری کنار ولی در درون اوست خود اوست همین فترات در کنگریه الاسد و برب بکن حضور داشت گفت بلا الان که به این بستر آمدن این انسانی که",
+      "target_text": "—y la sepultó y la enterró entre apetitos e instintos, y la apartó—, sin embargo está dentro de él, es su propio yo. Esta misma fitra estuvo presente en el pacto de '¿No soy [vuestro Señor]?' y dijo 'Sí'. Ahora que ha llegado a este lecho [terrenal], este humano que —",
       "flags": []
     },
     {
       "id": 28,
-      "start_ms": 1032920,
-      "end_ms": 1099020,
-      "source_text": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن کریم رتور هست، کنود هست، شهید هست و به خیل شهید هست، مجاهم هست مشکلات عقیده پیدا میکند مشکلات ظلمی پیدا میکند این این نلمورو که ازا دخلو قریتن افسدوها فجده علو عیزت اهلی هست ماله گروه از همین بابست این بیش از پنجاه مورد که انسان حلو است انسان جزو است منو است امثال زاله بیش از پنجاه مورد که مزمز شده است ماله این نیمه خالی انسان است اون نیمه پر رو دفن کرده وقتی سحنه قیامت شد اولین کسی که علیه خود انسان فریب خورده بخش بدنی گواهی میدهد که شاهدین علا انفس ایم بلکفت همین جمعه فطرتوست",
-      "target_text": "Ha encarcelado su propia fitra dentro de su propia casa; entonces él mismo se vuelve el opresor. Más de cincuenta veces en el Noble Corán, Dios lo describe: ingrato, testigo contra sí mismo, violento en el amor a la riqueza, intrigante; desarrolla problemas de creencia y de injusticia. 'cuando los reyes entran en una ciudad, la arruinan y humillan a su gente poderosa' (Quran 27:34) es de este tipo. Estas más de cincuenta censuras pertenecen a la mitad vacía del ser humano, pues ha enterrado la mitad plena. En el Día de la Resurrección, lo primero que testifica contra el ser humano engañado es 'testificando contra sí mismos que no creyeron': esta es precisamente la sentencia sobre la fitra.",
-      "flags": [
-        "editorial-religious"
-      ]
-    },
-    {
-      "id": 29,
-      "start_ms": 1100140,
-      "end_ms": 1174920,
-      "source_text": "جرسی ای رو بعضی از بزرگان معنا کردن انسانی که به صورت حیمان در آمده کل محدود او علیه خود شهادت میدهد که این غارتگر است و قطاب شهادت عملی است او یه معنای لطیفی دارد این اولین شاهد شاهد خانوادگیست که شاهدین علا انفسهم بنگفر بعد به اعضا و جواره که میرسد تشد علیه ملسینتم عیدیم خب مستحذری که شهادت غیر اقرار است اگر مجرم خودش حرف میزنه که اقرار است اگر بیگانه علیه هستخن میگوز شهادت است معلوم می شود تو بحث هایی زیر و جلالتون مبسوتن گذشت که ما غیر از دستیم، ما غیر از پاییم، ما غیر از پوستیم، ما غیر از گشتیم اگر این دستی که رو میزی گرفت و زیر میزی گرفت و رو میزی داد و زیر میزی داد این دست گناه بکند، بعد حرف می زند، باید باید باید اقرار کرده است اما دستی که رو میزی و زیر میزی می دهد یا می گیرد، این دست ابزار کار است",
-      "target_text": "Algunos grandes sabios lo interpretaron así: el ser humano que ha tomado forma animal, todo su ser testifica contra sí mismo que es un saqueador; esto es un testimonio práctico. El primer testigo es el testigo familiar ('testificando contra sí mismos'); luego llega a los miembros del cuerpo: 'sus lenguas testificarán contra ellos por lo que hicieron' (Quran 24:24). El testimonio es distinto de la confesión: si el criminal habla, eso es confesión; si un extraño habla en su contra, eso es testimonio. Somos distintos de nuestra mano, pie, piel y carne. La mano que da o recibe sobornos por encima y por debajo de la mesa es una herramienta de acción.",
+      "start_ms": 1024940,
+      "end_ms": 1031120,
+      "source_text": "روی طبیعت دارد حرکت می کند این فترات خودشو زنده بگور کرده",
+      "target_text": "—se mueve según su naturaleza [baja]: este humano ha enterrado viva su propia fitra.",
       "flags": []
     },
     {
-      "id": 30,
-      "start_ms": 1175760,
-      "end_ms": 1280780,
-      "source_text": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر اعزاب و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کردن در حالی که قرآن نمیگرد دست اقرار کرد میگرد دست شهادت داد معلومش خود انسان است که رو میزی میدهد یا میگیرد دیر میزی میدهد یا میگیرد این گناه مال انسان است اونم این نیمه خالی انسان این نیمه که بف سلسال و همه مسنون و تین و تراب و اینا برمی گردد و امون نیمه که به نفخت و فهم روحی برمی گردد که این مظلوم خانوادگیست این در اصر قط خواب من دسته ها دستیسه شده است پس شهادت یه وقتی از بیرون از سال یا مسجد شهادت بده یا افراد دیگر شهادت میدن این شهادت بیرونه شهادت درونی یا مال فطرت است علیه طبیعت یا مال اعزاب و جواره طبیعت است علیه خود طبیعت یعنی انسان طبیعت زده که اللہو بالخیر لشدید است به جایی که این کنتم توحبون الله فتبعون یهبه کم الله محبوبی به پذیرت که ازلی و عبدیست و اون خداست و حلق وسطیه و مدار و محور محبتم حبیب الهیست که در دور مطاف حبیب اراهی گشتن انسان محبوب را محبوب میکند و خدای سبحانم به حبیب خود فربود بگو",
-      "target_text": "Por eso, esta mano testifica que esta persona tomó y dio. El Corán no dice que la mano confesó; dice que la mano testificó, así que queda claro que es el propio ser humano el que da o recibe por encima o por debajo de la mesa; este pecado pertenece al ser humano, a su mitad vacía, aquella que se remonta al 'barro sonoro de légamo moldeado' (Quran 15:26), mientras que la otra mitad se remonta al soplo divino (nafkh). El testimonio puede ser externo o interno: la fitra contra la naturaleza, o los miembros contra la propia naturaleza; es decir, el ser humano dominado por la naturaleza, que es 'violento en el amor a la riqueza', debe volver a 'Di: si amáis a Dios, seguidme, y Dios os amará' (Quran 3:31): el Amado preeterno, que es Dios; y Dios el Trascendente dijo a Su amado: Di...",
+      "id": 29,
+      "start_ms": 1032920,
+      "end_ms": 1099020,
+      "source_text": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن کریم رتور هست، کنود هست، شهید هست و به خیل شهید هست، مجاهم هست مشکلات عقیده پیدا میکند مشکلات ظلمی پیدا میکند این این نلمورو که ازا دخلو قریتن افسدوها فجده علو عیزت اهلی هست ماله گروه از همین بابست این بیش از پنجاه مورد که انسان حلو است انسان جزو است منو است امثال زاله بیش از پنجاه مورد که مزمز شده است ماله این نیمه خالی انسان است اون نیمه پر رو دفن کرده وقتی سحنه قیامت شد اولین کسی که علیه خود انسان فریب خورده بخش بدنی گواهی میدهد که شاهدین علا انفس ایم بلکفت همین جمعه فطرتوست",
+      "target_text": "Ha encerrado a su fitra dentro de su propia casa; y luego él mismo se convirtió en un asaltante. Este humano que es un asaltante —en más de cincuenta lugares Dios, en el Noble Corán, dice que es 'ingrato' (kanud), es 'testigo', y es 'intenso en el amor por la riqueza', es agresivo; desarrolla problemas de credo, desarrolla problemas de maldad. Esto de 'cuando entran en una ciudad, la arruinan y humillan a los honrados de su gente' (Quran 27:34) pertenece a esa misma categoría. Estos más de cincuenta lugares donde se menciona que el hombre es 'inquieto', que el hombre es 'ávido', 'desasosegado' y demás, pertenecen a la mitad vacía del ser humano; ha enterrado la mitad plena. Cuando llega la escena de la Resurrección, lo primero que testifica contra el ser humano engañado es la parte corporal —'dando testimonio contra sí mismos de incredulidad' (Quran 9:17)— y esta es esa misma declaración de la fitra.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
+      "id": 30,
+      "start_ms": 1100140,
+      "end_ms": 1174920,
+      "source_text": "جرسی ای رو بعضی از بزرگان معنا کردن انسانی که به صورت حیمان در آمده کل محدود او علیه خود شهادت میدهد که این غارتگر است و قطاب شهادت عملی است او یه معنای لطیفی دارد این اولین شاهد شاهد خانوادگیست که شاهدین علا انفسهم بنگفر بعد به اعضا و جواره که میرسد تشد علیه ملسینتم عیدیم خب مستحذری که شهادت غیر اقرار است اگر مجرم خودش حرف میزنه که اقرار است اگر بیگانه علیه هستخن میگوز شهادت است معلوم می شود تو بحث هایی زیر و جلالتون مبسوتن گذشت که ما غیر از دستیم، ما غیر از پاییم، ما غیر از پوستیم، ما غیر از گشتیم اگر این دستی که رو میزی گرفت و زیر میزی گرفت و رو میزی داد و زیر میزی داد این دست گناه بکند، بعد حرف می زند، باید باید باید اقرار کرده است اما دستی که رو میزی و زیر میزی می دهد یا می گیرد، این دست ابزار کار است",
+      "target_text": "Algunos de los grandes sabios interpretaron su 'herida/marca': el ser humano que ha tomado la forma de una bestia —todo su ser limitado testifica contra sí mismo que es un depredador; y esto es un testimonio de obras. Tiene un significado sutil: este primer testigo es el testigo del propio hogar, 'dando testimonio contra sí mismos de incredulidad' (Quran 9:17). Luego, cuando llega a los miembros y órganos, 'sus lenguas testificarán contra ellos' (Quran 41:20-21). Ahora bien, tengan presente que el testimonio es distinto de la confesión: si el propio criminal habla, eso es confesión; si un extraño habla en su contra, eso es testimonio. Queda claro —como se trató extensamente en discusiones anteriores— que nosotros somos distintos de nuestras manos, distintos de nuestros pies, distintos de nuestra piel, distintos de nuestra carne. Si esta mano que tomó un soborno por debajo de la mesa, que da por debajo de la mesa, peca —entonces, después, cuando hable, habría que decir que 'confesó'. Pero la mano que da o toma sobornos por debajo de la mesa es un instrumento de la obra.",
+      "flags": []
+    },
+    {
       "id": 31,
-      "start_ms": 1286000,
-      "end_ms": 1299720,
-      "source_text": "این با این که می تواند حبیب الله بشود حبیب این چارتاست خیلی مصومه است و نسا اوبنین است و وناطیر مغنتر است و حرس",
-      "target_text": "Aunque puede llegar a ser el amado de Dios, en su lugar ama a estos cuatro: caballos marcados, mujeres e hijos, montones amontonados y labranza.",
+      "start_ms": 1175760,
+      "end_ms": 1280780,
+      "source_text": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر اعزاب و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کردن در حالی که قرآن نمیگرد دست اقرار کرد میگرد دست شهادت داد معلومش خود انسان است که رو میزی میدهد یا میگیرد دیر میزی میدهد یا میگیرد این گناه مال انسان است اونم این نیمه خالی انسان این نیمه که بف سلسال و همه مسنون و تین و تراب و اینا برمی گردد و امون نیمه که به نفخت و فهم روحی برمی گردد که این مظلوم خانوادگیست این در اصر قط خواب من دسته ها دستیسه شده است پس شهادت یه وقتی از بیرون از سال یا مسجد شهادت بده یا افراد دیگر شهادت میدن این شهادت بیرونه شهادت درونی یا مال فطرت است علیه طبیعت یا مال اعزاب و جواره طبیعت است علیه خود طبیعت یعنی انسان طبیعت زده که اللہو بالخیر لشدید است به جایی که این کنتم توحبون الله فتبعون یهبه کم الله محبوبی به پذیرت که ازلی و عبدیست و اون خداست و حلق وسطیه و مدار و محور محبتم حبیب الهیست که در دور مطاف حبیب اراهی گشتن انسان محبوب را محبوب میکند و خدای سبحانم به حبیب خود فربود بگو",
+      "target_text": "Por eso esta mano testifica que esta persona tomó [el soborno] y ella lo ejecutó. Si los miembros y órganos hubieran pecado, entonces cuando hablaran tendríamos que decir que 'confesaron' —mientras que el Corán no dice que la mano confesó, dice que la mano testificó. Queda claro que es el propio ser humano quien da o toma por debajo de la mesa. Este pecado pertenece al ser humano —en efecto, a esa mitad vacía del ser humano, esa mitad que se remonta a 'arcilla sonora de barro negro alterado', a 'arcilla y polvo'—; mientras que la [otra] mitad, que se remonta a 'Yo insuflé en él de Mi espíritu', es la parte agraviada del hogar. En el estado de 'la enterró', [la fitra] fue sometida a la intriga. Así, el testimonio a veces es externo —desde el salón o la mezquita alguien testifica, u otras personas testifican—: eso es testimonio externo. El testimonio interno es o bien el de la fitra contra la naturaleza [baja], o bien el de los miembros y órganos —que son de esa naturaleza— contra la naturaleza misma; es decir, el ser humano golpeado por su naturaleza, que es 'intenso en el amor por la riqueza' (Quran 100:8). Mientras que 'si amáis a Dios, seguid [al Mensajero], Dios os amará' (Quran 3:31) —el amado digno de ser aceptado es el preeterno y perdurable, y ese es Dios; y el eje y pivote del amor es el Amado divino, alrededor de cuya circunvalación el ser humano hace amable al amado, y Dios, el Exaltado, dijo a Su propio Amado: 'Di...'",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 32,
-      "start_ms": 1300940,
-      "end_ms": 1337200,
-      "source_text": "جماد است و نبات است و حیوان است و انسان به اینها دل می بندند خب فرما دیم که انسانیم نسبت به ذات اقدس الاخ بعد از این که فطرت خود را خفه کرد قد خواه من دستاها این بیمهری میکند بعد ادبی میکند بی اخلاقی میکند و خودشم میدوند در درون او علیه او شهادت میدن این فطرت که مردنی نیست این فطرت هست و انتا حبس شده و انهو علا ظالکل شهید",
-      "target_text": "Es lo mineral, lo vegetal, lo animal y lo humano, y a ellos apega su corazón. Ya dijimos que el ser humano, en su relación con la Esencia Santísima, después de haber sofocado su fitra —'fracasa quien la entierra' (Quran 91:10)—, se vuelve descortés con Dios, se vuelve de malos modos e inmoral; y sus propias facultades testifican contra él. Esta fitra no muere; permanece, aunque encarcelada, 'y de ello él mismo es testigo' (Quran 100:7).",
-      "flags": []
-    },
-    {
-      "id": 33,
-      "start_ms": 1338320,
-      "end_ms": 1396660,
-      "source_text": "و این مال را هم شدیدن دوست دارد البته مردان الهی کسانی هستند که همه خواسته ها و بسته ها و بابسته ها را را کردن لها به الله سر دادن بدن دادن پیکر دادن قطعه شدن جگر دادن مثل سید شهده در جنگ احد اینا سلامات الله سلامه علیه و جمین اون راه را دارن اینا کسانی هستند که در جهاد داخلی حب حبیب را نه حب مال را حب خالق را نه حب مخلوقات شارگانی بنین و نسا از یک طرف قناتیر مغنتر از طرف دیگر خیلی مصبم از طرف دیگر حرس از طرف شارو نه اونها بلحب الله هستن بعد فهمون جد کار بکنیم",
-      "target_text": "Y ama intensamente esta riqueza. Pero los hombres de Dios son quienes han entregado todos sus deseos y apegos a Dios: dando el cuerpo, siendo despedazados, dando la sangre de su corazón, como el Señor de los Mártires en la batalla de Uhud (la paz sea con todos ellos). En la yihad interior eligieron el amor del Amado, no el amor a la riqueza; el amor del Creador, no el amor a las criaturas dispersas: hijos y mujeres por un lado, montones amontonados por otro, caballos marcados por otro, labranza por otro; no, ellos están con el amor de Dios. Que entendamos esto y nos esforcemos con seriedad.",
+      "start_ms": 1286000,
+      "end_ms": 1299720,
+      "source_text": "این با این که می تواند حبیب الله بشود حبیب این چارتاست خیلی مصومه است و نسا اوبنین است و وناطیر مغنتر است و حرس",
+      "target_text": "Este [ser humano] —aunque puede llegar a ser amado de Dios— [en cambio] ama estas cuatro cosas: los caballos marcados, las mujeres y los hijos, los tesoros amontonados y las tierras cultivadas.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
-      "id": 34,
-      "start_ms": 1398320,
-      "end_ms": 1423200,
-      "source_text": "نبشه قبر میکنیم از این سحنه دلتون همه خاطرات و خواتر را همه سیعات را همه انگیزه ها را همه رواخاری ها و ریاکاری ها را بیرون میانیم هم اون چی که در خاک هست اونها را احیام کنیم سحنه ریامت بپرام کنیم",
-      "target_text": "Exhumemos, por así decirlo, la tumba del corazón: saquemos todos sus recuerdos, malas acciones, motivos, hipocresías y ostentación; y todo lo que está enterrado dentro, revivámoslo y hagámoslo presente en la escena de la Resurrección.",
+      "id": 33,
+      "start_ms": 1300940,
+      "end_ms": 1337200,
+      "source_text": "جماد است و نبات است و حیوان است و انسان به اینها دل می بندند خب فرما دیم که انسانیم نسبت به ذات اقدس الاخ بعد از این که فطرت خود را خفه کرد قد خواه من دستاها این بیمهری میکند بعد ادبی میکند بی اخلاقی میکند و خودشم میدوند در درون او علیه او شهادت میدن این فطرت که مردنی نیست این فطرت هست و انتا حبس شده و انهو علا ظالکل شهید",
+      "target_text": "Es mineral, vegetal, animal y humano, y en ello pone su corazón. Bien, dijimos que el ser humano, respecto a Dios el Santísimo —después de haber estrangulado su propia fitra, 'la enterró'—, se comporta con dureza, luego con descortesía, se comporta sin moral, y él mismo se convierte en un asaltante; y dentro de él [estas cosas] testifican en su contra. Esta fitra no es algo que muera; esta fitra existe, aunque haya sido encarcelada —'y él es testigo de ello' (Quran 100:7).",
       "flags": []
     },
     {
+      "id": 34,
+      "start_ms": 1338320,
+      "end_ms": 1396660,
+      "source_text": "و این مال را هم شدیدن دوست دارد البته مردان الهی کسانی هستند که همه خواسته ها و بسته ها و بابسته ها را را کردن لها به الله سر دادن بدن دادن پیکر دادن قطعه شدن جگر دادن مثل سید شهده در جنگ احد اینا سلامات الله سلامه علیه و جمین اون راه را دارن اینا کسانی هستند که در جهاد داخلی حب حبیب را نه حب مال را حب خالق را نه حب مخلوقات شارگانی بنین و نسا از یک طرف قناتیر مغنتر از طرف دیگر خیلی مصبم از طرف دیگر حرس از طرف شارو نه اونها بلحب الله هستن بعد فهمون جد کار بکنیم",
+      "target_text": "Y ama intensamente esta riqueza. Por supuesto, los hombres de Dios son aquellos que han apostado todos sus deseos, vínculos y dependencias por la causa de Dios —dieron sus cuerpos, dieron sus cuerpos, fueron despedazados, dieron sus propios hígados, como el Señor de los Mártires [Hamza] en la Batalla de Uhud— la paz de Dios sea sobre todos ellos; ese es su camino. Estos son los que, en la yihad interior, [eligieron] el amor del Amado, no el amor de la riqueza; el amor del Creador, no el amor de las criaturas dispersas —hijos y mujeres por un lado, tesoros amontonados por otro, caballos marcados por otro, tierras cultivadas por otro—; no, ellos son 'amantes de Dios'. Así pues, comprendamos y trabajemos con seriedad.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
       "id": 35,
-      "start_ms": 1424600,
-      "end_ms": 1452920,
-      "source_text": "خود انسان می داند که وقتی ما نبشه قبر بکنیم از درون او اینها رو بیرون بیاریم و اون چی که در صدر است به روی میز بیاید اونگاه خود انسان که با خبر بود می گوید مال آزال کتاب لایقاد رو سقیرتن ولا کبیرتن الا احساها هیچ نمی توانا این کار بکنند",
-      "target_text": "El propio ser humano sabe que cuando exhumemos la tumba y saquemos esto de su interior, y lo que hay en el pecho llegue a la mesa, entonces el ser humano, que era consciente, dirá: 'Qué es este registro que no deja nada pequeño ni grande sin enumerarlo' (Quran 18:49). No podrán ocultar nada.",
+      "start_ms": 1398320,
+      "end_ms": 1423200,
+      "source_text": "نبشه قبر میکنیم از این سحنه دلتون همه خاطرات و خواتر را همه سیعات را همه انگیزه ها را همه رواخاری ها و ریاکاری ها را بیرون میانیم هم اون چی که در خاک هست اونها را احیام کنیم سحنه ریامت بپرام کنیم",
+      "target_text": "Desenterramos la tumba [del yo]: de esa escena sacamos todos los recuerdos y pensamientos, todas las malas obras, todos los motivos, todas las vanidades e hipocresías; también todo lo que hay en el polvo —los revivimos y los sacamos en la escena de la Resurrección.",
       "flags": []
     },
     {
       "id": 36,
-      "start_ms": 1454120,
-      "end_ms": 1488020,
-      "source_text": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر کتاب لایقاد رو سرید هستن ولا کبید هستن الا احساها دفترهای بزرگ و کلان پیش خدا و مدبران الهیست اما اون دفتر روزان و رسمی که فراموش شده نیست علمت نفسون ما احضرت انسان با خودش دارد",
-      "target_text": "Ahora es consciente; el testigo interior está presente, aunque lo enterró —'lo enterró'. 'Qué es este registro que no deja nada pequeño ni grande sin enumerarlo' (Quran 18:49): los grandes libros están junto a Dios y los administradores divinos; pero el registro ordinario que parece 'olvidado' no está perdido: 'un alma sabrá lo que ha presentado' (Quran 81:14); el ser humano lo lleva consigo mismo.",
-      "flags": [
-        "editorial-religious"
-      ]
+      "start_ms": 1424600,
+      "end_ms": 1452920,
+      "source_text": "خود انسان می داند که وقتی ما نبشه قبر بکنیم از درون او اینها رو بیرون بیاریم و اون چی که در صدر است به روی میز بیاید اونگاه خود انسان که با خبر بود می گوید مال آزال کتاب لایقاد رو سقیرتن ولا کبیرتن الا احساها هیچ نمی توانا این کار بکنند",
+      "target_text": "El propio ser humano sabe que cuando desenterramos la tumba y sacamos esto de dentro de él, y lo que hay en el pecho es puesto sobre la mesa, entonces el ser humano —que había estado consciente todo el tiempo— dice: '¿Qué es este registro que no deja nada, pequeño ni grande, sin enumerarlo?' (Quran 18:49). No pueden hacer nada [para escapar].",
+      "flags": []
     },
     {
       "id": 37,
-      "start_ms": 1489060,
-      "end_ms": 1549080,
-      "source_text": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید عمومه شدی که اینجا هست معمولا نکره در سیاق نف مفید عمومه ما جاانی اهدون یعنی این اما نکره در سیاق اثبات همه جا مفید اومنیست اینجا طبق شباهد و قرار اینی که هست علمت نفسون یعنی کلو نفسین ما احذرت خود انسان حاضر بکنند بنابراین گرچه در بابه حجو ابل حجو اینها وارد شده است ولی اولا اینست که مربوط به مسائل جهاد باشد و انسان را آگاه می کند که تو یک صاحب خانه ای داری که او شاهد اعمال و سیعات تو است و اون را محصول کرده",
-      "target_text": "En cuanto a lo que otro registra —los nobles escribas, 'nobles escritores' (Quran 82:11), también lo registran—, pero 'un alma sabrá lo que ha traído' (Quran 81:14): un sustantivo indefinido aquí produce sentido general, así que 'toda alma sabrá lo que ha traído presente'; el propio ser humano lo hará presente. Por lo tanto, aunque estos versículos se han vinculado con el Hajj y los camellos de los peregrinos, la lectura principal pertenece a los asuntos de la yihad; y hace consciente al ser humano de que tiene un dueño de la casa que es testigo de sus actos y los ha registrado.",
+      "start_ms": 1454120,
+      "end_ms": 1488020,
+      "source_text": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر کتاب لایقاد رو سرید هستن ولا کبید هستن الا احساها دفترهای بزرگ و کلان پیش خدا و مدبران الهیست اما اون دفتر روزان و رسمی که فراموش شده نیست علمت نفسون ما احضرت انسان با خودش دارد",
+      "target_text": "Ahora está consciente; es un testigo interior —pero suprime a ese testigo interior; lo ha encerrado bajo llave en el estado de 'la enterró', y en la escena de la Resurrección [dice]: '¿Qué es este registro que no deja nada, pequeño ni grande, sin enumerarlo?' (Quran 18:49). Los grandes y pesados libros de cuentas están con Dios y con los administradores divinos; pero ese registro cotidiano y ordinario que ha sido olvidado no está perdido —'un alma sabrá lo que ha presentado' (Quran 82:5); el ser humano lo lleva consigo.",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 38,
+      "start_ms": 1489060,
+      "end_ms": 1549080,
+      "source_text": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید عمومه شدی که اینجا هست معمولا نکره در سیاق نف مفید عمومه ما جاانی اهدون یعنی این اما نکره در سیاق اثبات همه جا مفید اومنیست اینجا طبق شباهد و قرار اینی که هست علمت نفسون یعنی کلو نفسین ما احذرت خود انسان حاضر بکنند بنابراین گرچه در بابه حجو ابل حجو اینها وارد شده است ولی اولا اینست که مربوط به مسائل جهاد باشد و انسان را آگاه می کند که تو یک صاحب خانه ای داری که او شاهد اعمال و سیعات تو است و اون را محصول کرده",
+      "target_text": "No es simplemente que otro lo haya registrado —aunque sí, los 'nobles escribas' (Quran 82:11) también lo registraron—, sino que 'un alma sabrá lo que ha presentado' (Quran 82:5). De los lugares donde se usa un sustantivo indefinido dentro de un marco afirmativo universal —como aquí— por lo general un sustantivo indefinido en un contexto negativo produce generalidad, 'no vino a mí ningún auxiliador', es decir, ninguno en absoluto; pero un sustantivo indefinido en un contexto afirmativo no siempre produce universalidad. Aquí, según la evidencia y el contexto, 'un alma sabrá lo que ha presentado' (Quran 82:5) significa cada alma —'cada alma, lo que ha presentado'—, el propio ser humano lo traerá presente. Por lo tanto, aunque en el asunto del Hajj y del camello de carga del Hajj se han transmitido estas [interpretaciones], lo que en primer lugar [conviene] es que se conecte con los asuntos de la yihad; y hace consciente al ser humano de que tiene un dueño de la casa que es testigo de sus obras y malas obras, y que Él las ha confinado.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 39,
       "start_ms": 1550800,
       "end_ms": 1624540,
       "source_text": "خودت شاهدی یعنی اون فترتت شاهد است خودت مجدمی یعنی طبیعتت مجدمی است و اگه اتحاد شاهد و مشروط که معنی ندارد مگر شهادت عملی باشد که اونا به صورت گردرمیان یا کلب درمیان این شهادت عملی است و گنون شهادت های قولی حتما تعدد می ترد این اصاری سروع مبارکی است که به نام علی آدیات بود شده البته بسیار از لطائف این گنه از سور در تیه سور و آیات قبلی بطرح شد و اقوالی هم که هست به همین مطالب عرض شده برمی گردند که امیدواریم زادت اقدس الله اون چه خیر و صلاح و فلاحه دنیا و آخرت امت اسلامیست خوب ادراف بکنن و بدانن که بسیار از این دستورها جمله خبریه است که به دایه این شاهل غاشده و به ما می فرماد که بهترین مردم روزگار ممئنانن یعنی ایها المؤمنون بکشید بهتری مردان آلم باشید و فردله لنا و لکم و السلام علیکم و رحمت الله و برکاته",
-      "target_text": "Tú mismo eres el testigo, es decir, tu fitra es el testigo; tú mismo eres el criminal, es decir, tu naturaleza animal es el criminal. Y si la unión de testigo y acusado no tuviera sentido, salvo como testimonio práctico —como quien, por así decirlo, se convierte en burro o en perro—, este es un testimonio práctico, mientras que los testimonios verbales necesariamente implican pluralidad. Esta bendita sura, llamada al-'Adiyat, ha quedado concluida. Muchas de sus sutilezas se expusieron en suras y versículos anteriores, y las opiniones que existen remiten a estos mismos puntos que se han expuesto. Esperamos que Dios el Santísimo conceda a la comunidad musulmana una buena comprensión de lo que es el bien y la rectitud de este mundo y del venidero, y que sepan que muchas de estas instrucciones son oraciones declarativas pronunciadas con intención performativa, diciéndonos que los mejores hombres de la época son los creyentes: Oh creyentes, esforzaos por ser los mejores hombres del mundo. Y que Él nos perdone a nosotros y a vosotros. La paz sea con vosotros, y la misericordia de Dios y Sus bendiciones.",
+      "target_text": "Tú mismo eres el testigo —es decir, tu fitra es el testigo—; tú mismo eres el acusado —es decir, tu naturaleza [baja] es la acusada—. Y si el testigo y el acusado son uno solo, eso no tendría sentido a menos que sea un testimonio de obras —como cuando el pillaje aparece en forma de [una bestia] en el vientre, eso es un testimonio de obras—; mientras que los testimonios de palabras requieren necesariamente múltiples testigos. Este es el final de una sura bendita revelada bajo el nombre de al-'Adiyat. Por supuesto, muchas de las sutilezas de esta sura fueron planteadas en las suras y versículos anteriores a ella, y los relatos que existen se remontan a estos mismos puntos. Esperamos que Dios, el Santísimo, les conceda buena comprensión de todo lo que sea el bien, el bienestar y la prosperidad de la comunidad islámica en este mundo y en el próximo, y que sepan que muchas de estas directrices son frases declarativas expresadas con la fuerza de un mandato, que nos dicen que los mejores hombres de la época son los creyentes —es decir, oh creyentes, esforzaos por ser los mejores hombres del mundo—. Y que Su gracia sea sobre nosotros y sobre vosotros. La paz sea con vosotros, y la misericordia de Dios y Sus bendiciones.",
       "flags": [
         "editorial-religious"
       ]
