@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -897,26 +899,68 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     raise VideoTranslationHouseError(f"Unhandled command: {cmd}")
 
 
+def _subcommand_label(args: argparse.Namespace) -> str:
+    """A compact 'group sub' label for logs/heartbeat, e.g. 'dub run', 'project autopilot'.
+
+    Each command group stores its subcommand under a distinct dest (``project_command``,
+    ``dub_command``, …); pick whichever is present so the label is meaningful without a lookup
+    table. Falls back to the bare top-level command."""
+    cmd = getattr(args, "command", None) or "?"
+    for attr in vars(args):
+        if attr.endswith("_command"):
+            sub = getattr(args, attr)
+            if sub:
+                return f"{cmd} {sub}"
+    return cmd
+
+
 def main(argv: list[str] | None = None) -> int:
+    from . import obs
+
     parser = build_parser()
     args = parser.parse_args(argv)
+    label = _subcommand_label(args)
+    project_id = getattr(args, "project_id", None)
+    heartbeat: obs.Heartbeat | None = None
+    started = time.monotonic()
     try:
         root = Path(args.root).expanduser().resolve() if args.root else repo_root()
+        # Observability (pure instrumentation — never changes state/output). The logger prunes
+        # logs older than 24h and rotates by size; the heartbeat prints liveness to stderr while a
+        # long command runs. Both suppress their own errors; stdout stays pure JSON.
+        obs.get_logger(root)
+        obs.log_info("cli start", kind="start", cmd=label, project_id=project_id,
+                     argv=(argv if argv is not None else sys.argv[1:]), pid=os.getpid())
+        if obs.heartbeat_enabled():
+            heartbeat = obs.Heartbeat(label, project_id, interval=obs.heartbeat_interval()).start()
+            obs.set_current(heartbeat)
+
         result = dispatch(args, root)
         # `cmd`/`nextcmd` return a paste-ready terminal block (a plain string), not a dict —
         # print it raw so newlines/quotes survive for copy-paste (their whole purpose).
         if args.command in ("cmd", "nextcmd"):
             print(result)
+            obs.log_info("cli done", kind="end", cmd=label, project_id=project_id, rc=0,
+                         elapsed_s=round(time.monotonic() - started, 3))
             return 0
         indent = None if args.compact else 2
         print(json.dumps(result, indent=indent, ensure_ascii=False, default=str))
-        if isinstance(result, dict) and (result.get("valid") is False or result.get("status") == "fail"):
-            return 1
-        return 0
+        rc = 1 if isinstance(result, dict) and (
+            result.get("valid") is False or result.get("status") == "fail") else 0
+        obs.log_info("cli done", kind="end", cmd=label, project_id=project_id, rc=rc,
+                     elapsed_s=round(time.monotonic() - started, 3))
+        return rc
     except (VideoTranslationHouseError, FileNotFoundError, ValueError, json.JSONDecodeError) as exc:
+        obs.log_error("cli error", kind="end", cmd=label, project_id=project_id, rc=2,
+                      error_type=type(exc).__name__, error=str(exc),
+                      elapsed_s=round(time.monotonic() - started, 3))
         print(json.dumps({"status": "error", "error": str(exc), "error_type": type(exc).__name__}, indent=2),
               file=sys.stderr)
         return 2
+    finally:
+        obs.set_current(None)
+        if heartbeat is not None:
+            heartbeat.stop()
 
 
 if __name__ == "__main__":

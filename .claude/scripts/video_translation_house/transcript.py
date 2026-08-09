@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Any
 
 from . import artifacts as artifacts_mod
+from . import obs
 from .engines.asr import ASRResult, TranscriptCue, transcribe
 from .errors import ConfigurationError
 from .events import append_event
@@ -308,6 +309,9 @@ def run_transcription(
     chosen_config: dict[str, Any] | None = None
 
     for attempt_n, cfg in enumerate(configs, start=1):
+        # Long blocking ASR subprocess (no natural item count) — label the phase so the heartbeat's
+        # elapsed-time line is meaningful; show the retry-ladder attempt when there is more than one.
+        obs.phase(f"transcribing ({provider or 'asr'} attempt {attempt_n}/{len(configs)})")
         result = transcribe(
             audio, engine_dir,
             provider=provider, model=model, language=language,

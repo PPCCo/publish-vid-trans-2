@@ -43,8 +43,8 @@ you want Claude authoring the translation itself.
 
 1. Read the current state (cheap): 
    ```
-   python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan <id>
-   python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project autopilot <id> --dry-run --mt
+   "$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan <id>
+   "$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project autopilot <id> --dry-run --mt
    ```
    The `--dry-run` preview lists the exact ordered steps the scripted run will execute and the
    gate it will stop at — show the operator this so they know what will happen.
@@ -78,8 +78,8 @@ never on authoring or step-by-step shelling.
 
 1. **Locate the stop.** 
    ```
-   python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project status <id>
-   python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan <id>
+   "$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project status <id>
+   "$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan <id>
    ```
    `plan.autonomy_action` is authoritative. If it is `BLOCKED`/`HALT`-like (e.g. rights not set,
    MT missing), surface the blocker and stop — the operator resolves it, then re-runs the script.

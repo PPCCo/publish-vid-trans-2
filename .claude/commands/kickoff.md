@@ -16,7 +16,7 @@ pipeline or mutate state itself.
 **In-progress detection (do this FIRST).** These SETTINGS only apply to a **fresh** video. If the
 video is already onboarded, its own configured settings are authoritative — do not re-apply the
 SETTINGS or re-init. Before anything else, check whether `projects/<ID>/` exists (e.g.
-`ls -d projects/<ID>` or `python3 .claude/scripts/vid_cli.py project status <ID>` — a non-error
+`ls -d projects/<ID>` or `.venv/bin/python3 .claude/scripts/vid_cli.py project status <ID>` — a non-error
 means it's in progress). **If it exists, defer to `/continue`:** invoke the `continue` skill for
 `<ID>` (resume mode) and do NOT proceed with the onboarding steps below. Only when
 `projects/<ID>/` does **not** exist do you run the fresh-onboarding procedure.
@@ -71,7 +71,7 @@ Bare-terminal block, ready to paste. Substitute `ID` and `URL`, and expand `LANG
 ```
 cd /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans
 source .env.local
-python3 .claude/scripts/vid_cli.py project init <ID> \
+.venv/bin/python3 .claude/scripts/vid_cli.py project init <ID> \
   --url <URL> \
   --targets en,ur,ar,zh,fr,es,pt,ru \
   --audio en,ur,ar,zh,fr,es,pt,ru \
@@ -90,7 +90,7 @@ Persian.
 
 ### 3. Emit STEP 2 — external media download (ingest)
 Generate the `ingest run` line from the sanctioned printer so the download command can't drift
-from what the tool runs: run `python3 .claude/scripts/vid_cli.py cmd <ID>` and take **only the
+from what the tool runs: run `.venv/bin/python3 .claude/scripts/vid_cli.py cmd <ID>` and take **only the
 `ingest run <ID>` line** from its Option B block (ignore Option B's `project init` — it uses a
 different stored target set incl. `fa`; STEP 1 above is the authoritative init with our settings).
 The STEP 2 block is:
@@ -98,7 +98,7 @@ The STEP 2 block is:
 ```
 cd /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans
 source .env.local          # sets VIDTRANS_FETCH_ENABLED=1 + proxy CA bundle (required for media download)
-python3 .claude/scripts/vid_cli.py ingest run <ID>
+.venv/bin/python3 .claude/scripts/vid_cli.py ingest run <ID>
 ```
 
 (If the operator prefers, `cmd`'s Option B already chains `project init … && ingest run …` in one

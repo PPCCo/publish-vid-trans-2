@@ -15,6 +15,7 @@ lives in ``dubbing.py`` and the rights record — never bypass it by calling thi
 """
 from __future__ import annotations
 
+import os
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -39,6 +40,18 @@ _PROVIDER_BINARY = {
     "google": "gcloud",
 }
 
+# XTTS-v2's model manifest speaks a couple of regional-variant codes that differ from this
+# framework's canonical KNOWN_LANGUAGES codes (util.py). Remap scoped to the xtts provider only
+# — the pipeline's own `zh` stays canonical everywhere else (captions, state, other providers).
+_XTTS_LANGUAGE_MAP = {"zh": "zh-cn"}
+
+# The `tts` CLI's own hardcoded default model is a single-speaker English model, not XTTS —
+# without an explicit --model_name it ignores any staged offline cache and tries to fetch its
+# default from the (policy-blocked) huggingface.co. `run_dub`'s clone path never sets `model`
+# (it skips the gender/model registry lookup entirely when cloning), so this is the only place
+# XTTS-v2 gets named; a company/operator --model override still wins (passed through untouched).
+_XTTS_DEFAULT_MODEL = "tts_models/multilingual/multi-dataset/xtts_v2"
+
 
 @dataclass
 class TTSResult:
@@ -62,9 +75,13 @@ class TTSResult:
         return d
 
 
-def available_tts_providers() -> list[str]:
-    """Return the subset of KNOWN_PROVIDERS whose engine binary is on PATH."""
-    return [p for p in KNOWN_PROVIDERS if executable(_PROVIDER_BINARY[p])]
+def available_tts_providers(root: Path | None = None) -> list[str]:
+    """Return the subset of KNOWN_PROVIDERS whose engine binary is on PATH (or, for a provider
+    with a configured `tools.local.json` binary override, resolvable via that override)."""
+    return [
+        p for p in KNOWN_PROVIDERS
+        if executable(_PROVIDER_BINARY[p]) or _binary_override(root, p)
+    ]
 
 
 def _configured_provider(root: Path | None, language: str) -> str | None:
@@ -83,7 +100,7 @@ def _configured_provider(root: Path | None, language: str) -> str | None:
 def _resolve_provider(requested: str | None, language: str, *, root: Path | None = None) -> str:
     """Pick a TTS provider: an explicit request wins (if installed); else the configured
     per-language/default provider (if installed); else the first available engine."""
-    available = available_tts_providers()
+    available = available_tts_providers(root)
     if requested:
         normalized = requested.strip().lower()
         if normalized not in KNOWN_PROVIDERS:
@@ -111,16 +128,40 @@ def _resolve_provider(requested: str | None, language: str, *, root: Path | None
     return available[0]
 
 
+def _binary_override(root: Path | None, provider: str) -> str | None:
+    """An operator-pinned absolute binary path for this provider, if configured.
+
+    Needed for engines installed into a venv *other* than the CLI's own (e.g. XTTS/coqui-tts
+    lives in an isolated `.venv-xtts` to avoid disturbing the framework's pinned Python version
+    — `executable()`'s PATH + sys.executable-bindir fallback can never see into a sibling venv).
+    Configured at `tools.local.json` → `tts.binary_overrides.<provider>` (gitignored, machine-
+    specific paths never committed)."""
+    if root is None:
+        return None
+    try:
+        tools = load_tools_config(root)
+    except Exception:  # noqa: BLE001 - config optional
+        return None
+    overrides = tools.get("tts", {}).get("binary_overrides", {})
+    path = overrides.get(provider)
+    return path if path and Path(path).is_file() else None
+
+
 def _build_command(
     provider: str, text: str, dst: Path, *,
     model: str | None, voice: str | None, language: str, clone_ref: Path | None,
+    root: Path | None = None,
 ) -> list[str]:
     """Build one cue's synthesis command. Kept deliberately conservative — the exact flags
     vary by engine version; operators can wrap their engine so these defaults apply."""
     # Resolve to an absolute path (PATH + venv bin) so the subprocess finds a venv-installed
     # engine even when the venv isn't activated — the CLI runs as `.venv/bin/python3 …`.
     # Falls back to the bare name so the caller's FileNotFoundError path still reports it.
-    binary = executable(_PROVIDER_BINARY[provider]) or _PROVIDER_BINARY[provider]
+    binary = (
+        _binary_override(root, provider)
+        or executable(_PROVIDER_BINARY[provider])
+        or _PROVIDER_BINARY[provider]
+    )
     if provider == "piper":
         cmd = [binary, "--output_file", str(dst)]
         if model:
@@ -132,9 +173,9 @@ def _build_command(
             cmd += ["--voice", voice]
         return cmd
     if provider == "xtts":  # Coqui `tts`
-        cmd = [binary, "--text", text, "--out_path", str(dst), "--language_idx", language]
-        if model:
-            cmd += ["--model_name", model]
+        xtts_language = _XTTS_LANGUAGE_MAP.get(language, language)
+        cmd = [binary, "--text", text, "--out_path", str(dst), "--language_idx", xtts_language]
+        cmd += ["--model_name", model or _XTTS_DEFAULT_MODEL]
         if clone_ref is not None:
             cmd += ["--speaker_wav", str(clone_ref)]
         return cmd
@@ -181,12 +222,21 @@ def synthesize_cue(
 
     command = _build_command(
         resolved, text, dst, model=model, voice=voice, language=language, clone_ref=ref,
+        root=root,
     )
     stdin_text = text if resolved == "piper" else None
+    env = None
+    if resolved == "xtts":
+        # XTTS-v2's model download is gated behind an interactive Coqui Public Model License
+        # (CPML) prompt on first use; this process is never interactive. COQUI_TOS_AGREED=1
+        # auto-accepts it — set only for this subprocess, only for xtts, and only after a human
+        # has explicitly consented to CPML's non-commercial terms (see CLAUDE.md rule 5 /
+        # OPERATING-GUIDE.md; this is a recorded licensing decision, not a silent bypass).
+        env = {**os.environ, "COQUI_TOS_AGREED": "1"}
     try:
         result = subprocess.run(  # noqa: S603 - fixed binary, path args, no shell
             command, input=stdin_text, capture_output=True, text=True,
-            timeout=timeout, check=False,
+            timeout=timeout, check=False, env=env,
         )
     except FileNotFoundError as exc:
         raise EngineUnavailableError(f"TTS engine binary not found: {command[0]}") from exc

@@ -8,8 +8,8 @@ effort: low
 Run, in order, and report both results to the user:
 
 ```
-python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project status $ARGUMENTS
-python3 "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan $ARGUMENTS
+"$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project status $ARGUMENTS
+"$CLAUDE_PROJECT_DIR/.venv/bin/python3" "$CLAUDE_PROJECT_DIR/.claude/scripts/vid_cli.py" project plan $ARGUMENTS
 ```
 
 Summarize plainly: current top-level state, each language track's stage, any open human

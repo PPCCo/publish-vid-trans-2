@@ -7,7 +7,11 @@ closed captions, autonomously but under human-bound gates.
 ## Non-negotiable rules
 
 1. **The CLI owns all state.** Never hand-write `state.json`, `manifest.json`, approvals,
-   or events. Every mutation goes through `python3 ${CLAUDE_PROJECT_DIR}/.claude/scripts/vid_cli.py`.
+   or events. Every mutation goes through `${CLAUDE_PROJECT_DIR}/.venv/bin/python3
+   ${CLAUDE_PROJECT_DIR}/.claude/scripts/vid_cli.py`. **Never invoke a bare `python3`/`python`** —
+   it resolves to the system interpreter that lacks the venv's deps (jsonschema/yaml/piper/…);
+   always use `.venv/bin/python3` (or another explicit interpreter path). This is enforced as a
+   hard deny in `.claude/hooks/pre_tool_policy.py`.
 2. **Gates are human-bound — a grant records a human decision, not the agent's.** You may
    *recommend* a transition and *prepare* a gate packet on your own initiative. You may run
    `approval grant` / a gated `project transition` / `rights set` **only** as the mechanical

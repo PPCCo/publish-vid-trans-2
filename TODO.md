@@ -161,6 +161,7 @@ gh release create v1 --title "XTTS-v2 weights" -R <your-gh-username>/xtts-v2-sta
 gh release upload v1 model.pth config.json vocab.json hash.md5 speakers_xtts.pth -R <your-gh-username>/xtts-v2-stage
 (model.pth is ~1.8GB — GitHub release assets support up to 2GB per file, so it should just fit; if it's rejected for being too large, let me know and we'll
 split/use Git LFS instead.)
+
 ---
 
 Modify/Enhance the `.claude/` framework to behave this way:

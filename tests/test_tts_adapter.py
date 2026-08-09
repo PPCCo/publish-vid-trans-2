@@ -41,34 +41,34 @@ def test_unknown_provider_rejected(repo: Path):
 
 
 def test_requested_but_uninstalled_raises_engine_unavailable(repo: Path, monkeypatch):
-    monkeypatch.setattr(tts, "available_tts_providers", lambda: [])
+    monkeypatch.setattr(tts, "available_tts_providers", lambda *a, **k: [])
     with pytest.raises(EngineUnavailableError) as exc:
         tts._resolve_provider("piper", "fa", root=repo)
     assert "not on PATH" in str(exc.value)
 
 
 def test_no_engine_installed_raises_engine_unavailable(repo: Path, monkeypatch):
-    monkeypatch.setattr(tts, "available_tts_providers", lambda: [])
+    monkeypatch.setattr(tts, "available_tts_providers", lambda *a, **k: [])
     with pytest.raises(EngineUnavailableError) as exc:
         tts._resolve_provider(None, "fa", root=repo)
     assert "No TTS engine installed" in str(exc.value)
 
 
 def test_per_language_config_default_chosen_when_installed(repo: Path, monkeypatch):
-    # tools.default.json maps fa -> piper. Pretend piper (and kokoro) are installed.
-    monkeypatch.setattr(tts, "available_tts_providers", lambda: ["kokoro", "piper"])
+    # tools.default.json maps fa -> piper. Pretend piper (and xtts) are installed.
+    monkeypatch.setattr(tts, "available_tts_providers", lambda *a, **k: ["xtts", "piper"])
     assert tts._resolve_provider(None, "fa", root=repo) == "piper"
-    # en -> kokoro per config
-    assert tts._resolve_provider(None, "en", root=repo) == "kokoro"
+    # en -> xtts per config
+    assert tts._resolve_provider(None, "en", root=repo) == "xtts"
 
 
 def test_falls_back_to_first_available_when_config_provider_missing(repo: Path, monkeypatch):
     # fa's configured provider is piper; only xtts installed -> first available.
-    monkeypatch.setattr(tts, "available_tts_providers", lambda: ["xtts"])
+    monkeypatch.setattr(tts, "available_tts_providers", lambda *a, **k: ["xtts"])
     assert tts._resolve_provider(None, "fa", root=repo) == "xtts"
 
 
 def test_synthesize_cue_without_engine_degrades(repo: Path, tmp_path: Path, monkeypatch):
-    monkeypatch.setattr(tts, "available_tts_providers", lambda: [])
+    monkeypatch.setattr(tts, "available_tts_providers", lambda *a, **k: [])
     with pytest.raises(EngineUnavailableError):
         tts.synthesize_cue("hello", tmp_path / "out.wav", language="en", root=repo)

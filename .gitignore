@@ -35,3 +35,7 @@ build/
 node_modules/
 
 images/
+
+# vid_cli.py rotating debug logs (obs.py) — 24h TTL, not committed (hook-audit.ndjson stays tracked)
+.claude/logs/vid_cli.ndjson
+.claude/logs/vid_cli.ndjson.*

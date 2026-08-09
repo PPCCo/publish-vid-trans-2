@@ -29,6 +29,7 @@ from typing import Any
 
 from . import artifacts as artifacts_mod
 from . import media as media_mod
+from . import obs
 from .engines import tts as tts_mod
 from .errors import ConfigurationError, DubbingError, EngineUnavailableError
 from .events import append_event
@@ -402,10 +403,15 @@ def run_dub(
 
     parts: list[Path] = []
     cue_measures: list[dict[str, Any]] = []
+    total_cues = len(cues)
+    obs.phase(f"dubbing {language} (synthesizing cues)")
     with tempfile.TemporaryDirectory(prefix=f"dub-{language}-") as tmp:
         tmpdir = Path(tmp)
         timeline_ms = 0
         for i, cue in enumerate(cues):
+            # Per-cue liveness: the heartbeat thread renders "cue N/total, Nm elapsed" every ~30s.
+            # A cheap shared-state write (no per-cue print — the timer does the printing).
+            obs.progress(i + 1, total_cues, unit="cue")
             slot_ms = max(1, cue["end_ms"] - cue["start_ms"])
             # Lead silence up to this cue's start (keeps cues time-anchored) — see
             # `_lead_silence_ms` for the still-image exception (rule 15).
@@ -451,6 +457,7 @@ def run_dub(
                 "over_stretch_cap": False,  # audio is never stretched → never over cap
             })
 
+        obs.phase(f"dubbing {language} (concat + loudness normalize)")
         concat = tmpdir / "concat.wav"
         media_mod.concat_wavs(parts, concat, sample_rate=sr, channels=ch)
         dub_path = paths.directory / dub_relpath(language)

@@ -5,7 +5,7 @@
   "previous_state": "CAPTION_VALIDATION",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-08T23:35:27Z",
+  "updated_at": "2026-08-09T04:33:08Z",
   "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
@@ -51,20 +51,20 @@
       "notes": "captions rendered"
     },
     "fr": {
-      "stage": "CAPTION_VALIDATION",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-08T23:31:50Z",
+      "updated_at": "2026-08-09T03:42:53Z",
       "auto_translate": true,
-      "notes": "captions rendered"
+      "notes": "dub rendered; sync measured"
     },
     "es": {
-      "stage": "CAPTION_VALIDATION",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-08T23:31:50Z",
+      "updated_at": "2026-08-09T04:33:08Z",
       "auto_translate": true,
-      "notes": "captions rendered"
+      "notes": "dub rendered; sync measured"
     },
     "pt": {
       "stage": "CAPTION_VALIDATION",
@@ -110,7 +110,10 @@
     "captions-srt@pt": "sha256:04b39f5181f9cb72aab43fa0a35d0d42b90682d81623009c9dfc6d9bdae12d72",
     "captions-vtt@pt": "sha256:10b56e19c52e6e0aab6d00b3b25e7bf15f4ea56c04e7afcc6cd3eb4718f4f552",
     "captions-srt@ru": "sha256:82dc971f0d5bb75372a39278853ece511175b47bc7fe5293e07a634e68bb9ddc",
-    "captions-vtt@ru": "sha256:0604cfd3b6b280389d175df0c17ef2a9f70adca110c644f4a64aa79421446091"
+    "captions-vtt@ru": "sha256:0604cfd3b6b280389d175df0c17ef2a9f70adca110c644f4a64aa79421446091",
+    "dub-wav@fr": "sha256:3bcbef4ac4bf1145735d1a7053187c847049cc9bbfaef6060b1319f9cbf31f06",
+    "sync-report": "sha256:535d2a7aa6619a5ac46f7837983a60050a7bc362361b7cd1d7fa07e29d2c3cee",
+    "dub-wav@es": "sha256:7c8bd82c82803b8b6fa638f1ec72c38650d78444d64afc4309ab7db344936e4c"
   },
   "blocked_reasons": []
 }

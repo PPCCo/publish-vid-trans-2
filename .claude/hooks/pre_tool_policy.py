@@ -35,6 +35,14 @@ _CLI_STATE_DIRS = {"approvals", "events"}
 
 _RM_RECURSIVE = re.compile(r"\brm\s+-[^\n]*r[^\n]*f\b|\brm\s+-rf\b", re.IGNORECASE)
 
+# Bare Python interpreter names that must NEVER be invoked directly. The project's CLI and
+# helpers depend on the project venv (jsonschema/yaml/piper/etc.), and a bare `python3`
+# resolves to the system interpreter that is missing those deps (see the venv PATH note in
+# project memory). Company policy: always run `.venv/bin/python3` (an explicit venv path, an
+# activated-venv absolute path, or an interpreter resolved via a variable like $PY) — never a
+# bare `python`/`python3`. Enforced as a HARD deny, not a prompt.
+_BARE_PYTHON_NAMES = {"python", "python3"}
+
 # Shell separators after which a fresh command word begins. Used to find command-position
 # tokens (the actual programs being run) so we can distinguish "run yt-dlp" / "publish" as a
 # command from those same strings appearing as arguments, quoted literals, or grep patterns.
@@ -75,6 +83,46 @@ def _command_position_tokens(command: str) -> set[str] | None:
                 continue
             expect_command = False
     return words
+
+def _invokes_bare_python(command: str) -> bool:
+    """True when the command runs a *bare* Python interpreter (`python` / `python3`) in
+    command position — i.e. resolved off PATH rather than the project venv.
+
+    A token counts as bare only when it has no path component: `python3` matches, but
+    `.venv/bin/python3`, `/usr/bin/python3`, `./python3`, and `$PY` (a variable) do NOT — those
+    name an explicit interpreter and are allowed. We inspect command-position tokens (the first
+    token, and the first token after each shell separator, honoring env-var prefixes and
+    env/sudo/... wrappers) so a bare interpreter is caught in `foo && python3 x`, `env python3 x`,
+    and `A=1 python3 x`, while `python3` appearing as an argument, a quoted literal, or a grep
+    pattern is ignored. If the command can't be tokenized (unbalanced quotes), fall back to a
+    conservative regex for a standalone bare name.
+    """
+    try:
+        tokens = shlex.split(command)
+    except ValueError:
+        # Bare `python`/`python3` as a standalone word, but not when preceded by a path
+        # separator (`.venv/bin/python3`) — the negative lookbehind excludes path forms.
+        return bool(re.search(r"(?<![\w./-])python3?(?![\w./-])", command))
+    expect_command = True
+    for token in tokens:
+        if token in _CMD_SEPARATORS:
+            expect_command = True
+            continue
+        if not expect_command:
+            continue
+        # env-var prefixes (FOO=bar cmd) and env/sudo/... wrappers keep command position on
+        # the NEXT token — don't decide on the wrapper itself.
+        if "=" in token and not token.startswith("-"):
+            continue
+        if token.rsplit("/", 1)[-1] in {"env", "sudo", "nohup", "time", "nice", "xargs", "command"}:
+            continue
+        # This token is the actual program being run. It is a bare interpreter only if it has
+        # no path component (no "/") and matches a banned name.
+        if "/" not in token and token in _BARE_PYTHON_NAMES:
+            return True
+        expect_command = False
+    return False
+
 
 # Directories a recursive rm may target without a prompt: OS temp roots only. A recursive
 # deletion is auto-allowed iff EVERY path argument resolves under one of these; anything
@@ -233,6 +281,17 @@ def main() -> int:
         command = str(tool_input.get("command") or "")
         record["command"] = command[:1000]
         cmd_words = _command_position_tokens(command)
+        # HARD deny: never invoke a bare `python`/`python3` — it resolves to the system
+        # interpreter (missing the venv's deps). Always use `.venv/bin/python3` (or another
+        # explicit interpreter path). This is a non-negotiable company rule, not a prompt.
+        if _invokes_bare_python(command):
+            reason = (
+                "bare `python3`/`python` is forbidden — always run `.venv/bin/python3` "
+                "(the project venv has jsonschema/yaml/piper etc.; the system python does not)"
+            )
+            record.update({"decision": "deny", "reason": reason})
+            append_audit(root, record)
+            structured_deny(reason)
         # Ingest/vendor egress is HARD-denied unless the sanctioned fetch flag is set — this
         # is the network-egress non-negotiable, not a case-by-case call. We deny only when
         # yt-dlp is *invoked* (a command-position token), not when it merely appears as an

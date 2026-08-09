@@ -73,6 +73,8 @@ fi
 
 echo "run_pipeline: project=$PROJECT_ID  (VIDTRANS_FETCH_ENABLED=1 — media downloads permitted)"
 echo "run_pipeline: driving deterministic steps until the next human gate / blocker ..."
+echo "run_pipeline: live status prints to stderr every ~30s (VIDTRANS_HEARTBEAT_SECS / VIDTRANS_NO_HEARTBEAT=1 to tune);"
+echo "              a 24h-TTL debug log is at .claude/logs/vid_cli.ndjson (rotated when large)."
 echo
 
 # --- run ---------------------------------------------------------------------

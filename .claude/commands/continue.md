@@ -17,7 +17,7 @@ Let `ID = $ARGUMENTS`.
 ## Procedure (do in ONE response)
 
 ### 1. Confirm it's really in progress
-Run `python3 .claude/scripts/vid_cli.py project status <ID>`.
+Run `.venv/bin/python3 .claude/scripts/vid_cli.py project status <ID>`.
 - If it errors with `Project not found` / `ProjectNotFoundError` → this video is **not** onboarded.
   Tell the operator to onboard it first with `/kickoff <ID>`, and stop.
 - Otherwise continue.
@@ -31,7 +31,7 @@ From the `status` JSON, surface a short summary so the operator sees what was ac
 - `config.glossary_id`
 - per-language `playback_speed` / `images` if present in `project.yaml`
 - rights posture (`voice_clone_consent`, `rights_status`) via
-  `python3 .claude/scripts/vid_cli.py rights show <ID>` if useful
+  `.venv/bin/python3 .claude/scripts/vid_cli.py rights show <ID>` if useful
 
 Do **not** propose changing any of these. If the operator wants to change languages/dub/speed/
 images on an in-progress project, point them at the sanctioned verbs (`project add-languages`,
@@ -39,12 +39,12 @@ images on an in-progress project, point them at the sanctioned verbs (`project a
 re-onboarding — but only when they ask.
 
 ### 3. Get the deterministic next step
-Run `python3 .claude/scripts/vid_cli.py project plan <ID>` and read `autonomy_action` +
+Run `.venv/bin/python3 .claude/scripts/vid_cli.py project plan <ID>` and read `autonomy_action` +
 `is_human_gate` (authoritative). Then branch:
 
 **A) `autonomy_action == PROCEED` (a non-gate step is next).**
 Surface the next external command via the sanctioned printer:
-`python3 .claude/scripts/vid_cli.py nextcmd <ID>` and present its block verbatim. It is one of:
+`.venv/bin/python3 .claude/scripts/vid_cli.py nextcmd <ID>` and present its block verbatim. It is one of:
 - a raw-external + `vid_cli.py` option pair (e.g. an ingest / media step),
 - a `CLI-only state op` line (a pure state op like `dub run … --advance`), or
 - for the whole deterministic remainder, the token-thrifty wrapper:

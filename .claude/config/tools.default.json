@@ -19,15 +19,15 @@
   "tts": {
     "default_provider": "piper",
     "per_language": {
-      "en": "kokoro",
+      "en": "xtts",
+      "zh": "xtts",
+      "ar": "xtts",
       "fa": "piper",
       "ur": "piper",
-      "ar": "piper",
-      "zh": "xtts",
-      "fr": "xtts",
-      "es": "xtts",
-      "pt": "xtts",
-      "ru": "xtts"
+      "fr": "piper",
+      "es": "piper",
+      "pt": "piper",
+      "ru": "piper"
     },
     "allow_noncommercial_engines": true,
     "providers_available": ["kokoro", "piper", "xtts", "chatterbox", "elevenlabs", "azure", "google"],

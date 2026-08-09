@@ -11,6 +11,7 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from . import obs
 from .errors import ConfigurationError
 from .util import executable
 
@@ -102,6 +103,7 @@ def extract_wav(
     """Extract a normalized mono 16 kHz PCM WAV suitable for ASR (`-ac 1 -ar 16000`)."""
     dest = Path(dest_wav)
     dest.parent.mkdir(parents=True, exist_ok=True)
+    obs.phase("extracting audio (ffmpeg)")
     proc = subprocess.run(  # noqa: S603 - fixed binary, path args, no shell
         [
             _require("ffmpeg"), "-y", "-i", str(source),
@@ -303,6 +305,7 @@ def concat_wavs(
         p = str(Path(part).resolve()).replace("'", "'\\''")
         lines.append(f"file '{p}'")
     listfile.write_text("\n".join(lines) + "\n")
+    obs.phase(f"concatenating audio ({n} parts, ffmpeg)")
     try:
         command = [
             _require("ffmpeg"), "-y",
@@ -334,6 +337,7 @@ def loudnorm(
     dest = Path(dest_wav)
     tmp = dest.with_suffix(".norm.wav") if Path(source) == dest else dest
     dest.parent.mkdir(parents=True, exist_ok=True)
+    obs.phase("loudness normalize (ffmpeg)")
     proc = subprocess.run(  # noqa: S603 - fixed binary, path args, no shell
         [
             _require("ffmpeg"), "-y", "-i", str(source),
@@ -384,6 +388,7 @@ def mux_video(
         maps += ["-map", "2:s:0"]
         codecs += ["-c:s", "mov_text"]
     command += maps + codecs + ["-shortest", str(dest)]
+    obs.phase("muxing video (ffmpeg)")
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(f"ffmpeg mux failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
@@ -435,6 +440,7 @@ def mux_video_burned_in(
         "-c:a", "aac", "-b:a", audio_bitrate,
         "-shortest", str(dest),
     ]
+    obs.phase("muxing video, burning subtitles (ffmpeg re-encode)")
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(
@@ -583,6 +589,7 @@ def concat_videos(
         "-c:a", "aac", "-b:a", audio_bitrate,
         str(dest),
     ]
+    obs.phase(f"rebuilding picture ({n} clips, ffmpeg re-encode)")
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(f"ffmpeg concat_videos failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
@@ -660,6 +667,7 @@ def still_image_video(
         "-pix_fmt", "yuv420p",
         "-an", str(dest),
     ]
+    obs.phase("rendering still-image picture (ffmpeg)")
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(
@@ -713,6 +721,7 @@ def respeed_video(
             "-c:v", "libx264", "-crf", str(video_crf), "-preset", "medium",
             "-c:a", "aac", "-b:a", audio_bitrate, str(dest),
         ]
+    obs.phase(f"re-timing video {factor:.3f}x (ffmpeg re-encode)")
     proc = subprocess.run(command, capture_output=True, text=True, timeout=timeout, check=False)  # noqa: S603
     if proc.returncode != 0:
         raise ConfigurationError(f"ffmpeg respeed_video failed ({proc.returncode}): {_stderr_tail(proc.stderr)}")
