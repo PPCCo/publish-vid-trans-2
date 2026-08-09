@@ -229,14 +229,69 @@ def _carry_fields(cue: dict[str, Any]) -> dict[str, Any]:
     return out
 
 
+def _proportional_slice_ms(weights: list[int], span: int, max_ms: int) -> list[int]:
+    """Divide ``span`` integer-ms across ``len(weights)`` slices proportional to ``weights``
+    (each slice's target text length), clamped so no slice exceeds ``max_ms``.
+
+    Equal-time slicing (the old behavior) starves short chunks and overfills long ones — a
+    target chunk with few words gets the same wall-clock slot as one with many, so TTS finishes
+    early and leaves dead air for the rest of the slot. Weighting by text length instead sizes
+    each slot to roughly how long that chunk takes to say.
+
+    A weight-proportional slice can exceed ``max_ms`` when one chunk dominates the text share.
+    This is water-filling: clamp every over-cap slice to ``max_ms`` and re-divide its excess
+    across the still-uncapped slices *proportional to their own weights* (not dumped onto
+    whichever slice happens to have the most spare headroom — that would distort the very
+    proportionality this function exists to provide), repeating since a redistribution round can
+    itself push a previously-fine slice over the cap. Converges in at most ``n`` rounds (each
+    round caps at least one more slice, or terminates). Deterministic: integer arithmetic only.
+    """
+    n = len(weights)
+    total_w = sum(weights) or n  # equal split if every weight is 0 (shouldn't happen: guarded by caller)
+    weights = weights if any(weights) else [1] * n
+    capped = [False] * n
+    slices = [0] * n
+    remaining_span = span
+    remaining_w = total_w
+    for _ in range(n):
+        active = [i for i in range(n) if not capped[i]]
+        if not active:
+            break
+        raw = {i: remaining_span * weights[i] // remaining_w for i in active}
+        # last active slice (stable order) absorbs the integer-division remainder
+        raw[active[-1]] = remaining_span - sum(v for i, v in raw.items() if i != active[-1])
+        newly_capped = [i for i in active if raw[i] > max_ms]
+        if not newly_capped:
+            for i in active:
+                slices[i] = raw[i]
+            remaining_span = 0
+            break
+        for i in active:
+            if i in newly_capped:
+                slices[i] = max_ms
+                capped[i] = True
+                remaining_span -= max_ms
+                remaining_w -= weights[i]
+        # loop again: re-divide what's left across the still-uncapped slices
+    if remaining_span > 0 and any(not c for c in capped):
+        # shouldn't happen (loop above exits via the no-newly-capped branch first), but guard
+        # against leftover ms from a pathological weight set rather than silently dropping time
+        last_open = max(i for i in range(n) if not capped[i])
+        slices[last_open] += remaining_span
+    return slices
+
+
 def split_long_cues(cues: list[dict[str, Any]], *, max_ms: int, language: str) -> list[dict[str, Any]]:
     """Split any cue whose span exceeds ``max_ms`` into proportional <=max_ms sub-cues.
 
     Pure and deterministic (no clock/random): identical input+cap -> identical output, so
-    re-rendered captions hash stably. Time is divided into equal integer-ms slices (the last
-    slice ends exactly at the original ``end_ms``); text is divided proportionally at
-    sentence/word boundaries (see ``_split_text``). All output cues are renumbered id=0..M.
-    Cues at or under the cap pass through unchanged (aside from renumbering).
+    re-rendered captions hash stably. Time is divided proportionally to each sub-cue's target
+    text length (see ``_proportional_slice_ms`` — equal-time slices left short chunks with long
+    stretches of dead air once dubbed, since TTS renders a short chunk fast but the slot stayed
+    the same size for everyone); the last slice still ends exactly at the original ``end_ms``.
+    Text is divided proportionally at sentence/word boundaries (see ``_split_text``). All output
+    cues are renumbered id=0..M. Cues at or under the cap pass through unchanged (aside from
+    renumbering).
     """
     if max_ms <= 0:
         raise CaptionError(f"max_ms must be positive, got {max_ms}")
@@ -259,10 +314,16 @@ def split_long_cues(cues: list[dict[str, Any]], *, max_ms: int, language: str) -
             continue
         src_chunks = _split_text(cue.get("source_text", ""), n, cls)
         tgt_chunks = _split_text(cue.get("target_text", ""), n, cls)
+        # Weight each slice's wall-clock share by its target-text length (what the dub actually
+        # renders) rather than splitting the span into n equal slices.
+        weights = [max(1, len(c)) for c in tgt_chunks]
+        slice_ms = _proportional_slice_ms(weights, span, max_ms)
         carried = _carry_fields(cue)
+        cursor = start
         for i in range(n):
-            sub_start = start + (span * i) // n
-            sub_end = end if i == n - 1 else start + (span * (i + 1)) // n
+            sub_start = cursor
+            sub_end = end if i == n - 1 else cursor + slice_ms[i]
+            cursor = sub_end
             out.append({
                 "id": len(out),
                 "start_ms": sub_start,

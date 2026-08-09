@@ -262,6 +262,69 @@ def test_split_output_passes_validation_without_very_long_finding():
     assert not any(f["category"] == "empty" for f in result["findings"])
 
 
+def test_split_weights_slice_duration_by_target_text_length():
+    # Regression: equal-time slicing gave a 3-char chunk the same wall-clock slot as an 18-char
+    # chunk, so TTS on the short chunk finished in ~1s and left ~5s of dead air in that slot when
+    # dubbed. Slice duration must now track each chunk's text share instead. Span is well under
+    # n*max_ms so there's real slack to redistribute (at span == n*max_ms every slice is forced
+    # to the cap regardless of weight, which isn't a useful case for this assertion).
+    cue = {"id": 0, "start_ms": 0, "end_ms": 15000, "source_text": "s1. s2. s3.",
+           "target_text": "Hi. This one is a much longer sentence by far. Ok."}
+    out = captions.split_long_cues([cue], max_ms=7000, language="en")
+    assert len(out) == 3
+    durations = [c["end_ms"] - c["start_ms"] for c in out]
+    lengths = [len(c["target_text"]) for c in out]
+    # the long middle chunk gets more time than either short bookend chunk
+    assert durations[1] > durations[0]
+    assert durations[1] > durations[2]
+    # longer text -> longer (or equal, once clamped) slice; never inverted
+    assert durations[0] <= durations[1] and durations[2] <= durations[1]
+    assert lengths[1] > lengths[0] and lengths[1] > lengths[2]
+
+
+def test_split_time_weighting_preserves_contiguity_and_cap():
+    # Highly uneven per-chunk lengths (mimics a terse English render of a longer source
+    # sentence) must still tile the exact original span, stay contiguous, and honor max_ms.
+    tgt = ("The carrying capacity belongs to the horse mule and donkey which have a role in "
+           "transport but in a military charge only the war horse takes part not mule donkey "
+           "or ass")
+    cue = {"id": 0, "start_ms": 1000, "end_ms": 95500, "source_text": tgt, "target_text": tgt}
+    out = captions.split_long_cues([cue], max_ms=7000, language="en")
+    assert out[0]["start_ms"] == 1000 and out[-1]["end_ms"] == 95500
+    assert all(out[i]["end_ms"] == out[i + 1]["start_ms"] for i in range(len(out) - 1))
+    assert all((c["end_ms"] - c["start_ms"]) <= 7000 for c in out)
+    assert all(c["target_text"].strip() for c in out)
+
+
+def test_split_time_weighting_is_deterministic():
+    cue = {"id": 0, "start_ms": 0, "end_ms": 30000, "source_text": "a b c d",
+           "target_text": "A very short bit. Then an appreciably longer stretch of words here."}
+    a = captions.split_long_cues([cue], max_ms=7000, language="en")
+    b = captions.split_long_cues([cue], max_ms=7000, language="en")
+    assert a == b
+
+
+def test_proportional_slice_ms_never_exceeds_cap_and_covers_span():
+    # Direct unit check on the slicing helper: even a wildly skewed weight distribution must
+    # respect the per-slice cap and account for the entire span (no fabricated/dropped time).
+    weights = [1, 1, 50, 1, 1]
+    slices = captions._proportional_slice_ms(weights, span=25000, max_ms=7000)
+    assert sum(slices) == 25000
+    assert all(s <= 7000 for s in slices)
+    assert len(slices) == 5
+    # the dominant weight clamps at the cap; the excess redistributes EQUALLY across the four
+    # equal-weight slices (not dumped onto whichever one happens to have the most headroom)
+    assert slices[2] == 7000
+    assert slices[0] == slices[1] == slices[3] == slices[4] == 4500
+
+
+def test_proportional_slice_ms_equal_weights_matches_equal_time_split():
+    # Sanity: when every chunk carries the same text weight, the water-filling result must
+    # reduce to the old equal-time behavior (this fix generalizes it, not replaces it).
+    slices = captions._proportional_slice_ms([1, 1, 1], span=15000, max_ms=7000)
+    assert slices == [5000, 5000, 5000]
+
+
 def test_max_cue_ms_reads_config_with_fallback(tmp_path):
     root = tmp_path / "repo"
     (root / ".claude" / "config").mkdir(parents=True)

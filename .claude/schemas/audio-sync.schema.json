@@ -37,6 +37,7 @@
           "max_abs_drift_ms": { "type": "integer", "minimum": 0 },
           "cues_over_tolerance": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose |drift| exceeds per-cue tolerance." },
           "cues_over_stretch_cap": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose fit demanded a stretch beyond the cap (clamped, not forced)." },
+          "still_image": { "type": "boolean", "description": "True when this language uses a fixed still image (rule 15) instead of the source video. The picture is one frame stretched over the whole dub, so audio-vs-picture drift is 0 by construction and no freeze plan is produced (packaging ignores any plan for a still-image language)." },
           "freeze_frame_enabled": { "type": "boolean", "description": "True when this dub was produced under freeze-frame policy (audio kept near natural length; the picture is frozen at mux to absorb overflow)." },
           "total_freeze_ms": { "type": "integer", "minimum": 0, "description": "Sum of planned freeze durations across this track's cues." },
           "total_trim_ms": { "type": "integer", "minimum": 0, "description": "Sum of planned picture-trim durations across this track's cues (trim mode / Model A only; 0 in hold mode)." },

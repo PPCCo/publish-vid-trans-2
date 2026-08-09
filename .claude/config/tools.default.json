@@ -3,7 +3,7 @@
   "_comment": "Engine adapters. Local-first defaults for Apple Silicon (no CUDA); vendor providers are opt-in via tools.local.json (gitignored). No adapter is required for the framework to validate.",
   "asr": {
     "provider": "mlx-whisper",
-    "model": "large-v3",
+    "model": "mlx-community/whisper-large-v3-turbo",
     "word_alignment": "auto",
     "providers_available": ["mlx-whisper", "faster-whisper", "groq", "assemblyai"],
     "verified": false

@@ -86,6 +86,14 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Per-language deliberate playback speed (audio+video scaled together) "
                              "as a lang=factor comma map, e.g. 'en=1.25,ur=1.25'. Default 1.0 (no "
                              "change); languages omitted play at 1x.")
+    p_init.add_argument("--source-language",
+                        help="Pre-fill the confirmed source language (ISO 639-1, e.g. 'fa') at init "
+                             "time, via the same `langid set` path normally run at LANGUAGE_ID. "
+                             "Convenience only — a human can still revise it later at LANGUAGE_ID "
+                             "(`detect-language`/`langid set`). Omit to defer to LANGUAGE_ID as before.")
+    p_init.add_argument("--source-voice-gender", choices=["male", "female"],
+                        help="Gender of the SOURCE speaker (human observation), recorded alongside "
+                             "--source-language. Ignored if --source-language is omitted.")
     p_init.add_argument("--actor", default="human")
     psub.add_parser("list")
     for verb in ("status", "validate", "next", "plan"):
@@ -536,7 +544,7 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
         pc = args.project_command
         if pc == "init":
             selection = _load_json_arg(args.selection) if args.selection else None
-            return project.init_project(
+            result = project.init_project(
                 root, args.project_id, url=args.url,
                 target_languages=parse_csv(args.targets),
                 audio_languages=parse_csv(args.audio) if args.audio else None,
@@ -555,6 +563,22 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                      project.parse_lang_map(args.speeds, kind="speeds").items()}
                     if args.speeds else None),
             )
+            # Optional convenience pre-fill: run the exact same `langid set` path normally
+            # invoked at LANGUAGE_ID, right after the project directory exists. A human can
+            # still revise it later at LANGUAGE_ID (rule-5-style prefill, not a gate removal).
+            if args.source_language:
+                from . import langid as langid_mod
+                from .paths import ProjectPaths
+                from .util import load_json
+
+                langid_mod.set_language(
+                    root, args.project_id, args.source_language,
+                    source="manual", source_voice_gender=args.source_voice_gender,
+                    actor=args.actor,
+                )
+                # Re-read state: init_project's returned snapshot predates the langid write.
+                result["state"] = load_json(ProjectPaths(root, args.project_id).state)
+            return result
         if pc == "set-image":
             return project.set_image(
                 root, args.project_id, language=args.language,

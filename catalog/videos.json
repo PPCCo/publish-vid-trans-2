@@ -7664,10 +7664,19 @@
       "url": "https://www.youtube.com/watch?v=MFuUIoF5PSc",
       "title": "1# تفسیر قرآن سوره العادیات جلسه ۱ آیت الله جوادی املی",
       "channel": "سلوک الی الله",
-      "duration_seconds": 1628,
+      "duration_seconds": 1627.174,
       "playlist_id": "PLDvVOFNMIIG3snBzVLV65D9YHbmkN8s2Z",
       "playlist_title": "تفسیر قرآن، آیت الله جوادی آملی",
-      "updated_at": "2026-08-08T01:50:55Z"
+      "updated_at": "2026-08-08T06:34:32Z",
+      "language": "fa",
+      "language_source": "manual",
+      "channel_id": "UCQQ9f_fAQxQh2rZxwG_eEuQ",
+      "upload_date": "20230604",
+      "local_paths": {
+        "video": "source/MFuUIoF5PSc.mp4",
+        "audio": "source/audio.wav"
+      },
+      "project_id": "yt-MFuUIoF5PSc"
     },
     {
       "added_at": "2026-08-08T01:35:46Z",

@@ -27,7 +27,7 @@ means it's in progress). **If it exists, defer to `/continue`:** invoke the `con
 
 | Setting | Value | Notes |
 |---|---|---|
-| `source_language` | `fa` | Confirmed later at LANGUAGE_ID (`langid set`), **not** at init — ASR auto-detect is unavailable, so the pipeline halts there until set. |
+| `source_language` | `fa` | Pre-filled at `project init --source-language fa` directly (the whole playlist is Persian). Still revisable later at LANGUAGE_ID via `detect-language`/`langid set` if a particular video turns out to differ. |
 | `targets` (soft-subs) | `en,ur,ar,zh,fr,es,pt,ru` | Translation set. |
 | `audio` (dub) | `en,ur,ar,zh,fr,es,pt,ru` | All targets dubbed. |
 | `dub voice gender` | `male` | Company default; emitted explicitly. |
@@ -35,7 +35,7 @@ means it's in progress). **If it exists, defer to `/continue`:** invoke the `con
 | rights status | `self-authored` | **Company default — auto-recorded at `project init`.** No separate command needed. |
 | mux subtitle mode | `soft-subs` | Company default; emitted explicitly. |
 | glossary | none | Omit `--glossary`. |
-| playback speed | `1.1` for all 8 languages | `--speeds en=1.1,…,ru=1.1`. |
+| playback speed | `1.0` for all 8 languages (normal speed) | `--speeds en=1.0,…,ru=1.0`. |
 | still image | `images/<video-id>-<lang>.jpg` for all 8 languages | `--images en=images/<id>-en.jpg,…`. Paths are repo-relative; init validates each file exists and stores it absolute. |
 
 `LANGS` = `en ur ar zh fr es pt ru` (order fixed; used for `--speeds`, `--images`, and the image preflight).
@@ -75,14 +75,18 @@ python3 .claude/scripts/vid_cli.py project init <ID> \
   --url <URL> \
   --targets en,ur,ar,zh,fr,es,pt,ru \
   --audio en,ur,ar,zh,fr,es,pt,ru \
+  --source-language fa \
   --dub-voice-gender male \
   --mux-mode soft-subs \
-  --speeds en=1.1,ur=1.1,ar=1.1,zh=1.1,fr=1.1,es=1.1,pt=1.1,ru=1.1 \
+  --speeds en=1.0,ur=1.0,ar=1.0,zh=1.0,fr=1.0,es=1.0,pt=1.0,ru=1.0 \
   --images en=images/<ID>-en.jpg,ur=images/<ID>-ur.jpg,ar=images/<ID>-ar.jpg,zh=images/<ID>-zh.jpg,fr=images/<ID>-fr.jpg,es=images/<ID>-es.jpg,pt=images/<ID>-pt.jpg,ru=images/<ID>-ru.jpg
 ```
 
 Note under it: this also auto-records **voice_clone_consent: true** and
-**rights_status: self-authored** (company defaults) — no separate rights command is needed.
+**rights_status: self-authored** (company defaults), and pre-fills **source_language: fa** via
+the same `langid set` path normally run at LANGUAGE_ID — no separate rights or langid command is
+needed. `fa` is still revisable at LANGUAGE_ID if a particular playlist video turns out not to be
+Persian.
 
 ### 3. Emit STEP 2 — external media download (ingest)
 Generate the `ingest run` line from the sanctioned printer so the download command can't drift
@@ -107,9 +111,12 @@ cd /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans
 ```
 
 Note under it: this runs the whole deterministic transcribe→translate→dub chain **outside Claude**
-(zero tokens) and **halts at the first human gate**. On a fresh project the first stop is
-LANGUAGE_ID — the source language `fa` must be confirmed before it proceeds. It is idempotent:
-safe to re-run; it resumes from wherever `state.json` sits.
+(zero tokens) and **halts at the first human gate**. Since `source_language` is pre-filled as
+`fa` from STEP 1, `run_pipeline.sh` passes through LANGUAGE_ID without stopping for input — the
+first real stop should be further downstream. If the operator wants to correct the source
+language for a particular video, that's still done at LANGUAGE_ID via `detect-language`/
+`langid set` before this step. It is idempotent: safe to re-run; it resumes from wherever
+`state.json` sits.
 
 ### 5. Explain the handoff loop
 Present this plainly (this is how the framework takes over and hands back):
@@ -120,9 +127,8 @@ Present this plainly (this is how the framework takes over and hands back):
 3. Claude then runs `/process-manual <ID> done` (resume/QA mode): it performs the editorial QA at
    each pending gate and walks you through approval per rule 13. (This is the only place this
    route spends Claude tokens.)
-4. If clearing a gate needs another **external** command (e.g. re-run `run_pipeline.sh <ID> --mt`
-   after `fa` is confirmed at LANGUAGE_ID, or a later `dub run` / `package mux`), Claude hands you
-   that exact terminal block and steps back. Repeat 2–4 until the project reaches
+4. If clearing a gate needs another **external** command (e.g. a later `dub run` / `package mux`),
+   Claude hands you that exact terminal block and steps back. Repeat 2–4 until the project reaches
    `READY_FOR_REVIEW`.
 
 ---

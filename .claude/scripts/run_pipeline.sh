@@ -61,6 +61,16 @@ if [[ -f "$_CA" ]]; then
   export REQUESTS_CA_BUNDLE="${REQUESTS_CA_BUNDLE:-$_CA}"
 fi
 
+# HuggingFace is policy-blocked here; ASR/TTS models are staged offline (OPERATING-GUIDE.md §6,
+# project memory: hf-offline-model-staging). Point the HF cache at the staged copy and force
+# offline so mlx_whisper (TRANSCRIPTION) loads the staged model instead of a blocked network
+# fetch. Only set if unset and the staged cache is present, so a configured env is respected.
+_HF_CACHE="$HOME/Dev/my-repos/pub/.cache/huggingface"
+if [[ -d "$_HF_CACHE/hub" ]]; then
+  export HF_HOME="${HF_HOME:-$_HF_CACHE}"
+  export HF_HUB_OFFLINE="${HF_HUB_OFFLINE:-1}"
+fi
+
 echo "run_pipeline: project=$PROJECT_ID  (VIDTRANS_FETCH_ENABLED=1 — media downloads permitted)"
 echo "run_pipeline: driving deterministic steps until the next human gate / blocker ..."
 echo

@@ -6,5 +6,13 @@
         "workspaceRoot": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans",
         "workspacePath": ".claude/skills/new-video/SKILL.md",
         "id": "BmkpbihljXsIynr6"
+    },
+    {
+        "type": "File",
+        "name": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.claude/commands/kickoff.md",
+        "parent_id": null,
+        "workspaceRoot": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans",
+        "workspacePath": ".claude/commands/kickoff.md",
+        "id": "ReTptiqLydP6S14m"
     }
 ]

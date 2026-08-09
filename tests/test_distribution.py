@@ -159,6 +159,11 @@ def _drive_to_ready_for_review(root: Path, *, distributable: bool = True) -> Non
     if distributable:
         rights.set_rights(root, VID, status="self-authored", reviewer="human")
         state.transition(root, VID, "READY_FOR_REVIEW", "human")
+    else:
+        # Company policy auto-records distributable rights at init (rule-5 override: clone-on +
+        # auto_consent_at_init). Reset to unreviewed so the caller can assert the terminal
+        # PACKAGE -> READY_FOR_REVIEW edge stays blocked while rights are not cleared.
+        rights.set_rights(root, VID, status="unreviewed", reviewer="human")
 
 
 def _authorize_release(root: Path) -> str:

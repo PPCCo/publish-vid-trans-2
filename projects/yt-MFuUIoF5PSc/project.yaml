@@ -1,0 +1,43 @@
+schema_version: '1.0'
+project_id: yt-MFuUIoF5PSc
+source:
+  url: https://www.youtube.com/watch?v=MFuUIoF5PSc
+  channel: null
+  title: null
+target_languages:
+- en
+- ur
+- ar
+- zh
+- fr
+- es
+- pt
+- ru
+audio_languages:
+- en
+- ur
+- ar
+- zh
+- fr
+- es
+- pt
+- ru
+dubbing:
+  voice_clone: true
+  voice_gender: male
+  voice_clone_requested: true
+glossary_id: null
+mux_mode: soft-subs
+images:
+  en: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-en.jpg
+  ur: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ur.jpg
+  ar: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ar.jpg
+  zh: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-zh.jpg
+  fr: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-fr.jpg
+  es: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-es.jpg
+  pt: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-pt.jpg
+  ru: /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ru.jpg
+playback_speed: {}
+join_clips: true
+selection: null
+created_at: '2026-08-08T06:06:29Z'

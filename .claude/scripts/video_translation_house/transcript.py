@@ -25,7 +25,7 @@ from .errors import ConfigurationError
 from .events import append_event
 from .paths import ProjectPaths
 from .state import transition
-from .util import atomic_write_json, load_json, project_lock, utc_now
+from .util import atomic_write_json, load_json, load_tools_config, project_lock, utc_now
 from .validation import require_valid
 
 SCHEMA_VERSION = "1.0"
@@ -277,6 +277,13 @@ def run_transcription(
     audio = paths.source_dir / "audio.wav"
     if not audio.is_file():
         raise ConfigurationError(f"source audio missing: {_rel(audio, paths)} (run ingest first)")
+
+    # Resolve the ASR model from tools config when the caller didn't pass one, so the
+    # autopilot/manual route (which passes no --model) and the Claude CLI route both use the
+    # staged offline model instead of the engine's built-in default (mlx → whisper-tiny, which
+    # isn't staged and would trigger a blocked HuggingFace fetch). An explicit --model still wins.
+    if model is None:
+        model = load_tools_config(root).get("asr", {}).get("model") or None
 
     # An explicit decode override (or --no-retry) collapses the ladder to a single configuration.
     overridden = (

@@ -269,6 +269,11 @@ def test_package_manifest_and_rights_gate(repo: Path):
                              scope="video", language=None)
     state.transition(repo, VID, "PACKAGE", "human")
 
+    # Company policy auto-records distributable rights at init (rule-5 override: clone-on +
+    # auto_consent_at_init). Reset to unreviewed so this test exercises the not-yet-cleared
+    # packaging path it asserts (packaging still produces a package, just not distributable).
+    rights.set_rights(repo, VID, status="unreviewed", reviewer="human")
+
     out = packaging.run_package(repo, VID)
     assert out["distributable"] is False
     assert out["rights_status"] == "unreviewed"

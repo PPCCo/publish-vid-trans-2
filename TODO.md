@@ -149,6 +149,19 @@ Let me also reconcile with the two-axis translate/dub work already in flight (th
 questions now so the whole design is coherent.
 
 ---
+Step 1 — download the 5 model files (repo id: coqui/XTTS-v2):
+pip install -U "huggingface_hub[cli]"
+huggingface-cli download coqui/XTTS-v2 model.pth config.json vocab.json hash.md5 speakers_xtts.pth --local-dir ./xtts-v2-stage
+
+Step 2 — push to GitHub as a release (repo can be private):
+cd xtts-v2-stage
+gh repo create xtts-v2-stage --private --confirm
+git init && git add -A && git commit -m "stage xtts-v2 weights" 2>&1 | head -5
+gh release create v1 --title "XTTS-v2 weights" -R <your-gh-username>/xtts-v2-stage
+gh release upload v1 model.pth config.json vocab.json hash.md5 speakers_xtts.pth -R <your-gh-username>/xtts-v2-stage
+(model.pth is ~1.8GB — GitHub release assets support up to 2GB per file, so it should just fit; if it's rejected for being too large, let me know and we'll
+split/use Git LFS instead.)
+---
 
 Modify/Enhance the `.claude/` framework to behave this way:
 

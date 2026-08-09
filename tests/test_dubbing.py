@@ -178,6 +178,11 @@ def test_audio_qa_aggregate_report_and_human_gate(repo: Path, tmp_path: Path):
 @ffmpeg_required
 def test_clone_refused_without_consent(repo: Path):
     _drive_to_caption_validation(repo)
+    # Company policy auto-records voice_clone_consent=true at init (rule-5 override: clone-on +
+    # auto_consent_at_init). Explicitly clear consent so this test exercises the clone-refusal
+    # path — a --clone dub must be refused before any source fetch when consent is not recorded.
+    rights.set_rights(repo, VID, status="unreviewed", reviewer="human",
+                      voice_clone_consent=False)
     with pytest.raises(DubbingError) as exc:
         dubbing.run_dub(repo, VID, "en", clone=True)
     assert "voice_clone_consent" in str(exc.value)
@@ -243,3 +248,71 @@ def test_normalize_wav_preserves_duration(tmp_path: Path):
     src2 = _silence_wav(tmp_path / "raw2.wav", duration_ms=1200)
     out2 = media.normalize_wav(src2, tmp_path / "fit2.wav")
     assert media.audio_duration_ms(out2) == pytest.approx(1200, abs=20)
+
+
+# --- still-image dead-air fix (rule 15: no freeze plan -> compact lead silence) ----------------
+
+def test_natural_pause_before_first_cue_is_always_true():
+    cues = [{"id": 0, "start_ms": 0, "end_ms": 1000}]
+    assert dubbing._natural_pause_before(cues, 0) is True
+
+
+def test_natural_pause_before_detects_real_gap_vs_contiguous():
+    cues = [
+        {"id": 0, "start_ms": 0, "end_ms": 1000},
+        {"id": 1, "start_ms": 1000, "end_ms": 2000},  # contiguous, no gap
+        {"id": 2, "start_ms": 2800, "end_ms": 3500},  # 800ms real pause
+    ]
+    assert dubbing._natural_pause_before(cues, 1) is False
+    assert dubbing._natural_pause_before(cues, 2) is True
+
+
+def test_lead_silence_waits_for_caption_start_when_not_still_image():
+    # Non-still-image tracks are unchanged: always wait for the nominal caption start regardless
+    # of a prior cue's overrun -- the freeze plan absorbs the mismatch on the picture side.
+    cues = [
+        {"id": 0, "start_ms": 0, "end_ms": 1000},
+        {"id": 1, "start_ms": 1000, "end_ms": 2000},  # mechanically contiguous
+    ]
+    # cue 0 overran its slot (rendered to timeline_ms=5000 instead of 1000)
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=5000, is_still_image=False) == 0
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=200, is_still_image=False) == 800
+
+
+def test_lead_silence_skips_catchup_gap_for_contiguous_still_image_cue():
+    # Regression: a still-image track has no freeze plan, so re-imposing a prior cue's overrun as
+    # a catch-up silence gap before a mechanically-adjacent cue (no real source pause) invented
+    # dead air that wasn't in the source. Contiguous cues must now play back-to-back instead.
+    cues = [
+        {"id": 0, "start_ms": 0, "end_ms": 1000},
+        {"id": 1, "start_ms": 1000, "end_ms": 2000},  # contiguous with cue 0, no real pause
+    ]
+    # cue 0's TTS overran its 1000ms slot -> timeline_ms is already past cue 1's start
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=5000, is_still_image=True) == 0
+
+
+def test_lead_silence_still_image_inserts_only_the_pauses_own_duration():
+    # Regression: a still-image cue used to re-anchor to the ABSOLUTE caption start once a real
+    # pause was detected, so a small genuine pause (e.g. 4000ms in the source) could reinsert an
+    # entire accumulated drift as dead air (observed live: an 860ms real pause reinserted ~165s
+    # because earlier cues had drifted that far behind). The inserted silence must always equal
+    # the pause's OWN duration (next cue's start minus previous cue's end), never the absolute
+    # gap to the running timeline -- regardless of how far timeline_ms has drifted.
+    cues = [
+        {"id": 0, "start_ms": 0, "end_ms": 1000},
+        {"id": 1, "start_ms": 5000, "end_ms": 6000},  # genuine 4000ms pause in the source
+    ]
+    # timeline caught up exactly to the prior cue's end -> pause fully honored
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=1000, is_still_image=True) == 4000
+    # timeline is already running FAR behind the caption schedule (massive prior overrun) ->
+    # still only the pause's own 4000ms, never the absolute lead (5000 - 100000 would be negative
+    # under the old model, but a naive re-anchor to start_ms would have inserted a huge gap here)
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=100000, is_still_image=True) == 4000
+    # timeline is running ahead of the caption schedule -> still the pause's own 4000ms
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=-50000, is_still_image=True) == 4000
+
+
+def test_lead_silence_never_negative():
+    cues = [{"id": 0, "start_ms": 0, "end_ms": 1000}, {"id": 1, "start_ms": 1000, "end_ms": 2000}]
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=9000, is_still_image=False) == 0
+    assert dubbing._lead_silence_ms(cues, 1, timeline_ms=9000, is_still_image=True) == 0

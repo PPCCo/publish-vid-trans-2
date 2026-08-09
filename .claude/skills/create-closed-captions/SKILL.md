@@ -105,19 +105,57 @@ are high-stakes and must be rendered with care, not paraphrased away. The transc
 above (ASR-adapter invocation, QA triage) stays on the skill default; only the flagged
 translation cues need the capability upgrade.
 
-## Procedure (run once per target language in `state.target_languages`)
-1. Export the worksheet: `vid_cli.py translate export <id> --language <iso>`. This writes
-   `captions/<iso>.worksheet.json` — source cues with fixed timing, empty `target_text`
-   slots, per-cue editorial flags, and (if `project.yaml.glossary_id` is set) the glossary's
-   required renderings in `glossary_instructions`.
-2. Translate: fill every cue's `target_text` with `Edit`/`Write`. **Do not** change `id`,
-   `start_ms`, `end_ms`, or `source_text` — timing is the contract, and merging/splitting
-   cues corrupts downstream sync. Honour the glossary: `[MUST]` terms must appear verbatim
-   (or an accepted alias). Optionally add a `back_translation` per cue to aid QA.
-   For a dense source, fill in **bounded batches** (rule 11 gloss idiom) to avoid a
-   single-response timeout: write small `_batchN.json` maps of `{ "<cue-id>": {"target_text"}}`
-   and merge them into the worksheet by cue id with a throwaway helper, then delete the
-   scaffolding before import.
+## ALWAYS fan out the translation stage in parallel (≥2 tracks) — no opt-in
+The dense per-cue fill is the token-heavy, embarrassingly-parallel part of this stage, and
+every language is independent. So **whenever ≥2 language tracks need their worksheets filled,
+you MUST fan them out with a `Workflow` — one agent per language, run concurrently — rather
+than filling them inline one after another.** This is the standing behavior, not an opt-in you
+offer or a choice you weigh: at `TRANSLATION` with ≥2 unfilled tracks, reach for the workflow
+first. (Only when exactly **one** track needs filling do you fill inline in the main thread —
+a one-agent fan-out is pure overhead.)
+
+Which tracks join the fan-out:
+- **`en`** (the human-reviewed track) is **included** as a fan-out agent — run its agent on
+  `@bedrock-eus2/us.anthropic.claude-opus-4-8` at `high` effort (its rendering is high-stakes:
+  it's the one that stops at a human gate, and it carries the editorial-religious/political
+  care). It still **STOPS at the per-language `translation_qa` human gate** after import — the
+  fan-out produces the draft; it never crosses the gate.
+- **Every `auto_translate` track** (`fr`, `es`, `zh`, `pt`, `ru`, `ur`, …) is a fan-out agent —
+  Opus/high when the source is editorial-religious/political (tafsir, sermons, political
+  speech), else Sonnet/high for ordinary volume. No human gate.
+- The **source track** is `skip_translation` (verbatim, no worksheet) — it never joins the
+  fan-out.
+
+How the fan-out works (see rule 16 in `.claude/CLAUDE.md` for the canonical pattern):
+1. Export every worksheet first (`translate export <id> --language <iso>` per track) so cue
+   ids/timing exist. Build one compact **pivot** the agents share — for a tafsir/Quran video,
+   the pivot is `{cue: {source, en_gloss, en_with_verses}}` so every agent renders from the
+   same meaning + the same canonical verse set (Arabic script + surah:ayah). Write it to a
+   scratch path (e.g. `/tmp/translate_pivot.json`).
+2. Launch a `Workflow` with `parallel(langs.map(...))`, one `agent()` per language, each with a
+   `schema` that forces a validated `{cues:[{id,target_text}]}` return. The agent reads the
+   pivot, renders **all** cues into its language, and returns the map. Keep timing fixed: never
+   change `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues.
+3. Back in the main thread, write each returned map into `captions/<iso>.worksheet.json` by cue
+   id (a throwaway merge-by-id helper — scaffolding, delete after), then `translate import`
+   each track through the normal CLI chokepoint. The worksheet is a fill-in artifact, not
+   CLI-owned state (rule 1); the fan-out only *fills* it, the CLI still *imports* it.
+This keeps each agent's turn small (one language, avoids the single-response timeout that the
+old inline bounded-batch idiom worked around) and runs N languages in parallel instead of
+serially. The bounded-batch idiom (rule 11) remains the fallback for a single inline track.
+
+## Procedure (fan out once for all tracks that need filling; steps 3-6 per language)
+1. Export the worksheet(s): `vid_cli.py translate export <id> --language <iso>` for each
+   target that needs filling. This writes `captions/<iso>.worksheet.json` — source cues with
+   fixed timing, empty `target_text` slots, per-cue editorial flags, and (if
+   `project.yaml.glossary_id` is set) the glossary's required renderings in
+   `glossary_instructions`.
+2. Fill: **fan out per the section above** (≥2 tracks → one `Workflow` agent per language;
+   exactly 1 track → fill inline in bounded batches). **Do not** change `id`, `start_ms`,
+   `end_ms`, or `source_text` — timing is the contract, and merging/splitting cues corrupts
+   downstream sync. Honour the glossary: `[MUST]` terms must appear verbatim (or an accepted
+   alias). Optionally add a `back_translation` per cue to aid QA. Merge each agent's returned
+   `{id,target_text}` map into its worksheet by cue id, then delete the merge scaffolding.
 3. Import: `vid_cli.py translate import <id> --language <iso>` — validates the worksheet,
    builds canonical `captions/captions.<iso>.json`, registers it, and advances that language
    track to `TRANSLATION_QA_GATE`. Add `--advance` to move the top-level state once *every*

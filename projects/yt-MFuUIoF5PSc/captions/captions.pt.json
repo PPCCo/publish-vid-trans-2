@@ -1,0 +1,2194 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "language": "pt",
+  "source_language": "fa",
+  "script_class": "latin",
+  "glossary_id": null,
+  "engine": {
+    "provider": "agent",
+    "model": null,
+    "version": null
+  },
+  "has_word_timing": false,
+  "cues": [
+    {
+      "id": 0,
+      "start_ms": 0,
+      "end_ms": 5500,
+      "source_text": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم",
+      "target_text": "«أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ» ('Busco refúgio em Deus contra Satanás, o maldito; em nome de Deus, o Clemente, o Misericordioso').",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 1,
+      "start_ms": 38840,
+      "end_ms": 45440,
+      "source_text": "این سوره باید که زاهرن در مدینه نازر شد",
+      "target_text": "Esta sura — ao que parece — foi revelada em Medina."
+    },
+    {
+      "id": 2,
+      "start_ms": 47000,
+      "end_ms": 54000,
+      "source_text": "سوگند به وسائل نظامی است که در دفاع از اسلام کار",
+      "target_text": "É um juramento pelos cavalos de guerra que serviram",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 3,
+      "start_ms": 54000,
+      "end_ms": 61000,
+      "source_text": "آمدن و سوگند به این وسائل نظامی به این اصفا در حالتهای",
+      "target_text": "na defesa do Islã — um juramento por esses corcéis",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 4,
+      "start_ms": 61000,
+      "end_ms": 68000,
+      "source_text": "گناگون چه اون حالتی که نفس نفس زنون می دوند",
+      "target_text": "(al-'Adiyat) em seus diversos estados: quando",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 5,
+      "start_ms": 68000,
+      "end_ms": 74820,
+      "source_text": "و چه اون حالتی که سوم اونا در اثر برخورد با سنگ جرقه",
+      "target_text": "galopam resfolegando, quando seus cascos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 6,
+      "start_ms": 74820,
+      "end_ms": 81820,
+      "source_text": "تولید می کند و چه اون اصفای تندروی که قدرت قارت",
+      "target_text": "arrancam faíscas da rocha, e quando esses corcéis",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 7,
+      "start_ms": 81820,
+      "end_ms": 88820,
+      "source_text": "کردن دشمنان مهاجم را و حمله به شمیخون و اینها را",
+      "target_text": "veloz atacam o inimigo agressor e irrompem",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 8,
+      "start_ms": 88820,
+      "end_ms": 95820,
+      "source_text": "البته در بامداد فراهم می کنن و گرد و غباری در میدان",
+      "target_text": "em seu meio ao amanhecer, levantando poeira no",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 9,
+      "start_ms": 95820,
+      "end_ms": 102820,
+      "source_text": "نبرد تولید میکنن این سوکت بازگشتش به جهاد مجاهدان",
+      "target_text": "campo de batalha. Este juramento remete à jihad",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 10,
+      "start_ms": 102820,
+      "end_ms": 109820,
+      "source_text": "است و جنره عصب و سائر انعام و چارپاها برای",
+      "target_text": "dos combatentes. Quanto aos camelos e animais",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 11,
+      "start_ms": 109820,
+      "end_ms": 116820,
+      "source_text": "باربری سید از سوره بارکه نهل اوزاشون گذشت و الخیله",
+      "target_text": "de carga, foram mencionados na Sura al-Nahl: «وَالْخَيْلَ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 12,
+      "start_ms": 116820,
+      "end_ms": 123810,
+      "source_text": "و البقاله و همینه لترکبوها و اینها هم برای سواری",
+      "target_text": "وَالْبِغَالَ وَالْحَمِيرَ لِتَرْكَبُوهَا»",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 13,
+      "start_ms": 123810,
+      "end_ms": 129948,
+      "source_text": "مسافران خال شدن هم برای حمل بار مسافران که",
+      "target_text": "('e cavalos, mulas e asnos, para que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 14,
+      "start_ms": 129948,
+      "end_ms": 136948,
+      "source_text": "در سوره بارک نهل اینها را به عنوان نعمتهای الهی",
+      "target_text": "os montásseis', al-Nahl 16:8) — ali recordados",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 15,
+      "start_ms": 136948,
+      "end_ms": 143948,
+      "source_text": "یاد آور می شود نه به عنوان سوگند چین که در جریان گوزفند",
+      "target_text": "como bênçãos divinas, não como objeto de juramento.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 16,
+      "start_ms": 143948,
+      "end_ms": 150768,
+      "source_text": "ها و امثالین ها هم فرمود به این که ویدکون فیاد",
+      "target_text": "Da mesma forma, sobre os rebanhos disse:",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 17,
+      "start_ms": 150768,
+      "end_ms": 157768,
+      "source_text": "جمال اون هین تریحون و هین تسرحون بامداد که به",
+      "target_text": "«وَلَكُمْ فِيهَا جَمَالٌ حِينَ تُرِيحُونَ وَحِينَ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 18,
+      "start_ms": 157768,
+      "end_ms": 164760,
+      "source_text": "شراگاه می روند شامگاه که از شراگاه بر می گردن این",
+      "target_text": "تَسْرَحُونَ» ('e neles há beleza para vós",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 19,
+      "start_ms": 164760,
+      "end_ms": 171760,
+      "source_text": "رمه ها هر مادر کدکش را هر کدکی مادرش را اشتباه نمی",
+      "target_text": "quando os recolheis e quando os levais a pastar',",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 20,
+      "start_ms": 171760,
+      "end_ms": 178760,
+      "source_text": "کند به دنبال اون می روند این جمال دامداری است",
+      "target_text": "al-Nahl 16:6) — esta é a beleza da pastorícia.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 21,
+      "start_ms": 180740,
+      "end_ms": 187740,
+      "source_text": "قدرت باربری این خیل و بقال و همیر است که در اون سحنه",
+      "target_text": "A capacidade de transporte pertence",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 22,
+      "start_ms": 187740,
+      "end_ms": 194740,
+      "source_text": "جریان همیر هم دخالت دارد جریان بقال هم دخالت دارد",
+      "target_text": "ao cavalo, à mula e ao asno, que têm papel",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 23,
+      "start_ms": 194740,
+      "end_ms": 201740,
+      "source_text": "اما در تاخت و تازه نظامی نه همیر دخالت دارد و نه بقال",
+      "target_text": "no transporte; mas em uma carga militar",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 24,
+      "start_ms": 201740,
+      "end_ms": 208740,
+      "source_text": "نه قاطر دخالت دارد و نه حمار اون چه که با اون میتوان",
+      "target_text": "somente o cavalo de guerra participa",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 25,
+      "start_ms": 208740,
+      "end_ms": 215740,
+      "source_text": "مبارزه کرد و حمله کرد اصب است لذا بازگشتش در حقیقت",
+      "target_text": "— nem a mula, nem o asno, nem o burro.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 26,
+      "start_ms": 215740,
+      "end_ms": 222515,
+      "source_text": "به جهاد مجاهدان است که سوگند به جهاد مجاهدانی",
+      "target_text": "Portanto, o juramento remete, na",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 27,
+      "start_ms": 222515,
+      "end_ms": 229515,
+      "source_text": "که دوندگی دارن در میدان نبرد نفس نفس زنان حمله می",
+      "target_text": "verdade, à jihad dos combatentes que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 28,
+      "start_ms": 229515,
+      "end_ms": 236515,
+      "source_text": "کنند و اصفای اینها در اثر سرعت سیر اون سومشون که نعلیس",
+      "target_text": "correm resfolegando no campo de batalha,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 29,
+      "start_ms": 236515,
+      "end_ms": 242867,
+      "source_text": "و آهنیس به سنگ برخورد میکند و جرقیت حولید میکند",
+      "target_text": "cujos cascos ferrados arrancam",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 30,
+      "start_ms": 242867,
+      "end_ms": 249867,
+      "source_text": "قدهیت حولید میکند که شما به وسیل این یک آتش روشن",
+      "target_text": "fogo da rocha; e quando chega o amanhecer,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 31,
+      "start_ms": 249867,
+      "end_ms": 256854,
+      "source_text": "میکنید در حقیقت در میدان جنگ و بامداد که شد اون حمله",
+      "target_text": "começa o seu ataque, e a pilhagem",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 32,
+      "start_ms": 256854,
+      "end_ms": 263854,
+      "source_text": "شما در صبح شروع می شود و غارت کردن کفاری که خون و جان",
+      "target_text": "dos incrédulos — cujo sangue, vida",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 33,
+      "start_ms": 263854,
+      "end_ms": 270854,
+      "source_text": "و مالشون از حرام تشکیل شده است سورت می پذیرد و در",
+      "target_text": "e bens são constituídos de coisas ilícitas",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 34,
+      "start_ms": 270854,
+      "end_ms": 276994,
+      "source_text": "این حمله کردن و دویدن و نفس نفس زدن راکب و نفس زدن مرکب",
+      "target_text": "— se realiza; e nesse ataque,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 35,
+      "start_ms": 276994,
+      "end_ms": 283994,
+      "source_text": "و امثالیدها نقعی و گرد و غباری به راه می اندازن",
+      "target_text": "corrida e resfolegar do cavaleiro e",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 36,
+      "start_ms": 283994,
+      "end_ms": 290994,
+      "source_text": "و به وسط جمعیت دشمن حمله می کنن و در وسط اینها حضور",
+      "target_text": "da montaria, levantam poeira e tumulto",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 37,
+      "start_ms": 290994,
+      "end_ms": 297994,
+      "source_text": "پیدا بکنند و اینها رو خلی صلاح بکنند این سوکندها مناصب",
+      "target_text": "ao atacarem o meio da multidão inimiga,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 38,
+      "start_ms": 297994,
+      "end_ms": 304558,
+      "source_text": "با مسئله جهاد است گرسه در باری شطرهایی که بار",
+      "target_text": "penetrando nela e derrotando-a.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 39,
+      "start_ms": 304558,
+      "end_ms": 311545,
+      "source_text": "مسافران مکه را از مکه تا عرفات و از اونجا تا مشعر و",
+      "target_text": "Esses juramentos convêm à questão",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 40,
+      "start_ms": 311545,
+      "end_ms": 318545,
+      "source_text": "از مشعر تا منا و از منا در برگشت بمکه نقل و انتقال میدهند",
+      "target_text": "da jihad, embora tenha sido também transmitido",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 41,
+      "start_ms": 318545,
+      "end_ms": 324897,
+      "source_text": "بر اونها هم نقل شده است اونجایی ابن عباس برابر",
+      "target_text": "— de Ibn 'Abbas, via al-Tabari",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 42,
+      "start_ms": 324897,
+      "end_ms": 331897,
+      "source_text": "نقل که از تبری شده به بعد در کشاف زمق شریف آمده بر",
+      "target_text": "e depois al-Zamakhshari, em al-Kashshaf",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 43,
+      "start_ms": 331897,
+      "end_ms": 337614,
+      "source_text": "اون هم نقل شده لیکن مناسبه با خود مثل این سوکندها",
+      "target_text": "— que se refere aos camelos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 44,
+      "start_ms": 337614,
+      "end_ms": 344614,
+      "source_text": "همون جریان اصفهای مجاهدان است که داد اقدسی الاب اینا",
+      "target_text": "de carga que transportam os peregrinos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 45,
+      "start_ms": 344614,
+      "end_ms": 351614,
+      "source_text": "سوکند یاد میکنند وگر نه در جریان حج اون شطرهای",
+      "target_text": "de Meca a Arafat, depois a Mash'ar,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 46,
+      "start_ms": 351614,
+      "end_ms": 358614,
+      "source_text": "تند روی که گرد و خاک بکنند و موریات غط باشند و وسط جمعه",
+      "target_text": "depois a Mina e de volta. Mas o que verdadeiramente",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 47,
+      "start_ms": 358614,
+      "end_ms": 363272,
+      "source_text": "اینا نیست در باره حج آمده است که زامرات شطرهای",
+      "target_text": "convém a tal juramento",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 48,
+      "start_ms": 363272,
+      "end_ms": 370272,
+      "source_text": "لاغری فج عمیق حرکت میکنند اونجا تهه در رست فج عمیق",
+      "target_text": "é a arremetida dos combatentes. No Hajj,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 49,
+      "start_ms": 370272,
+      "end_ms": 377272,
+      "source_text": "است اونجا شطرهای لاغر است از اونها سخن به میان بیاید",
+      "target_text": "são os camelos magros do desfiladeiro",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 50,
+      "start_ms": 377272,
+      "end_ms": 383840,
+      "source_text": "نه دوندگی دوندگی و سرعت سیر و ایجاد برغ کردن و",
+      "target_text": "profundo (fajj 'amiq) de que se",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 51,
+      "start_ms": 383840,
+      "end_ms": 390840,
+      "source_text": "سمه مرکبشون به سنگ خوردن و جرد و آتش جولید کردن و اینا",
+      "target_text": "fala — não essa corrida, velocidade",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 52,
+      "start_ms": 390840,
+      "end_ms": 397840,
+      "source_text": "ما فج عمیق و زامرات و لاغرها و اینا همه های نیست",
+      "target_text": "e faíscas; nada disso se aplica aqui.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 53,
+      "start_ms": 398700,
+      "end_ms": 405565,
+      "source_text": "گرچه در جریان حج و عمر و امثال زاله شطرهای قدرتمندی و توانمندی",
+      "target_text": "Embora no Hajj e na 'Umra venham camelos poderosos de longe, o que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 54,
+      "start_ms": 405565,
+      "end_ms": 411598,
+      "source_text": "از راه دور می آین ولی اونی که قرآن نقل کرده است بخشی به",
+      "target_text": "o Alcorão relata refere-se em parte aos camelos magros dos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 55,
+      "start_ms": 411598,
+      "end_ms": 417840,
+      "source_text": "زامرات و شطرهای لاغر بر می گردد بخشی به فجعمیق بر می گردد",
+      "target_text": "peregrinos e em parte ao desfiladeiro profundo (fajj 'amiq).",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 56,
+      "start_ms": 418760,
+      "end_ms": 424757,
+      "source_text": "علایی حالین اون که هست مرکبهایی که اول و غیر شطران باشد بلاخره",
+      "target_text": "Em todo caso, quanto às montarias que não são camelos de peregrinos — no fim, há o desfiladeiro"
+    },
+    {
+      "id": 57,
+      "start_ms": 424757,
+      "end_ms": 430440,
+      "source_text": "من فجعمیق هست و زامر اما اونی که در سحن نبرده است این هاست.",
+      "target_text": "profundo e o camelo de peregrino; mas o que está no campo de batalha é o cavalo de guerra."
+    },
+    {
+      "id": 58,
+      "start_ms": 430540,
+      "end_ms": 437420,
+      "source_text": "غرص این است که این دوگور هر دو نر شده ولی مناسب با مسئله جهاد است که در مدینه صورت پذیرفت.",
+      "target_text": "O ponto é que, embora ambas as imagens ocorram, o que convém à questão da jihad é o que se deu em Medina.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 59,
+      "start_ms": 437780,
+      "end_ms": 444300,
+      "source_text": "و اون جهاد است که توانه است اسلام را مستقر کند.",
+      "target_text": "E foi a jihad que foi capaz de estabelecer o Islã.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 60,
+      "start_ms": 444540,
+      "end_ms": 451120,
+      "source_text": "این الاسلام و یعروب لا یعلا علیه که جمعه خبری است به داوی انشاقل غاشده.",
+      "target_text": "«الإِسْلَامُ يَعْلُو وَلَا يُعْلَى عَلَيْهِ» ('O Islã é exaltado e nada é exaltado sobre ele') — uma frase declarativa proferida com a intenção de um mandamento."
+    },
+    {
+      "id": 61,
+      "start_ms": 451120,
+      "end_ms": 457935,
+      "source_text": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به حسب",
+      "target_text": "Este «لِيُظْهِرَهُ عَلَى الدِّينِ كُلِّهِ» ('para",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 62,
+      "start_ms": 457935,
+      "end_ms": 464889,
+      "source_text": "ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پایانی",
+      "target_text": "que o faça prevalecer sobre toda religião', citado",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 63,
+      "start_ms": 464889,
+      "end_ms": 471286,
+      "source_text": "سوره مبارکه بیان آمده است که مؤمنان و متقیان و مردان",
+      "target_text": "em al-Tawba 9:33, al-Fath 48:28, al-Saff 61:9)",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 64,
+      "start_ms": 471286,
+      "end_ms": 477683,
+      "source_text": "الهی بهترین مردم روی زمینن یعنی بهترین تمدون برترین تمدون",
+      "target_text": "— embora aparentemente um relato — é proferido",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 65,
+      "start_ms": 477683,
+      "end_ms": 483802,
+      "source_text": "و رستترین تمدون علمیترین تمدون و مؤمنین است اینها درست",
+      "target_text": "com intenção performativa. E na conclusão da",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 66,
+      "start_ms": 483802,
+      "end_ms": 490617,
+      "source_text": "است که به حسب زاهر جمله خبریه است اما به دایی انشاء القا",
+      "target_text": "Sura al-Bayyina, de que os crentes e os temerosos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 67,
+      "start_ms": 490617,
+      "end_ms": 497617,
+      "source_text": "شده فرمو که اینها خیر بریان برعین خلقه خدا بارعست یعنی خالقه",
+      "target_text": "a Deus são os melhores dos habitantes da terra — a melhor,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 68,
+      "start_ms": 497617,
+      "end_ms": 503875,
+      "source_text": "است ما یه بر داریم یعنی بیابان وسیع که ابرار کسانی نیستن",
+      "target_text": "mais correta, mais sábia civilização — disse:",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 69,
+      "start_ms": 503875,
+      "end_ms": 510690,
+      "source_text": "که کارهای خوب میکنن اون کسی که کار خوب میکند جز ابرار نیست",
+      "target_text": "«هُمْ خَيْرُ الْبَرِيَّةِ» ('eles são os melhores",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 70,
+      "start_ms": 510690,
+      "end_ms": 517505,
+      "source_text": "اون که دست و دلش مثل سهرهای وسیع باز است مثل بر است که محدود",
+      "target_text": "da criação', al-Bayyina 98:7). Os verdadeiramente",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 71,
+      "start_ms": 517505,
+      "end_ms": 523346,
+      "source_text": "نیست قلم رو به مشخصی ندارد او جز ابرار است وگه انه کسی که",
+      "target_text": "justos (abrar) não são apenas os que fazem",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 72,
+      "start_ms": 523346,
+      "end_ms": 530161,
+      "source_text": "کارهای خوب برای خودش میکند یا قوم خمیله خودش میکند او اهل",
+      "target_text": "boas obras; o homem de birr é aquele cujo coração",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 73,
+      "start_ms": 530161,
+      "end_ms": 536976,
+      "source_text": "بر نیست او اهل بر نیست این بر باون رشه لغویش با بر است که بیابان",
+      "target_text": "está aberto como as vastas planícies, sem limites",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 74,
+      "start_ms": 536976,
+      "end_ms": 543930,
+      "source_text": "وسیع و گسترزه را میگن و اون که اهل شرح صدر است اون که میگوید",
+      "target_text": "— que diz: 'Ó Deus, perdoa-me e a todos os crentes",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 75,
+      "start_ms": 543930,
+      "end_ms": 550188,
+      "source_text": "اللهم مغفر لی و لمن فی مشارق الارضه و مغارب ها من المؤمنین",
+      "target_text": "e crentes nos orientes e ocidentes da terra',",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 76,
+      "start_ms": 550188,
+      "end_ms": 557142,
+      "source_text": "و المؤمنات اون که می گوید من سر به بالین بگذارم در دورترین",
+      "target_text": "e: 'Não me é agradável repousar enquanto no confim",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 77,
+      "start_ms": 557142,
+      "end_ms": 563818,
+      "source_text": "قلم را به حکومت من یک یتیمی باشد گرسنهی باشد مشلداری",
+      "target_text": "mais distante do meu domínio houver um órfão, um",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 78,
+      "start_ms": 563818,
+      "end_ms": 570780,
+      "source_text": "باشد بر من گوارانیست او اهل برست و بر این را بگم جد ابرار",
+      "target_text": "necessitado ou um aflito.' Este é o homem de birr.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 79,
+      "start_ms": 571900,
+      "end_ms": 578394,
+      "source_text": "بریه یعنی مخلوق فهموت شما مسلمان ها بهترین مخلوقان عالمید",
+      "target_text": "'Bariyya' significa 'o criado', portanto vós, muçulmanos, sois os melhores"
+    },
+    {
+      "id": 80,
+      "start_ms": 578394,
+      "end_ms": 585064,
+      "source_text": "خب این در صورتی که انسان با کفر و جهاز مبارزه کنه با استعمار",
+      "target_text": "dos seres criados — na condição de que a pessoa lute contra a incredulidade,"
+    },
+    {
+      "id": 81,
+      "start_ms": 585064,
+      "end_ms": 590769,
+      "source_text": "مبارزه کنه با استعمار مبارزه کنه با استبدان مبارزه",
+      "target_text": "o colonialismo e a tirania, seja pela pena, seja pela ação. Estas"
+    },
+    {
+      "id": 82,
+      "start_ms": 590769,
+      "end_ms": 597000,
+      "source_text": "کنه اینا یا مبارزه قلمی یا قدمی این هاست این کنه جمله های",
+      "target_text": "frases declarativas são proferidas com intenção performativa: «أَنْتُمْ"
+    },
+    {
+      "id": 83,
+      "start_ms": 597000,
+      "end_ms": 602880,
+      "source_text": "خبریه به دایی انشاقل قاشده فبود چما خیر و بریه اصید این یه",
+      "target_text": "خَيْرُ الْبَرِيَّةِ» ('vós sois os melhores da criação'). Dirige-se"
+    },
+    {
+      "id": 84,
+      "start_ms": 602880,
+      "end_ms": 608500,
+      "source_text": "اصل کلی رو مخاطر زید کند بدون رحبری و اصرار و امر و ایجاب",
+      "target_text": "ao ouvinte um princípio universal, sem preâmbulo nem mandamento."
+    },
+    {
+      "id": 85,
+      "start_ms": 609560,
+      "end_ms": 615160,
+      "source_text": "بدون آدیات زب، موریات قدر، مغیران صبح، اثرن نقل",
+      "target_text": "Sem «الْعَادِيَاتِ ضَبْحًا، وَالْمُورِيَاتِ قَدْحًا، فَالْمُغِيرَاتِ صُبْحًا، فَأَثَرْنَ بِهِ نَقْعًا» ('Pelos corcéis que galopam resfolegando,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 86,
+      "start_ms": 615160,
+      "end_ms": 620800,
+      "source_text": "و زدبی جمع، بدون مبارزه، بدون جهاد یا با اینها.",
+      "target_text": "que arrancam faíscas, que atacam ao amanhecer, levantando com isso uma nuvem de poeira', al-'Adiyat 100:1-4) — sem luta, sem jihad — ou com elas.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 87,
+      "start_ms": 621640,
+      "end_ms": 626851,
+      "source_text": "اگر با اینها شد میشه فیرول بریه بهترین تمدون مال شما،",
+      "target_text": "Se for com elas, então se torna «خَيْرُ الْبَرِيَّةِ» — a melhor civilização"
+    },
+    {
+      "id": 88,
+      "start_ms": 626851,
+      "end_ms": 630760,
+      "source_text": "بهترین فرهنگ مال شما، بهترین زندگی مال شما.",
+      "target_text": "é vossa, a melhor cultura é vossa, a melhor vida é vossa."
+    },
+    {
+      "id": 89,
+      "start_ms": 631140,
+      "end_ms": 634280,
+      "source_text": "نشد این وعده الهی محقق نمیشود.",
+      "target_text": "Se não, esta promessa divina não se realiza."
+    },
+    {
+      "id": 90,
+      "start_ms": 634280,
+      "end_ms": 641240,
+      "source_text": "فرازان است که اگر در بخش پایانی سوره مبارکه البین آمد است",
+      "target_text": "Na conclusão da Sura al-Bayyina veio: «إِنَّ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 91,
+      "start_ms": 641240,
+      "end_ms": 646840,
+      "source_text": "که اینالذین آمنو و عملو صالحات اولا که هم خیر البریه",
+      "target_text": "أُولَٰئِكَ هُمْ خَيْرُ الْبَرِيَّةِ» ('Quanto aos que creem e praticam",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 92,
+      "start_ms": 646840,
+      "end_ms": 653400,
+      "source_text": "اینگون از بیانات درست است و عده است اما امر حتمی را به هم",
+      "target_text": "boas obras — estes são os melhores da criação', al-Bayyina 98:7). Tais afirmações,",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 93,
+      "start_ms": 653400,
+      "end_ms": 659320,
+      "source_text": "راه دارد شما بهترین تمدون بهترین کشور بهترین ملت بهترین",
+      "target_text": "embora sejam uma promessa, trazem consigo um mandamento definitivo: deveis",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 94,
+      "start_ms": 659320,
+      "end_ms": 665960,
+      "source_text": "قانون بهترین رهبر بهترین امام امت را باید داشته باشید",
+      "target_text": "ter a melhor civilização, a melhor nação, a melhor lei, o melhor líder — o imame da",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 95,
+      "start_ms": 665960,
+      "end_ms": 672600,
+      "source_text": "که تعین کرده است و اون میارش قرآن است و اتجه تاهرین",
+      "target_text": "comunidade que Ele designou — e sua medida é o Alcorão e os Puros (os Ahl al-Bayt).",
+      "flags": [
+        "editorial-religious",
+        "editorial-political"
+      ]
+    },
+    {
+      "id": 96,
+      "start_ms": 674560,
+      "end_ms": 680700,
+      "source_text": "بنابراین اونجا که سخن از باربریست سخن از خیل است",
+      "target_text": "Portanto, onde o discurso trata de transporte de cargas, o discurso trata do cavalo."
+    },
+    {
+      "id": 97,
+      "start_ms": 683700,
+      "end_ms": 688407,
+      "source_text": "اونجا که مبارزه است فقط سخرست خیل است و خیل است و خیل است و",
+      "target_text": "Onde se trata de combate, o discurso é só sobre o cavalo — a mula"
+    },
+    {
+      "id": 98,
+      "start_ms": 688407,
+      "end_ms": 692680,
+      "source_text": "خیل است و خیل دیگه بقال و همین درش دقیق نیست انترسد به ابل",
+      "target_text": "e o asno não têm parte precisa nisso, muito menos o camelo."
+    },
+    {
+      "id": 99,
+      "start_ms": 694080,
+      "end_ms": 698341,
+      "source_text": "بعد از سوگت ها ذات اقدسه الله در باره این",
+      "target_text": "Depois dos juramentos, Deus, o Santíssimo, repreende",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 100,
+      "start_ms": 698341,
+      "end_ms": 701620,
+      "source_text": "سال بیش از پنجاه بار او رو مذیبت شد",
+      "target_text": "este ser humano mais de cinquenta vezes.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 101,
+      "start_ms": 702660,
+      "end_ms": 709660,
+      "source_text": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در باره",
+      "target_text": "Aquelas partes de louvor, exaltação e honra que Deus concede ao ser humano",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 102,
+      "start_ms": 709660,
+      "end_ms": 716660,
+      "source_text": "انسان دارد اون به بخش فطرتش برمی گردد که فعل همه",
+      "target_text": "remetem à sua natureza primordial (fitra) — a aquele pacto universal:",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 103,
+      "start_ms": 716660,
+      "end_ms": 723660,
+      "source_text": "ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گردد",
+      "target_text": "«وَإِذْ أَخَذَ رَبُّكَ مِنْ بَنِي آدَمَ مِنْ ظُهُورِهِمْ ذُرِّيَّتَهُمْ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 104,
+      "start_ms": 723660,
+      "end_ms": 729646,
+      "source_text": "که خدایی صبحان وز اخذ رب و که من منی آدمه من ظهورهم",
+      "target_text": "وَأَشْهَدَهُمْ عَلَىٰ أَنْفُسِهِمْ أَلَسْتُ بِرَبِّكُمْ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 105,
+      "start_ms": 729646,
+      "end_ms": 736646,
+      "source_text": "و اشهده هم غلا انفسه هم ان از سو برم بکن قالو بلا",
+      "target_text": "قَالُوا بَلَىٰ» ('Não sou Eu o vosso Senhor? Disseram: Sim', al-A'raf",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 106,
+      "start_ms": 736646,
+      "end_ms": 742960,
+      "source_text": "تمام فضائل علمی و فوازل عملی به اون بخش برمی گردد",
+      "target_text": "7:172). Toda virtude e excelência remetem a essa dimensão.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 107,
+      "start_ms": 743900,
+      "end_ms": 748989,
+      "source_text": "و تمام نقد ها و نقص ها به این خلق الانسان او یا خلق الانسان",
+      "target_text": "E todas as falhas e defeitos remetem a «خُلِقَ الإِنْسَانُ» ('o homem foi"
+    },
+    {
+      "id": 108,
+      "start_ms": 748989,
+      "end_ms": 753800,
+      "source_text": "منتین به همه این مسلون از این لجن برمی گردد",
+      "target_text": "criado') — este ser humano feito de barro/lodo (lajin) remete a isso."
+    },
+    {
+      "id": 109,
+      "start_ms": 755500,
+      "end_ms": 762500,
+      "source_text": "ترمود قد خواب من دسته ها اگر کسی اون فطرت الهی را که در کنگره",
+      "target_text": "Disse «قَدْ خَابَ مَنْ دَسَّاهَا» ('em verdade fracassa",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 110,
+      "start_ms": 762500,
+      "end_ms": 769214,
+      "source_text": "عظیم علسو بربکوم قال و بلاغ داشت اون رو دفن کند جلوی",
+      "target_text": "quem a sepulta', al-Shams 91:10): se alguém sepulta",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 111,
+      "start_ms": 769214,
+      "end_ms": 776191,
+      "source_text": "دهن او رو ببندد و نگذارد این فکرت سخن بگوید قد خواب من",
+      "target_text": "a fitra divina que testemunhou 'Sim' no grande pacto,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 112,
+      "start_ms": 776191,
+      "end_ms": 783191,
+      "source_text": "دستاها اونگاه سخنگوی انسان می شود هوا و هواست این روی",
+      "target_text": "lhe tapa a boca e não a deixa falar, então seu porta-voz",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 113,
+      "start_ms": 783191,
+      "end_ms": 790191,
+      "source_text": "گمان حرکت می کند روی میل عمل می کند کارهای فرهنگی و روی",
+      "target_text": "passa a ser seu capricho e desejo; move-se por conjectura",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 114,
+      "start_ms": 790191,
+      "end_ms": 797168,
+      "source_text": "خیال است و کارهای عملی و روی حواست چه این انسانی هم منکر",
+      "target_text": "e inclinação. Mesmo que exteriormente negue a Origem,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 115,
+      "start_ms": 797168,
+      "end_ms": 803487,
+      "source_text": "مبدع می شود به آزالله یا بیرسوات مبدع می شود و درون",
+      "target_text": "em sua própria consciência a afirma, e dentro de",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 116,
+      "start_ms": 803487,
+      "end_ms": 810487,
+      "source_text": "خود شاهد است چون فطرت از بینرفتنی نیست فطرت زنده است منطقه",
+      "target_text": "si é uma testemunha — pois a fitra não pode ser destruída;",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 117,
+      "start_ms": 810487,
+      "end_ms": 816940,
+      "source_text": "دسیسه شده دهن او رو بست و نمی گذارد فطرت سخن بگوید",
+      "target_text": "está viva, apenas conspirada contra e silenciada.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 118,
+      "start_ms": 817960,
+      "end_ms": 823331,
+      "source_text": "و هم آلم است هم آگاه است هم میبیند هم میداند هم",
+      "target_text": "É sapiente e consciente; vê, sabe e pode falar; e no Dia da Ressurreição o próprio"
+    },
+    {
+      "id": 119,
+      "start_ms": 823331,
+      "end_ms": 828767,
+      "source_text": "میتواند سخن بگوید و در قیامت هم خود انسان علیه",
+      "target_text": "ser humano testemunha contra si mesmo: «شَاهِدِينَ عَلَىٰ أَنْفُسِهِمْ بِالْكُفْرِ»"
+    },
+    {
+      "id": 120,
+      "start_ms": 828767,
+      "end_ms": 832960,
+      "source_text": "خود شهادت میدهد شاهدون نعلا نفسیم بلکفر",
+      "target_text": "('testemunhando contra si mesmos que descreram', al-Tawba 9:17)."
+    },
+    {
+      "id": 121,
+      "start_ms": 834260,
+      "end_ms": 841260,
+      "source_text": "همونطور که اعزاب و جواره شهادت میدهند فطرت هم علیه خود همین انسان",
+      "target_text": "Assim como os membros e órgãos testemunham, também a fitra testemunha contra"
+    },
+    {
+      "id": 122,
+      "start_ms": 841260,
+      "end_ms": 848260,
+      "source_text": "شهادت میدهند این انسانی که در جهات نفس فطرت را خفه کرد و طبیعت را",
+      "target_text": "este mesmo ser humano — que sufocou a fitra e deixou florescer sua"
+    },
+    {
+      "id": 123,
+      "start_ms": 848260,
+      "end_ms": 855260,
+      "source_text": "شکوفا کرد این انسان که لربهی لکنود است و خودش انهو علازالکه لشهید",
+      "target_text": "natureza animal; que é «لِرَبِّهِ لَكَنُودٌ» ('ingrato para com seu Senhor',"
+    },
+    {
+      "id": 124,
+      "start_ms": 855260,
+      "end_ms": 862176,
+      "source_text": "است و انهو لحب الخیره لشدید خیرتنها مال نیست که در سوره بغره آمد",
+      "target_text": "al-'Adiyat 100:6), «وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَهِيدٌ» ('e disso"
+    },
+    {
+      "id": 125,
+      "start_ms": 862176,
+      "end_ms": 869176,
+      "source_text": "این ترک خیره للوسیه توره کذا و کذا مال هست و اون چه به مال برمی گردد",
+      "target_text": "ele é testemunha', 100:7), e «وَإِنَّهُ لِحُبِّ الْخَيْرِ لَشَدِيدٌ»"
+    },
+    {
+      "id": 126,
+      "start_ms": 869176,
+      "end_ms": 876176,
+      "source_text": "مقام هست و به جا هست و به ریاست هست و مانند آن انسان تا می تواند از اون",
+      "target_text": "('e é veemente em seu amor pelos bens', 100:8). 'Bens' não é apenas"
+    },
+    {
+      "id": 127,
+      "start_ms": 876176,
+      "end_ms": 883176,
+      "source_text": "چه که در بستر زمین هست به عنوان ابزار کار استفاده بکند اون چه که در",
+      "target_text": "propriedade: é posição, cargo, liderança. O homem usa tudo o que há na terra"
+    },
+    {
+      "id": 128,
+      "start_ms": 883176,
+      "end_ms": 890176,
+      "source_text": "بستر زمین هست چهار تاست جماد هست و نبات هست و حیوان هست و انسان همه",
+      "target_text": "— mineral, vegetal, animal, humano — como ferramentas. Como na Sura"
+    },
+    {
+      "id": 129,
+      "start_ms": 890176,
+      "end_ms": 897176,
+      "source_text": "این چهار قصر را این بشر عادی که لربیل کنوده از زروزی و خود تبدیل میکنند",
+      "target_text": "Al 'Imran: «زُيِّنَ لِلنَّاسِ حُبُّ الشَّهَوَاتِ مِنَ النِّسَاءِ وَالْبَنِينَ"
+    },
+    {
+      "id": 130,
+      "start_ms": 897176,
+      "end_ms": 903560,
+      "source_text": "این که در اوائل سوره بارکه آل امران گذشت زوینه لناسب و شهوات",
+      "target_text": "وَالْقَنَاطِيرِ الْمُقَنْطَرَةِ مِنَ الذَّهَبِ وَالْفِضَّةِ»"
+    },
+    {
+      "id": 131,
+      "start_ms": 903560,
+      "end_ms": 910560,
+      "source_text": "این شهوات که جمع محلاب و الفلامه است در همین چهارتا خلاصه شده زوینه",
+      "target_text": "('foi embelezado para os homens o amor pelas paixões, por mulheres"
+    },
+    {
+      "id": 132,
+      "start_ms": 910560,
+      "end_ms": 917560,
+      "source_text": "لناسب و شهوات من النسای ولونی و قناتیر مغنتره من از زهب و الفضه",
+      "target_text": "e filhos, e por montões amontoados de ouro e prata', Al 'Imran 3:14)."
+    },
+    {
+      "id": 133,
+      "start_ms": 919180,
+      "end_ms": 924847,
+      "source_text": "مصومه و انعام وله هرس هرس که کشاورزیست خیل",
+      "target_text": "«وَالْخَيْلِ الْمُسَوَّمَةِ وَالْأَنْعَامِ وَالْحَرْثِ» ('e"
+    },
+    {
+      "id": 134,
+      "start_ms": 924847,
+      "end_ms": 930707,
+      "source_text": "مصومه و انعام که دامداریست و قراطیر مغنتره",
+      "target_text": "cavalos marcados, e gado e lavoura', Al 'Imran 3:14): 'harth'"
+    },
+    {
+      "id": 135,
+      "start_ms": 930707,
+      "end_ms": 936855,
+      "source_text": "که زهب و فضو و اشیاه اتیقه و اجرام جرمه ها",
+      "target_text": "(lavoura) é agricultura; 'cavalos marcados e gado' são pecuária;"
+    },
+    {
+      "id": 136,
+      "start_ms": 936855,
+      "end_ms": 942426,
+      "source_text": "و اکسام بهادار باشد که جماد هست بنین و نسا",
+      "target_text": "os 'montões amontoados' são ouro, prata, objetos preciosos"
+    },
+    {
+      "id": 137,
+      "start_ms": 942426,
+      "end_ms": 948480,
+      "source_text": "که انسان هست زویل ناسه و با شباد نسا بنین",
+      "target_text": "e antiguidades — o mineral; e 'filhos e mulheres' são o humano."
+    },
+    {
+      "id": 138,
+      "start_ms": 949800,
+      "end_ms": 956800,
+      "source_text": "غناطیر مغندتر مال جماد خیل مسببم و انعام انها مال حیوان",
+      "target_text": "Os montões amontoados pertencem ao mineral, os cavalos marcados e o gado",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 139,
+      "start_ms": 956800,
+      "end_ms": 963800,
+      "source_text": "و امور دامی هر امور کشاورزی مال نباتات است دامداری",
+      "target_text": "à pecuária, a lavoura às plantas, e 'mulheres e filhos' ao humano. Ele",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 140,
+      "start_ms": 963800,
+      "end_ms": 970800,
+      "source_text": "مال حیوانات است غناطیر مغندتر مال جمادات است نسا و بنین",
+      "target_text": "coloca todos os quatro — humano, vegetal, mineral, animal — a serviço como",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 141,
+      "start_ms": 970800,
+      "end_ms": 977513,
+      "source_text": "هم مال انسان انسان و نبات و جماد و حیوان همه را به عنوان",
+      "target_text": "ferramentas. Quando essa pessoa entra na Ressurreição, sua primeira",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 142,
+      "start_ms": 977513,
+      "end_ms": 984326,
+      "source_text": "شهود افراد استخدام بکنند این شخص وقتی وارد قیامت شد",
+      "target_text": "testemunha é sua fitra: «شَاهِدِينَ عَلَىٰ أَنْفُسِهِمْ بِالْكُفْرِ»",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 143,
+      "start_ms": 984326,
+      "end_ms": 990740,
+      "source_text": "اولین شاهد او فترت اوستی شاهدی نقالا انفرز این بلگفر",
+      "target_text": "('testemunhando contra si mesmos que descreram', al-Tawba 9:17).",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 144,
+      "start_ms": 992060,
+      "end_ms": 995472,
+      "source_text": "نستحضر ایتی شاهد غیر از متهم است",
+      "target_text": "Tenha-se em mente que a testemunha é distinta do acusado."
+    },
+    {
+      "id": 145,
+      "start_ms": 995472,
+      "end_ms": 1001640,
+      "source_text": "این نفس وقتی فترت خود را قد خواب من",
+      "target_text": "Este ser, quando sua fitra — «قَدْ خَابَ مَنْ دَسَّاهَا» ('fracassa quem a sepulta', al-Shams 91:10)..."
+    },
+    {
+      "id": 146,
+      "start_ms": 1003480,
+      "end_ms": 1010480,
+      "source_text": "و مدسوس کرد و در بین اغراض و غرائز دفن کرد و میری کنار ولی در",
+      "target_text": "...foi ocultada e sepultada entre apetites e instintos até morrer — mas está dentro dele, é o seu próprio eu; esta mesma fitra estava presente em «أَلَسْتُ بِرَبِّكُمْ قَالُوا بَلَىٰ» ('Não sou Eu o vosso Senhor?"
+    },
+    {
+      "id": 147,
+      "start_ms": 1010480,
+      "end_ms": 1017120,
+      "source_text": "درون اوست خود اوست همین فترات در کنگریه الاسد و برب بکن",
+      "target_text": "Disseram: Sim', al-A'raf 7:172)."
+    },
+    {
+      "id": 148,
+      "start_ms": 1017120,
+      "end_ms": 1024120,
+      "source_text": "حضور داشت گفت بلا الان که به این بستر آمدن این انسانی که",
+      "target_text": "Agora que chegou a este estado, este ser humano que..."
+    },
+    {
+      "id": 149,
+      "start_ms": 1024940,
+      "end_ms": 1031120,
+      "source_text": "روی طبیعت دارد حرکت می کند این فترات خودشو زنده بگور کرده",
+      "target_text": "...se move sobre sua natureza animal — enterrou viva sua própria fitra."
+    },
+    {
+      "id": 150,
+      "start_ms": 1032920,
+      "end_ms": 1039812,
+      "source_text": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار",
+      "target_text": "Este aprisionou sua própria fitra dentro de sua própria casa; então ele mesmo se",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 151,
+      "start_ms": 1039812,
+      "end_ms": 1046617,
+      "source_text": "شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن",
+      "target_text": "torna o transgressor. Mais de cinquenta vezes no Alcorão Nobre Deus o descreve:",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 152,
+      "start_ms": 1046617,
+      "end_ms": 1053250,
+      "source_text": "کریم رتور هست، کنود هست، شهید هست و به خیل شهید هست، مجاهم هست",
+      "target_text": "ingrato, testemunha contra si mesmo, veemente no amor pelos bens, intrigante;",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 153,
+      "start_ms": 1053250,
+      "end_ms": 1059625,
+      "source_text": "مشکلات عقیده پیدا میکند مشکلات ظلمی پیدا میکند این این نلمورو",
+      "target_text": "ele desenvolve problemas de crença e de injustiça. «إِنَّ الْمُلُوكَ إِذَا",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 154,
+      "start_ms": 1059625,
+      "end_ms": 1066603,
+      "source_text": "که ازا دخلو قریتن افسدوها فجده علو عیزت اهلی هست ماله",
+      "target_text": "دَخَلُوا قَرْيَةً أَفْسَدُوهَا وَجَعَلُوا أَعِزَّةَ أَهْلِهَا أَذِلَّةً» ('quando",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 155,
+      "start_ms": 1066603,
+      "end_ms": 1073236,
+      "source_text": "گروه از همین بابست این بیش از پنجاه مورد که انسان حلو است انسان",
+      "target_text": "os reis entram numa cidade, a arruínam e tornam humilhados os seus notáveis',",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 156,
+      "start_ms": 1073236,
+      "end_ms": 1079352,
+      "source_text": "جزو است منو است امثال زاله بیش از پنجاه مورد که مزمز شده است",
+      "target_text": "al-Naml 27:34) é desse tipo. Essas mais de cinquenta censuras pertencem",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 157,
+      "start_ms": 1079352,
+      "end_ms": 1086352,
+      "source_text": "ماله این نیمه خالی انسان است اون نیمه پر رو دفن کرده وقتی سحنه",
+      "target_text": "à metade vazia do ser humano, pois ele sepultou a metade plena. No Dia da Ressurreição,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 158,
+      "start_ms": 1086352,
+      "end_ms": 1092899,
+      "source_text": "قیامت شد اولین کسی که علیه خود انسان فریب خورده بخش بدنی",
+      "target_text": "a primeira coisa a testemunhar contra o humano enganado é «شَاهِدِينَ عَلَىٰ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 159,
+      "start_ms": 1092899,
+      "end_ms": 1099020,
+      "source_text": "گواهی میدهد که شاهدین علا انفس ایم بلکفت همین جمعه فطرتوست",
+      "target_text": "أَنْفُسِهِمْ بِالْكُفْرِ» — esta é justamente a sentença sobre a fitra.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 160,
+      "start_ms": 1100140,
+      "end_ms": 1107140,
+      "source_text": "جرسی ای رو بعضی از بزرگان معنا کردن انسانی که به صورت حیمان در آمده",
+      "target_text": "Alguns dos grandes sábios interpretaram assim: o ser humano que"
+    },
+    {
+      "id": 161,
+      "start_ms": 1107140,
+      "end_ms": 1114140,
+      "source_text": "کل محدود او علیه خود شهادت میدهد که این غارتگر است و قطاب شهادت",
+      "target_text": "assumiu forma animal — todo o seu ser testemunha contra si mesmo"
+    },
+    {
+      "id": 162,
+      "start_ms": 1114140,
+      "end_ms": 1121140,
+      "source_text": "عملی است او یه معنای لطیفی دارد این اولین شاهد شاهد خانوادگیست",
+      "target_text": "que é um saqueador; isto é um testemunho prático. A primeira"
+    },
+    {
+      "id": 163,
+      "start_ms": 1121140,
+      "end_ms": 1128140,
+      "source_text": "که شاهدین علا انفسهم بنگفر بعد به اعضا و جواره که میرسد تشد علیه",
+      "target_text": "testemunha é a testemunha doméstica («شَاهِدِينَ عَلَىٰ أَنْفُسِهِمْ»);"
+    },
+    {
+      "id": 164,
+      "start_ms": 1128140,
+      "end_ms": 1133579,
+      "source_text": "ملسینتم عیدیم خب مستحذری که شهادت غیر اقرار است اگر مجرم خودش",
+      "target_text": "depois chega aos membros: «تَشْهَدُ عَلَيْهِمْ"
+    },
+    {
+      "id": 165,
+      "start_ms": 1133579,
+      "end_ms": 1140201,
+      "source_text": "حرف میزنه که اقرار است اگر بیگانه علیه هستخن میگوز شهادت است",
+      "target_text": "أَلْسِنَتُهُمْ بِمَا كَانُوا يَعْمَلُونَ» ('suas línguas"
+    },
+    {
+      "id": 166,
+      "start_ms": 1140201,
+      "end_ms": 1147059,
+      "source_text": "معلوم می شود تو بحث هایی زیر و جلالتون مبسوتن گذشت که ما غیر از دستیم،",
+      "target_text": "testemunharão contra eles pelo que faziam', al-Nur 24:24)."
+    },
+    {
+      "id": 167,
+      "start_ms": 1147059,
+      "end_ms": 1154059,
+      "source_text": "ما غیر از پاییم، ما غیر از پوستیم، ما غیر از گشتیم اگر این دستی",
+      "target_text": "O testemunho é distinto da confissão: se o próprio criminoso fala,"
+    },
+    {
+      "id": 168,
+      "start_ms": 1154059,
+      "end_ms": 1160920,
+      "source_text": "که رو میزی گرفت و زیر میزی گرفت و رو میزی داد و زیر میزی داد این دست",
+      "target_text": "é confissão; se um estranho fala contra ele, é testemunho."
+    },
+    {
+      "id": 169,
+      "start_ms": 1160920,
+      "end_ms": 1167920,
+      "source_text": "گناه بکند، بعد حرف می زند، باید باید باید اقرار کرده است اما",
+      "target_text": "Nós somos distintos de nossa mão, pé, pele e carne. A mão que dá"
+    },
+    {
+      "id": 170,
+      "start_ms": 1167920,
+      "end_ms": 1174920,
+      "source_text": "دستی که رو میزی و زیر میزی می دهد یا می گیرد، این دست ابزار کار است",
+      "target_text": "ou recebe suborno por debaixo da mesa é uma ferramenta de ação."
+    },
+    {
+      "id": 171,
+      "start_ms": 1175760,
+      "end_ms": 1182760,
+      "source_text": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر اعزاب",
+      "target_text": "Por isso esta mão testemunha que esta pessoa recebeu e deu.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 172,
+      "start_ms": 1182760,
+      "end_ms": 1189641,
+      "source_text": "و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کردن",
+      "target_text": "Se os membros e órgãos pecassem, quando falassem diríamos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 173,
+      "start_ms": 1189641,
+      "end_ms": 1195797,
+      "source_text": "در حالی که قرآن نمیگرد دست اقرار کرد میگرد دست شهادت داد",
+      "target_text": "que confessaram, ao passo que o Alcorão não diz que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 174,
+      "start_ms": 1195797,
+      "end_ms": 1202797,
+      "source_text": "معلومش خود انسان است که رو میزی میدهد یا میگیرد دیر میزی",
+      "target_text": "a mão confessou, diz que a mão testemunhou — fica claro que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 175,
+      "start_ms": 1202797,
+      "end_ms": 1209436,
+      "source_text": "میدهد یا میگیرد این گناه مال انسان است اونم این نیمه خالی",
+      "target_text": "é o próprio ser humano quem dá ou recebe por debaixo da",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 176,
+      "start_ms": 1209436,
+      "end_ms": 1216317,
+      "source_text": "انسان این نیمه که بف سلسال و همه مسنون و تین و تراب و اینا",
+      "target_text": "mesa; este pecado pertence ao humano, à sua metade vazia,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 177,
+      "start_ms": 1216317,
+      "end_ms": 1222835,
+      "source_text": "برمی گردد و امون نیمه که به نفخت و فهم روحی برمی گردد که این",
+      "target_text": "que remete a «صَلْصَالٍ مِنْ حَمَإٍ مَسْنُونٍ» ('barro",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 178,
+      "start_ms": 1222835,
+      "end_ms": 1229595,
+      "source_text": "مظلوم خانوادگیست این در اصر قط خواب من دسته ها دستیسه شده",
+      "target_text": "seco de lodo modelado', al-Hijr 15:26), enquanto a outra",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 179,
+      "start_ms": 1229595,
+      "end_ms": 1235751,
+      "source_text": "است پس شهادت یه وقتی از بیرون از سال یا مسجد شهادت بده یا افراد",
+      "target_text": "metade remete ao sopro divino (nafkh). O testemunho",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 180,
+      "start_ms": 1235751,
+      "end_ms": 1242632,
+      "source_text": "دیگر شهادت میدن این شهادت بیرونه شهادت درونی یا مال",
+      "target_text": "pode ser externo, ou interno — a fitra contra a natureza,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 181,
+      "start_ms": 1242632,
+      "end_ms": 1249150,
+      "source_text": "فطرت است علیه طبیعت یا مال اعزاب و جواره طبیعت است علیه خود",
+      "target_text": "ou os membros contra a natureza. O ser humano dominado",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 182,
+      "start_ms": 1249150,
+      "end_ms": 1255910,
+      "source_text": "طبیعت یعنی انسان طبیعت زده که اللہو بالخیر لشدید است به",
+      "target_text": "pela natureza, que é 'veemente no amor pelos bens', deve",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 183,
+      "start_ms": 1255910,
+      "end_ms": 1262910,
+      "source_text": "جایی که این کنتم توحبون الله فتبعون یهبه کم الله محبوبی",
+      "target_text": "retornar a «قُلْ إِنْ كُنْتُمْ تُحِبُّونَ اللهَ فَاتَّبِعُونِي",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 184,
+      "start_ms": 1262910,
+      "end_ms": 1268221,
+      "source_text": "به پذیرت که ازلی و عبدیست و اون خداست و حلق وسطیه و مدار و محور",
+      "target_text": "يُحْبِبْكُمُ اللهُ» ('Dize: se amais a Deus,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 185,
+      "start_ms": 1268221,
+      "end_ms": 1275221,
+      "source_text": "محبتم حبیب الهیست که در دور مطاف حبیب اراهی گشتن انسان",
+      "target_text": "segui-me, e Deus vos amará', Al 'Imran 3:31) — o Amado pré-eterno,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 186,
+      "start_ms": 1275221,
+      "end_ms": 1280780,
+      "source_text": "محبوب را محبوب میکند و خدای سبحانم به حبیب خود فربود بگو",
+      "target_text": "que é Deus; e Deus disse ao Seu amado: Dize...",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 187,
+      "start_ms": 1286000,
+      "end_ms": 1293000,
+      "source_text": "این با این که می تواند حبیب الله بشود حبیب این چارتاست خیلی",
+      "target_text": "Embora ele possa se tornar o amado de Deus, ele em vez disso ama estas quatro coisas:",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 188,
+      "start_ms": 1293000,
+      "end_ms": 1299720,
+      "source_text": "مصومه است و نسا اوبنین است و وناطیر مغنتر است و حرس",
+      "target_text": "cavalos marcados, mulheres e filhos, montões amontoados, e lavoura.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 189,
+      "start_ms": 1300940,
+      "end_ms": 1307415,
+      "source_text": "جماد است و نبات است و حیوان است و انسان به اینها دل می بندند",
+      "target_text": "É mineral, é vegetal, é animal e é humano, e ele apega o coração a eles. Pois dissemos que"
+    },
+    {
+      "id": 190,
+      "start_ms": 1307415,
+      "end_ms": 1313818,
+      "source_text": "خب فرما دیم که انسانیم نسبت به ذات اقدس الاخ بعد",
+      "target_text": "o ser humano, em relação à Essência Santíssima, depois de sufocar sua fitra — «قَدْ خَابَ"
+    },
+    {
+      "id": 191,
+      "start_ms": 1313818,
+      "end_ms": 1319429,
+      "source_text": "از این که فطرت خود را خفه کرد قد خواه من دستاها این بیمهری",
+      "target_text": "مَنْ دَسَّاهَا» ('fracassa quem a sepulta', al-Shams 91:10) — passa a agir sem"
+    },
+    {
+      "id": 192,
+      "start_ms": 1319429,
+      "end_ms": 1326191,
+      "source_text": "میکند بعد ادبی میکند بی اخلاقی میکند و خودشم میدوند",
+      "target_text": "cortesia para com Deus, torna-se de má índole e imoral; e suas próprias faculdades testemunham"
+    },
+    {
+      "id": 193,
+      "start_ms": 1326191,
+      "end_ms": 1331946,
+      "source_text": "در درون او علیه او شهادت میدن این فطرت که مردنی",
+      "target_text": "contra ele. Esta fitra não morre; ela permanece, embora aprisionada — «وَإِنَّهُ"
+    },
+    {
+      "id": 194,
+      "start_ms": 1331946,
+      "end_ms": 1337200,
+      "source_text": "نیست این فطرت هست و انتا حبس شده و انهو علا ظالکل شهید",
+      "target_text": "عَلَىٰ ذَٰلِكَ لَشَهِيدٌ» ('e disso ele é testemunha', al-'Adiyat 100:7)."
+    },
+    {
+      "id": 195,
+      "start_ms": 1338320,
+      "end_ms": 1345292,
+      "source_text": "و این مال را هم شدیدن دوست دارد البته مردان الهی کسانی",
+      "target_text": "E ele ama estes bens intensamente. Mas os homens de Deus são aqueles",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 196,
+      "start_ms": 1345292,
+      "end_ms": 1351443,
+      "source_text": "هستند که همه خواسته ها و بسته ها و بابسته ها را را",
+      "target_text": "que entregaram todos os seus desejos e apegos a Deus — dando",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 197,
+      "start_ms": 1351443,
+      "end_ms": 1358210,
+      "source_text": "کردن لها به الله سر دادن بدن دادن پیکر دادن قطعه",
+      "target_text": "o corpo, sendo despedaçados, dando o próprio sangue, como o Senhor",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 198,
+      "start_ms": 1358210,
+      "end_ms": 1364669,
+      "source_text": "شدن جگر دادن مثل سید شهده در جنگ احد اینا سلامات الله",
+      "target_text": "dos Mártires na Batalha de Uhud (a paz esteja sobre ele e todos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 199,
+      "start_ms": 1364669,
+      "end_ms": 1371025,
+      "source_text": "سلامه علیه و جمین اون راه را دارن اینا کسانی هستند",
+      "target_text": "eles). Na jihad interior, eles escolheram o amor do Amado, não",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 200,
+      "start_ms": 1371025,
+      "end_ms": 1377586,
+      "source_text": "که در جهاد داخلی حب حبیب را نه حب مال را حب خالق را",
+      "target_text": "o amor pelos bens; o amor do Criador, não o amor pelas criaturas",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 201,
+      "start_ms": 1377586,
+      "end_ms": 1383737,
+      "source_text": "نه حب مخلوقات شارگانی بنین و نسا از یک طرف قناتیر",
+      "target_text": "dispersas — filhos e mulheres de um lado, montões amontoados",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 202,
+      "start_ms": 1383737,
+      "end_ms": 1390401,
+      "source_text": "مغنتر از طرف دیگر خیلی مصبم از طرف دیگر حرس از طرف شارو",
+      "target_text": "de outro, cavalos marcados de outro, lavoura de outro — não; eles",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 203,
+      "start_ms": 1390401,
+      "end_ms": 1396660,
+      "source_text": "نه اونها بلحب الله هستن بعد فهمون جد کار بکنیم",
+      "target_text": "estão com o amor de Deus. Que compreendamos e nos esforcemos.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 204,
+      "start_ms": 1398320,
+      "end_ms": 1404682,
+      "source_text": "نبشه قبر میکنیم از این سحنه دلتون همه خاطرات و خواتر",
+      "target_text": "Exumemos, por assim dizer, o túmulo do coração — tiremos"
+    },
+    {
+      "id": 205,
+      "start_ms": 1404682,
+      "end_ms": 1411498,
+      "source_text": "را همه سیعات را همه انگیزه ها را همه رواخاری",
+      "target_text": "dele todas as lembranças, más ações, motivações, hipocrisias"
+    },
+    {
+      "id": 206,
+      "start_ms": 1411498,
+      "end_ms": 1416951,
+      "source_text": "ها و ریاکاری ها را بیرون میانیم هم اون چی که در خاک",
+      "target_text": "e ostentações; e o que estiver enterrado dentro,"
+    },
+    {
+      "id": 207,
+      "start_ms": 1416951,
+      "end_ms": 1423200,
+      "source_text": "هست اونها را احیام کنیم سحنه ریامت بپرام کنیم",
+      "target_text": "revivamos e o façamos presente na cena da Ressurreição."
+    },
+    {
+      "id": 208,
+      "start_ms": 1424600,
+      "end_ms": 1430509,
+      "source_text": "خود انسان می داند که وقتی ما نبشه قبر بکنیم از درون",
+      "target_text": "O próprio ser humano sabe que, quando exumarmos o túmulo e tirarmos de dentro"
+    },
+    {
+      "id": 209,
+      "start_ms": 1430509,
+      "end_ms": 1437186,
+      "source_text": "او اینها رو بیرون بیاریم و اون چی که در صدر است",
+      "target_text": "dele essas coisas, e o que está no peito vier à mesa, ele mesmo — que estava consciente"
+    },
+    {
+      "id": 210,
+      "start_ms": 1437186,
+      "end_ms": 1441944,
+      "source_text": "به روی میز بیاید اونگاه خود انسان که با خبر",
+      "target_text": "— dirá: «مَالِ هَٰذَا الْكِتَابِ لَا يُغَادِرُ صَغِيرَةً وَلَا"
+    },
+    {
+      "id": 211,
+      "start_ms": 1441944,
+      "end_ms": 1448007,
+      "source_text": "بود می گوید مال آزال کتاب لایقاد رو سقیرتن ولا",
+      "target_text": "كَبِيرَةً إِلَّا أَحْصَاهَا» ('Que registro é este, que não deixa nada, pequeno"
+    },
+    {
+      "id": 212,
+      "start_ms": 1448007,
+      "end_ms": 1452920,
+      "source_text": "کبیرتن الا احساها هیچ نمی توانا این کار بکنند",
+      "target_text": "ou grande, sem enumerá-lo?', al-Kahf 18:49). Nada podem ocultar."
+    },
+    {
+      "id": 213,
+      "start_ms": 1454120,
+      "end_ms": 1461120,
+      "source_text": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او",
+      "target_text": "Ele está consciente agora; a testemunha interior está presente, embora ele a tenha sepultado por",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 214,
+      "start_ms": 1461120,
+      "end_ms": 1468120,
+      "source_text": "بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر کتاب",
+      "target_text": "«دَسَّاهَا» ('ele a sepultou'). «مَالِ هَٰذَا الْكِتَابِ لَا يُغَادِرُ صَغِيرَةً وَلَا كَبِيرَةً",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 215,
+      "start_ms": 1468120,
+      "end_ms": 1474435,
+      "source_text": "لایقاد رو سرید هستن ولا کبید هستن الا احساها دفترهای بزرگ",
+      "target_text": "إِلَّا أَحْصَاهَا» — os grandes registros estão com Deus e os administradores divinos;",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 216,
+      "start_ms": 1474435,
+      "end_ms": 1481337,
+      "source_text": "و کلان پیش خدا و مدبران الهیست اما اون دفتر روزان و رسمی",
+      "target_text": "mas o registro comum que parece 'esquecido' não está perdido: «عَلِمَتْ نَفْسٌ مَا أَحْضَرَتْ»",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 217,
+      "start_ms": 1481337,
+      "end_ms": 1488020,
+      "source_text": "که فراموش شده نیست علمت نفسون ما احضرت انسان با خودش دارد",
+      "target_text": "('uma alma saberá o que trouxe consigo', al-Takwir 81:14) — o ser humano o carrega consigo.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 218,
+      "start_ms": 1489060,
+      "end_ms": 1496060,
+      "source_text": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط",
+      "target_text": "Quanto ao que outro registra — os nobres escribas «كِرَامًا كَاتِبِينَ»",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 219,
+      "start_ms": 1496060,
+      "end_ms": 1502349,
+      "source_text": "کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید",
+      "target_text": "(al-Infitar 82:11) também o registram — mas «عَلِمَتْ نَفْسٌ",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 220,
+      "start_ms": 1502349,
+      "end_ms": 1509267,
+      "source_text": "عمومه شدی که اینجا هست معمولا نکره در سیاق نف مفید عمومه",
+      "target_text": "مَا أَحْضَرَتْ» ('uma alma saberá o que trouxe', al-Takwir 81:14):",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 221,
+      "start_ms": 1509267,
+      "end_ms": 1515661,
+      "source_text": "ما جاانی اهدون یعنی این اما نکره در سیاق اثبات همه جا مفید",
+      "target_text": "um substantivo indefinido aqui produz sentido geral, portanto",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 222,
+      "start_ms": 1515661,
+      "end_ms": 1522055,
+      "source_text": "اومنیست اینجا طبق شباهد و قرار اینی که هست علمت نفسون یعنی",
+      "target_text": "'toda alma saberá o que trouxe consigo'; o próprio ser humano",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 223,
+      "start_ms": 1522055,
+      "end_ms": 1528554,
+      "source_text": "کلو نفسین ما احذرت خود انسان حاضر بکنند بنابراین گرچه در",
+      "target_text": "o tornará presente. Assim, embora estes versículos tenham sido",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 224,
+      "start_ms": 1528554,
+      "end_ms": 1535554,
+      "source_text": "بابه حجو ابل حجو اینها وارد شده است ولی اولا اینست که مربوط",
+      "target_text": "relacionados ao Hajj e aos camelos dos peregrinos, a leitura primária",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 225,
+      "start_ms": 1535554,
+      "end_ms": 1542158,
+      "source_text": "به مسائل جهاد باشد و انسان را آگاه می کند که تو یک صاحب خانه",
+      "target_text": "pertence às questões da jihad; e faz o ser humano ciente de que",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 226,
+      "start_ms": 1542158,
+      "end_ms": 1549080,
+      "source_text": "ای داری که او شاهد اعمال و سیعات تو است و اون را محصول کرده",
+      "target_text": "ele tem um senhor da casa que testemunha seus atos e os registrou.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 227,
+      "start_ms": 1550800,
+      "end_ms": 1557800,
+      "source_text": "خودت شاهدی یعنی اون فترتت شاهد است خودت مجدمی یعنی طبیعتت مجدمی",
+      "target_text": "Tu mesmo és a testemunha — isto é, a tua fitra é a testemunha; tu mesmo és o criminoso — isto é, a tua natureza",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 228,
+      "start_ms": 1557800,
+      "end_ms": 1564457,
+      "source_text": "است و اگه اتحاد شاهد و مشروط که معنی ندارد مگر شهادت عملی باشد",
+      "target_text": "animal é o criminoso. E se testemunha e testemunhado fossem idênticos, isso não teria sentido,",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 229,
+      "start_ms": 1564457,
+      "end_ms": 1571185,
+      "source_text": "که اونا به صورت گردرمیان یا کلب درمیان این شهادت عملی است و گنون",
+      "target_text": "a menos que seja um testemunho prático — como se transformado em asno ou cão em meio aos outros",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 230,
+      "start_ms": 1571185,
+      "end_ms": 1578185,
+      "source_text": "شهادت های قولی حتما تعدد می ترد این اصاری سروع مبارکی است که به نام",
+      "target_text": "— este é o testemunho prático, ao passo que os testemunhos verbais necessariamente exigem pluralidade.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 231,
+      "start_ms": 1578185,
+      "end_ms": 1584204,
+      "source_text": "علی آدیات بود شده البته بسیار از لطائف این گنه از سور در تیه سور",
+      "target_text": "Esta sura bendita, chamada al-'Adiyat, está agora concluída. Muitas de suas sutilezas",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 232,
+      "start_ms": 1584204,
+      "end_ms": 1591002,
+      "source_text": "و آیات قبلی بطرح شد و اقوالی هم که هست به همین مطالب عرض شده برمی",
+      "target_text": "foram expostas em suras e versículos anteriores, e as opiniões existentes remetem a esses mesmos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 233,
+      "start_ms": 1591002,
+      "end_ms": 1597446,
+      "source_text": "گردند که امیدواریم زادت اقدس الله اون چه خیر و صلاح و فلاحه دنیا",
+      "target_text": "pontos que foram expostos. Esperamos que Deus, o Santíssimo, conceda à comunidade muçulmana",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 234,
+      "start_ms": 1597446,
+      "end_ms": 1604446,
+      "source_text": "و آخرت امت اسلامیست خوب ادراف بکنن و بدانن که بسیار از این دستورها",
+      "target_text": "uma boa compreensão do que é o bem e a prosperidade deste mundo e do outro, e que saibam que muitos destes",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 235,
+      "start_ms": 1604446,
+      "end_ms": 1610540,
+      "source_text": "جمله خبریه است که به دایه این شاهل غاشده و به ما می فرماد که بهترین",
+      "target_text": "mandamentos são frases declarativas proferidas com intenção performativa — dizendo-nos",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 236,
+      "start_ms": 1610540,
+      "end_ms": 1617540,
+      "source_text": "مردم روزگار ممئنانن یعنی ایها المؤمنون بکشید بهتری مردان",
+      "target_text": "que os melhores homens da era são os crentes: ó crentes, esforçai-vos para ser os melhores do mundo.",
+      "flags": [
+        "editorial-religious"
+      ]
+    },
+    {
+      "id": 237,
+      "start_ms": 1617540,
+      "end_ms": 1624540,
+      "source_text": "آلم باشید و فردله لنا و لکم و السلام علیکم و رحمت الله و برکاته",
+      "target_text": "E que Ele nos perdoe, a nós e a vós. A paz esteja sobre vós, e a misericórdia de Deus e Suas bênçãos.",
+      "flags": [
+        "editorial-religious"
+      ]
+    }
+  ],
+  "created_at": "2026-08-08T13:55:45Z",
+  "created_by": "agent"
+}

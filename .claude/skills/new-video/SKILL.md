@@ -40,6 +40,21 @@ instead (metadata-only, no per-video kickoff yet).
 
 ## Procedure (single video)
 
+0. **Source language** — ask via `AskUserQuestion` (single-select) *before* the translate-set
+   question, so the answer can inform it. Read the live preset list from
+   `.claude/config/company.default.json → defaults.source_languages_expected` (currently
+   `fa, ar, ur`) and build one option per code plus:
+   - **Type something** — free text; accept a single ISO code or language name (e.g. "farsi" →
+     `fa`).
+   - **Not sure — confirm later** — skip `--source-language` entirely; defer confirmation to
+     `LANGUAGE_ID` via the `detect-language` skill, exactly like today.
+
+   If the operator picked a language, it's passed straight to `project init --source-language
+   <code>` (step 3) — this pre-fills `state.source_language` via the same `langid set` path
+   normally run at LANGUAGE_ID (convenience only; a human can still revise it later there if the
+   guess is wrong for this particular video). If "Not sure" was picked, `source_language` stays
+   `null` after init exactly as before.
+
 1. **Translate set** — ask via `AskUserQuestion` (single-select, 4 preset options) which languages
    to translate to. Read the live company lists from
    `.claude/config/company.default.json → defaults.target_languages` (currently
@@ -52,12 +67,13 @@ instead (metadata-only, no per-video kickoff yet).
      plus Russian"). Parse to ISO codes.
 
    For the **All Languages** and **Main Languages** presets, drop the source language from the
-   resulting set once `source_language` is known — the source track is never translated (rule 7),
-   so listing it as a translate target is meaningless; it still gets verbatim captions
-   automatically via `skip_translation`. If the source language isn't confirmed yet (this runs
-   before `LANGUAGE_ID`), keep the preset as-is and let `langid set` mark `skip_translation` on
-   whichever track turns out to be the source. Always keep `en` in the resulting set (the
-   human-reviewed hero track) unless the operator explicitly types something that excludes it.
+   resulting set — the source track is never translated (rule 7), so listing it as a translate
+   target is meaningless; it still gets verbatim captions automatically via `skip_translation`.
+   Step 0 usually already answers this before this step runs; if the operator picked "Not sure"
+   in step 0, keep the preset as-is and let `langid set` mark `skip_translation` later at
+   LANGUAGE_ID on whichever track turns out to be the source. Always keep `en` in the resulting
+   set (the human-reviewed hero track) unless the operator explicitly types something that
+   excludes it.
 
 2. **Dub subset** — ask via `AskUserQuestion` (single-select, 4 preset options) which of the chosen translate languages should also be **dubbed** (audio). Read the live company lists from
    `.claude/config/company.default.json → defaults.audio_languages` (currently
@@ -121,8 +137,12 @@ instead (metadata-only, no per-video kickoff yet).
      `--speeds en=1.25,ur=1.25` (only languages that change; omit the flag entirely for all-1x).
 
 3. **Init**: `vid_cli.py project init <id> --url <url> --targets <t1,t2,…> --audio <d1,d2,…>
---dub-voice-gender <male|female> --mux-mode <mode> [--glossary <id>] [--no-clone]
+--dub-voice-gender <male|female> --mux-mode <mode> [--source-language <code>]
+[--source-voice-gender <male|female>] [--glossary <id>] [--no-clone]
 [--images <lang=path,…>] [--speeds <lang=factor,…>]`.
+   - Pass `--source-language <code>` when step 0 got a real answer (omit entirely if the operator
+     picked "Not sure — confirm later"). Pass `--source-voice-gender` alongside it only if that was
+     also captured; it's meaningless without `--source-language`.
    - Pass `--no-clone` iff the operator chose **Neutral voice** in step 2.5; otherwise cloning is on
      by company default and consent + rights are auto-recorded at init (report this to the operator).
    - Omit `--dub-voice-gender` to accept the male default. Omit `--glossary` for no glossary.
@@ -167,6 +187,9 @@ Operators phrase onboarding in prose; map it to the sanctioned verbs:
 
 Single video: the project exists with the confirmed translate/dub sets, dub voice gender (default
 male), mux mode, and glossary; when cloning is on (default) the rights record carries consent +
-the chosen `rights_status`; and (flag permitting) the project rests at `LANGUAGE_ID` with source
-media cataloged. Playlist: every video is indexed under the playlist with a derived `next_command`;
-no media was downloaded and no project was initialized.
+the chosen `rights_status`; source language is pre-filled from step 0 if the operator gave one
+(still revisable later at `LANGUAGE_ID` via `detect-language`/`langid set`, otherwise it stays
+unset and LANGUAGE_ID remains the point of confirmation exactly as before); and (flag permitting)
+the project rests at `LANGUAGE_ID` with source media cataloged. Playlist: every video is indexed
+under the playlist with a derived `next_command`; no media was downloaded and no project was
+initialized.

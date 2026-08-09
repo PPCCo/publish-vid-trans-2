@@ -84,7 +84,17 @@ These govern *how you work*, not just what the pipeline does:
 7. **The source language is never translated.** If `source_language` is confirmed and also
    appears in `target_languages`, that language **skips the TRANSLATION stage** — a source→source
    translation is pointless. Verbatim source-language captions are still produced (target_text ==
-   source_text), so the track still has captions/dubbing/packaging deliverables. Enforced in code:
+   source_text), so the track still has captions/dubbing/packaging deliverables.
+
+   **Source language can be pre-filled at init (convenience, not a gate removal).**
+   `project init --source-language <code> [--source-voice-gender <g>]` runs the exact same
+   `langid.set_language()` path normally invoked at `LANGUAGE_ID`, right after init — the
+   `/kickoff` and `/new-video` onboarding flows ask for it up front (via `AskUserQuestion` in
+   `/new-video`; a pinned SETTINGS value in `/kickoff`) instead of deferring the question. It's
+   opt-in: omitting the flag reproduces today's exact behavior (`source_language: null`).
+   `LANGUAGE_ID` remains the human checkpoint — a human can still correct it later via
+   `detect-language`/`langid set` if the guess was wrong for a particular video; `langid set`
+   simply overwrites the pre-filled value. Enforced in code:
    `langid set` marks the track `skip_translation: true`; `translate export` writes the verbatim
    caption doc instead of an empty worksheet; the source track is excluded from the translation
    quorum and the `translation_qa` gate. Human QA on that track is caption/editorial only, not
@@ -118,6 +128,22 @@ These govern *how you work*, not just what the pipeline does:
     policy (not an outage). To run an ASR/TTS model, stage it through GitHub and reconstruct the HF
     cache offline — see the "Offline model when HuggingFace is blocked" recipe in
     `OPERATING-GUIDE.md` §6.
+
+    **Regenerating a hallucinating mlx-whisper transcript.** Default `transcript run` (even with its
+    built-in escalating retry ladder) can still land on a decode with repetition-hallucination loops
+    (the same short phrase/token repeating 20-40x consecutively) and/or long cues that merge real
+    speech across a silent/blank stretch. `transcript run --no-condition-on-previous-text` is the
+    primary defense against the repetition loops (verified: it eliminated all repeat-runs on a
+    re-transcribe that previously had three separate 20-39x loops); pair it with
+    `--hallucination-silence-threshold <seconds>` to reduce (not eliminate) merge-over-silence cues —
+    it trades cue count for merge count, so expect fewer, longer cues rather than zero long cues; the
+    `transcript-qa` gate treats long-span cues as informational "granularity" notes, not blockers, so
+    this trade is fine. To regenerate: the project must be back at `TRANSCRIPTION` state first —
+    `project reset <id> --drop-transcript --actor human` (rewinds to `LANGUAGE_ID`, keeps `source/`
+    media), then `project transition <id> --to TRANSCRIPTION --actor agent` (no gate — source language
+    was already confirmed), then the flagged `transcript run --advance`. This is a *plain rerun*, not
+    a gated transition — no human confirmation needed to regenerate a not-yet-approved transcript; the
+    gate re-fires only when this reaches `TRANSCRIPT_QA_GATE` again for human review.
 11. **English review-gloss at `TRANSCRIPT_QA_GATE`.** At the transcript gate an English gloss of
     the source speech is always produced (`transcript english-export` → fill → `transcript
     english-import` → `transcript/english-gloss.json`) and put through an AI context/word-sense pass
@@ -266,6 +292,39 @@ These govern *how you work*, not just what the pipeline does:
     list (e.g. `en=1.25,ur=1.25`); a language absent from the map keeps the default (source video /
     1.0x). The `/new-video` interview captures both in natural language and parses them to these
     flags.
+
+16. **The TRANSLATION stage ALWAYS fans out in parallel when ≥2 tracks need filling — this is
+    standing behavior, never an opt-in.** The per-cue worksheet fill is the token-heavy,
+    embarrassingly-parallel part of the pipeline, and each language track is independent. So at
+    `TRANSLATION`, whenever **two or more** language tracks still need their `target_text` filled,
+    you MUST drive it with a `Workflow` — **one agent per language, run concurrently** — rather
+    than filling worksheets inline one after another. Do **not** ask the human whether to
+    parallelize and do **not** weigh it as a choice; reach for the workflow first. The only
+    inline case is exactly **one** unfilled track (a one-agent fan-out is pure overhead) — there
+    the rule 11 bounded-batch idiom still applies.
+    **Which tracks join the fan-out.** `en` (the human-reviewed track) **is included** as a
+    fan-out agent on `@bedrock-eus2/us.anthropic.claude-opus-4-8` / `high` (its render is
+    high-stakes and it's the one that later stops at the human gate); it still **STOPS at the
+    per-language `translation_qa` human gate** after import — the fan-out produces the draft, it
+    never crosses the gate (rules 2/13 hold). Every `auto_translate` target joins too
+    (Opus/high for editorial-religious/political sources like tafsir/sermons/political speech,
+    else Sonnet/high for ordinary volume; no human gate). The `skip_translation` source track
+    never joins (verbatim, no worksheet).
+    **Canonical pattern.** (a) `translate export` every worksheet first so cue ids/timing exist;
+    (b) build one compact shared **pivot** the agents render from — for a tafsir/Quran video that
+    is `{cue: {source, en_gloss, en_with_verses}}` so every language renders the same meaning +
+    the same canonical verse set (Arabic script + translation only, no transliteration in either
+    captions or audio for any language except `ar`'s own narration + numeric surah:ayah citation,
+    rule 11 / the verse-and-notes policy), written to a scratch path; (c) `parallel(langs.map(...))` with one
+    `agent()` per language, each given a `schema` that forces a validated
+    `{cues:[{id,target_text}]}` return — the agent reads the pivot, renders **all** cues, returns
+    the map; (d) back in the main thread, merge each returned map into
+    `captions/<iso>.worksheet.json` by cue id with a throwaway merge-by-id helper (scaffolding,
+    deleted after), then `translate import` each track through the normal CLI chokepoint. Timing
+    is the contract: never change `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues.
+    The worksheet is a fill-in artifact the fan-out only *fills*; the CLI still *imports* it
+    (rule 1), auto-split (rule 12) and the deterministic `translation-qa`+`glossary` QA still run
+    unchanged. This is the standing procedure in the `create-closed-captions` translation stage.
 
     **Standalone helper verbs (no project needed):**
     - `vid_cli.py size w 1042` / `size h 583` — from one axis, compute the full 16:9 (or

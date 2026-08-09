@@ -107,7 +107,10 @@ def test_per_language_approval_binding(repo: Path):
 
 def test_rights_gate_blocks_packaging(repo: Path):
     _mkproject(repo)
-    # Rights unreviewed by default → PACKAGE->READY_FOR_REVIEW blocked.
+    # Company policy auto-records distributable rights at init (rule-5 override: clone-on +
+    # auto_consent_at_init). Explicitly put rights in a non-distributable state so this test
+    # exercises the blocked path it is asserting — the gate must block while not distributable.
+    rights.set_rights(repo, "yt-testvideo01", status="do-not-distribute", reviewer="jane")
     blockers = state.transition_blockers(repo, "yt-testvideo01", "PACKAGE", "READY_FOR_REVIEW")
     assert any("rights_status" in b for b in blockers)
     rights.set_rights(repo, "yt-testvideo01", status="licensed", reviewer="jane")

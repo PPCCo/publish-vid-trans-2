@@ -194,7 +194,13 @@ def _transcribe_mlx(
         )
     produced = sorted(out_dir.glob(f"{audio.stem}*.json"))
     if not produced:
-        raise VideoTranslationHouseError("mlx_whisper produced no JSON output")
+        # mlx_whisper can exit 0 yet write nothing — e.g. it caught a model-download failure
+        # (blocked HuggingFace fetch → LocalEntryNotFoundError) and printed "Skipping … due to
+        # …" to stdout before quitting. Surface that tail so the real cause is visible instead
+        # of a bare "no JSON output". (Mirrors media.py showing the ffmpeg stderr tail.)
+        tail = ((result.stdout or "") + (result.stderr or "")).strip()[-500:]
+        detail = f": {tail}" if tail else ""
+        raise VideoTranslationHouseError(f"mlx_whisper produced no JSON output{detail}")
     return json.loads(produced[-1].read_text(encoding="utf-8"))
 
 

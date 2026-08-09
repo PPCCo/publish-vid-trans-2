@@ -114,11 +114,16 @@ def _render_title(template_ctx: dict[str, Any], language: str) -> str:
     return f"{base} [{language}]" if base else language
 
 
-def _render_description(template_ctx: dict[str, Any], chapters_block: str) -> str:
+def _render_description(
+    template_ctx: dict[str, Any], chapters_block: str, notes: str | None = None,
+) -> str:
     parts: list[str] = []
-    summary = template_ctx.get("summary")
-    if summary:
-        parts.append(summary)
+    # A per-language notes doc (distribution/notes/<lang>.txt), when present, is the authoritative
+    # description body for that language edition (its own summary + cited verses + tafsir). It
+    # supersedes the single shared distribution.summary; fall back to summary when absent.
+    body = (notes or "").strip() or template_ctx.get("summary")
+    if body:
+        parts.append(body)
     src_url = template_ctx.get("source_url")
     if src_url:
         parts.append(f"Source: {src_url}")
@@ -224,7 +229,14 @@ def run_platform_packaging(
                              "summary": f"[{lang}] no channel resolved for language; upload "
                                         f"target cannot be authorized.", "language": lang})
         title = _render_title(template_ctx, lang)
-        description = _render_description(template_ctx, chapters_block)
+        notes_path = paths.notes_file(lang)
+        notes_text = notes_path.read_text(encoding="utf-8") if notes_path.is_file() else None
+        if not notes_text:
+            findings.append({"severity": "minor", "category": "package-no-notes",
+                             "summary": f"[{lang}] no per-language notes doc "
+                                        f"(distribution/notes/{lang}.txt); using shared summary.",
+                             "language": lang})
+        description = _render_description(template_ctx, chapters_block, notes_text)
         caption_paths = []
         for fmt in ("srt", "vtt"):
             cap = paths.captions_dir / f"captions.{lang}.{fmt}"

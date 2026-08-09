@@ -1,0 +1,116 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "current_state": "DUBBING",
+  "previous_state": "CAPTION_VALIDATION",
+  "created_at": "2026-08-08T06:06:29Z",
+  "created_by": "human",
+  "updated_at": "2026-08-08T23:35:27Z",
+  "updated_by": "agent",
+  "source_language": "fa",
+  "target_languages": [
+    "en",
+    "ur",
+    "ar",
+    "zh",
+    "fr",
+    "es",
+    "pt",
+    "ru"
+  ],
+  "language_tracks": {
+    "en": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:36Z",
+      "notes": "captions rendered"
+    },
+    "ur": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:49Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "ar": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:49Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "zh": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:50Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "fr": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:50Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "es": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:50Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "pt": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:50Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    },
+    "ru": {
+      "stage": "CAPTION_VALIDATION",
+      "status": "in_progress",
+      "dub_enabled": true,
+      "updated_at": "2026-08-08T23:31:51Z",
+      "auto_translate": true,
+      "notes": "captions rendered"
+    }
+  },
+  "active_artifacts": {
+    "source-video": "sha256:94917d2322d7a4e3e6bafe0ff8efe2d090d5f57c02e8bec97cfc0e60d351b259",
+    "source-audio": "sha256:07d85e39ec82f2cc537f44aab582f03abdb06a711699af44b2d91f588d5ae27d",
+    "transcript@fa": "sha256:8dc23b020b73bb90a020beef857f990631300e5e51bd8c592f66c71c252541de",
+    "captions-json@en": "sha256:5115f1e4110dae15a634437fcf0c29defaa2cfbb1b35855ee630fad5238ea65f",
+    "captions-json@ur": "sha256:d350c8bc93def0016e45b7a0b47a43a0ff20a68a22a0d26d195bffe872321546",
+    "captions-json@ar": "sha256:e31c67ebb166ea9a610cee6babc1fba99c0b5ef1ba7bbddea8d447710f3887d4",
+    "captions-json@zh": "sha256:f7601dcdfa107a60ecbeb0412414f4f7b0655f981e2b74999cdb817f62775258",
+    "captions-json@fr": "sha256:58b5600aa9440f5eba08e27aa911fc57e1f1ff734bbca4cddde0c7e3fb452f03",
+    "captions-json@es": "sha256:a2fc67fbe2b222cf30109160a0d15fa867f978fd8e529bec58470b74c0b1f530",
+    "captions-json@pt": "sha256:fab563ab36f59ccdf2ebcba2216eb7700fb09221cb6e8086dbc794a8a1c95151",
+    "captions-json@ru": "sha256:91d5d79c26351369b94c320b23ef1121bbb4dba06a769a8d9420b25ad72f3584",
+    "captions-srt@en": "sha256:de55f318101011b3550701a2bf42f5663cbbb736f429eabf97ee66d76404eb7c",
+    "captions-vtt@en": "sha256:7b794d38bff0976080b8839ada5ff24833c3bee134de45ce0c8dbe1b4a5a9be8",
+    "captions-srt@ur": "sha256:f1207fe65ad32a6300791a14cf4005a8e34432b838f6fb194696fda4d2577a41",
+    "captions-vtt@ur": "sha256:7925cc24028c29fd80762fafc68c360554766278774afde17cee5a5d3c5d9df1",
+    "captions-srt@ar": "sha256:58f40d0bab227e30eaa53ef8e5180afda9858076ace4fd7797ede1a6fc735eac",
+    "captions-vtt@ar": "sha256:bf0ca21d15e0fc4abfd6c1767303e8195397ea73765e9addf43e6f517e581681",
+    "captions-srt@zh": "sha256:476417bbbb60401506c5d89f8607cdda4b82a0892214dd7c3d16b288e3a28dc5",
+    "captions-vtt@zh": "sha256:d0210e2a632080fe3bd9017e83a501dde518177eab802d2343c92f8975494be7",
+    "captions-srt@fr": "sha256:e473d4522c5705be9664465266fe1850e8f85725d4b7cf67ff41bb82eaa88ee5",
+    "captions-vtt@fr": "sha256:07b1a91f40851d079488f8dc78f2128404c4001d793c61b1955ba4c36bf312ae",
+    "captions-srt@es": "sha256:8ed674930d4c7c89e2b05e5683d48e225202c2bba5bd7f289ff7483507425bc1",
+    "captions-vtt@es": "sha256:eab7a138fff229b6b47a1c29c371fee58caba598a800e1e0f93eec6e0a16d86b",
+    "captions-srt@pt": "sha256:04b39f5181f9cb72aab43fa0a35d0d42b90682d81623009c9dfc6d9bdae12d72",
+    "captions-vtt@pt": "sha256:10b56e19c52e6e0aab6d00b3b25e7bf15f4ea56c04e7afcc6cd3eb4718f4f552",
+    "captions-srt@ru": "sha256:82dc971f0d5bb75372a39278853ece511175b47bc7fe5293e07a634e68bb9ddc",
+    "captions-vtt@ru": "sha256:0604cfd3b6b280389d175df0c17ef2a9f70adca110c644f4a64aa79421446091"
+  },
+  "blocked_reasons": []
+}

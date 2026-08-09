@@ -31,7 +31,8 @@
         "width": { "type": ["integer", "null"] },
         "height": { "type": ["integer", "null"] },
         "codec": { "type": ["string", "null"] },
-        "fps": { "type": ["number", "null"] }
+        "fps": { "type": ["number", "null"] },
+        "pix_fmt": { "type": ["string", "null"] }
       }
     },
     "audio": {

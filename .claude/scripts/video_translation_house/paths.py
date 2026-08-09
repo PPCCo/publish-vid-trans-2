@@ -118,6 +118,15 @@ class ProjectPaths:
         content-addressed artifacts registered through the CLI like every other deliverable."""
         return self.directory / "distribution"
 
+    def notes_file(self, language: str) -> Path:
+        """Per-language YouTube upload-description doc (plain text, human/AI-authored).
+
+        When present, this is the authoritative description for that language edition —
+        `_render_description` uses it verbatim (prepended before source/chapters) instead of the
+        single shared `distribution.summary`. Lets each language carry its own summary + cited
+        verses + tafsir. A distribution deliverable, not CLI-owned state."""
+        return self.directory / "distribution" / "notes" / f"{language}.txt"
+
     @property
     def platform_package_manifest(self) -> Path:
         return self.directory / "distribution" / "platform-package.json"

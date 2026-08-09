@@ -22,6 +22,7 @@ workflow_states.json.gate_reports (the Phase-2 rule transition_blockers relies o
 """
 from __future__ import annotations
 
+import re
 import tempfile
 from pathlib import Path
 from typing import Any
@@ -154,6 +155,36 @@ def _natural_pause_before(cues: list[dict[str, Any]], idx: int, gap_ms: int = 70
     return (cues[idx]["start_ms"] - prev["end_ms"]) >= gap_ms
 
 
+def _lead_silence_ms(cues: list[dict[str, Any]], idx: int, timeline_ms: int, *,
+                      is_still_image: bool) -> int:
+    """How much silence (if any) to insert before cue ``idx`` on the running dub timeline.
+
+    Non-still-image tracks always wait for the cue's nominal caption start (the freeze plan
+    absorbs any resulting slot mismatch on the picture side later): ``lead = start_ms -
+    timeline_ms``, i.e. re-anchored to the ABSOLUTE caption schedule.
+
+    Still-image tracks (rule 15) get no freeze plan — a static frame can't desync — so
+    re-anchoring to the absolute caption schedule is wrong: once earlier cues have overrun their
+    slots (very common — translated speech rarely matches the source's per-cue pacing), the
+    caption schedule and the audio timeline have already diverged, and "waiting" for the next
+    absolute timestamp reinserts that ENTIRE accumulated divergence as one silence block (seen
+    live: an 860ms real source pause reinserting ~165s of dead air because prior cues had drifted
+    that far behind). So for still-image tracks the timeline never re-anchors to `start_ms` at
+    all — only the RELATIVE gap to the immediately preceding cue matters: play back-to-back
+    (``_natural_pause_before`` false) or insert exactly that cue-to-cue pause's own duration
+    (true), never the absolute lead.
+    """
+    if not is_still_image:
+        return max(0, cues[idx]["start_ms"] - timeline_ms)
+    if idx == 0:
+        return max(0, cues[idx]["start_ms"] - timeline_ms)
+    prev = cues[idx - 1]
+    pause = cues[idx]["start_ms"] - prev["end_ms"]
+    if pause >= 700:
+        return pause
+    return 0
+
+
 def _plan_freezes(
     cue_measures: list[dict[str, Any]],
     bars: dict[str, Any],
@@ -263,6 +294,18 @@ def _source_video_duration_ms(paths: ProjectPaths) -> int | None:
     return None
 
 
+def _still_image_for(cfg: dict[str, Any], language: str) -> str | None:
+    """The per-language still-image path from project.yaml, or None (keep source video).
+
+    Duplicated intentionally from packaging (which imports this module — importing it back would
+    cycle); it's a trivial config read and both must agree on the same rule-15 semantics: a
+    language present in `images` shows a fixed frame, so it gets no freeze plan and no drift."""
+    img = (cfg.get("images") or {}).get(language)
+    return img or None
+
+
+
+
 # --- 1. render a dub ---------------------------------------------------------
 
 def run_dub(
@@ -352,6 +395,11 @@ def run_dub(
         provider = provider or picked["provider"]
         model = picked["model"]
 
+    # Resolved early (not just at freeze-plan time below) because it changes how lead-silence is
+    # placed in the synthesis loop right below.
+    still_image_path = _still_image_for(load_yaml(paths.config) or {}, language)
+    is_still_image = still_image_path is not None
+
     parts: list[Path] = []
     cue_measures: list[dict[str, Any]] = []
     with tempfile.TemporaryDirectory(prefix=f"dub-{language}-") as tmp:
@@ -359,8 +407,9 @@ def run_dub(
         timeline_ms = 0
         for i, cue in enumerate(cues):
             slot_ms = max(1, cue["end_ms"] - cue["start_ms"])
-            # Lead silence up to this cue's start (keeps cues time-anchored).
-            lead = cue["start_ms"] - timeline_ms
+            # Lead silence up to this cue's start (keeps cues time-anchored) — see
+            # `_lead_silence_ms` for the still-image exception (rule 15).
+            lead = _lead_silence_ms(cues, i, timeline_ms, is_still_image=is_still_image)
             if lead > 0:
                 gap = tmpdir / f"gap-{i}.wav"
                 media_mod.silent_wav(gap, duration_ms=lead, sample_rate=sr, channels=ch)
@@ -368,11 +417,17 @@ def run_dub(
                 timeline_ms += lead
 
             raw = tmpdir / f"cue-{i}.raw.wav"
-            tts_mod.synthesize_cue(
-                cue["target_text"], raw, provider=provider, language=language,
-                model=model, voice=voice, clone_ref=clone_ref, root=root,
-                project_id=project_id,
-            )
+            if cue["target_text"].strip():
+                tts_mod.synthesize_cue(
+                    cue["target_text"], raw, provider=provider, language=language,
+                    model=model, voice=voice, clone_ref=clone_ref, root=root,
+                    project_id=project_id,
+                )
+            else:
+                # An empty/whitespace-only cue -- no TTS engine call, since feeding piper empty
+                # stdin is unverified behavior. Synthesize silence directly instead of a
+                # zero-length gap so downstream duration math stays sane.
+                media_mod.silent_wav(raw, duration_ms=1, sample_rate=sr, channels=ch)
             natural_ms = media_mod.audio_duration_ms(raw)
             # No tempo change — normalize format only so the back-to-back concat is uniform.
             # stretch_factor is recorded for reporting (how far the natural length is from the
@@ -410,22 +465,34 @@ def run_dub(
     # natural speed now (rule 5 / TASK 2), the picture MUST absorb 100% of every slot mismatch,
     # so the plan is ALWAYS computed (no opt-in flag gate). Languages in freeze_trim_languages
     # use Model A (freeze + trim → residual 0); the rest use Model B (hold only, honest residual).
-    # A still-image language needs no plan (a static frame can't desync) — packaging skips it.
+    #
+    # EXCEPTION — a still-image language needs NO freeze plan (rule 15): its picture at mux is a
+    # single fixed frame stretched over the WHOLE dub, so audio-vs-picture drift is structurally
+    # zero (a static frame can't desync). `package mux` already ignores the plan for these langs
+    # (packaging._active_freeze_plan short-circuits on a configured image), so a plan built here
+    # is not only unused — its hold-only residual would surface phantom `over_tolerance` drifts in
+    # the sync report and FAIL `dub qa` for a scenario that cannot desync. So we skip planning and
+    # tell the sync report this track is still-image (drift not measured against a moving picture).
+    still_image = still_image_path
     trim_mode = language in bars["freeze_trim_languages"]
-    # Tail reconciliation needs the source-picture length (the same duration the mux rebuilds
-    # against) so the retimed picture ends exactly where the dub audio ends. Resolve the source
-    # video the same way packaging does; if it's absent (e.g. source media pruned) fall back to
-    # None — the plan then only aligns cue boundaries, no tail entry.
-    source_duration_ms = _source_video_duration_ms(paths)
-    freeze_plan = _plan_freezes(cue_measures, bars, trim=trim_mode,
-                                source_duration_ms=source_duration_ms)
-    freeze_plan_rel: str | None = None
-    if freeze_plan is not None:
-        freeze_plan_rel = _write_freeze_plan(
-            root, project_id, language, freeze_plan, bars, trim_mode=trim_mode,
-            dub_sha256=artifact["sha256"], actor=actor,
-            source_artifact_id=artifact["artifact_id"],
-        )
+    if still_image is not None:
+        freeze_plan = None
+        freeze_plan_rel: str | None = None
+    else:
+        # Tail reconciliation needs the source-picture length (the same duration the mux rebuilds
+        # against) so the retimed picture ends exactly where the dub audio ends. Resolve the source
+        # video the same way packaging does; if it's absent (e.g. source media pruned) fall back to
+        # None — the plan then only aligns cue boundaries, no tail entry.
+        source_duration_ms = _source_video_duration_ms(paths)
+        freeze_plan = _plan_freezes(cue_measures, bars, trim=trim_mode,
+                                    source_duration_ms=source_duration_ms)
+        freeze_plan_rel = None
+        if freeze_plan is not None:
+            freeze_plan_rel = _write_freeze_plan(
+                root, project_id, language, freeze_plan, bars, trim_mode=trim_mode,
+                dub_sha256=artifact["sha256"], actor=actor,
+                source_artifact_id=artifact["artifact_id"],
+            )
     provider_used = provider or _resolved_provider_label(root, language)
     voice_source = (
         "company.dubbing.voices" if resolved_gender is not None
@@ -435,6 +502,7 @@ def run_dub(
         root, project_id, language, cue_measures, bars,
         provider=provider_used, model=model, dub_sha256=artifact["sha256"], actor=actor,
         freeze_plan=freeze_plan, voice_gender=resolved_gender, voice_source=voice_source,
+        still_image=still_image is not None,
     )
     _set_track(root, project_id, language, stage=TRACK_STAGE_DUBBED,
                status="in_progress", actor=actor, notes="dub rendered; sync measured")
@@ -572,6 +640,7 @@ def _build_sync_report(
     freeze_plan: dict[str, list[dict[str, Any]]] | None = None,
     voice_gender: str | None = None,
     voice_source: str | None = None,
+    still_image: bool = False,
 ) -> dict[str, Any]:
     """Merge one language's cue measures into audio/sync-report.json and register it.
 
@@ -614,7 +683,15 @@ def _build_sync_report(
     for i, m in enumerate(cue_measures):
         freeze_planned = m["id"] in frozen_ms_by_cue
         trim_planned = m["id"] in trim_ms_by_cue
-        if freeze_mode:
+        if still_image:
+            # Still-image track (rule 15): the picture is one fixed frame stretched over the whole
+            # dub, so there is no moving picture for the audio to drift against — residual is 0 by
+            # construction. Report it honestly rather than measuring a phantom audio-vs-picture gap.
+            drift = 0
+            cumulative = 0
+            reset = False
+            is_over_cap = False
+        elif freeze_mode:
             # A freeze/trim on this cue is applied BEFORE it, shifting the picture; measure the
             # residual audio-vs-picture gap on the post-adjust timeline. No cumulative-reset game —
             # freezes/trims, not natural pauses, are what realign the picture here.
@@ -671,6 +748,7 @@ def _build_sync_report(
         "max_abs_drift_ms": int(max_abs),
         "cues_over_tolerance": over_tol,
         "cues_over_stretch_cap": over_cap,
+        "still_image": bool(still_image),
         "freeze_frame_enabled": bool(freeze_plan is not None),
         # Totals reflect the FULL plan including the tail entry (the picture-length reconciliation
         # the mux applies), even though the tail is excluded from the per-cue residual accounting

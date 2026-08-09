@@ -94,6 +94,32 @@ def test_langid_set_updates_state_and_catalog(repo: Path):
     assert catalog.get_entry(repo, "yt-vid00000001")["language"] == "fa"
 
 
+def test_source_language_prefill_at_init_matches_deferred_langid_set(repo: Path):
+    """`project init --source-language fa` (cli.py) is init_project() + an immediate
+    langid.set_language() call — prove that produces the same state as the existing
+    deferred two-call pattern (init now, `langid set` later at LANGUAGE_ID)."""
+    init_result = project.init_project(
+        root=repo, project_id="yt-vid00000002",
+        url="https://youtube.com/watch?v=vid00000002",
+        target_languages=["en", "fa"], audio_languages=["en", "fa"],
+    )
+    catalog.upsert_entry(repo, {"video_id": "yt-vid00000002", "url": "u"})
+    langid.set_language(
+        repo, "yt-vid00000002", "fa", source="manual",
+        source_voice_gender="female", actor="human",
+    )
+    st = project.project_status(repo, "yt-vid00000002")["state"]
+
+    assert st["source_language"] == "fa"
+    assert st["source_voice_gender"] == "female"
+    assert st["language_tracks"]["fa"]["skip_translation"] is True
+    assert "auto_translate" not in st["language_tracks"]["fa"]
+    assert catalog.get_entry(repo, "yt-vid00000002")["language"] == "fa"
+
+    # Omitting --source-language (the default) must reproduce today's exact behavior.
+    assert init_result["state"]["source_language"] is None
+
+
 def test_langid_detect_is_nonblocking(repo: Path):
     result = langid.detect_from_audio(repo, repo / "nope.wav")
     assert result["available"] is False
