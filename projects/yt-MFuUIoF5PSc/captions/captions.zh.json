@@ -17,7 +17,7 @@
       "start_ms": 0,
       "end_ms": 5500,
       "source_text": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم",
-      "target_text": "«أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ»（我求真主庇护，免受被诅咒的恶魔的侵扰；以至仁至慈的真主之名）。",
+      "target_text": "我求安拉庇护，免遭受诅咒的撒旦的侵扰；以安拉之名，至仁至慈的安拉。",
       "flags": [
         "editorial-religious"
       ]
@@ -27,194 +27,194 @@
       "start_ms": 38840,
       "end_ms": 45440,
       "source_text": "این سوره باید که زاهرن در مدینه نازر شد",
-      "target_text": "这章苏拉——据表面看——是在麦地那降示的。"
+      "target_text": "这章经文——据表面看——是在麦地那降示的。"
     },
     {
       "id": 2,
       "start_ms": 47000,
-      "end_ms": 53949,
+      "end_ms": 53934,
       "source_text": "سوگند به وسائل نظامی است که در دفاع از اسلام کار",
-      "target_text": "这是指在保卫伊斯兰中发挥作用的战马而起",
+      "target_text": "这是以那些在保卫伊斯兰中效",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 3,
-      "start_ms": 53949,
-      "end_ms": 60949,
+      "start_ms": 53934,
+      "end_ms": 60868,
       "source_text": "آمدن و سوگند به این وسائل نظامی به این اصفا در حا",
-      "target_text": "的誓；是对这些战马以其各种状态而起的誓：",
+      "target_text": "力的战马起誓——以这些战马",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 4,
-      "start_ms": 60949,
-      "end_ms": 67898,
+      "start_ms": 60868,
+      "end_ms": 67802,
       "source_text": "لتهای گناگون چه اون حالتی که نفس نفس زنون می دوند",
-      "target_text": "无论是它们喘息奔跑之时，还是它们的蹄铁",
+      "target_text": "在各种状态下起誓：无论是它",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 5,
-      "start_ms": 67898,
-      "end_ms": 74898,
+      "start_ms": 67802,
+      "end_ms": 74736,
       "source_text": "و چه اون حالتی که سوم اونا در اثر برخورد با سنگ",
-      "target_text": "与石头相击产生火花之时，还是那些能够突袭",
+      "target_text": "们喘息奔跑之时，还是它们的",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 6,
-      "start_ms": 74898,
-      "end_ms": 81847,
+      "start_ms": 74736,
+      "end_ms": 81670,
       "source_text": "جرقه تولید می کند و چه اون اصفای تندروی که قدرت",
-      "target_text": "进犯之敌、冲入敌阵的快马，它们在拂晓时",
+      "target_text": "马蹄撞击石块迸出火花之时，",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 7,
-      "start_ms": 81847,
-      "end_ms": 88847,
+      "start_ms": 81670,
+      "end_ms": 88604,
       "source_text": "قارت کردن دشمنان مهاجم را و حمله به شمیخون و اینه",
-      "target_text": "发起攻击，在战场上扬起尘土。这个誓言归结",
+      "target_text": "还是那些迅疾的战马突袭进犯",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 8,
-      "start_ms": 88847,
-      "end_ms": 95796,
+      "start_ms": 88604,
+      "end_ms": 95538,
       "source_text": "ا را البته در بامداد فراهم می کنن و گرد و غباری د",
-      "target_text": "到圣战者的吉哈德。至于骆驼和驮畜，它们",
+      "target_text": "之敌、冲入敌阵之时，在拂晓",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 9,
-      "start_ms": 95796,
-      "end_ms": 102796,
+      "start_ms": 95538,
+      "end_ms": 102472,
       "source_text": "ر میدان نبرد تولید میکنن این سوکت بازگشتش به جهاد",
-      "target_text": "是在奈哈勒苏拉中被提及的：«وَالْخ",
+      "target_text": "时分掀起战场上的尘土。这一",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 10,
-      "start_ms": 102796,
-      "end_ms": 109379,
+      "start_ms": 102472,
+      "end_ms": 109406,
       "source_text": "مجاهدان است و جنره عصب و سائر انعام و چارپاها بر",
-      "target_text": "َيْلَ وَالْبِغَالَ",
+      "target_text": "誓言归结到战士们的圣战。至",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 11,
-      "start_ms": 109379,
-      "end_ms": 116379,
+      "start_ms": 109406,
+      "end_ms": 116340,
       "source_text": "ای باربری سید از سوره بارکه نهل اوزاشون گذشت و ال",
-      "target_text": "وَالْحَمِيرَ لِتَرْك",
+      "target_text": "于骆驼和负重的牲畜，它们在",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 12,
-      "start_ms": 116379,
-      "end_ms": 123328,
+      "start_ms": 116340,
+      "end_ms": 123274,
       "source_text": "خیله و البقاله و همینه لترکبوها و اینها هم برای س",
-      "target_text": "َبُوهَا»（\"马、骡和驴，是让你",
+      "target_text": "奈哈勒章中被提及：'还有马",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 13,
-      "start_ms": 123328,
-      "end_ms": 130328,
+      "start_ms": 123274,
+      "end_ms": 130208,
       "source_text": "واری مسافران خال شدن هم برای حمل بار مسافران که د",
-      "target_text": "们骑乘的\"，奈哈勒 16:8）——那里是",
+      "target_text": "、骡、驴，供你们骑乘'（古",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 14,
-      "start_ms": 130328,
-      "end_ms": 137277,
+      "start_ms": 130208,
+      "end_ms": 137142,
       "source_text": "ر سوره بارک نهل اینها را به عنوان نعمتهای الهی یا",
-      "target_text": "作为神恩被提及，而不是作为起誓的对象。",
+      "target_text": "兰经16:8）——那里是作",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 15,
-      "start_ms": 137277,
-      "end_ms": 144277,
+      "start_ms": 137142,
+      "end_ms": 144076,
       "source_text": "د آور می شود نه به عنوان سوگند چین که در جریان گو",
-      "target_text": "同样，关于畜群，祂说：«وَلَكُمْ",
+      "target_text": "为主的恩典而被提及，并非作",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 16,
-      "start_ms": 144277,
-      "end_ms": 150860,
+      "start_ms": 144076,
+      "end_ms": 151010,
       "source_text": "زفند ها و امثالین ها هم فرمود به این که ویدکون ف",
-      "target_text": "فِيهَا جَمَالٌ حِي",
+      "target_text": "为起誓的对象。同样，关于牲",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 17,
-      "start_ms": 150860,
-      "end_ms": 157860,
+      "start_ms": 151010,
+      "end_ms": 157944,
       "source_text": "یاد جمال اون هین تریحون و هین تسرحون بامداد که به",
-      "target_text": "نَ تُرِيحُونَ وَحِين",
+      "target_text": "畜群，祂说：'你们把它们赶",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 18,
-      "start_ms": 157860,
-      "end_ms": 164809,
+      "start_ms": 157944,
+      "end_ms": 164878,
       "source_text": "شراگاه می روند شامگاه که از شراگاه بر می گردن ای",
-      "target_text": "َ تَسْرَحُونَ»（\"当你们",
+      "target_text": "回家和放出去放牧的时候，你",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 19,
-      "start_ms": 164809,
-      "end_ms": 171809,
+      "start_ms": 164878,
+      "end_ms": 171812,
       "source_text": "ن رمه ها هر مادر کدکش را هر کدکی مادرش را اشتباه",
-      "target_text": "把它们赶回和放出时，你们从中得到美感\"，",
+      "target_text": "们感到牲畜之美'（古兰经1",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 20,
-      "start_ms": 171809,
+      "start_ms": 171812,
       "end_ms": 178760,
       "source_text": "نمی کند به دنبال اون می روند این جمال دامداری است",
-      "target_text": "奈哈勒 16:6）——这是放牧的美感。",
+      "target_text": "6:6）——这是放牧的美。",
       "flags": [
         "editorial-religious"
       ]
@@ -222,319 +222,319 @@
     {
       "id": 21,
       "start_ms": 180740,
-      "end_ms": 187654,
+      "end_ms": 187493,
       "source_text": "قدرت باربری این خیل و بقال و همیر است که در اون سحن",
-      "target_text": "驮运的能力属于马、骡和驴，在那种场景中骡",
+      "target_text": "负重的能力属于马、",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 22,
-      "start_ms": 187654,
-      "end_ms": 194222,
+      "start_ms": 187493,
+      "end_ms": 194246,
       "source_text": "ه جریان همیر هم دخالت دارد جریان بقال هم دخالت دارد",
-      "target_text": "也有参与，驴也有参与；但在军事冲锋中，",
+      "target_text": "骡和驴，它们在运输",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 23,
-      "start_ms": 194222,
-      "end_ms": 201136,
+      "start_ms": 194246,
+      "end_ms": 200999,
       "source_text": "اما در تاخت و تازه نظامی نه همیر دخالت دارد و نه بق",
-      "target_text": "既没有驴参与，也没有骡参与，没有骡子，也",
+      "target_text": "中都有作用；但在军",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 24,
-      "start_ms": 201136,
-      "end_ms": 207704,
+      "start_ms": 200999,
+      "end_ms": 207752,
       "source_text": "ال نه قاطر دخالت دارد و نه حمار اون چه که با اون می",
-      "target_text": "没有驴子参与。能够用来作战和冲锋的是战",
+      "target_text": "事冲锋中，只有战马",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 25,
-      "start_ms": 207704,
-      "end_ms": 214618,
+      "start_ms": 207752,
+      "end_ms": 214752,
       "source_text": "توان مبارزه کرد و حمله کرد اصب است لذا بازگشتش در ح",
-      "target_text": "马。因此，这实际上归结到圣战者的吉哈德—",
+      "target_text": "参与——骡、驴、驴都",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 26,
-      "start_ms": 214618,
-      "end_ms": 221532,
+      "start_ms": 214752,
+      "end_ms": 221505,
       "source_text": "قیقت به جهاد مجاهدان است که سوگند به جهاد مجاهدانی",
-      "target_text": "—即对那些在战场上奔驰、喘息着发起冲锋的",
+      "target_text": "不参与。所以这誓言",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 27,
-      "start_ms": 221532,
-      "end_ms": 228100,
+      "start_ms": 221505,
+      "end_ms": 228258,
       "source_text": "که دوندگی دارن در میدان نبرد نفس نفس زنان حمله می ک",
-      "target_text": "圣战者而起的誓；由于他们奔驰的速度，那",
+      "target_text": "实际上归结到战士们",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 28,
-      "start_ms": 228100,
-      "end_ms": 235014,
+      "start_ms": 228258,
+      "end_ms": 235011,
       "source_text": "نند و اصفای اینها در اثر سرعت سیر اون سومشون که نعلی",
-      "target_text": "些钉着铁蹄的马蹄与石头相击，产生火花，产",
+      "target_text": "的圣战——那些在战",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 29,
-      "start_ms": 235014,
-      "end_ms": 241928,
+      "start_ms": 235011,
+      "end_ms": 241764,
       "source_text": "س و آهنیس به سنگ برخورد میکند و جرقیت حولید میکند ق",
-      "target_text": "生火光，你们借此在战场上点燃了真正的火；",
+      "target_text": "场上喘息奔跑的战士",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 30,
-      "start_ms": 241928,
-      "end_ms": 248496,
+      "start_ms": 241764,
+      "end_ms": 248517,
       "source_text": "دهیت حولید میکند که شما به وسیل این یک آتش روشن میک",
-      "target_text": "到了拂晓，你们的进攻便在早晨开始，而那",
+      "target_text": "，他们的铁蹄从石头",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 31,
-      "start_ms": 248496,
-      "end_ms": 255410,
+      "start_ms": 248517,
+      "end_ms": 255270,
       "source_text": "نید در حقیقت در میدان جنگ و بامداد که شد اون حمله ش",
-      "target_text": "些血、命、财皆由不义构成的不信者的被劫掠",
+      "target_text": "上迸出火花；当拂晓",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 32,
-      "start_ms": 255410,
-      "end_ms": 262324,
+      "start_ms": 255270,
+      "end_ms": 262270,
       "source_text": "ما در صبح شروع می شود و غارت کردن کفاری که خون و جا",
-      "target_text": "便随之发生。在这场冲锋、奔跑、喘息之中，",
+      "target_text": "来临，他们的进攻开始",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 33,
-      "start_ms": 262324,
-      "end_ms": 268892,
+      "start_ms": 262270,
+      "end_ms": 269023,
       "source_text": "ن و مالشون از حرام تشکیل شده است سورت می پذیرد و در",
-      "target_text": "骑者喘息，坐骑喘息，如此等等，扬起尘土",
+      "target_text": "，对不信者的掠夺随",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 34,
-      "start_ms": 268892,
-      "end_ms": 275806,
+      "start_ms": 269023,
+      "end_ms": 275776,
       "source_text": "این حمله کردن و دویدن و نفس نفس زدن راکب و نفس زدن",
-      "target_text": "，冲入敌军之中，深入其间，将他们制服。这",
+      "target_text": "之展开，冲入敌阵、",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 35,
-      "start_ms": 275806,
-      "end_ms": 282374,
+      "start_ms": 275776,
+      "end_ms": 282529,
       "source_text": "مرکب و امثالیدها نقعی و گرد و غباری به راه می انداز",
-      "target_text": "些誓言与吉哈德的问题相称。虽然也有传述",
+      "target_text": "击溃敌人时扬起尘土",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 36,
-      "start_ms": 282374,
-      "end_ms": 289288,
+      "start_ms": 282529,
+      "end_ms": 289282,
       "source_text": "ن و به وسط جمعیت دشمن حمله می کنن و در وسط اینها حض",
-      "target_text": "说，运送麦加朝圣者行李——从麦加到阿拉法",
+      "target_text": "和喧嚣。尽管也有传",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 37,
-      "start_ms": 289288,
-      "end_ms": 296202,
+      "start_ms": 289282,
+      "end_ms": 296035,
       "source_text": "ور پیدا بکنند و اینها رو خلی صلاح بکنند این سوکندها",
-      "target_text": "特，再到穆什阿尔，再到米那，再从米那返回",
+      "target_text": "述——从伊本·阿巴",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 38,
-      "start_ms": 296202,
-      "end_ms": 302770,
+      "start_ms": 296035,
+      "end_ms": 302788,
       "source_text": "مناصب با مسئله جهاد است گرسه در باری شطرهایی که با",
-      "target_text": "麦加——的那些骆驼队，这段经文也被解释",
+      "target_text": "斯经塔巴里再到后来",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 39,
-      "start_ms": 302770,
-      "end_ms": 309684,
+      "start_ms": 302788,
+      "end_ms": 309541,
       "source_text": "ر مسافران مکه را از مکه تا عرفات و از اونجا تا مشعر",
-      "target_text": "为指它们；那是依据从伊本·阿巴斯传述、经",
+      "target_text": "扎马赫舍里的《揭示",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 40,
-      "start_ms": 309684,
-      "end_ms": 316252,
+      "start_ms": 309541,
+      "end_ms": 316294,
       "source_text": "و از مشعر تا منا و از منا در برگشت بمکه نقل و انتقا",
-      "target_text": "塔巴里传下、后来记载于扎马赫沙里《古兰",
+      "target_text": "经》——说这指的是",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 41,
-      "start_ms": 316252,
-      "end_ms": 323166,
+      "start_ms": 316294,
+      "end_ms": 323294,
       "source_text": "ل میدهند بر اونها هم نقل شده است اونجایی ابن عباس ب",
-      "target_text": "经注释》（al-Kashshaf）中的传",
+      "target_text": "驮负朝觐者行装、从麦",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 42,
-      "start_ms": 323166,
-      "end_ms": 330080,
+      "start_ms": 323294,
+      "end_ms": 330047,
       "source_text": "رابر نقل که از تبری شده به بعد در کشاف زمق شریف آمد",
-      "target_text": "述，这段经文也被如此解释；然而与经文本身",
+      "target_text": "加到阿拉法特、再到",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 43,
-      "start_ms": 330080,
-      "end_ms": 336648,
+      "start_ms": 330047,
+      "end_ms": 336800,
       "source_text": "ه بر اون هم نقل شده لیکن مناسبه با خود مثل این سوکن",
-      "target_text": "相称的，正是圣战者的吉哈德这一场景——",
+      "target_text": "穆什阿尔、再到米纳",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 44,
-      "start_ms": 336648,
-      "end_ms": 343562,
+      "start_ms": 336800,
+      "end_ms": 343553,
       "source_text": "دها همون جریان اصفهای مجاهدان است که داد اقدسی الاب",
-      "target_text": "他们为此而起誓；否则，就朝觐而言，那些疾",
+      "target_text": "、然后返回的那些驮",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 45,
-      "start_ms": 343562,
-      "end_ms": 350476,
+      "start_ms": 343553,
+      "end_ms": 350306,
       "source_text": "اینا سوکند یاد میکنند وگر نه در جریان حج اون شطرهای",
-      "target_text": "行、扬起尘土、发出火花般蹄声、行走在人群",
+      "target_text": "骆驼，但真正契合这",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 46,
-      "start_ms": 350476,
-      "end_ms": 357044,
+      "start_ms": 350306,
+      "end_ms": 357059,
       "source_text": "تند روی که گرد و خاک بکنند و موریات غط باشند و وسط",
-      "target_text": "中的骆驼队并不存在于此。关于朝觐所说的",
+      "target_text": "一誓言的是战士们的",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 47,
-      "start_ms": 357044,
-      "end_ms": 363958,
+      "start_ms": 357059,
+      "end_ms": 363812,
       "source_text": "جمعه اینا نیست در باره حج آمده است که زامرات شطرها",
-      "target_text": "是，那些瘦弱的骆驼队行走在幽深的山谷（法",
+      "target_text": "冲锋。在朝觐中，人",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 48,
-      "start_ms": 363958,
-      "end_ms": 370872,
+      "start_ms": 363812,
+      "end_ms": 370812,
       "source_text": "ی لاغری فج عمیق حرکت میکنند اونجا تهه در رست فج عمی",
-      "target_text": "吉·阿米克，fajj 'amiq）之中—",
+      "target_text": "们所说的是深谷（法吉",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 49,
-      "start_ms": 370872,
-      "end_ms": 377440,
+      "start_ms": 370812,
+      "end_ms": 377565,
       "source_text": "ق است اونجا شطرهای لاغر است از اونها سخن به میان بی",
-      "target_text": "—那里才是真正的幽深山谷所在，那里是瘦",
+      "target_text": "·阿米格）中的瘦弱",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 50,
-      "start_ms": 377440,
-      "end_ms": 384354,
+      "start_ms": 377565,
+      "end_ms": 384318,
       "source_text": "اید نه دوندگی دوندگی و سرعت سیر و ایجاد برغ کردن و س",
-      "target_text": "弱骆驼队所在，谈论的是它们，而不是奔跑、",
+      "target_text": "骆驼——不是这种奔",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 51,
-      "start_ms": 384354,
-      "end_ms": 390922,
+      "start_ms": 384318,
+      "end_ms": 391071,
       "source_text": "مه مرکبشون به سنگ خوردن و جرد و آتش جولید کردن و ای",
-      "target_text": "疾驰、产生火花、坐骑的蹄铁击石而生火，",
+      "target_text": "跑、速度和迸出火花",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 52,
-      "start_ms": 390922,
+      "start_ms": 391071,
       "end_ms": 397840,
       "source_text": "نا ما فج عمیق و زامرات و لاغرها و اینا همه های نیست",
-      "target_text": "这些都与幽深山谷、瘦弱骆驼队等毫无关系。",
+      "target_text": "，这些都与此无关。",
       "flags": [
         "editorial-religious"
       ]
@@ -542,29 +542,29 @@
     {
       "id": 53,
       "start_ms": 398700,
-      "end_ms": 405166,
+      "end_ms": 404975,
       "source_text": "گرچه در جریان حج و عمر و امثال زاله شطرهای قدرتمندی و توانم",
-      "target_text": "尽管在朝觐和小朝等场合，会有强壮有力的骆驼队从远方",
+      "target_text": "尽管在朝觐和小朝中，强壮有力的骆驼会从远",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 54,
-      "start_ms": 405166,
-      "end_ms": 411373,
+      "start_ms": 404975,
+      "end_ms": 411564,
       "source_text": "ندی از راه دور می آین ولی اونی که قرآن نقل کرده است بخشی ب",
-      "target_text": "而来，但《古兰经》所叙述的，一部分是指那些瘦弱的",
+      "target_text": "方而来，但古兰经所述的部分指的是朝觐用的瘦",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 55,
-      "start_ms": 411373,
+      "start_ms": 411564,
       "end_ms": 417840,
       "source_text": "ه زامرات و شطرهای لاغر بر می گردد بخشی به فجعمیق بر می گردد",
-      "target_text": "朝圣骆驼队，一部分是指幽深的山谷（法吉·阿米克）。",
+      "target_text": "弱骆驼，部分指的是深谷（法吉·阿米格）。",
       "flags": [
         "editorial-religious"
       ]
@@ -574,21 +574,21 @@
       "start_ms": 418760,
       "end_ms": 424735,
       "source_text": "علایی حالین اون که هست مرکبهایی که اول و غیر شطران باشد بلاخر",
-      "target_text": "无论如何，除朝圣骆驼之外的坐骑，最终不外乎幽"
+      "target_text": "无论如何，除朝觐骆驼之外的坐骑——归根到底，"
     },
     {
       "id": 57,
       "start_ms": 424735,
       "end_ms": 430440,
       "source_text": "ه من فجعمیق هست و زامر اما اونی که در سحن نبرده است این هاست.",
-      "target_text": "深山谷和朝圣骆驼；但在战场上的，则是战马。"
+      "target_text": "有深谷和朝觐骆驼；但在战场上的，则是战马。"
     },
     {
       "id": 58,
       "start_ms": 430540,
       "end_ms": 437420,
       "source_text": "غرص این است که این دوگور هر دو نر شده ولی مناسب با مسئله جهاد است که در مدینه صورت پذیرفت.",
-      "target_text": "重点在于，尽管两种画面都出现了，但与吉哈德的问题相称的，是发生在麦地那的那一场景。",
+      "target_text": "要点是，尽管两种画面都出现了，但契合圣战主题的，是发生在麦地那的那一种。",
       "flags": [
         "editorial-religious"
       ]
@@ -598,7 +598,7 @@
       "start_ms": 437780,
       "end_ms": 444300,
       "source_text": "و اون جهاد است که توانه است اسلام را مستقر کند.",
-      "target_text": "正是那场吉哈德，才使伊斯兰得以确立。",
+      "target_text": "正是那场圣战使伊斯兰得以确立。",
       "flags": [
         "editorial-religious"
       ]
@@ -608,184 +608,184 @@
       "start_ms": 444540,
       "end_ms": 451120,
       "source_text": "این الاسلام و یعروب لا یعلا علیه که جمعه خبری است به داوی انشاقل غاشده.",
-      "target_text": "«الْإِسْلَامُ يَعْلُو وَلَا يُعْلَى عَلَيْهِ»（\"伊斯兰是崇高的，没有什么能高于它\"）——这是一个以命令之意表达的陈述句。"
+      "target_text": "'伊斯兰是崇高的，没有任何事物能高于它'——这是一句表面是陈述句、实则带有命令意图而说出的话。"
     },
     {
       "id": 61,
       "start_ms": 451120,
-      "end_ms": 457847,
+      "end_ms": 457638,
       "source_text": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به ح",
-      "target_text": "这个«لِيُظْهِرَهُ عَلَى الدِّي",
+      "target_text": "这句'以使他使其（宗教）胜过",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 62,
-      "start_ms": 457847,
-      "end_ms": 464334,
+      "start_ms": 457638,
+      "end_ms": 464622,
       "source_text": "سب ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پ",
-      "target_text": "نِ كُلِّهِ»（\"以使它胜过一切宗教\"，见于讨",
+      "target_text": "一切宗教'（古兰经9:33；亦",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 63,
-      "start_ms": 464334,
-      "end_ms": 471061,
+      "start_ms": 464622,
+      "end_ms": 471140,
       "source_text": "ایانی سوره مبارکه بیان آمده است که مؤمنان و متقیان و مردان",
-      "target_text": "白 9:33、法特哈 48:28、萨夫 61:9）——表",
+      "target_text": "见48:28、61:9），表",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 64,
-      "start_ms": 471061,
-      "end_ms": 477788,
+      "start_ms": 471140,
+      "end_ms": 477658,
       "source_text": "الهی بهترین مردم روی زمینن یعنی بهترین تمدون برترین تمدون",
-      "target_text": "面上看是陈述，实际上是以立法之意表达的。而在拜伊纳章的结",
+      "target_text": "面上是陈述，实则带有履行性意",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 65,
-      "start_ms": 477788,
-      "end_ms": 484515,
+      "start_ms": 477658,
+      "end_ms": 484176,
       "source_text": "و رستترین تمدون علمیترین تمدون و مؤمنین است اینها درست است",
-      "target_text": "尾部分提到，信士、敬畏者、真主之人是大地上最好的人民，也",
+      "target_text": "图而说出。在拜伊纳章的结尾处",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 66,
-      "start_ms": 484515,
-      "end_ms": 491002,
+      "start_ms": 484176,
+      "end_ms": 491160,
       "source_text": "که به حسب زاهر جمله خبریه است اما به دایی انشاء القا شده ف",
-      "target_text": "就是最好的文明、最优越的文明、最正直的文明、最有学识的",
+      "target_text": "提到，信士和敬畏者是地上最好的",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 67,
-      "start_ms": 491002,
-      "end_ms": 497729,
+      "start_ms": 491160,
+      "end_ms": 497678,
       "source_text": "رمو که اینها خیر بریان برعین خلقه خدا بارعست یعنی خالقه است",
-      "target_text": "文明，即信士们——这在表面上确实是陈述句，但是以立法之意",
+      "target_text": "人——是最优秀、最正直、最有",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 68,
-      "start_ms": 497729,
-      "end_ms": 504456,
+      "start_ms": 497678,
+      "end_ms": 504196,
       "source_text": "ما یه بر داریم یعنی بیابان وسیع که ابرار کسانی نیستن که ک",
-      "target_text": "表达出来的。祂说，他们是«هُمْ خَيْرُ الْ",
+      "target_text": "学识的文明。祂说'他们是众生",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 69,
-      "start_ms": 504456,
-      "end_ms": 510943,
+      "start_ms": 504196,
+      "end_ms": 510714,
       "source_text": "ارهای خوب میکنن اون کسی که کار خوب میکند جز ابرار نیست اون",
-      "target_text": "بَرِيَّةِ»（\"他们是造化中最优秀的\"，拜伊纳",
+      "target_text": "中最好的'（古兰经98:7）",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 70,
-      "start_ms": 510943,
-      "end_ms": 517430,
+      "start_ms": 510714,
+      "end_ms": 517698,
       "source_text": "که دست و دلش مثل سهرهای وسیع باز است مثل بر است که محدود نی",
-      "target_text": "98:7）。行善者（阿布拉尔）并非仅仅是做好事的人；那",
+      "target_text": "。真正的善人（阿卜拉尔）并非仅",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 71,
-      "start_ms": 517430,
-      "end_ms": 524157,
+      "start_ms": 517698,
+      "end_ms": 524216,
       "source_text": "ست قلم رو به مشخصی ندارد او جز ابرار است وگه انه کسی که کا",
-      "target_text": "真正做好事的人才是阿布拉尔；那心胸如广阔沙漠般敞开、没有",
+      "target_text": "是行善者；有德之人（比尔）的",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 72,
-      "start_ms": 524157,
-      "end_ms": 530884,
+      "start_ms": 524216,
+      "end_ms": 530734,
       "source_text": "رهای خوب برای خودش میکند یا قوم خمیله خودش میکند او اهل بر",
-      "target_text": "边界、没有固定范围的人，才是阿布拉尔；否则，那只为自己或",
+      "target_text": "心胸如广袤的平原般开阔、无边",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 73,
-      "start_ms": 530884,
-      "end_ms": 537371,
+      "start_ms": 530734,
+      "end_ms": 537718,
       "source_text": "نیست او اهل بر نیست این بر باون رشه لغویش با بر است که بیا",
-      "target_text": "自己部族谋利益的人，不是行善之人，不是行善之人。这个\"",
+      "target_text": "无际——他说：'主啊，求你饶恕",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 74,
-      "start_ms": 537371,
-      "end_ms": 544098,
+      "start_ms": 537718,
+      "end_ms": 544236,
       "source_text": "بان وسیع و گسترزه را میگن و اون که اهل شرح صدر است اون که م",
-      "target_text": "بر\"（善）一词，其词根与\"بر\"（旷野）相同，意指广阔",
+      "target_text": "我，以及东方和西方所有信男信",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 75,
-      "start_ms": 544098,
-      "end_ms": 550825,
+      "start_ms": 544236,
+      "end_ms": 550754,
       "source_text": "یگوید اللهم مغفر لی و لمن فی مشارق الارضه و مغارب ها من ال",
-      "target_text": "辽远的荒原。那心胸开阔的人，说：\"主啊，求你饶恕我，以及",
+      "target_text": "女'，又说：'只要在我治下最",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 76,
-      "start_ms": 550825,
-      "end_ms": 557552,
+      "start_ms": 550754,
+      "end_ms": 557272,
       "source_text": "مؤمنین و المؤمنات اون که می گوید من سر به بالین بگذارم در د",
-      "target_text": "东方和西方所有的信男信女\"；那说\"我不能安然入睡，只因在",
+      "target_text": "远之处还有一个孤儿、一个饥饿",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 77,
-      "start_ms": 557552,
-      "end_ms": 564039,
+      "start_ms": 557272,
+      "end_ms": 564256,
       "source_text": "ورترین قلم را به حکومت من یک یتیمی باشد گرسنهی باشد مشلدار",
-      "target_text": "我治下最远之处还有一个孤儿、一个饥饿者、一个困苦者\"的",
+      "target_text": "者、一个困苦者，我便不能安然入",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 78,
-      "start_ms": 564039,
+      "start_ms": 564256,
       "end_ms": 570780,
       "source_text": "ی باشد بر من گوارانیست او اهل برست و بر این را بگم جد ابرار",
-      "target_text": "人，才是行善之人。这就是\"بر\"，我称之为阿布拉尔之祖。",
+      "target_text": "睡。'这样的人才是有德之人。",
       "flags": [
         "editorial-religious"
       ]
@@ -793,61 +793,61 @@
     {
       "id": 79,
       "start_ms": 571900,
-      "end_ms": 578032,
+      "end_ms": 577894,
       "source_text": "بریه یعنی مخلوق فهموت شما مسلمان ها بهترین مخلوقان عالمید",
-      "target_text": "「布里叶」（بريّة）意为「被造之物」，明白了吧？你们穆斯林"
+      "target_text": "'巴里叶'意为'被创造之物'，所以你们"
     },
     {
       "id": 80,
-      "start_ms": 578032,
-      "end_ms": 584164,
+      "start_ms": 577894,
+      "end_ms": 584204,
       "source_text": "خب این در صورتی که انسان با کفر و جهاز مبارزه کنه با استع",
-      "target_text": "是世上最好的被造之物——当然，这是在一个人与不信作斗争、与殖民"
+      "target_text": "穆斯林是世间最好的受造者——前提是一个人"
     },
     {
       "id": 81,
-      "start_ms": 584164,
-      "end_ms": 590296,
+      "start_ms": 584204,
+      "end_ms": 590198,
       "source_text": "مار مبارزه کنه با استعمار مبارزه کنه با استبدان مبارزه کن",
-      "target_text": "主义作斗争、与暴政作斗争的条件下，无论是用笔还是用行动的斗争。"
+      "target_text": "要与不信、殖民主义和暴政作斗争，无论是"
     },
     {
       "id": 82,
-      "start_ms": 590296,
-      "end_ms": 596428,
+      "start_ms": 590198,
+      "end_ms": 596192,
       "source_text": "ه اینا یا مبارزه قلمی یا قدمی این هاست این کنه جمله های خ",
-      "target_text": "这些陈述句是以立法之意表达的：«أَنْتُمْ خَيْرُ"
+      "target_text": "以笔还是以行动。这些陈述句是以履行性意"
     },
     {
       "id": 83,
-      "start_ms": 596428,
-      "end_ms": 602363,
+      "start_ms": 596192,
+      "end_ms": 602502,
       "source_text": "بریه به دایی انشاقل قاشده فبود چما خیر و بریه اصید این یه",
-      "target_text": "الْبَرِيَّةِ»（\"你们是造化中最优秀的\"）。它是"
+      "target_text": "图说出的：'你们是最好的创造。'它向听者"
     },
     {
       "id": 84,
-      "start_ms": 602363,
+      "start_ms": 602502,
       "end_ms": 608500,
       "source_text": "اصل کلی رو مخاطر زید کند بدون رحبری و اصرار و امر و ایجاب",
-      "target_text": "向听者传达一条普遍原则，而无需前言、无需强调、无需命令或强制。"
+      "target_text": "传达一条普遍原则，无需先行说明或命令。"
     },
     {
       "id": 85,
       "start_ms": 609560,
-      "end_ms": 615180,
+      "end_ms": 615269,
       "source_text": "بدون آدیات زب، موریات قدر، مغیران صبح، اثرن نقل",
-      "target_text": "没有«الْعَادِيَاتِ ضَبْحًا، وَالْمُورِيَاتِ قَدْحًا، فَالْمُغِيرَاتِ صُبْحًا، فَأَثَرْنَ بِهِ ن",
+      "target_text": "若没有'以喘息奔跑者、迸出火花者、拂晓突袭者、扬起烟尘者'（古兰",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 86,
-      "start_ms": 615180,
+      "start_ms": 615269,
       "end_ms": 620800,
       "source_text": "و زدبی جمع، بدون مبارزه، بدون جهاد یا با اینها.",
-      "target_text": "َقْعًا»（\"以喘息奔跑的战马盟誓，以蹄铁击石生火的战马盟誓，以拂晓突袭的战马盟誓，以由此扬起尘土的战马盟誓\"，阿迪雅特 100:1-4）——没有斗争，没有吉哈德——或者，有了它们。",
+      "target_text": "经100:1-4）为誓——没有斗争，没有圣战——或者有此斗争。",
       "flags": [
         "editorial-religious"
       ]
@@ -855,30 +855,30 @@
     {
       "id": 87,
       "start_ms": 621640,
-      "end_ms": 626200,
+      "end_ms": 626289,
       "source_text": "اگر با اینها شد میشه فیرول بریه بهترین تمدون مال",
-      "target_text": "如果与这些一起，那便成就了«خَيْرُ الْبَرِيَّةِ"
+      "target_text": "如果与这些相伴，那便成为'最好的创造'——最好的文明"
     },
     {
       "id": 88,
-      "start_ms": 626200,
+      "start_ms": 626289,
       "end_ms": 630760,
       "source_text": "شما، بهترین فرهنگ مال شما، بهترین زندگی مال شما.",
-      "target_text": "»——最好的文明属于你们，最好的文化属于你们，最好的生活属于你们。"
+      "target_text": "属于你们，最好的文化属于你们，最好的生活属于你们。"
     },
     {
       "id": 89,
       "start_ms": 631140,
       "end_ms": 634280,
       "source_text": "نشد این وعده الهی محقق نمیشود.",
-      "target_text": "如果不是，这个神圣的应许就无法实现。"
+      "target_text": "若不然，这一神圣的应许便无法实现。"
     },
     {
       "id": 90,
       "start_ms": 634280,
-      "end_ms": 640719,
+      "end_ms": 640764,
       "source_text": "فرازان است که اگر در بخش پایانی سوره مبارکه البین آمد ا",
-      "target_text": "重要的是，在拜伊纳章的结尾部分提到«إِنَّ الَّذِينَ آمَنُوا",
+      "target_text": "在拜伊纳章结尾处提到：'信仰并行善者，他们是",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -886,10 +886,10 @@
     },
     {
       "id": 91,
-      "start_ms": 640719,
-      "end_ms": 647000,
+      "start_ms": 640764,
+      "end_ms": 646954,
       "source_text": "ست که اینالذین آمنو و عملو صالحات اولا که هم خیر البریه",
-      "target_text": "وَعَمِلُوا الصَّالِحَاتِ أُولَٰئِكَ هُمْ",
+      "target_text": "最好的创造'（古兰经98:7）。这样的话语",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -897,10 +897,10 @@
     },
     {
       "id": 92,
-      "start_ms": 647000,
-      "end_ms": 653281,
+      "start_ms": 646954,
+      "end_ms": 653438,
       "source_text": "اینگون از بیانات درست است و عده است اما امر حتمی را به",
-      "target_text": "خَيْرُ الْبَرِيَّةِ»（\"信而行善的人，他们才是造化中最优秀的",
+      "target_text": "虽是应许，却带着一项确定的命令：你们必须拥有",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -908,10 +908,10 @@
     },
     {
       "id": 93,
-      "start_ms": 653281,
-      "end_ms": 659720,
+      "start_ms": 653438,
+      "end_ms": 659922,
       "source_text": "هم راه دارد شما بهترین تمدون بهترین کشور بهترین ملت به",
-      "target_text": "\"，拜伊纳 98:7）。这样的表述，虽然是应许，却同时带有明确的命令：你们必须拥有",
+      "target_text": "最好的文明、最好的国家、最好的民族、最好的法",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -919,10 +919,10 @@
     },
     {
       "id": 94,
-      "start_ms": 659720,
-      "end_ms": 666159,
+      "start_ms": 659922,
+      "end_ms": 666112,
       "source_text": "ترین قانون بهترین رهبر بهترین امام امت را باید داشته با",
-      "target_text": "最好的文明、最好的国家、最好的民族、最好的法律、最好的领袖、最好的乌玛领袖（伊玛目",
+      "target_text": "律、最好的领袖——祂所指定的社群伊玛目——",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -930,10 +930,10 @@
     },
     {
       "id": 95,
-      "start_ms": 666159,
+      "start_ms": 666112,
       "end_ms": 672600,
       "source_text": "شید که تعین کرده است و اون میارش قرآن است و اتجه تاهرین",
-      "target_text": "），那是祂所指定的；而衡量的标准就是《古兰经》和纯洁者（先知家属，艾赫勒·白特）。",
+      "target_text": "其衡量标准是古兰经和纯洁者（阿赫勒·拜特）。",
       "flags": [
         "editorial-religious",
         "editorial-political"
@@ -944,38 +944,38 @@
       "start_ms": 674560,
       "end_ms": 680700,
       "source_text": "بنابراین اونجا که سخن از باربریست سخن از خیل است",
-      "target_text": "因此，凡涉及驮运的地方，说的就是马。"
+      "target_text": "因此，凡谈及负重之处，谈论的是马。"
     },
     {
       "id": 97,
       "start_ms": 683700,
-      "end_ms": 688305,
+      "end_ms": 688190,
       "source_text": "اونجا که مبارزه است فقط سخرست خیل است و خیل است و خیل است و",
-      "target_text": "凡涉及战斗的地方，谈论的只是马——骡和驴"
+      "target_text": "凡谈及战斗之处，谈论的只有马——骡和驴"
     },
     {
       "id": 98,
-      "start_ms": 688305,
+      "start_ms": 688190,
       "end_ms": 692680,
       "source_text": "خیل است و خیل دیگه بقال و همین درش دقیق نیست انترسد به ابل",
-      "target_text": "在其中并无确切的角色，更不用说骆驼了。"
+      "target_text": "在其中没有确切的作用，更不用说骆驼了。"
     },
     {
       "id": 99,
       "start_ms": 694080,
-      "end_ms": 697850,
+      "end_ms": 697720,
       "source_text": "بعد از سوگت ها ذات اقدسه الله در باره",
-      "target_text": "在起誓之后，至圣至尊的真主对",
+      "target_text": "在这些誓言之后，至圣的安拉对",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 100,
-      "start_ms": 697850,
+      "start_ms": 697720,
       "end_ms": 701620,
       "source_text": "این سال بیش از پنجاه بار او رو مذیبت شد",
-      "target_text": "这个人进行了五十多次的谴责。",
+      "target_text": "这个人（人类）谴责了五十多次。",
       "flags": [
         "editorial-religious"
       ]
@@ -983,59 +983,59 @@
     {
       "id": 101,
       "start_ms": 702660,
-      "end_ms": 709321,
+      "end_ms": 709376,
       "source_text": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در بار",
-      "target_text": "真主对人所给予的那些赞美、尊崇与荣耀，归结于人的本性（菲特拉，fitra）——归",
+      "target_text": "安拉赋予人类的那些尊崇、崇高与荣耀，归结",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 102,
-      "start_ms": 709321,
-      "end_ms": 716148,
+      "start_ms": 709376,
+      "end_ms": 716092,
       "source_text": "ه انسان دارد اون به بخش فطرتش برمی گردد که فعل همه",
-      "target_text": "结于那个宇宙性的盟约：«وَإِذْ أَخَذَ رَبُّكَ مِنْ بَ",
+      "target_text": "于人的原始本性（菲特拉）——归结于那个普",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 103,
-      "start_ms": 716148,
-      "end_ms": 722975,
+      "start_ms": 716092,
+      "end_ms": 722808,
       "source_text": "ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گ",
-      "target_text": "نِي آدَمَ مِنْ ظُهُورِهِمْ ذُرِّيَّتَهُمْ",
+      "target_text": "遍的盟约：'当你的主从阿丹子孙的脊背中取",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 104,
-      "start_ms": 722975,
-      "end_ms": 729469,
+      "start_ms": 722808,
+      "end_ms": 729524,
       "source_text": "ردد که خدایی صبحان وز اخذ رب و که من منی آدمه من ظهو",
-      "target_text": "وَأَشْهَدَهُمْ عَلَىٰ أَنْفُسِهِمْ أَلَ",
+      "target_text": "出他们的后代，并使他们为自己作证：我不是",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 105,
-      "start_ms": 729469,
-      "end_ms": 736130,
+      "start_ms": 729524,
+      "end_ms": 736240,
       "source_text": "رهم و اشهده هم غلا انفسه هم ان از سو برم بکن قالو ب",
-      "target_text": "سْتُ بِرَبِّكُمْ قَالُوا بَلَىٰ»（\"我难道不是你",
+      "target_text": "你们的主吗？他们说：是的'（古兰经7:1",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 106,
-      "start_ms": 736130,
+      "start_ms": 736240,
       "end_ms": 742960,
       "source_text": "لا تمام فضائل علمی و فوازل عملی به اون بخش برمی گردد",
-      "target_text": "们的主吗？他们说：是的\"，艾尔拉夫 7:172）。一切美德与卓越都归结于那个层面。",
+      "target_text": "72）。一切美德与优点都归结于那一维度。",
       "flags": [
         "editorial-religious"
       ]
@@ -1043,103 +1043,103 @@
     {
       "id": 107,
       "start_ms": 743900,
-      "end_ms": 748850,
+      "end_ms": 748965,
       "source_text": "و تمام نقد ها و نقص ها به این خلق الانسان او یا خلق",
-      "target_text": "而一切缺陷与不足，都归结于«خُلِقَ الْإِنْسَانُ»（"
+      "target_text": "而一切缺陷与不足，都归结于'人被创造'——这"
     },
     {
       "id": 108,
-      "start_ms": 748850,
+      "start_ms": 748965,
       "end_ms": 753800,
       "source_text": "الانسان منتین به همه این مسلون از این لجن برمی گردد",
-      "target_text": "\"人被造\"）——这个由泥土（拉金，lajin）所造的人，一切归结于此。"
+      "target_text": "个由泥浆（拉金）造成的人，都归结于那一点。"
     },
     {
       "id": 109,
       "start_ms": 755500,
-      "end_ms": 762393,
+      "end_ms": 762188,
       "source_text": "ترمود قد خواب من دسته ها اگر کسی اون فطرت الهی را که در",
-      "target_text": "祂说«قَدْ خَابَ مَنْ دَسَ",
+      "target_text": "祂说：'谁将它掩埋，他确已失败'（古",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 110,
-      "start_ms": 762393,
-      "end_ms": 768986,
+      "start_ms": 762188,
+      "end_ms": 769188,
       "source_text": "کنگره عظیم علسو بربکوم قال و بلاغ داشت اون رو دفن کند ج",
-      "target_text": "ّاهَا»（\"埋没它的人确已失败\"，舍姆斯",
+      "target_text": "兰经91:10）：如果有人掩埋了在那伟",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 111,
-      "start_ms": 768986,
-      "end_ms": 775879,
+      "start_ms": 769188,
+      "end_ms": 775876,
       "source_text": "لوی دهن او رو ببندد و نگذارد این فکرت سخن بگوید قد خواب",
-      "target_text": "91:10）：如果有人把在那伟大的盟约中说了\"",
+      "target_text": "大盟约中作证'是的'的神性菲特拉，堵",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 112,
-      "start_ms": 775879,
-      "end_ms": 782772,
+      "start_ms": 775876,
+      "end_ms": 782876,
       "source_text": "من دستاها اونگاه سخنگوی انسان می شود هوا و هواست این ر",
-      "target_text": "是\"的这个神圣的菲特拉埋没起来，堵住它的口，不",
+      "target_text": "住它的口，不让它说话，那么他的代言人就",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 113,
-      "start_ms": 782772,
-      "end_ms": 789365,
+      "start_ms": 782876,
+      "end_ms": 789564,
       "source_text": "وی گمان حرکت می کند روی میل عمل می کند کارهای فرهنگی و ر",
-      "target_text": "让它说话，那么他的代言人就变成了他的私欲和欲",
+      "target_text": "变成了他的私欲和欲望；他随猜测而动，",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 114,
-      "start_ms": 789365,
-      "end_ms": 796258,
+      "start_ms": 789564,
+      "end_ms": 796564,
       "source_text": "وی خیال است و کارهای عملی و روی حواست چه این انسانی هم",
-      "target_text": "望；他随猜测而行动，随倾向而行事。即便这个人表",
+      "target_text": "随倾向而行。即便他表面上否认本源，在自",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 115,
-      "start_ms": 796258,
-      "end_ms": 803151,
+      "start_ms": 796564,
+      "end_ms": 803252,
       "source_text": "منکر مبدع می شود به آزالله یا بیرسوات مبدع می شود و درو",
-      "target_text": "面上否认根源，在他自己的良知中却是承认的，在他",
+      "target_text": "己的良知深处他仍承认它，在内心深处他",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 116,
-      "start_ms": 803151,
-      "end_ms": 810044,
+      "start_ms": 803252,
+      "end_ms": 810252,
       "source_text": "ن خود شاهد است چون فطرت از بینرفتنی نیست فطرت زنده است م",
-      "target_text": "内心深处他自己就是见证——因为菲特拉是不会被消",
+      "target_text": "仍是见证者——因为菲特拉不可能被消灭；",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 117,
-      "start_ms": 810044,
+      "start_ms": 810252,
       "end_ms": 816940,
       "source_text": "نطقه دسیسه شده دهن او رو بست و نمی گذارد فطرت سخن بگوید",
-      "target_text": "灭的；它是活着的，只是被阴谋阻挠、被堵住了口。",
+      "target_text": "它是活的，只是被阴谋压制并使之沉默。",
       "flags": [
         "editorial-religious"
       ]
@@ -1147,169 +1147,169 @@
     {
       "id": 118,
       "start_ms": 817960,
-      "end_ms": 822912,
+      "end_ms": 822873,
       "source_text": "و هم آلم است هم آگاه است هم میبیند هم میداند",
-      "target_text": "它是有知的，是有觉的；它能看见，能知道，能说话；在复活日，人自己也要作"
+      "target_text": "它是知晓的、觉察的；它能看，能知，能言"
     },
     {
       "id": 119,
-      "start_ms": 822912,
-      "end_ms": 828006,
+      "start_ms": 822873,
+      "end_ms": 828045,
       "source_text": "هم میتواند سخن بگوید و در قیامت هم خود انسان",
-      "target_text": "证反对自己：«شَاهِدِينَ عَلَىٰ أَنْفُسِهِم"
+      "target_text": "；在复活之日，人自己将对自己作证：'为自"
     },
     {
       "id": 120,
-      "start_ms": 828006,
+      "start_ms": 828045,
       "end_ms": 832960,
       "source_text": "علیه خود شهادت میدهد شاهدون نعلا نفسیم بلکفر",
-      "target_text": "ْ بِالْكُفْرِ»（\"作证他们自己不信\"，讨白 9:17）。"
+      "target_text": "己作证他们曾不信'（古兰经9:17）。"
     },
     {
       "id": 121,
       "start_ms": 834260,
-      "end_ms": 841260,
+      "end_ms": 841201,
       "source_text": "همونطور که اعزاب و جواره شهادت میدهند فطرت هم علیه خود همین انسان ش",
-      "target_text": "正如四肢和器官会作证一样，菲特拉也会作证反对这个人自身——这个在内心把菲特拉窒息、让本能"
+      "target_text": "正如肢体作证一样，菲特拉也对这个人自己作"
     },
     {
       "id": 122,
-      "start_ms": 841260,
-      "end_ms": 848183,
+      "start_ms": 841201,
+      "end_ms": 848142,
       "source_text": "هادت میدهند این انسانی که در جهات نفس فطرت را خفه کرد و طبیعت را شک",
-      "target_text": "滋长的人，他是«لِرَبِّهِ لَكَنُودٌ»（\"对他的主确是忘恩负义的\"，"
+      "target_text": "证——这个在内心深处扼杀了菲特拉、让其动"
     },
     {
       "id": 123,
-      "start_ms": 848183,
-      "end_ms": 855106,
+      "start_ms": 848142,
+      "end_ms": 855083,
       "source_text": "وفا کرد این انسان که لربهی لکنود است و خودش انهو علازالکه لشهید است",
-      "target_text": "阿迪雅特 100:6），«وَإِنَّهُ عَلَىٰ ذَٰلِكَ لَشَه"
+      "target_text": "物本性滋长的人；他'对他的主忘恩负义'（"
     },
     {
       "id": 124,
-      "start_ms": 855106,
-      "end_ms": 862106,
+      "start_ms": 855083,
+      "end_ms": 862024,
       "source_text": "و انهو لحب الخیره لشدید خیرتنها مال نیست که در سوره بغره آمد این ت",
-      "target_text": "ِيدٌ»（\"他自己对此确是见证的\"，100:7），«وَإِنَّهُ لِحُبِّ"
+      "target_text": "古兰经100:6），'他自己对此也是见证"
     },
     {
       "id": 125,
-      "start_ms": 862106,
-      "end_ms": 869029,
+      "start_ms": 862024,
+      "end_ms": 868965,
       "source_text": "رک خیره للوسیه توره کذا و کذا مال هست و اون چه به مال برمی گردد مقا",
-      "target_text": "الْخَيْرِ لَشَدِيدٌ»（\"他对财富的爱确是强烈的\"，100:8）。\""
+      "target_text": "'（古兰经100:7），并且'他对财富的"
     },
     {
       "id": 126,
-      "start_ms": 869029,
-      "end_ms": 875952,
+      "start_ms": 868965,
+      "end_ms": 875906,
       "source_text": "م هست و به جا هست و به ریاست هست و مانند آن انسان تا می تواند از او",
-      "target_text": "财富\"不仅是指财产，还是指地位、职位、领导权及类似的东西。人尽可能地把大地上存在的一切"
+      "target_text": "爱是强烈的'（古兰经100:8）。'财富"
     },
     {
       "id": 127,
-      "start_ms": 875952,
-      "end_ms": 882875,
+      "start_ms": 875906,
+      "end_ms": 882847,
       "source_text": "ن چه که در بستر زمین هست به عنوان ابزار کار استفاده بکند اون چه که",
-      "target_text": "当作工具来使用；大地上存在的东西共有四类：矿物、植物、动物和人。这个因忘恩负义而变得平"
+      "target_text": "'不仅仅是财产：它也是地位、职位、领导权"
     },
     {
       "id": 128,
-      "start_ms": 882875,
-      "end_ms": 889875,
+      "start_ms": 882847,
+      "end_ms": 889788,
       "source_text": "در بستر زمین هست چهار تاست جماد هست و نبات هست و حیوان هست و انسان",
-      "target_text": "庸的人，将这四类都当作工具来使用；正如在阿勒·伊姆兰章开头所提到的，这些欲望正归结于这四"
+      "target_text": "。人尽其所能，将大地上的一切——矿物、植"
     },
     {
       "id": 129,
-      "start_ms": 889875,
-      "end_ms": 896875,
+      "start_ms": 889788,
+      "end_ms": 896729,
       "source_text": "همه این چهار قصر را این بشر عادی که لربیل کنوده از زروزی و خود تبدی",
-      "target_text": "类之中——«زُيِّنَ لِلنَّاسِ حُبُّ الشَّهَوَاتِ م"
+      "target_text": "物、动物、人——当作工具来使用。正如在阿"
     },
     {
       "id": 130,
-      "start_ms": 896875,
-      "end_ms": 903798,
+      "start_ms": 896729,
+      "end_ms": 903670,
       "source_text": "ل میکنند این که در اوائل سوره بارکه آل امران گذشت زوینه لناسب و شهو",
-      "target_text": "ِنَ النِّسَاءِ وَالْبَنِينَ وَالْقَنَاطِيرِ"
+      "target_text": "仪穆兰章开头所说：'对人们而言，对私欲的"
     },
     {
       "id": 131,
-      "start_ms": 903798,
-      "end_ms": 910560,
+      "start_ms": 903670,
+      "end_ms": 910611,
       "source_text": "ات این شهوات که جمع محلاب و الفلامه است در همین چهارتا خلاصه شده زو",
-      "target_text": "الْمُقَنْطَرَةِ مِنَ الذَّهَبِ وَالْفِضَّة"
+      "target_text": "爱——对妻子、儿女，以及成堆的金银财宝的"
     },
     {
       "id": 132,
-      "start_ms": 910560,
+      "start_ms": 910611,
       "end_ms": 917560,
       "source_text": "ینه لناسب و شهوات من النسای ولونی و قناتیر مغنتره من از زهب و الفضه",
-      "target_text": "ِ»（\"对妇女、子嗣，以及堆积的金银的贪爱，已被装饰给众人\"，阿勒·伊姆兰 3:14）。"
+      "target_text": "爱——被装饰得美丽'（古兰经3:14）。"
     },
     {
       "id": 133,
       "start_ms": 919180,
-      "end_ms": 925116,
+      "end_ms": 924905,
       "source_text": "مصومه و انعام وله هرس هرس که کشاورزیست خیل",
-      "target_text": "«وَالْخَيْلِ الْمُسَوَّمَةِ وَا"
+      "target_text": "'佩有标记的马、牲畜和田地'（古兰"
     },
     {
       "id": 134,
-      "start_ms": 925116,
-      "end_ms": 930861,
+      "start_ms": 924905,
+      "end_ms": 930967,
       "source_text": "مصومه و انعام که دامداریست و قراطیر مغنتره",
-      "target_text": "لْأَنْعَامِ وَالْحَرْثِ»（\"以及打了"
+      "target_text": "经3:14）：'哈尔斯'（田地）指农"
     },
     {
       "id": 135,
-      "start_ms": 930861,
-      "end_ms": 936797,
+      "start_ms": 930967,
+      "end_ms": 936692,
       "source_text": "که زهب و فضو و اشیاه اتیقه و اجرام جرمه ها",
-      "target_text": "标记的马、牲畜和田地\"，阿勒·伊姆兰 3:14）：\"哈尔斯\"（"
+      "target_text": "业；'佩有标记的马和牲畜'是畜牧；"
     },
     {
       "id": 136,
-      "start_ms": 936797,
-      "end_ms": 942542,
+      "start_ms": 936692,
+      "end_ms": 942754,
       "source_text": "و اکسام بهادار باشد که جماد هست بنین و نس",
-      "target_text": "田地）指农业；\"打了标记的马和牲畜\"是畜牧；\"堆积的财宝\"是"
+      "target_text": "成堆的财宝是金、银、珍贵物品和古物—"
     },
     {
       "id": 137,
-      "start_ms": 942542,
+      "start_ms": 942754,
       "end_ms": 948480,
       "source_text": "ا که انسان هست زویل ناسه و با شباد نسا بنین",
-      "target_text": "金、银、珍贵物品和古董——属于矿物；\"子嗣和妇女\"则属于人类。"
+      "target_text": "—这是矿物；'儿女和妻子'是人类。"
     },
     {
       "id": 138,
       "start_ms": 949800,
-      "end_ms": 956697,
+      "end_ms": 956623,
       "source_text": "غناطیر مغندتر مال جماد خیل مسببم و انعام انها مال حیوا",
-      "target_text": "堆积的财宝属于矿物类；打了标记的马和牲畜属于动物和畜牧事务；农",
+      "target_text": "成堆的财宝属于矿物，佩有标记的马和牲畜属",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 139,
-      "start_ms": 956697,
-      "end_ms": 963372,
+      "start_ms": 956623,
+      "end_ms": 963446,
       "source_text": "ن و امور دامی هر امور کشاورزی مال نباتات است دامداری م",
-      "target_text": "业事务属于植物；畜牧属于动物；堆积的财宝属于矿物；子嗣和妇女",
+      "target_text": "于畜牧，田地属于植物，'妻子和儿女'属于",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 140,
-      "start_ms": 963372,
+      "start_ms": 963446,
       "end_ms": 970269,
       "source_text": "ال حیوانات است غناطیر مغندتر مال جمادات است نسا و بنین",
-      "target_text": "属于人类。人把人类、植物、矿物、动物这四者全都当作工具来役使。",
+      "target_text": "人类。他将这四者——人、植物、矿物、动物",
       "flags": [
         "editorial-religious"
       ]
@@ -1317,29 +1317,29 @@
     {
       "id": 141,
       "start_ms": 970269,
-      "end_ms": 977166,
+      "end_ms": 977092,
       "source_text": "هم مال انسان انسان و نبات و جماد و حیوان همه را به عن",
-      "target_text": "这个人进入复活日的时候，他的第一个见证就是他的菲特拉：«شَا",
+      "target_text": "——全部当作工具役使。当这个人进入复活之",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 142,
-      "start_ms": 977166,
-      "end_ms": 983841,
+      "start_ms": 977092,
+      "end_ms": 983915,
       "source_text": "وان شهود افراد استخدام بکنند این شخص وقتی وارد قیامت ش",
-      "target_text": "هِدِينَ عَلَىٰ أَنْفُسِهِمْ بِ",
+      "target_text": "时，他的第一个见证人便是他的菲特拉：'为",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 143,
-      "start_ms": 983841,
+      "start_ms": 983915,
       "end_ms": 990740,
       "source_text": "د اولین شاهد او فترت اوستی شاهدی نقالا انفرز این بلگفر",
-      "target_text": "الْكُفْرِ»（\"作证他们自己不信\"，讨白 9:17）。",
+      "target_text": "自己作证他们曾不信'（古兰经9:17）。",
       "flags": [
         "editorial-religious"
       ]
@@ -1347,141 +1347,141 @@
     {
       "id": 144,
       "start_ms": 992060,
-      "end_ms": 996793,
+      "end_ms": 996937,
       "source_text": "نستحضر ایتی شاهد غیر از متهم است ا",
-      "target_text": "请记住，见证者是与被指控者不同的另一方。这个自我，当它的菲特拉——«قَدْ خَا"
+      "target_text": "要记住，见证者与被指控者是不同的。这个自我，当它的菲特拉"
     },
     {
       "id": 145,
-      "start_ms": 996793,
+      "start_ms": 996937,
       "end_ms": 1001640,
       "source_text": "ین نفس وقتی فترت خود را قد خواب من",
-      "target_text": "بَ مَنْ دَسَّاهَا»（\"埋没它的人确已失败\"，舍姆斯 91:10）……"
+      "target_text": "——'谁将它掩埋，他确已失败'（古兰经91:10）……"
     },
     {
       "id": 146,
       "start_ms": 1003480,
-      "end_ms": 1010403,
+      "end_ms": 1010360,
       "source_text": "و مدسوس کرد و در بین اغراض و غرائز دفن کرد و میری کنار ولی",
-      "target_text": "……被掩埋、被埋没在各种私欲和本能之中，直到（表面上）死去——然而它仍在人的内心之中，就是他自己；正是这同"
+      "target_text": "……被隐藏、被掩埋在种种私欲和本能之中直至'死去'——然而它仍在他"
     },
     {
       "id": 147,
-      "start_ms": 1010403,
-      "end_ms": 1017195,
+      "start_ms": 1010360,
+      "end_ms": 1017240,
       "source_text": "در درون اوست خود اوست همین فترات در کنگریه الاسد و برب بک",
-      "target_text": "一个菲特拉，曾在那伟大的盟约中说过\"是\"：«أَلَسْتُ بِرَبِّكُمْ قَالُوا ب"
+      "target_text": "体内，正是他自己；正是这同一个菲特拉曾出现在'我不是你们的主吗？他"
     },
     {
       "id": 148,
-      "start_ms": 1017195,
+      "start_ms": 1017240,
       "end_ms": 1024120,
       "source_text": "ن حضور داشت گفت بلا الان که به این بستر آمدن این انسانی که",
-      "target_text": "َلَىٰ»（\"我难道不是你们的主吗？他们说：是的\"，艾尔拉夫 7:172）。如今来到这个境地的这个人……"
+      "target_text": "们说：是的'（古兰经7:172）之时。如今来到这一境地的这个人……"
     },
     {
       "id": 149,
       "start_ms": 1024940,
       "end_ms": 1031120,
       "source_text": "روی طبیعت دارد حرکت می کند این فترات خودشو زنده بگور کرده",
-      "target_text": "……正沿着他的本能而行动——他已经把自己的菲特拉活埋了。"
+      "target_text": "……正随他的动物本性而动——已将自己的菲特拉活埋了。"
     },
     {
       "id": 150,
       "start_ms": 1032920,
-      "end_ms": 1039512,
+      "end_ms": 1039502,
       "source_text": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار",
-      "target_text": "他把自己的菲特拉囚禁在自己的家中，然后他自己就成了施暴者。在《古兰经》中，",
+      "target_text": "他将自己的菲特拉囚禁于其自己的居所之中；然后他自",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 151,
-      "start_ms": 1039512,
-      "end_ms": 1046104,
+      "start_ms": 1039502,
+      "end_ms": 1046084,
       "source_text": "شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن",
-      "target_text": "真主用了五十多处来描述这样的人：忘恩负义、自身作证、对财富的爱强烈、诡计多",
+      "target_text": "己变成了施暴者。在尊贵的古兰经中，安拉不止五十次",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 152,
-      "start_ms": 1046104,
-      "end_ms": 1052696,
+      "start_ms": 1046084,
+      "end_ms": 1052666,
       "source_text": "کریم رتور هست، کنود هست، شهید هست و به خیل شهید هست، مجاهم هس",
-      "target_text": "端；他产生了信仰上的问题，也产生了不义的问题。«إِنَّ الْمُلُ",
+      "target_text": "地形容他：忘恩负义、对自身作证、对财富的爱强烈、",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 153,
-      "start_ms": 1052696,
-      "end_ms": 1059288,
+      "start_ms": 1052666,
+      "end_ms": 1059248,
       "source_text": "ت مشکلات عقیده پیدا میکند مشکلات ظلمی پیدا میکند این این نلم",
-      "target_text": "وكَ إِذَا دَخَلُوا قَرْيَةً أَفْسَدُو",
+      "target_text": "心怀阴谋；他产生了信仰上的问题，也产生了不义的问",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 154,
-      "start_ms": 1059288,
-      "end_ms": 1066058,
+      "start_ms": 1059248,
+      "end_ms": 1065830,
       "source_text": "ورو که ازا دخلو قریتن افسدوها فجده علو عیزت اهلی هست ماله گر",
-      "target_text": "هَا وَجَعَلُوا أَعِزَّةَ أَهْلِهَا أَذ",
+      "target_text": "题。'当国王们进入一座城市时，他们会摧毁它，使其",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 155,
-      "start_ms": 1066058,
-      "end_ms": 1072650,
+      "start_ms": 1065830,
+      "end_ms": 1072686,
       "source_text": "وه از همین بابست این بیش از پنجاه مورد که انسان حلو است انسا",
-      "target_text": "ِلَّةً»（\"君王们进入一座城镇时，必破坏它，并使其显贵的居民卑贱\"，",
+      "target_text": "显贵的百姓卑贱'（古兰经27:34）便是此类。这五",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 156,
-      "start_ms": 1072650,
-      "end_ms": 1079242,
+      "start_ms": 1072686,
+      "end_ms": 1079268,
       "source_text": "ن جزو است منو است امثال زاله بیش از پنجاه مورد که مزمز شده ا",
-      "target_text": "奈姆勒 27:34）就属于这一类。这五十多处的谴责，针对的是人的那空虚的一",
+      "target_text": "十多处谴责，涉及的是人空虚的那一半，因为他已将充",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 157,
-      "start_ms": 1079242,
-      "end_ms": 1085834,
+      "start_ms": 1079268,
+      "end_ms": 1085850,
       "source_text": "ست ماله این نیمه خالی انسان است اون نیمه پر رو دفن کرده وقتی",
-      "target_text": "半，因为他把充盈的那一半给埋没了。到了复活的场景，第一个作证反对这个被欺骗",
+      "target_text": "实的那一半掩埋了。到复活之日的场景，第一个对这个",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 158,
-      "start_ms": 1085834,
-      "end_ms": 1092426,
+      "start_ms": 1085850,
+      "end_ms": 1092432,
       "source_text": "سحنه قیامت شد اولین کسی که علیه خود انسان فریب خورده بخش بدن",
-      "target_text": "之人的，是他身体的那部分——«شَاهِدِينَ عَلَىٰ أَنْ",
+      "target_text": "受骗之人作证的，是他身体的那一部分，作证说'为自",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 159,
-      "start_ms": 1092426,
+      "start_ms": 1092432,
       "end_ms": 1099020,
       "source_text": "ی گواهی میدهد که شاهدین علا انفس ایم بلکفت همین جمعه فطرتوست",
-      "target_text": "فُسِهِمْ بِالْكُفْرِ»——这正是关于菲特拉的那句经文。",
+      "target_text": "己作证他们曾不信'——这正是关于菲特拉的那句话。",
       "flags": [
         "editorial-religious"
       ]
@@ -1489,236 +1489,236 @@
     {
       "id": 160,
       "start_ms": 1100140,
-      "end_ms": 1106956,
+      "end_ms": 1106918,
       "source_text": "جرسی ای رو بعضی از بزرگان معنا کردن انسانی که به صورت حیمان در آم",
-      "target_text": "一些伟大的学者对此作出这样的解释：这个已经变成动物形态的人，他整个"
+      "target_text": "有些大学者如此解释：那已变成畜类模"
     },
     {
       "id": 161,
-      "start_ms": 1106956,
-      "end_ms": 1113772,
+      "start_ms": 1106918,
+      "end_ms": 1113696,
       "source_text": "ده کل محدود او علیه خود شهادت میدهد که این غارتگر است و قطاب شهاد",
-      "target_text": "存在都在作证反对自己，证明他是个掠夺者；这是一种实际的见证，有其精"
+      "target_text": "样的人——他整个存在都对自己作证，"
     },
     {
       "id": 162,
-      "start_ms": 1113772,
-      "end_ms": 1120588,
+      "start_ms": 1113696,
+      "end_ms": 1120474,
       "source_text": "ت عملی است او یه معنای لطیفی دارد این اولین شاهد شاهد خانوادگیست",
-      "target_text": "妙之意。第一个见证是家庭内部的见证，即«شَاهِدِينَ عَ"
+      "target_text": "证明他是个掠夺者；这是一种实践性的"
     },
     {
       "id": 163,
-      "start_ms": 1120588,
-      "end_ms": 1127404,
+      "start_ms": 1120474,
+      "end_ms": 1127252,
       "source_text": "که شاهدین علا انفسهم بنگفر بعد به اعضا و جواره که میرسد تشد علیه",
-      "target_text": "لَىٰ أَنْفُسِهِمْ»；然后进一步波及到四肢和器官："
+      "target_text": "见证。第一个见证者是家庭内部的见证"
     },
     {
       "id": 164,
-      "start_ms": 1127404,
-      "end_ms": 1134220,
+      "start_ms": 1127252,
+      "end_ms": 1134030,
       "source_text": "ملسینتم عیدیم خب مستحذری که شهادت غیر اقرار است اگر مجرم خودش حرف",
-      "target_text": "«تَشْهَدُ عَلَيْهِمْ أَلْسِنَتُهُ"
+      "target_text": "者（'为自己作证'）；然后轮到肢体"
     },
     {
       "id": 165,
-      "start_ms": 1134220,
-      "end_ms": 1140830,
+      "start_ms": 1134030,
+      "end_ms": 1141030,
       "source_text": "میزنه که اقرار است اگر بیگانه علیه هستخن میگوز شهادت است معلوم م",
-      "target_text": "مْ بِمَا كَانُوا يَعْمَلُونَ»（\"他"
+      "target_text": "：'他们的舌头为他们所做的作证'（古"
     },
     {
       "id": 166,
-      "start_ms": 1140830,
-      "end_ms": 1147646,
+      "start_ms": 1141030,
+      "end_ms": 1147808,
       "source_text": "ی شود تو بحث هایی زیر و جلالتون مبسوتن گذشت که ما غیر از دستیم، م",
-      "target_text": "们的舌头将作证反对他们所做的一切\"，努尔 24:24）。见证与承认"
+      "target_text": "兰经24:24）。见证与承认不同："
     },
     {
       "id": 167,
-      "start_ms": 1147646,
-      "end_ms": 1154462,
+      "start_ms": 1147808,
+      "end_ms": 1154586,
       "source_text": "ا غیر از پاییم، ما غیر از پوستیم، ما غیر از گشتیم اگر این دستی که",
-      "target_text": "是不同的：如果犯罪者自己说，那是承认；如果外人对他作证，那才是见证"
+      "target_text": "如果罪犯自己说话，那是承认；如果外"
     },
     {
       "id": 168,
-      "start_ms": 1154462,
-      "end_ms": 1161278,
+      "start_ms": 1154586,
+      "end_ms": 1161364,
       "source_text": "رو میزی گرفت و زیر میزی گرفت و رو میزی داد و زیر میزی داد این دس",
-      "target_text": "。可见，我们不同于我们的手，不同于我们的脚，不同于我们的皮肤，不同"
+      "target_text": "人指证他，那是见证。我们并非我们的"
     },
     {
       "id": 169,
-      "start_ms": 1161278,
-      "end_ms": 1168094,
+      "start_ms": 1161364,
+      "end_ms": 1168142,
       "source_text": "ت گناه بکند، بعد حرف می زند، باید باید باید اقرار کرده است اما دس",
-      "target_text": "于我们的肉体——如果这只在桌上桌下收受贿赂的手犯了罪，然后再开口说"
+      "target_text": "手、脚、皮肤或肉体。那只在桌上桌下"
     },
     {
       "id": 170,
-      "start_ms": 1168094,
+      "start_ms": 1168142,
       "end_ms": 1174920,
       "source_text": "تی که رو میزی و زیر میزی می دهد یا می گیرد، این دست ابزار کار است",
-      "target_text": "话，那必定是承认；但那只在桌上桌下给予或收受的手，只是行动的工具。"
+      "target_text": "收取或递送贿赂的手，是行动的工具。"
     },
     {
       "id": 171,
       "start_ms": 1175760,
-      "end_ms": 1182354,
+      "end_ms": 1182401,
       "source_text": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر ا",
-      "target_text": "因此，这只手作证说，这个人收了，又给了。如果四肢和器官",
+      "target_text": "因此，这只手作证，证明此人收取过",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 172,
-      "start_ms": 1182354,
-      "end_ms": 1188948,
+      "start_ms": 1182401,
+      "end_ms": 1189042,
       "source_text": "عزاب و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کر",
-      "target_text": "犯罪，当他们发誓的时候，我们必须说这是承认；然而《古兰",
+      "target_text": "、也给予过。古兰经并没有说手承认",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 173,
-      "start_ms": 1188948,
-      "end_ms": 1195542,
+      "start_ms": 1189042,
+      "end_ms": 1195268,
       "source_text": "دن در حالی که قرآن نمیگرد دست اقرار کرد میگرد دست شهادت داد",
-      "target_text": "经》并没有说手承认了，而是说手作证了——可见给予或收受",
+      "target_text": "了，而是说手作证了——由此可知",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 174,
-      "start_ms": 1195542,
-      "end_ms": 1202136,
+      "start_ms": 1195268,
+      "end_ms": 1201909,
       "source_text": "معلومش خود انسان است که رو میزی میدهد یا میگیرد دیر میزی",
-      "target_text": "的是人自身；这罪归属于人，归属于人那空虚的一半，那一半",
+      "target_text": "，取与予的是人自身；罪过属于人，",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 175,
-      "start_ms": 1202136,
-      "end_ms": 1208730,
+      "start_ms": 1201909,
+      "end_ms": 1208550,
       "source_text": "میدهد یا میگیرد این گناه مال انسان است اونم این نیمه خالی",
-      "target_text": "归结于«صَلْصَالٍ مِنْ حَمَإٍ م",
+      "target_text": "属于人空虚的那一半，那一半归结于",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 176,
-      "start_ms": 1208730,
-      "end_ms": 1215080,
+      "start_ms": 1208550,
+      "end_ms": 1215191,
       "source_text": "انسان این نیمه که بف سلسال و همه مسنون و تین و تراب و اینا",
-      "target_text": "َسْنُونٍ»（\"发响的黑色成形的泥土\"，希吉尔",
+      "target_text": "'发出响声的黏土、成形的泥浆'（",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 177,
-      "start_ms": 1215080,
-      "end_ms": 1221674,
+      "start_ms": 1215191,
+      "end_ms": 1221832,
       "source_text": "برمی گردد و امون نیمه که به نفخت و فهم روحی برمی گردد که ا",
-      "target_text": "15:26）；而另一半则归结于神圣的吹气（灵性的吹入）",
+      "target_text": "古兰经15:26），而另一半则归",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 178,
-      "start_ms": 1221674,
-      "end_ms": 1228268,
+      "start_ms": 1221832,
+      "end_ms": 1228058,
       "source_text": "ین مظلوم خانوادگیست این در اصر قط خواب من دسته ها دستیسه ش",
-      "target_text": "。见证有时是外在的——来自法庭或清真寺之外，由他人作证",
+      "target_text": "结于神圣的吹入（纳夫赫）。见证",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 179,
-      "start_ms": 1228268,
-      "end_ms": 1234618,
+      "start_ms": 1228058,
+      "end_ms": 1234699,
       "source_text": "ده است پس شهادت یه وقتی از بیرون از سال یا مسجد شهادت بده",
-      "target_text": "；也可以是内在的——菲特拉反对本性作证，或者四肢器官",
+      "target_text": "可以是外在的，也可以是内在的——",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 180,
-      "start_ms": 1234618,
-      "end_ms": 1241212,
+      "start_ms": 1234699,
+      "end_ms": 1241340,
       "source_text": "یا افراد دیگر شهادت میدن این شهادت بیرونه شهادت درونی یا م",
-      "target_text": "反对本性自身作证，也就是本性所支配的人反对本性自身。就",
+      "target_text": "菲特拉对本性的见证，或肢体对本性",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 181,
-      "start_ms": 1241212,
-      "end_ms": 1247806,
+      "start_ms": 1241340,
+      "end_ms": 1247981,
       "source_text": "ال فطرت است علیه طبیعت یا مال اعزاب و جواره طبیعت است علیه",
-      "target_text": "是那个\"对财富之爱强烈\"的人，必须归向«قُلْ إِ",
+      "target_text": "的见证。那被本性所支配、'对财富",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 182,
-      "start_ms": 1247806,
-      "end_ms": 1254400,
+      "start_ms": 1247981,
+      "end_ms": 1254622,
       "source_text": "خود طبیعت یعنی انسان طبیعت زده که اللہو بالخیر لشدید است ب",
-      "target_text": "نْ كُنْتُمْ تُحِبُّونَ الله",
+      "target_text": "的爱强烈'的人，必须归返于'你说",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 183,
-      "start_ms": 1254400,
-      "end_ms": 1260994,
+      "start_ms": 1254622,
+      "end_ms": 1261263,
       "source_text": "ه جایی که این کنتم توحبون الله فتبعون یهبه کم الله محبوبی",
-      "target_text": "َ فَاتَّبِعُونِي يُحْبِبْكُ",
+      "target_text": "：如果你们爱安拉，就跟从我，安拉",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 184,
-      "start_ms": 1260994,
-      "end_ms": 1267588,
+      "start_ms": 1261263,
+      "end_ms": 1267489,
       "source_text": "به پذیرت که ازلی و عبدیست و اون خداست و حلق وسطیه و مدار و",
-      "target_text": "مُ اللهُ»（\"你说：如果你们喜爱真主，就顺从我",
+      "target_text": "就会爱你们'（古兰经3:31）",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 185,
-      "start_ms": 1267588,
-      "end_ms": 1274182,
+      "start_ms": 1267489,
+      "end_ms": 1274130,
       "source_text": "محور محبتم حبیب الهیست که در دور مطاف حبیب اراهی گشتن انسا",
-      "target_text": "，真主就会喜爱你们\"，阿勒·伊姆兰 3:31）——那先",
+      "target_text": "——那先于永恒的、被爱的对象，即",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 186,
-      "start_ms": 1274182,
+      "start_ms": 1274130,
       "end_ms": 1280780,
       "source_text": "ن محبوب را محبوب میکند و خدای سبحانم به حبیب خود فربود بگو",
-      "target_text": "在的至爱者，就是真主；而真主对他的至爱之人说：你说……",
+      "target_text": "安拉；安拉对祂的爱者说：你说……",
       "flags": [
         "editorial-religious"
       ]
@@ -1728,7 +1728,7 @@
       "start_ms": 1286000,
       "end_ms": 1292860,
       "source_text": "این با این که می تواند حبیب الله بشود حبیب این چارتاست خ",
-      "target_text": "此人本可以成为真主的至爱者，却反而爱上了这四类：",
+      "target_text": "这个本可以成为安拉之爱者的人，却爱着这四样：佩",
       "flags": [
         "editorial-religious"
       ]
@@ -1738,7 +1738,7 @@
       "start_ms": 1292860,
       "end_ms": 1299720,
       "source_text": "یلی مصومه است و نسا اوبنین است و وناطیر مغنتر است و حرس",
-      "target_text": "打了标记的马、女人和子嗣、堆积的财宝，以及田地。",
+      "target_text": "有标记的马、妻子和儿女、成堆的财宝，以及田地。",
       "flags": [
         "editorial-religious"
       ]
@@ -1746,131 +1746,131 @@
     {
       "id": 189,
       "start_ms": 1300940,
-      "end_ms": 1307036,
+      "end_ms": 1307101,
       "source_text": "جماد است و نبات است و حیوان است و انسان به اینها دل می",
-      "target_text": "它们是矿物、植物、动物和人类，人却把心系于它们。那么我们说，作为人，在把自己"
+      "target_text": "矿物、植物、动物和人，他把心系于它们之上。我们说过，"
     },
     {
       "id": 190,
-      "start_ms": 1307036,
-      "end_ms": 1312972,
+      "start_ms": 1307101,
+      "end_ms": 1313025,
       "source_text": "بندند خب فرما دیم که انسانیم نسبت به ذات اقدس الاخ بع",
-      "target_text": "的菲特拉窒息之后——«قَدْ خَابَ مَنْ دَسَّاهَا»"
+      "target_text": "人类在扼杀了自己的菲特拉之后——'谁将它掩埋，他确"
     },
     {
       "id": 191,
-      "start_ms": 1312972,
-      "end_ms": 1319068,
+      "start_ms": 1313025,
+      "end_ms": 1318949,
       "source_text": "د از این که فطرت خود را خفه کرد قد خواه من دستاها این",
-      "target_text": "（\"埋没它的人确已失败\"，舍姆斯 91:10）——他对至圣的真主变得无礼，然"
+      "target_text": "已失败'（古兰经91:10）——就会对至圣的主失去"
     },
     {
       "id": 192,
-      "start_ms": 1319068,
-      "end_ms": 1325164,
+      "start_ms": 1318949,
+      "end_ms": 1325110,
       "source_text": "بیمهری میکند بعد ادبی میکند بی اخلاقی میکند و خودشم م",
-      "target_text": "后失礼、失德；他自己内心的种种官能都在反对他作证。这个菲特拉是不会死去的；它"
+      "target_text": "恭敬，变得没有礼数、没有德行；而他自身的种种机能也会"
     },
     {
       "id": 193,
-      "start_ms": 1325164,
-      "end_ms": 1331100,
+      "start_ms": 1325110,
+      "end_ms": 1331271,
       "source_text": "یدوند در درون او علیه او شهادت میدن این فطرت که مردنی",
-      "target_text": "仍然存在，只是被囚禁了——«وَإِنَّهُ عَلَىٰ ذَٰلِك"
+      "target_text": "在内心对他作证。这菲特拉不会死；它持续存在，尽管被囚"
     },
     {
       "id": 194,
-      "start_ms": 1331100,
+      "start_ms": 1331271,
       "end_ms": 1337200,
       "source_text": "نیست این فطرت هست و انتا حبس شده و انهو علا ظالکل شهید",
-      "target_text": "َ لَشَهِيدٌ»（\"他自己对此确是见证的\"，阿迪雅特 100:7）。"
+      "target_text": "禁——'他自己对此也是见证'（古兰经100:7）。"
     },
     {
       "id": 195,
       "start_ms": 1338320,
-      "end_ms": 1344742,
+      "end_ms": 1344924,
       "source_text": "و این مال را هم شدیدن دوست دارد البته مردان الهی کسا",
-      "target_text": "而他对这份财富也爱得极为强烈。当然，真主之人是那",
+      "target_text": "他对这份财富的爱也是强烈的。但真正的安拉之人，是",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 196,
-      "start_ms": 1344742,
-      "end_ms": 1351164,
+      "start_ms": 1344924,
+      "end_ms": 1351253,
       "source_text": "نی هستند که همه خواسته ها و بسته ها و بابسته ها را",
-      "target_text": "些将一切欲望、依附与牵绊都舍弃、献给真主的人——",
+      "target_text": "那些将一切欲望、依附之物统统舍弃、交托给安拉的",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 197,
-      "start_ms": 1351164,
-      "end_ms": 1357854,
+      "start_ms": 1351253,
+      "end_ms": 1357857,
       "source_text": "را کردن لها به الله سر دادن بدن دادن پیکر دادن قطعه",
-      "target_text": "献出身体，被切割成碎块，献出心血，就像在乌胡德战役",
+      "target_text": "人——献出身体、被切割成碎片、献出心血，就像伍侯",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 198,
-      "start_ms": 1357854,
-      "end_ms": 1364276,
+      "start_ms": 1357857,
+      "end_ms": 1364186,
       "source_text": "شدن جگر دادن مثل سید شهده در جنگ احد اینا سلامات ال",
-      "target_text": "中的殉道者之主（愿真主的平安降临他及所有殉道者身",
+      "target_text": "德战役中的殉道者之首（安拉的祝福归于他们全体）",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 199,
-      "start_ms": 1364276,
-      "end_ms": 1370698,
+      "start_ms": 1364186,
+      "end_ms": 1370790,
       "source_text": "له سلامه علیه و جمین اون راه را دارن اینا کسانی هستن",
-      "target_text": "上）一样。他们走的是这条路：他们是那些在内在的吉",
+      "target_text": "。他们是那些在内在的圣战中选择了对至爱者之爱而非",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 200,
-      "start_ms": 1370698,
-      "end_ms": 1377120,
+      "start_ms": 1370790,
+      "end_ms": 1377119,
       "source_text": "د که در جهاد داخلی حب حبیب را نه حب مال را حب خالق",
-      "target_text": "哈德中选择了至爱者之爱而非财富之爱、造化主之爱而",
+      "target_text": "对财富之爱、选择了对造物主之爱而非对散乱受造物",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 201,
-      "start_ms": 1377120,
-      "end_ms": 1383810,
+      "start_ms": 1377119,
+      "end_ms": 1383723,
       "source_text": "را نه حب مخلوقات شارگانی بنین و نسا از یک طرف قناتیر",
-      "target_text": "非造物之爱的人——子嗣和女人在一边，堆积的财宝在另",
+      "target_text": "——儿女和妻子在一边，成堆的财宝在另一边，佩标记",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 202,
-      "start_ms": 1383810,
-      "end_ms": 1390232,
+      "start_ms": 1383723,
+      "end_ms": 1390052,
       "source_text": "مغنتر از طرف دیگر خیلی مصبم از طرف دیگر حرس از طرف",
-      "target_text": "一边，打了标记的马在另一边，田地又在另一边——不",
+      "target_text": "的马在又一边，田地在再一边——之爱的人；不，他",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 203,
-      "start_ms": 1390232,
+      "start_ms": 1390052,
       "end_ms": 1396660,
       "source_text": "شارو نه اونها بلحب الله هستن بعد فهمون جد کار بکنیم",
-      "target_text": "，他们只归于对真主的爱。之后让我们认真地去践行。",
+      "target_text": "们是与安拉之爱同在的人。让我们理解并为此努力吧。",
       "flags": [
         "editorial-religious"
       ]
@@ -1878,112 +1878,112 @@
     {
       "id": 204,
       "start_ms": 1398320,
-      "end_ms": 1404540,
+      "end_ms": 1404627,
       "source_text": "نبشه قبر میکنیم از این سحنه دلتون همه خاطرات و خو",
-      "target_text": "让我们，仿佛，把内心的坟墓挖开——把所"
+      "target_text": "让我们，可以说，把心灵这座坟墓挖开—"
     },
     {
       "id": 205,
-      "start_ms": 1404540,
-      "end_ms": 1410760,
+      "start_ms": 1404627,
+      "end_ms": 1410934,
       "source_text": "اتر را همه سیعات را همه انگیزه ها را همه رواخاری",
-      "target_text": "有的记忆、罪行、动机、虚伪和作假的表演"
+      "target_text": "—把其中所有的记忆、恶行、动机、虚伪"
     },
     {
       "id": 206,
-      "start_ms": 1410760,
-      "end_ms": 1416980,
+      "start_ms": 1410934,
+      "end_ms": 1416891,
       "source_text": "ها و ریاکاری ها را بیرون میانیم هم اون چی که در",
-      "target_text": "都清理出来；而那些埋藏在其中的，让我们"
+      "target_text": "与炫耀统统清出来；把埋藏其中的一切"
     },
     {
       "id": 207,
-      "start_ms": 1416980,
+      "start_ms": 1416891,
       "end_ms": 1423200,
       "source_text": "خاک هست اونها را احیام کنیم سحنه ریامت بپرام کنیم",
-      "target_text": "把它们复活，让它们呈现在复活的场景中。"
+      "target_text": "都唤醒，使其在复活的场景中呈现出来。"
     },
     {
       "id": 208,
       "start_ms": 1424600,
-      "end_ms": 1430233,
+      "end_ms": 1430152,
       "source_text": "خود انسان می داند که وقتی ما نبشه قبر بکنیم از",
-      "target_text": "人自己知道，当我们挖开坟墓，把内心中埋藏的一切从其内部取出，把胸中所藏的一"
+      "target_text": "人自己知道，当我们挖开这座坟墓，把其中的"
     },
     {
       "id": 209,
-      "start_ms": 1430233,
-      "end_ms": 1436018,
+      "start_ms": 1430152,
+      "end_ms": 1435982,
       "source_text": "درون او اینها رو بیرون بیاریم و اون چی که در صد",
-      "target_text": "切摆到桌面上时，那时这个早就知情的人会说：«مَالِ هَٰذَا الْ"
+      "target_text": "一切取出来，把胸中之物摆到桌面上时，他——"
     },
     {
       "id": 210,
-      "start_ms": 1436018,
-      "end_ms": 1441651,
+      "start_ms": 1435982,
+      "end_ms": 1441534,
       "source_text": "ر است به روی میز بیاید اونگاه خود انسان که با خب",
-      "target_text": "كِتَابِ لَا يُغَادِرُ صَغِيرَةً وَلَا"
+      "target_text": "那个曾经知晓的人——会说：'这是什么记录"
     },
     {
       "id": 211,
-      "start_ms": 1441651,
-      "end_ms": 1447284,
+      "start_ms": 1441534,
+      "end_ms": 1447364,
       "source_text": "ر بود می گوید مال آزال کتاب لایقاد رو سقیرتن ول",
-      "target_text": "كَبِيرَةً إِلَّا أَحْصَاهَا»（\"这部经册怎么，"
+      "target_text": "簿，不遗漏任何小事或大事，全都记录在案！'"
     },
     {
       "id": 212,
-      "start_ms": 1447284,
+      "start_ms": 1447364,
       "end_ms": 1452920,
       "source_text": "ا کبیرتن الا احساها هیچ نمی توانا این کار بکنند",
-      "target_text": "不论小事大事，无不加以记录？\"，凯赫夫 18:49）。他们什么都无法隐藏。"
+      "target_text": "（古兰经18:49）他们什么都无法隐藏。"
     },
     {
       "id": 213,
       "start_ms": 1454120,
-      "end_ms": 1460925,
+      "end_ms": 1460985,
       "source_text": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او",
-      "target_text": "现在他是有知觉的；内在的见证是在场的，只是他把它埋没了，即«دَسَّاهَا»（\"他把它埋没了\"）。到了复",
+      "target_text": "如今他是清醒的，内在的见证者就在场，尽管他曾将其掩埋——'他将它",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 214,
-      "start_ms": 1460925,
-      "end_ms": 1467730,
+      "start_ms": 1460985,
+      "end_ms": 1467636,
       "source_text": "بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر ک",
-      "target_text": "活的场景，请留意：«مَالِ هَٰذَا الْكِتَابِ لَا يُغَادِرُ صَغِير",
+      "target_text": "掩埋了'。'这是什么记录簿，不遗漏任何小事或大事，全都记录在案",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 215,
-      "start_ms": 1467730,
-      "end_ms": 1474535,
+      "start_ms": 1467636,
+      "end_ms": 1474501,
       "source_text": "تاب لایقاد رو سرید هستن ولا کبید هستن الا احساها دفترهای ب",
-      "target_text": "َةً وَلَا كَبِيرَةً إِلَّا أَحْصَاهَا»——那些宏大的、总括性的册子在真",
+      "target_text": "！'（古兰经18:49）——那些浩大的总账簿在安拉与神圣的管理者",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 216,
-      "start_ms": 1474535,
-      "end_ms": 1481340,
+      "start_ms": 1474501,
+      "end_ms": 1481152,
       "source_text": "زرگ و کلان پیش خدا و مدبران الهیست اما اون دفتر روزان و رسم",
-      "target_text": "主和众天使掌管者那里；而那本看似\"被遗忘\"的日常记录，其实并未丢失：«عَلِمَتْ نَفْسٌ مَا",
+      "target_text": "那里；但那本看似'被遗忘'的日常记录并没有丢失：'一个灵魂将会",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 217,
-      "start_ms": 1481340,
+      "start_ms": 1481152,
       "end_ms": 1488020,
       "source_text": "ی که فراموش شده نیست علمت نفسون ما احضرت انسان با خودش دارد",
-      "target_text": "أَحْضَرَتْ»（\"每个自我都将知道自己带来了什么\"，塔克维尔 81:14）——人自己随身携带着它。",
+      "target_text": "知道它带来的是什么'（古兰经81:14）——人自己随身携带着它。",
       "flags": [
         "editorial-religious"
       ]
@@ -1991,89 +1991,89 @@
     {
       "id": 218,
       "start_ms": 1489060,
-      "end_ms": 1495449,
+      "end_ms": 1495728,
       "source_text": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط",
-      "target_text": "至于他人所记录的——那些高贵的书写天使«كِرَامًا",
+      "target_text": "至于别人所记录的——那些尊贵的书记员，'尊贵",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 219,
-      "start_ms": 1495449,
-      "end_ms": 1502295,
+      "start_ms": 1495728,
+      "end_ms": 1502396,
       "source_text": "کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید ع",
-      "target_text": "كَاتِبِينَ»（\"高贵的书写者\"，因菲塔尔 82:1",
+      "target_text": "的记录者'（古兰经82:11）也在记录；但'",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 220,
-      "start_ms": 1502295,
-      "end_ms": 1508913,
+      "start_ms": 1502396,
+      "end_ms": 1509064,
       "source_text": "مومه شدی که اینجا هست معمولا نکره در سیاق نف مفید عمومه ما",
-      "target_text": "1）也在记录——但«عَلِمَتْ نَفْسٌ مَا",
+      "target_text": "一个灵魂将会知道它带来的是什么'（古兰经81",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 221,
-      "start_ms": 1508913,
-      "end_ms": 1515531,
+      "start_ms": 1509064,
+      "end_ms": 1515732,
       "source_text": "جاانی اهدون یعنی این اما نکره در سیاق اثبات همه جا مفید او",
-      "target_text": "أَحْضَرَتْ»（\"每个自我都将知道自己带来了什么\"",
+      "target_text": ":14）：这里的不定名词在肯定句式中表达普遍",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 222,
-      "start_ms": 1515531,
-      "end_ms": 1522149,
+      "start_ms": 1515732,
+      "end_ms": 1522400,
       "source_text": "منیست اینجا طبق شباهد و قرار اینی که هست علمت نفسون یعنی کل",
-      "target_text": "，塔克维尔 81:14）：这里的不定名词在肯定语境中通常表",
+      "target_text": "意义，所以是'每个灵魂都会知道它带来了什么'",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 223,
-      "start_ms": 1522149,
-      "end_ms": 1528995,
+      "start_ms": 1522400,
+      "end_ms": 1529068,
       "source_text": "و نفسین ما احذرت خود انسان حاضر بکنند بنابراین گرچه در بابه",
-      "target_text": "示普遍性，因此意为\"每一个自我都将知道自己带来了什么\"；人自",
+      "target_text": "；人自己会把它呈现出来。因此，尽管这些经文也",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 224,
-      "start_ms": 1528995,
-      "end_ms": 1535613,
+      "start_ms": 1529068,
+      "end_ms": 1535736,
       "source_text": "حجو ابل حجو اینها وارد شده است ولی اولا اینست که مربوط به",
-      "target_text": "己会把它呈现出来。所以，尽管这些经文也曾被联系到朝觐和朝圣",
+      "target_text": "曾被与朝觐和朝觐骆驼联系起来，但首要的理解应",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 225,
-      "start_ms": 1535613,
-      "end_ms": 1542459,
+      "start_ms": 1535736,
+      "end_ms": 1542404,
       "source_text": "مسائل جهاد باشد و انسان را آگاه می کند که تو یک صاحب خانه",
-      "target_text": "骆驼，但首要的理解应当与吉哈德的问题相关；它让人意识到：你有",
+      "target_text": "归于圣战的相关事宜；它使人意识到，他有一位居",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 226,
-      "start_ms": 1542459,
+      "start_ms": 1542404,
       "end_ms": 1549080,
       "source_text": "ای داری که او شاهد اعمال و سیعات تو است و اون را محصول کرده",
-      "target_text": "一位家中的主人，他见证着你的行为和恶行，并已将其记录在案。",
+      "target_text": "所的主人，见证着他的行为，并已将其记录下来。",
       "flags": [
         "editorial-religious"
       ]
@@ -2081,114 +2081,114 @@
     {
       "id": 227,
       "start_ms": 1550800,
-      "end_ms": 1557503,
+      "end_ms": 1557545,
       "source_text": "خودت شاهدی یعنی اون فترتت شاهد است خودت مجدمی یعنی طبیعتت مجدمی ا",
-      "target_text": "你自己就是见证——也就是说，你的菲特拉就是见证；你自己就是罪犯",
+      "target_text": "你自己就是见证者，也就是说你的菲特拉是见证者；你自己就是罪",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 228,
-      "start_ms": 1557503,
-      "end_ms": 1564206,
+      "start_ms": 1557545,
+      "end_ms": 1564290,
       "source_text": "ست و اگه اتحاد شاهد و مشروط که معنی ندارد مگر شهادت عملی باشد که",
-      "target_text": "——也就是说，你的本性就是罪犯。如果见证者与被见证者合而为一，",
+      "target_text": "人，也就是说你的本性是罪人。若说见证者与被见证者合一，这唯",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 229,
-      "start_ms": 1564206,
-      "end_ms": 1570909,
+      "start_ms": 1564290,
+      "end_ms": 1570803,
       "source_text": "اونا به صورت گردرمیان یا کلب درمیان این شهادت عملی است و گنون شه",
-      "target_text": "这在语义上说不通，除非是一种实际的见证——仿佛变成了驴或狗那样",
+      "target_text": "有作为一种实践性的见证才有意义——可以说，就像变成了一头",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 230,
-      "start_ms": 1570909,
-      "end_ms": 1577612,
+      "start_ms": 1570803,
+      "end_ms": 1577548,
       "source_text": "ادت های قولی حتما تعدد می ترد این اصاری سروع مبارکی است که به نام",
-      "target_text": "的见证——这是一种实际的见证；而言语上的见证则必然要求有多个不",
+      "target_text": "驴或一条狗；至于言语上的见证，则必然涉及多方。这部吉祥的经",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 231,
-      "start_ms": 1577612,
-      "end_ms": 1584315,
+      "start_ms": 1577548,
+      "end_ms": 1584293,
       "source_text": "علی آدیات بود شده البته بسیار از لطائف این گنه از سور در تیه سو",
-      "target_text": "同的方面。这部以《阿迪雅特》为名的吉祥苏拉，现已讲解完毕。当然",
+      "target_text": "文，名为阿仪雅特章，如今已讲述完毕。当然，这一类经文中许多",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 232,
-      "start_ms": 1584315,
-      "end_ms": 1591018,
+      "start_ms": 1584293,
+      "end_ms": 1591038,
       "source_text": "ر و آیات قبلی بطرح شد و اقوالی هم که هست به همین مطالب عرض شده بر",
-      "target_text": "，这章苏拉的许多精妙之处，已在之前的诸章和经文的讲解中提出，而",
+      "target_text": "精妙之处，已在此前的经文与章节中论及，而其中的种种说法，也",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 233,
-      "start_ms": 1591018,
-      "end_ms": 1597721,
+      "start_ms": 1591038,
+      "end_ms": 1597783,
       "source_text": "می گردند که امیدواریم زادت اقدس الله اون چه خیر و صلاح و فلاحه د",
-      "target_text": "其中存在的各种说法，也都归结到已阐述的这些内容上。我们希望至圣",
+      "target_text": "都归结到已阐述的这些要点上。我们希望至圣的安拉使伊斯兰社群",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 234,
-      "start_ms": 1597721,
-      "end_ms": 1604424,
+      "start_ms": 1597783,
+      "end_ms": 1604528,
       "source_text": "نیا و آخرت امت اسلامیست خوب ادراف بکنن و بدانن که بسیار از این دس",
-      "target_text": "至尊的真主，使伊斯兰社会能够很好地理解今生与后世的善与福祉，并",
+      "target_text": "很好地理解今生与后世的良善与福祉，并知道这些教诫中许多是以",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 235,
-      "start_ms": 1604424,
-      "end_ms": 1611127,
+      "start_ms": 1604528,
+      "end_ms": 1611041,
       "source_text": "تورها جمله خبریه است که به دایه این شاهل غاشده و به ما می فرماد ک",
-      "target_text": "知道其中许多的这些训示都是以立法之意表达的陈述句——告诉我们，",
+      "target_text": "陈述句形式呈现、实则带有履行性意图说出的话，告诉我们这个",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 236,
-      "start_ms": 1611127,
-      "end_ms": 1617830,
+      "start_ms": 1611041,
+      "end_ms": 1617786,
       "source_text": "ه بهترین مردم روزگار ممئنانن یعنی ایها المؤمنون بکشید بهتری مردا",
-      "target_text": "这个时代最好的人是信士：即信士们啊，努力成为这个世界上最好的人",
+      "target_text": "时代最好的人便是信士：信士们啊，努力成为世间最好的人吧。求",
       "flags": [
         "editorial-religious"
       ]
     },
     {
       "id": 237,
-      "start_ms": 1617830,
+      "start_ms": 1617786,
       "end_ms": 1624540,
       "source_text": "ن آلم باشید و فردله لنا و لکم و السلام علیکم و رحمت الله و برکاته",
-      "target_text": "。求真主饶恕我们和你们。祝你们平安，真主的慈悯与吉庆降临你们。",
+      "target_text": "主饶恕我们和你们。祝你们平安，安拉的慈悯与祝福与你们同在。",
       "flags": [
         "editorial-religious"
       ]
     }
   ],
-  "created_at": "2026-08-08T13:55:44Z",
+  "created_at": "2026-08-09T07:52:35Z",
   "created_by": "agent"
 }

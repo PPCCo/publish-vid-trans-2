@@ -44,7 +44,8 @@
       "freeze_frame_enabled": true,
       "freeze_stretch_cap": 1.15,
       "max_freeze_ms_per_cue": 4000,
-      "freeze_trim_languages": []
+      "freeze_trim_languages": [],
+      "silent_span_max_ms": 7000
     },
     "translation": {
       "glossary_term_hit_rate_required": 1.0

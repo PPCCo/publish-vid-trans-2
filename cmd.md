@@ -25,3 +25,9 @@ run and other long external commands (whisper, ffmpeg, ingest) will always be ha
 run as a background task inside the session.
 
 ---
+
+The audio generated in @projects/yt-MFuUIoF5PSc/audio/ folder are all messed up wherever there is Arabic verses during the source (Persian) speech. I believe this is caused by the arabic text or transliteration being included in the `target_text` or the captions. For `en` as an example, `«أَعُوذُ بِاللهِ مِنَ الشَّيْطَانِ الرَّجِيمِ، بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ»` is appearing in all files in `projects/yt-MFuUIoF5PSc/captions/`: captions.en.json, captions.en.srt, captions.en.vtt
+
+I think to make this simple and avoid further problems, we should make sure even arabic verses are in the target language only, and arabic characters should never go into `captions.<lang>.srt` or `captions.<lang>.vtt`. For `captions.<lang>.json`, the `target_text` should never have any arabic text.The only exception to this is `ar` because the target language is the same as Quran language (Arabic).
+
+This might mean removing the special treatment added for Quran/Arabic added earlier in the `.claude/` framework.

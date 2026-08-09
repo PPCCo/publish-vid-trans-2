@@ -1,0 +1,344 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "report_type": "transcript-qa",
+  "language": "fa",
+  "artifact_hashes": [
+    "sha256:f7252c4047f7cb12e154642e39f01804f5e75a0514ae31929c28e46e5a86fba6"
+  ],
+  "decision": "PASS",
+  "metrics": {
+    "cue_count": 40,
+    "low_confidence_cues": 0,
+    "low_confidence_share": 0.0,
+    "non_speech_cues": 0,
+    "over_long_cues": 18,
+    "gloss_present": true,
+    "gloss_context_findings": 4
+  },
+  "created_at": "2026-08-09T11:51:12Z",
+  "created_by": "agent",
+  "findings": [
+    {
+      "severity": "note",
+      "category": "silence",
+      "summary": "5220ms gap before cue 32 (possible dropped speech / music)",
+      "cue_id": 32,
+      "timestamp_ms": 1280780
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 1 spans 33340ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 1,
+      "timestamp_ms": 5500
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 3 spans 131760ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 3,
+      "timestamp_ms": 47000
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 4 spans 217100ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 4,
+      "timestamp_ms": 180740
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 10 spans 119660ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 10,
+      "timestamp_ms": 451120
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 11 spans 36600ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 11,
+      "timestamp_ms": 571900
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 15 spans 38320ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 15,
+      "timestamp_ms": 634280
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 19 spans 40300ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 19,
+      "timestamp_ms": 702660
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 21 spans 61440ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 21,
+      "timestamp_ms": 755500
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 23 spans 83300ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 23,
+      "timestamp_ms": 834260
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 25 spans 40940ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 25,
+      "timestamp_ms": 949800
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 29 spans 66100ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 29,
+      "timestamp_ms": 1032920
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 30 spans 74780ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 30,
+      "timestamp_ms": 1100140
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 31 spans 105020ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 31,
+      "timestamp_ms": 1175760
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 33 spans 36260ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 33,
+      "timestamp_ms": 1300940
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 34 spans 58340ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 34,
+      "timestamp_ms": 1338320
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 37 spans 33900ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 37,
+      "timestamp_ms": 1454120
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 38 spans 60020ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 38,
+      "timestamp_ms": 1489060
+    },
+    {
+      "severity": "note",
+      "category": "granularity",
+      "summary": "cue 39 spans 73740ms (> 30000ms) — likely a merge over a hallucinated/blank stretch",
+      "cue_id": 39,
+      "timestamp_ms": 1550800
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 0 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "اعود بالله من الشیطان الرجیم بسم الله الرحمن الرحیم۔"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 3 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 3,
+      "timestamp_ms": 47000,
+      "evidence": "سوگند به وسائل نظامی است که در دفاع از اسلام کار آمدن و سوگند به این وسائل نظامی به این اصفا در حالتهای گناگون چه اون حالتی که نفس نفس زنون می دوند و چه اون حال"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 4 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 4,
+      "timestamp_ms": 180740,
+      "evidence": "قدرت باربری این خیل و بقال و همیر است که در اون سحنه جریان همیر هم دخالت دارد جریان بقال هم دخالت دارد اما در تاخت و تازه نظامی نه همیر دخالت دارد و نه بقال نه "
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 5 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 5,
+      "timestamp_ms": 398700,
+      "evidence": "گرچه در جریان حج و عمر و امثال زاله شطرهای قدرتمندی و توانمندی از راه دور می آین ولی اونی که قرآن نقل کرده است بخشی به زامرات و شطرهای لاغر بر می گردد بخشی به ف"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 7 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 7,
+      "timestamp_ms": 430540,
+      "evidence": "غرص این است که این دوگور هر دو نر شده ولی مناسب با مسئله جهاد است که در مدینه صورت پذیرفت."
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 8 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 8,
+      "timestamp_ms": 437780,
+      "evidence": "و اون جهاد است که توانه است اسلام را مستقر کند."
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 10 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 10,
+      "timestamp_ms": 451120,
+      "evidence": "این لیوزهره و علدنین کلیه که در سه سوره قرآن آمده گرسه به حسب ظاهر خبر است اما به دایه انشاء الگاه شده و اگر در بخش پایانی سوره مبارکه بیان آمده است که مؤمنان و"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 12 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 12,
+      "timestamp_ms": 609560,
+      "evidence": "بدون آدیات زب، موریات قدر، مغیران صبح، اثرن نقل و زدبی جمع، بدون مبارزه، بدون جهاد یا با اینها."
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 15 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 15,
+      "timestamp_ms": 634280,
+      "evidence": "فرازان است که اگر در بخش پایانی سوره مبارکه البین آمد است که اینالذین آمنو و عملو صالحات اولا که هم خیر البریه اینگون از بیانات درست است و عده است اما امر حتمی "
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 18 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 18,
+      "timestamp_ms": 694080,
+      "evidence": "بعد از سوگت ها ذات اقدسه الله در باره این سال بیش از پنجاه بار او رو مذیبت شد"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 19 references a sensitive religious term ('خدا') — human editorial review of translation recommended",
+      "cue_id": 19,
+      "timestamp_ms": 702660,
+      "evidence": "اون بخش های مده و سنا و اجلال و اکرامی که خدا در باره انسان دارد اون به بخش فطرتش برمی گردد که فعل همه ها و فضور ها و تقبه ها اون به اون کنگره جهانی برمی گردد ک"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 21 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 21,
+      "timestamp_ms": 755500,
+      "evidence": "ترمود قد خواب من دسته ها اگر کسی اون فطرت الهی را که در کنگره عظیم علسو بربکوم قال و بلاغ داشت اون رو دفن کند جلوی دهن او رو ببندد و نگذارد این فکرت سخن بگوید ق"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 25 references a sensitive religious term ('خدا') — human editorial review of translation recommended",
+      "cue_id": 25,
+      "timestamp_ms": 949800,
+      "evidence": "غناطیر مغندتر مال جماد خیل مسببم و انعام انها مال حیوان و امور دامی هر امور کشاورزی مال نباتات است دامداری مال حیوانات است غناطیر مغندتر مال جمادات است نسا و بن"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 29 references a sensitive religious term ('قرآن') — human editorial review of translation recommended",
+      "cue_id": 29,
+      "timestamp_ms": 1032920,
+      "evidence": "این فطرت خود را محصور کرده در خانه خود اونگاه خودش میدوندار شد این انسانی که میدوندار است بیش از پنجاه مورد خدا در قرآن کریم رتور هست، کنود هست، شهید هست و به خ"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 31 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 31,
+      "timestamp_ms": 1175760,
+      "evidence": "لذا این دست شهادت میدهد که این شخص گرفته به یاد داده اگر اعزاب و جواره گناه بکنن وقتی سوهن میگوین باید بگیم اقرار کردن در حالی که قرآن نمیگرد دست اقرار کرد میگر"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 32 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 32,
+      "timestamp_ms": 1286000,
+      "evidence": "این با این که می تواند حبیب الله بشود حبیب این چارتاست خیلی مصومه است و نسا اوبنین است و وناطیر مغنتر است و حرس"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 34 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 34,
+      "timestamp_ms": 1338320,
+      "evidence": "و این مال را هم شدیدن دوست دارد البته مردان الهی کسانی هستند که همه خواسته ها و بسته ها و بابسته ها را را کردن لها به الله سر دادن بدن دادن پیکر دادن قطعه شدن ج"
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 37 references a sensitive religious term ('خدا') — human editorial review of translation recommended",
+      "cue_id": 37,
+      "timestamp_ms": 1454120,
+      "evidence": "الان آگاه هست شاهد درونی هست منتا دهد اون شاهد درونی را او بسته از قد خواب من دسته ها و در سحنه قیامت بکنید ما لحاظر کتاب لایقاد رو سرید هستن ولا کبید هستن الا "
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 38 references a sensitive religious term ('جهاد') — human editorial review of translation recommended",
+      "cue_id": 38,
+      "timestamp_ms": 1489060,
+      "evidence": "اینطور که دیگری زبط کرده باشد فقط نه کرامن کالتوین اونم زبط کردن اما علمت نفسون از جاهایی که نکره در ردیف موجبه مفید عمومه شدی که اینجا هست معمولا نکره در سیاق "
+    },
+    {
+      "severity": "note",
+      "category": "sensitive-religious",
+      "summary": "cue 39 references a sensitive religious term ('الله') — human editorial review of translation recommended",
+      "cue_id": 39,
+      "timestamp_ms": 1550800,
+      "evidence": "خودت شاهدی یعنی اون فترتت شاهد است خودت مجدمی یعنی طبیعتت مجدمی است و اگه اتحاد شاهد و مشروط که معنی ندارد مگر شهادت عملی باشد که اونا به صورت گردرمیان یا کلب د"
+    },
+    {
+      "severity": "note",
+      "category": "english-context/context-note",
+      "summary": "cue 9: Source ASR garbled on the hadith 'al-Islam ya'lu wa la yu'la 'alayh' and 'bi-da'iyat inshaʾ ulqiya'; meaning restored in gloss from context (declarative-with-imperative-force).",
+      "cue_id": 9,
+      "timestamp_ms": 444540
+    },
+    {
+      "severity": "note",
+      "category": "english-context/context-note",
+      "summary": "cue 12: Source cue is a broken ASR echo of the al-'Adiyat verse-openings (al-'adiyat dabhan, al-muriyat qadhan, al-mughirat subhan, atharna naq'an, wasatna jam'an); glossed to the intended verse allusions.",
+      "cue_id": 12,
+      "timestamp_ms": 609560
+    },
+    {
+      "severity": "note",
+      "category": "english-context/context-note",
+      "summary": "cue 17: ASR stutter repeats 'khayl' (horse) several times; rendered once with the intended emphasis.",
+      "cue_id": 17,
+      "timestamp_ms": 683700
+    },
+    {
+      "severity": "note",
+      "category": "english-context/context-note",
+      "summary": "cue 31: Long, ASR-run-on cue mixing Arabic Qur'anic phrases with Persian commentary; glossed for sense (over/under-the-table bribe metaphor, hand as instrument vs. agent).",
+      "cue_id": 31,
+      "timestamp_ms": 1175760
+    }
+  ]
+}

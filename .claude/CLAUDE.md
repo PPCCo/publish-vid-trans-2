@@ -39,7 +39,9 @@ closed captions, autonomously but under human-bound gates.
    `do-not-distribute`.
 5. **Voice cloning requires recorded consent.** Default dubbing uses a neutral voice.
    Cloning the source speaker's voice requires `voice_clone_consent: true` in the rights
-   record.
+   record. (Separately, a cue flagged `keep-source-audio` preserves the **original** speaker's
+   own audio for a recited/untranslatable window in every language instead of dubbing it — a
+   distinct mechanism from cloning, no consent gate; see rule 14.)
 
    **Male is the hard default dub voice for every language.** Dub voices are chosen from a
    company-owned, gender-tagged registry (`dubbing.voices[<lang>][male|female]` in
@@ -272,6 +274,31 @@ These govern *how you work*, not just what the pipeline does:
     `caption_start_ms`), never mid-cue. The earlier band-aid overrides (`max_time_stretch`,
     `cumulative_drift_ceiling_ms`) are dead as speed gates — freeze-frame is the only mechanism.
 
+    **Keep-source-audio cues — preserve the original speaker's voice for a window (rule 5 tie-in).**
+    A transcript/caption cue tagged `flags: ["keep-source-audio"]` makes `dub run` **splice
+    `source/audio.wav[start_ms:end_ms]`** into the dub for that cue **instead of calling TTS**, in
+    **every** language — so the original reciter/speaker's own voice plays there rather than a
+    synthetic dub. It is for **recited or untranslatable passages** (e.g. a Quranic recitation the
+    ASR never transcribed) where a TTS dub is wrong and silence is worse. The flag rides the existing
+    `flags` string array end-to-end (transcript→worksheet→caption→through rule-12 split — **zero
+    schema change**) and drives **audio only**; the cue's `target_text` still drives the *caption*
+    (non-`ar` = translation + `(Quran s:a)`, `ar`/source = Arabic verbatim, rule 16). A keep-source
+    dub needs the source media present, so `dub run` restores it once (fetch-gated
+    `ensure_source_present`) before the synthesis loop even for a non-clone dub. Implemented as the
+    first branch of the per-cue synth in `dubbing.run_dub`; the spliced slice is real audio at its
+    natural length and flows through the same normalize→concat→loudnorm path as a TTS cue, and the
+    mux is unchanged (audio is muxed whole-file).
+
+    **Silent-span QA — a long dead-air run FAILs the track (`silent_span_max_ms`, default 7000ms).**
+    `dub run`'s sync report records `silent_spans_ms`/`max_silent_span_ms` — pure-silence runs on the
+    rendered dub timeline (leading gap + inter-cue gaps ≥ a 250ms floor). `analyze_sync` escalates any
+    span **longer than `quality_bars.audio.silent_span_max_ms`** to a **blocker** → `dub qa` **FAILs**.
+    This hard-catches an untranscribed/untranslated stretch that leaves the dub silent (it is what
+    would have caught the 33s al-ʿAdiyat recitation hole). **Keep-source-audio windows are exempt** —
+    a span abutting/inside a keep-source cue's rendered window is not counted (the reciter's own audio
+    fills it). To clear a real hole: recover the missing speech into the transcript, or mark the
+    window `keep-source-audio` if the source audio is genuinely untranslatable.
+
 15. **Per-language still image + deliberate playback speed (TASK 1 / TASK 3).** Two per-language
     presentation choices live in `project.yaml` (which is `additionalProperties: true`) — **not**
     `state.json` — as `lang=value` maps, set at init or adjusted later:
@@ -316,10 +343,18 @@ These govern *how you work*, not just what the pipeline does:
     never joins (verbatim, no worksheet).
     **Canonical pattern.** (a) `translate export` every worksheet first so cue ids/timing exist;
     (b) build one compact shared **pivot** the agents render from — for a tafsir/Quran video that
-    is `{cue: {source, en_gloss, en_with_verses}}` so every language renders the same meaning +
-    the same canonical verse set (Arabic script + translation only, no transliteration in either
-    captions or audio for any language except `ar`'s own narration + numeric surah:ayah citation,
-    rule 11 / the verse-and-notes policy), written to a scratch path; (c) `parallel(langs.map(...))` with one
+    is `{cue: {source, en_gloss, en_meaning}}` so every language renders the same meaning + the
+    same canonical verse set. **A cited Quranic verse renders as the *target language's*
+    translation followed by a numeric citation `(Quran <surah>:<ayah>)` — e.g.
+    `(Quran 100:6)`. Original Arabic script (and transliteration) NEVER appears in a non-`ar`
+    caption's `target_text`, `.srt`, or `.vtt`, and therefore never in that language's dubbed
+    audio (rule 14 speaks `target_text` verbatim). The ONLY exception is target `ar`, whose own
+    narration is Arabic — its captions/dub carry the verse in Arabic verbatim.** (Reversed
+    2026-08-09 from the earlier "Arabic script + translation in every language" convention: the
+    Arabic strings corrupted the non-Arabic piper dubs. The separate per-language
+    `distribution/notes/<lang>.txt` upload-description docs are unaffected — they keep Arabic verse
+    citations, rule 11 / the verse-and-notes policy.) The pivot is written to a scratch path;
+    (c) `parallel(langs.map(...))` with one
     `agent()` per language, each given a `schema` that forces a validated
     `{cues:[{id,target_text}]}` return — the agent reads the pivot, renders **all** cues, returns
     the map; (d) back in the main thread, merge each returned map into

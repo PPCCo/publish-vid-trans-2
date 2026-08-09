@@ -129,9 +129,20 @@ Which tracks join the fan-out:
 How the fan-out works (see rule 16 in `.claude/CLAUDE.md` for the canonical pattern):
 1. Export every worksheet first (`translate export <id> --language <iso>` per track) so cue
    ids/timing exist. Build one compact **pivot** the agents share — for a tafsir/Quran video,
-   the pivot is `{cue: {source, en_gloss, en_with_verses}}` so every agent renders from the
-   same meaning + the same canonical verse set (Arabic script + surah:ayah). Write it to a
-   scratch path (e.g. `/tmp/translate_pivot.json`).
+   the pivot is `{cue: {source, en_gloss, en_meaning}}` so every agent renders from the same
+   meaning + the same canonical verse set. **A cited Quranic verse is rendered as the target
+   language's translation + a numeric citation `(Quran <surah>:<ayah>)`; original Arabic script
+   and transliteration NEVER go into a non-`ar` caption (json `target_text`, `.srt`, or `.vtt`)
+   — the only exception is target `ar`, whose narration is Arabic. This keeps the non-Arabic
+   dubs clean (rule 14 speaks `target_text` verbatim). The separate `distribution/notes/<lang>.txt`
+   upload-description docs still keep Arabic verse citations — do not confuse the two.** Write the
+   pivot to a scratch path (e.g. `/tmp/translate_pivot.json`).
+   **Keep-source-audio cues (recited windows):** a cue that carries `flags:["keep-source-audio"]`
+   (e.g. the opening Quranic recitation) will play the **original reciter's audio** in every
+   language at dub time (rule 14) — the flag drives *audio*, not the caption. The agents must
+   **carry that flag through unchanged** (it rides the worksheet's `flags` array) and still fill
+   `target_text` normally: non-`ar` = the verse translation + `(Quran s:a)`, `ar`/source = Arabic
+   verbatim. Never drop the flag and never put Arabic script into a non-`ar` `target_text`.
 2. Launch a `Workflow` with `parallel(langs.map(...))`, one `agent()` per language, each with a
    `schema` that forces a validated `{cues:[{id,target_text}]}` return. The agent reads the
    pivot, renders **all** cues into its language, and returns the map. Keep timing fixed: never

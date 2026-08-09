@@ -1,5 +1,11 @@
 # TODO
 
+I also want you to collect info on the token usage of all the major activities. Since most CPU-heavy tasks run via python scripts anyways, and  I want to analyze whether, and at the end of the whole process, give me a table containing this info: ActivityName, 
+
+---
+
+---
+
 Can you change the AskUserQuestions format a bit?
 
 When I run `/new-video`, and claude asks either `Which languages should this video be translated to?` or `Which of the translate languages should also get a dubbed audio track?`, in both cases, these should be the options:

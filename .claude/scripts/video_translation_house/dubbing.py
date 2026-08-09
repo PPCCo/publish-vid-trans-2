@@ -128,6 +128,10 @@ def _audio_quality_bars(root: Path) -> dict[str, Any]:
         # Languages that use freeze-frame Model A (freeze + TRIM → residual 0); every other
         # freeze-mode language uses Model B (freeze/hold only, honest residual). Default: none.
         "freeze_trim_languages": [str(x) for x in bars.get("freeze_trim_languages", [])],
+        # Longest allowed run of pure silence in a dub before it FAILs (blocker). Guards against
+        # untranscribed/untranslated speech leaving the dub dead-air; keep-source-audio windows are
+        # exempt (the reciter's own voice fills them). See CLAUDE.md rule 14.
+        "silent_span_max_ms": int(bars.get("silent_span_max_ms", 7000)),
     }
 
 
@@ -371,6 +375,26 @@ def run_dub(
             ensure_source_present(root, project_id, actor=actor)
         clone_ref = src_wav if src_wav.is_file() else None
 
+    # Keep-source-audio cues (rule 5 / rule 14): a cue flagged `keep-source-audio` plays the
+    # ORIGINAL reciter/speaker audio under every language instead of TTS (untranslatable recited
+    # passages — e.g. Quranic recitation). That splice needs the source WAV present even for a
+    # non-clone dub, so restore it once (fetch-gated) before the loop if any cue is flagged.
+    keep_source_any = any(
+        "keep-source-audio" in (c.get("flags") or []) for c in cues
+    )
+    if keep_source_any:
+        src_wav = paths.source_dir / "audio.wav"
+        if not src_wav.is_file():
+            from .ingest import ensure_source_present
+
+            ensure_source_present(root, project_id, actor=actor)
+        if not src_wav.is_file():
+            raise DubbingError(
+                "a cue is flagged keep-source-audio but source/audio.wav is missing and could "
+                "not be restored (set VIDTRANS_FETCH_ENABLED=1 to re-fetch). The original "
+                "speaker audio is required to splice the marked window."
+            )
+
     # Gender-aware voice selection (TASK 2). Male is the hard default for every language.
     # When the operator did not pin an explicit --model and this is not a clone, resolve the
     # dub voice from the company `dubbing.voices` registry by (language, gender), where gender
@@ -423,7 +447,20 @@ def run_dub(
                 timeline_ms += lead
 
             raw = tmpdir / f"cue-{i}.raw.wav"
-            if cue["target_text"].strip():
+            keep_source = "keep-source-audio" in (cue.get("flags") or [])
+            if keep_source:
+                # Splice the ORIGINAL source audio for this cue's window instead of calling TTS
+                # (rule 5 / rule 14): the source speaker's own voice plays under every language for
+                # a recited/untranslatable passage. The slice is real audio at its natural length,
+                # so it flows through the same normalize -> concat -> loudnorm path as a TTS cue.
+                src_wav = paths.source_dir / "audio.wav"
+                media_mod.slice_wav(
+                    src_wav, raw,
+                    start_seconds=cue["start_ms"] / 1000.0,
+                    duration_seconds=max(1, cue["end_ms"] - cue["start_ms"]) / 1000.0,
+                    sample_rate=sr, channels=ch,
+                )
+            elif cue["target_text"].strip():
                 tts_mod.synthesize_cue(
                     cue["target_text"], raw, provider=provider, language=language,
                     model=model, voice=voice, clone_ref=clone_ref, root=root,
@@ -455,6 +492,7 @@ def run_dub(
                 "natural_ms": natural_ms,
                 "stretch_factor": round(stretch, 4),
                 "over_stretch_cap": False,  # audio is never stretched → never over cap
+                "keep_source": keep_source,  # spliced source audio → exempt from silent-span QA
             })
 
         obs.phase(f"dubbing {language} (concat + loudness normalize)")
@@ -741,6 +779,42 @@ def _build_sync_report(
             "trim_ms": trim_ms_by_cue.get(m["id"], 0),
         })
 
+    # Silent-span QA (rule 14): walk the rendered dub timeline and record pure-silence spans — the
+    # leading gap before the first audible cue and every gap between consecutive audible renders. An
+    # "audible" cue carries real audio: it has non-empty target_text OR is a keep-source splice.
+    # Empty/whitespace-only cues render 1ms of silence, so they contribute to a gap, not audio. A
+    # span bounded by a keep-source cue is EXEMPT — the reciter's own audio fills that window, so a
+    # residual beside it is not a hole. Spans below a small floor are ignored (routine inter-cue
+    # pauses). analyze_sync escalates a non-exempt span over `silent_span_max_ms` to a blocker.
+    SILENT_SPAN_FLOOR_MS = 250
+    audible = [
+        m for m in cue_measures
+        if m.get("keep_source") or int(m.get("natural_ms", 0)) > 1
+    ]
+    keep_bounds: list[tuple[int, int]] = [
+        (int(m["rendered_start_ms"]), int(m["rendered_end_ms"]))
+        for m in cue_measures if m.get("keep_source")
+    ]
+
+    def _touches_keep(start: int, end: int) -> bool:
+        # Exempt a span that abuts (or overlaps) any keep-source cue's rendered window.
+        return any(ks < end and start < ke for ks, ke in keep_bounds) or any(
+            ke == start or ks == end for ks, ke in keep_bounds
+        )
+
+    silent_spans: list[dict[str, int]] = []
+    prev_end = 0
+    for m in audible:
+        gap_start = prev_end
+        gap_end = int(m["rendered_start_ms"])
+        if gap_end - gap_start >= SILENT_SPAN_FLOOR_MS and not _touches_keep(gap_start, gap_end):
+            silent_spans.append({
+                "start_ms": gap_start, "end_ms": gap_end,
+                "duration_ms": gap_end - gap_start,
+            })
+        prev_end = max(prev_end, int(m["rendered_end_ms"]))
+    max_silent_span = max((s["duration_ms"] for s in silent_spans), default=0)
+
     lang_block = {
         "language": language,
         "provider": provider,
@@ -755,6 +829,8 @@ def _build_sync_report(
         "max_abs_drift_ms": int(max_abs),
         "cues_over_tolerance": over_tol,
         "cues_over_stretch_cap": over_cap,
+        "silent_spans_ms": silent_spans,
+        "max_silent_span_ms": int(max_silent_span),
         "still_image": bool(still_image),
         "freeze_frame_enabled": bool(freeze_plan is not None),
         # Totals reflect the FULL plan including the tail entry (the picture-length reconciliation
@@ -896,6 +972,21 @@ def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, 
             f"({bars['per_cue_drift_tolerance_ms']}ms).",
             language=lang, cue_id=cid,
         ))
+    # Silent-span check (rule 14): a long stretch of pure silence in the dub means the source had
+    # untranscribed/untranslated speech (or a hole in the timeline) — the dub sits dead there. Any
+    # span over the bar is a BLOCKER → FAIL. Keep-source-audio windows are already excluded upstream
+    # in _build_sync_report (the reciter's own voice fills them), so this never trips on them.
+    silent_cap = bars["silent_span_max_ms"]
+    for span in lang_block.get("silent_spans_ms", []):
+        if span["duration_ms"] > silent_cap:
+            findings.append(_finding(
+                "blocker", "audio-silent-span-excessive",
+                f"[{lang}] {span['duration_ms']}ms of silence "
+                f"({span['start_ms']}–{span['end_ms']}ms) exceeds the {silent_cap}ms cap — the "
+                f"dub is dead air here. Recover the missing speech into the transcript (or mark "
+                f"the window keep-source-audio if it is untranslatable source audio).",
+                language=lang,
+            ))
     # Freeze-frame policy: over-slot cues are resolved by holding the picture at mux, not by
     # audio drift. Each is an informational `note` (PASS-preserving — _aggregate_decision only
     # escalates on blocker/major); an over-long freeze escalates to a `major` so a person sees it.
@@ -935,6 +1026,8 @@ def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, 
         "freeze_frame_enabled": bool(lang_block.get("freeze_frame_enabled")),
         "total_freeze_ms": int(lang_block.get("total_freeze_ms", 0)),
         "cues_frozen": sum(1 for c in lang_block.get("cues", []) if c.get("freeze_planned")),
+        "max_silent_span_ms": int(lang_block.get("max_silent_span_ms", 0)),
+        "silent_spans": len(lang_block.get("silent_spans_ms", [])),
     }
     return {"decision": decision, "findings": findings, "metrics": metrics}
 

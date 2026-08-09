@@ -37,6 +37,21 @@
           "max_abs_drift_ms": { "type": "integer", "minimum": 0 },
           "cues_over_tolerance": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose |drift| exceeds per-cue tolerance." },
           "cues_over_stretch_cap": { "type": "array", "items": { "type": "integer" }, "description": "Cue ids whose fit demanded a stretch beyond the cap (clamped, not forced)." },
+          "silent_spans_ms": {
+            "type": "array",
+            "description": "Runs of pure silence on the rendered dub timeline (leading gap + inter-cue gaps ≥ a small floor) that are NOT covered by a keep-source-audio cue. A span longer than quality_bars.audio.silent_span_max_ms is a blocker (rule 14).",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["start_ms", "end_ms", "duration_ms"],
+              "properties": {
+                "start_ms": { "type": "integer", "minimum": 0 },
+                "end_ms": { "type": "integer", "minimum": 0 },
+                "duration_ms": { "type": "integer", "minimum": 0 }
+              }
+            }
+          },
+          "max_silent_span_ms": { "type": "integer", "minimum": 0, "description": "Longest non-exempt silent span on this track (0 if none)." },
           "still_image": { "type": "boolean", "description": "True when this language uses a fixed still image (rule 15) instead of the source video. The picture is one frame stretched over the whole dub, so audio-vs-picture drift is 0 by construction and no freeze plan is produced (packaging ignores any plan for a still-image language)." },
           "freeze_frame_enabled": { "type": "boolean", "description": "True when this dub was produced under freeze-frame policy (audio kept near natural length; the picture is frozen at mux to absorb overflow)." },
           "total_freeze_ms": { "type": "integer", "minimum": 0, "description": "Sum of planned freeze durations across this track's cues." },

@@ -13,7 +13,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_tool_policy.py\"",
+            "command": ".venv/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre_tool_policy.py\"",
             "timeout": 10
           }
         ]
@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_tool_audit.py\"",
+            "command": ".venv/bin/python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/post_tool_audit.py\"",
             "timeout": 10
           }
         ]
