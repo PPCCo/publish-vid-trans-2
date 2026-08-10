@@ -36,7 +36,7 @@ from video_translation_house.state import next_actions, plan
 from video_translation_house.util import repo_root
 from video_translation_house.validation import validate_framework
 
-mcp = _McpServer("video-translation-house")
+mcp = _McpServer("vid-trans-house")
 
 
 def root() -> Path:

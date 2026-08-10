@@ -43,10 +43,32 @@ _RM_RECURSIVE = re.compile(r"\brm\s+-[^\n]*r[^\n]*f\b|\brm\s+-rf\b", re.IGNORECA
 # effective environment so it holds even when `.env.local` was never sourced.
 HF_CACHE_DIR = os.environ.get("VIDTRANS_HF_CACHE") or "/Users/qaiser.abbas/Dev/my-repos/pub/.cache/huggingface"
 
+# All staging/model caches on this machine live under one root so there's a single place to
+# point at, back up, or clean: `/Users/qaiser.abbas/Dev/my-repos/pub/.cache` (HF_CACHE_DIR above
+# already resolves inside it, at `.cache/huggingface`). The MMS-TTS Urdu/Persian checkpoints are
+# staged via the GitHub-repo recipe in OPERATING-GUIDE §6 (weights pushed to a private GitHub
+# repo, downloaded here, then HF-cache blobs symlinked back at them) — same pattern as the
+# whisper stage dir. Deleting either dir breaks the HF cache symlinks that resolve
+# `facebook/mms-tts-urd-script_arabic` / `facebook/mms-tts-fas` offline, so `mms_tts.sh` (the
+# `tts.binary_overrides.mms` seam) and any direct HF/transformers invocation must always resolve
+# against these paths, never re-fetch from the network.
+CACHE_ROOT = os.environ.get("VIDTRANS_CACHE_ROOT") or "/Users/qaiser.abbas/Dev/my-repos/pub/.cache"
+MMS_STAGE_DIRS = {
+    "urd": os.environ.get("VIDTRANS_MMS_URD_STAGE")
+    or "/Users/qaiser.abbas/Dev/my-repos/pub/mms-tts-urd-stage",
+    "fas": os.environ.get("VIDTRANS_MMS_FAS_STAGE")
+    or "/Users/qaiser.abbas/Dev/my-repos/pub/mms-tts-fas-stage",
+}
+
 # Command-position tokens (or path basenames) whose invocation is an HF-backed model operation. When
 # any of these run, the HF cache env below is asserted so the model is loaded from HF_CACHE_DIR
-# offline, not fetched over the (blocked) network.
-_HF_OPERATION_NAMES = {"mlx_whisper", "whisper", "faster-whisper", "faster_whisper", "huggingface-cli", "hf"}
+# offline, not fetched over the (blocked) network. mms_tts.sh already sets HF_HOME/HF_HUB_OFFLINE
+# itself (belt-and-suspenders — see the top-of-file comment), but it's listed here too so a direct
+# invocation (bypassing `dub run`) still gets the env asserted and the cache path audited.
+_HF_OPERATION_NAMES = {
+    "mlx_whisper", "whisper", "faster-whisper", "faster_whisper", "huggingface-cli", "hf",
+    "mms_tts.sh", "mms_tts.py",
+}
 
 # The offline HF environment every HF/whisper operation must run under. HF_HUB_OFFLINE forbids any
 # network hit; HF_HOME/HF_HUB_CACHE/TRANSFORMERS_CACHE all point at the staged cache so every HF
@@ -317,11 +339,12 @@ def main() -> int:
         # never sourced. Non-blocking: it never denies or prompts — it just guarantees the path.
         runs_hf = bool(cmd_words and (cmd_words & _HF_OPERATION_NAMES)) or bool(
             re.search(r"\btranscript\s+(run|import|english-|qa)\b", command)
-        )
+        ) or bool(re.search(r"\bdub\s+run\b", command))
         if runs_hf:
             hf_env = _hf_offline_env()
             os.environ.update(hf_env)
             record["hf_cache_asserted"] = HF_CACHE_DIR
+            record["mms_stage_dirs"] = MMS_STAGE_DIRS
         # HARD deny: never invoke a bare `python`/`python3` — it resolves to the system
         # interpreter (missing the venv's deps). Always use `.venv/bin/python3` (or another
         # explicit interpreter path). This is a non-negotiable company rule, not a prompt.

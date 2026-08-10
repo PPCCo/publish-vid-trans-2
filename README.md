@@ -723,7 +723,7 @@ Title` block YouTube parses (first line always `0:00`), appended to the descript
 
 ## MCP server (read-only)
 
-`.claude/mcp/video_translation_house_server.py` exposes query/dry-run tools only —
+`.claude/mcp/vid_trans_server.py` exposes query/dry-run tools only —
 `framework_validate`, `project_get_status`, `project_plan`, `catalog_list`/`show`,
 `transcript_show`, `glossary_check_preview`, `caption_validate_preview`, `sync_report_show`,
 `audio_qa_preview`, `package_manifest_show`, `final_qa_preview`, `budget_status`, and more.

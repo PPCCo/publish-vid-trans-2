@@ -17,17 +17,17 @@
     "verified": false
   },
   "tts": {
-    "_comment": "`per_language` picks the TTS ENGINE for a language whose provider `dub run` left unresolved (provider=None) — it is NOT the clone-vs-piper policy. The SOURCE OF TRUTH for which languages are voice-cloned (XTTS off source/audio.wav) vs dubbed by the piper gender registry is company.default.json `dubbing.clone_languages` (default ['en','zh']); `dub run` resolves provider=xtts+clone there BEFORE the engine layer ever consults this map, so for a clone language this map is never read. Keep the two in sync (en/zh listed xtts here too) but change the policy in company config, not here. Non-clone langs pass provider=None → engines/tts.py falls back to this map / default_provider.",
-    "default_provider": "piper",
+    "_comment": "`per_language` picks the TTS ENGINE for a language whose provider `dub run` left unresolved (provider=None) — it is NOT the clone-vs-piper policy. The SOURCE OF TRUTH for which languages are voice-cloned (XTTS off source/audio.wav) vs fixed-voice is company.default.json `dubbing.clone_languages`; `dub run` resolves provider=xtts+clone there BEFORE the engine layer ever consults this map, so for a clone language this map is never read — it only matters as documentation/fallback. Keep the two in sync (every clone language listed xtts here too) but change the policy in company config, not here. fa/ur are the sole fixed-voice (mms) exception — no XTTS coverage for them; every other language, including the default_provider fallback, is xtts.",
+    "default_provider": "xtts",
     "per_language": {
       "en": "xtts",
       "zh": "xtts",
       "ar": "xtts",
       "fa": "mms",
       "ur": "mms",
-      "fr": "piper",
+      "fr": "xtts",
       "es": "xtts",
-      "pt": "piper",
+      "pt": "xtts",
       "ru": "xtts"
     },
     "allow_noncommercial_engines": true,

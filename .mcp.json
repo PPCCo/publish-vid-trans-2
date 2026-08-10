@@ -1,13 +1,13 @@
 {
     "mcpServers": {
-        "video-translation-house": {
-        "command": "${CLAUDE_PROJECT_DIR}/.venv/bin/python3",
-        "args": [
-            "${CLAUDE_PROJECT_DIR}/.claude/mcp/video_translation_house_server.py"
-        ],
-        "env": {
-            "VIDTRANS_REPO_ROOT": "${CLAUDE_PROJECT_DIR}"
-        }
+        "vid-trans-server": {
+          "command": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.venv/bin/python3",
+          "args": [
+              "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.claude/mcp/vid_trans_server.py"
+          ],
+          "env": {
+              "VIDTRANS_REPO_ROOT": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans"
+          }
         }
     }
 }
