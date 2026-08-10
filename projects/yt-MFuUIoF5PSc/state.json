@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-MFuUIoF5PSc",
-  "current_state": "CAPTION_TIMING",
-  "previous_state": "TRANSLATION_QA_GATE",
+  "current_state": "DUBBING",
+  "previous_state": "CAPTION_VALIDATION",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-09T14:29:27Z",
-  "updated_by": "human",
+  "updated_at": "2026-08-10T06:04:22Z",
+  "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
     "en",
@@ -20,19 +20,19 @@
   ],
   "language_tracks": {
     "en": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:22Z",
-      "notes": "translated; awaiting QA"
+      "updated_at": "2026-08-10T06:04:22Z",
+      "notes": "dub rendered; sync measured"
     },
     "ur": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:22Z",
+      "updated_at": "2026-08-09T16:11:48Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     },
     "ar": {
       "stage": "TRANSLATION_QA_GATE",
@@ -94,7 +94,10 @@
     "captions-json@fr": "sha256:8b89f87896419dcc696ec317013642490ed1e472e79d4f7264d32edb4ad8961f",
     "captions-json@es": "sha256:42f4219a755ede8b271cf2d8fddb973f28317254afbe7e1aa6c26d1c5becb9b7",
     "captions-json@pt": "sha256:cde010e38e0899da50dc0c20b477ef6322d22bcb262c5b12730e557e7512cdc7",
-    "captions-json@ru": "sha256:3842f127214373d75897a92cba2d2c88fc01d6cb7a2154e305ac8b3fe74dedea"
+    "captions-json@ru": "sha256:3842f127214373d75897a92cba2d2c88fc01d6cb7a2154e305ac8b3fe74dedea",
+    "dub-wav@en": "sha256:b2e39ee1b2c7a7906d9a439508457dc80829d5c9cc2691a38f373359af5b9614",
+    "sync-report": "sha256:01795710db2b329fb4dbed4699ff19f8ad076a2a3a0d1694793da734bbf5e6e1",
+    "dub-wav@ur": "sha256:aacbc38332d8989dd7b84581bf49545db8f3a9219e6fb543a2f97010f1db4e32"
   },
   "blocked_reasons": []
 }

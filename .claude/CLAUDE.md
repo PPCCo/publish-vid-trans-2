@@ -60,6 +60,22 @@ closed captions, autonomously but under human-bound gates.
    `voice_clone_consent` is still recorded solely at the human-only `rights-check` gate. `doctor`
    lists which gendered voices are staged (`dub-voice:<lang>:<gender>`).
 
+   **Clone-language exception — `dubbing.clone_languages` (default `["en","zh"]`) are ALWAYS
+   XTTS voice-clone, gender N/A.** Languages listed in company config `dubbing.clone_languages`
+   are dubbed by **XTTS voice-clone off the source speaker's `source/audio.wav`**, *not* the piper
+   gender registry — so the male/female axis does **not** apply to them. `dub run --language en`
+   (or `zh`) with **no `--model` and no `--clone`** auto-resolves to `provider=xtts` + `clone=True`
+   (as if `--clone` were passed): the auto-clone fires in `dubbing.run_dub` (`auto_clone = not clone
+   and model is None and language in clone_languages(root)`) **before** the consent gate, so it is
+   **consent-gated** (needs rights `voice_clone_consent=true`, this rule) and **fails loud** if
+   consent is missing, the XTTS `tts` engine isn't installed, or no clone reference is present —
+   never a silent piper fallback. An explicit `dub run --model <path>` or `--gender <g>` still wins
+   (auto-clone only fires when `--model` is unset). **This is the company source of truth for
+   clone-vs-piper** — the `tts.per_language` map in `tools.default.json` only picks the *engine* for
+   an otherwise-unresolved provider (dead config for clone-vs-piper; that dead-config gap is exactly
+   why `en` once dubbed on piper — rule 8). Male stays the hard default for every language **not**
+   in `clone_languages`. Tune the list in `company.local.json`.
+
    **Authorized override (2026-08-07) — cloning ON + rights pre-recorded at init.** By explicit
    human authorization, company policy now **defaults voice cloning ON** and auto-records the
    rights posture at project init, so the token-thrifty scripted/manual route runs gate-to-gate

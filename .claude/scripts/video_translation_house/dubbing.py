@@ -104,6 +104,14 @@ def company_default_voice_gender(root: Path) -> str:
     return g if g in ("male", "female") else DEFAULT_VOICE_GENDER
 
 
+def clone_languages(root: Path) -> list[str]:
+    """Languages that are ALWAYS dubbed via XTTS voice-clone (company policy), bypassing the
+    piper gender registry — the male/female axis does not apply to them. See
+    `company.default.json` → `dubbing.clone_languages` (default ["en","zh"]). Consent-gated
+    (rule 5); `dub run` fails loud if consent/engine/clone-ref is missing."""
+    return list((load_company_config(root).get("dubbing", {}) or {}).get("clone_languages", []) or [])
+
+
 def resolve_dub_voice(root: Path, language: str, gender: str) -> dict[str, str] | None:
     """Look up the staged voice for (language, gender) in the company `dubbing.voices` registry.
 
@@ -365,11 +373,26 @@ def run_dub(
         raise DubbingError(
             f"track {language!r} is not dub_enabled (caption-only); nothing to synthesize"
         )
+
+    # Clone-language policy (company `dubbing.clone_languages`, default ["en","zh"]): these
+    # languages are ALWAYS dubbed via XTTS voice-clone off the source speaker, NOT the piper
+    # gender registry — gender does not apply to them. When the operator pinned neither --model
+    # nor --clone, auto-promote to a clone dub here (before the consent gate below, so consent
+    # is enforced for the auto case too). An explicit --model or --gender override still wins
+    # (auto-clone only fires when --model is unset). `provider`/`clone_ref`/gender-skip all
+    # follow from clone=True + provider="xtts" using the EXISTING machinery below.
+    auto_clone = (not clone) and (model is None) and (language in clone_languages(root))
+    if auto_clone:
+        clone = True
+        provider = "xtts"
+
     if clone and not check_rights(root, project_id).get("voice_clone_consent", False):
         raise DubbingError(
-            "voice cloning requested but rights record has voice_clone_consent=false. "
-            "A human must record consent (rights set --voice-clone-consent) before cloning; "
-            "the neutral voice is the default."
+            f"voice cloning required for {language!r} but rights record has "
+            "voice_clone_consent=false. "
+            + ("This language is in company dubbing.clone_languages (always XTTS-clone); "
+               if auto_clone else "")
+            + "A human must record consent (rights set --voice-clone-consent) before cloning."
         )
 
     doc = load_captions(root, project_id, language)
@@ -564,7 +587,9 @@ def run_dub(
     provider_used = provider or _resolved_provider_label(root, language)
     voice_source = (
         "company.dubbing.voices" if resolved_gender is not None
-        else ("explicit-model" if model is not None else None)
+        else ("explicit-model" if model is not None
+              else ("company.dubbing.clone_languages" if auto_clone
+                    else ("voice-clone" if clone else None)))
     )
     report = _build_sync_report(
         root, project_id, language, cue_measures, bars,

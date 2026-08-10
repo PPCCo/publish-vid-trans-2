@@ -460,8 +460,30 @@ resolving the gender as **`--gender` (CLI) → project `dubbing.voice_gender` �
 
 > **piper male-voice availability.** en/es/ru/fa/ar/ur all have solid male piper voices
 > (`en_US-ryan`, `es_*`, `ru_*`, `ar_JO-kareem`, `ur_PK-fasih`, …). **zh (Mandarin) male options
-> on piper are thin** — if no acceptable male zh voice exists, keep zh **female as a disclosed,
-> recorded exception** (note it at the `audio_qa` gate) rather than shipping a broken track.
+> on piper are thin** — but zh is a **clone language** (below), so it never uses the piper registry
+> and this thinness is moot. For any *non*-clone language with no acceptable male voice, keep it
+> **female as a disclosed, recorded exception** (note it at the `audio_qa` gate) rather than
+> shipping a broken track.
+
+**Clone languages — `dubbing.clone_languages` (default `["en","zh"]`) are ALWAYS XTTS
+voice-clone.** Languages in this company-config list bypass the piper gender registry entirely and
+are dubbed by **XTTS voice-clone off the source speaker's `source/audio.wav`** — the male/female
+axis does **not** apply. `dub run --language en` (or `zh`) with **no `--model` and no `--clone`**
+auto-promotes to `provider=xtts` + clone in `dubbing.run_dub` (`auto_clone`), *before* the consent
+gate, so it is **consent-gated** (rights `voice_clone_consent: true`, rule 5) and **fails loud** if
+consent is missing, the XTTS `tts` engine isn't installed, or no clone reference exists — never a
+silent piper fallback. Requirements to run: `vid doctor` shows `engine:TTS` = pass (Coqui XTTS
+installed, see §6), consent recorded, and `source/audio.wav` present (a clone dub restores it via
+`ingest ensure` if deleted — flag-gated). An explicit `dub run --model <path>` / `--gender <g>`
+still overrides (auto-clone only fires when `--model` is unset).
+
+> **Source of truth for clone-vs-piper is `company.default.json` `dubbing.clone_languages`**, not
+> the `tts.per_language` map in `tools.default.json`. `dub run` resolves provider=xtts+clone from
+> `clone_languages` **before** the engine layer ever consults `tts.per_language`, so for a clone
+> language that map is never read (it only picks the engine for an otherwise-unresolved provider).
+> This is exactly why `en` once dubbed on **piper** despite `tts.per_language: {en: xtts}` — that
+> map was dead config for dubbing (rule 8). Keep the two in sync but change the policy in company
+> config. Tune the clone list in `company.local.json`.
 
 **Running multiple dubs — one at a time, no network env.** When several languages need dubbing
 (e.g. re-dub en + first-dub es/ru), run them **sequentially, one `dub run` per command**, each

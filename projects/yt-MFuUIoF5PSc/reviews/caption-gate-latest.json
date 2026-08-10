@@ -1,0 +1,5985 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "report_type": "caption",
+  "decision": "PASS",
+  "metrics": {
+    "languages": {
+      "en": {
+        "cue_count": 243,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "ur": {
+        "cue_count": 243,
+        "script_class": "rtl",
+        "too_fast_cues": 0
+      },
+      "ar": {
+        "cue_count": 243,
+        "script_class": "rtl",
+        "too_fast_cues": 0
+      },
+      "zh": {
+        "cue_count": 243,
+        "script_class": "cjk",
+        "too_fast_cues": 0
+      },
+      "fr": {
+        "cue_count": 243,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "es": {
+        "cue_count": 243,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "pt": {
+        "cue_count": 243,
+        "script_class": "latin",
+        "too_fast_cues": 0
+      },
+      "ru": {
+        "cue_count": 243,
+        "script_class": "cyrillic",
+        "too_fast_cues": 0
+      }
+    }
+  },
+  "created_at": "2026-08-09T15:58:42Z",
+  "created_by": "agent",
+  "findings": [
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (69)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "Satan. In the name of God, the Most Merciful, the Most Compassionate.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (128)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "sparks of fire, making raids at dawn, raising thereby a cloud of dust, penetrating thereby into the midst of the enemy e",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (43)",
+      "cue_id": 3,
+      "timestamp_ms": 19500,
+      "evidence": "indeed he is intense in his love of wealth.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (147)",
+      "cue_id": 4,
+      "timestamp_ms": 26500,
+      "evidence": "the graves are scattered, and that which is in the breasts is brought out and made manifest, indeed, on that Day their L",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (48)",
+      "cue_id": 61,
+      "timestamp_ms": 418760,
+      "evidence": "or others — ultimately belong to the deep ravine",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (84)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "have their bearing, yet what suits the matter of jihad is what took place in Medina.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (113)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "above it' — a declarative statement conveyed with the force of a command, an imperative in the guise of a report.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (50)",
+      "cue_id": 84,
+      "timestamp_ms": 571900,
+      "evidence": "it thus: you Muslims are the best of the creatures",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (58)",
+      "cue_id": 85,
+      "timestamp_ms": 578032,
+      "evidence": "person struggles against unbelief and ignorance, struggles",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (44)",
+      "cue_id": 86,
+      "timestamp_ms": 584560,
+      "evidence": "tyranny — whether by the struggle of the pen",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (64)",
+      "cue_id": 87,
+      "timestamp_ms": 590033,
+      "evidence": "sentences are conveyed with the force of a command. When He said",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (52)",
+      "cue_id": 88,
+      "timestamp_ms": 596495,
+      "evidence": "to address this as a universal principle to everyone",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (50)",
+      "cue_id": 89,
+      "timestamp_ms": 602693,
+      "evidence": "command, and exhortation, it will not be realized.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (58)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "of fire, the raiders at dawn, the raising of dust, and the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (62)",
+      "cue_id": 91,
+      "timestamp_ms": 615124,
+      "evidence": "that is, without struggle, without jihad — or only with these.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (49)",
+      "cue_id": 95,
+      "timestamp_ms": 634280,
+      "evidence": "portion of Surat al-Bayyina, it is said, 'Indeed,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (48)",
+      "cue_id": 98,
+      "timestamp_ms": 653981,
+      "evidence": "civilization, the best country, the best nation,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (50)",
+      "cue_id": 99,
+      "timestamp_ms": 660186,
+      "evidence": "Imam of the community — one whom He has appointed,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (64)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "load-bearing, the discourse concerns the horse and pack animals.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (48)",
+      "cue_id": 102,
+      "timestamp_ms": 683700,
+      "evidence": "concerns the horse alone — the horse, the horse,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (49)",
+      "cue_id": 107,
+      "timestamp_ms": 709472,
+      "evidence": "innate nature (fitra) — all virtues, excellences,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (44)",
+      "cue_id": 109,
+      "timestamp_ms": 722680,
+      "evidence": "loins, their descendants, and made them bear",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (50)",
+      "cue_id": 112,
+      "timestamp_ms": 743900,
+      "evidence": "trace back to this: that man was created anxious —",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (49)",
+      "cue_id": 113,
+      "timestamp_ms": 748876,
+      "evidence": "fashioned, this dimension tied to that base clay.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 119 line exceeds 42 chars (43)",
+      "cue_id": 119,
+      "timestamp_ms": 789436,
+      "evidence": "senses. Such a human being becomes a denier",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (56)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "fitra too testifies against this very human being — this",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (58)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "throttled the fitra and let his base nature flourish; this",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (59)",
+      "cue_id": 128,
+      "timestamp_ms": 848260,
+      "evidence": "(Quran 100:6), and he himself is 'a witness to that' (Quran",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (55)",
+      "cue_id": 129,
+      "timestamp_ms": 855260,
+      "evidence": "wealth' (Quran 100:8). This 'good' is not merely wealth",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (54)",
+      "cue_id": 130,
+      "timestamp_ms": 862260,
+      "evidence": "leaves behind wealth' (Quran 2:180) — it is wealth and",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (55)",
+      "cue_id": 131,
+      "timestamp_ms": 869260,
+      "evidence": "position, leadership, and the like. The human being, so",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (60)",
+      "cue_id": 132,
+      "timestamp_ms": 876022,
+      "evidence": "bed of the earth into a tool for his own purposes. What lies",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (60)",
+      "cue_id": 133,
+      "timestamp_ms": 883022,
+      "evidence": "mineral, plant, animal, and human. This ordinary human being",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (58)",
+      "cue_id": 134,
+      "timestamp_ms": 890022,
+      "evidence": "all four categories into his own provision and possession.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (57)",
+      "cue_id": 135,
+      "timestamp_ms": 897022,
+      "evidence": "Al 'Imran: 'Beautified for people is the love of desires'",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (50)",
+      "cue_id": 136,
+      "timestamp_ms": 904022,
+      "evidence": "summed up in these four: 'Beautified for people is",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (54)",
+      "cue_id": 137,
+      "timestamp_ms": 910560,
+      "evidence": "and heaped-up hoards of gold and silver' (Quran 3:14).",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (51)",
+      "cue_id": 143,
+      "timestamp_ms": 949800,
+      "evidence": "mineral realm; the branded horses and cattle belong",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (58)",
+      "cue_id": 144,
+      "timestamp_ms": 956772,
+      "evidence": "affairs. Agriculture belongs to the plant kingdom; herding",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (45)",
+      "cue_id": 145,
+      "timestamp_ms": 963772,
+      "evidence": "hoards belong to the minerals; women and sons",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (51)",
+      "cue_id": 146,
+      "timestamp_ms": 970348,
+      "evidence": "plant, the mineral, and the animal all into service",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (50)",
+      "cue_id": 148,
+      "timestamp_ms": 983845,
+      "evidence": "'bearing witness against themselves of disbelief.'",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (58)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "appetites and instincts, and set it aside — yet it remains",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (48)",
+      "cue_id": 152,
+      "timestamp_ms": 1010480,
+      "evidence": "fitra was present at the covenant 'Am I not your",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 153 line exceeds 42 chars (53)",
+      "cue_id": 153,
+      "timestamp_ms": 1017262,
+      "evidence": "come down to this worldly bed, this human being who —",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (50)",
+      "cue_id": 155,
+      "timestamp_ms": 1032920,
+      "evidence": "house; then he himself became a raider. This human",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (55)",
+      "cue_id": 156,
+      "timestamp_ms": 1039663,
+      "evidence": "places in the Noble Qur'an, God says he is 'ungrateful'",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (45)",
+      "cue_id": 157,
+      "timestamp_ms": 1046663,
+      "evidence": "he is 'intense in love of wealth,' that he is",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (52)",
+      "cue_id": 158,
+      "timestamp_ms": 1052971,
+      "evidence": "he develops habits of wrongdoing. This verse — 'when",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (52)",
+      "cue_id": 159,
+      "timestamp_ms": 1059714,
+      "evidence": "humble the honored ones of its people' (Quran 27:34)",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (52)",
+      "cue_id": 160,
+      "timestamp_ms": 1066167,
+      "evidence": "more than fifty places, where it is said that man is",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (53)",
+      "cue_id": 161,
+      "timestamp_ms": 1072765,
+      "evidence": "the like — these describe the empty half of the human",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (48)",
+      "cue_id": 162,
+      "timestamp_ms": 1079508,
+      "evidence": "the scene of the Resurrection arrives, the first",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (54)",
+      "cue_id": 163,
+      "timestamp_ms": 1085961,
+      "evidence": "human being is his own body — 'bearing witness against",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 164 line exceeds 42 chars (48)",
+      "cue_id": 164,
+      "timestamp_ms": 1092632,
+      "evidence": "and this is that same statement about the fitra.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (51)",
+      "cue_id": 165,
+      "timestamp_ms": 1100140,
+      "evidence": "this 'affliction': the human being who has taken on",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (55)",
+      "cue_id": 166,
+      "timestamp_ms": 1106938,
+      "evidence": "being testifies against himself that he is a plunderer,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (46)",
+      "cue_id": 167,
+      "timestamp_ms": 1113938,
+      "evidence": "a subtle point here: this first witness is the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (52)",
+      "cue_id": 168,
+      "timestamp_ms": 1120660,
+      "evidence": "against themselves of disbelief' (Quran 9:17). Then,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (48)",
+      "cue_id": 169,
+      "timestamp_ms": 1127382,
+      "evidence": "'their tongues will testify against them' (Quran",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (49)",
+      "cue_id": 170,
+      "timestamp_ms": 1133953,
+      "evidence": "distinct from confession: if the offender himself",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (46)",
+      "cue_id": 171,
+      "timestamp_ms": 1140902,
+      "evidence": "else speaks against him, that is testimony. It",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (51)",
+      "cue_id": 172,
+      "timestamp_ms": 1147322,
+      "evidence": "in earlier sessions — that we are distinct from our",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (53)",
+      "cue_id": 173,
+      "timestamp_ms": 1154322,
+      "evidence": "from our skin, distinct from our flesh. If this hand,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (45)",
+      "cue_id": 174,
+      "timestamp_ms": 1161322,
+      "evidence": "speaks, one would have to say it 'confessed.'",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (51)",
+      "cue_id": 175,
+      "timestamp_ms": 1167968,
+      "evidence": "under the table is merely an instrument of the act.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (43)",
+      "cue_id": 177,
+      "timestamp_ms": 1182450,
+      "evidence": "sinned, then when they spoke, we would have",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 179 line exceeds 42 chars (44)",
+      "cue_id": 179,
+      "timestamp_ms": 1195588,
+      "evidence": "that it is the human being himself who gives",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 180 line exceeds 42 chars (44)",
+      "cue_id": 180,
+      "timestamp_ms": 1202278,
+      "evidence": "the human being — indeed, to this empty half",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 181 line exceeds 42 chars (46)",
+      "cue_id": 181,
+      "timestamp_ms": 1209049,
+      "evidence": "'sounding clay of altered black mud,' to 'clay",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (44)",
+      "cue_id": 186,
+      "timestamp_ms": 1241854,
+      "evidence": "base nature, testifying against that nature;",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 190 line exceeds 42 chars (49)",
+      "cue_id": 190,
+      "timestamp_ms": 1267808,
+      "evidence": "the divine Beloved, around whom the human being's",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (48)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "become beloved of God — instead loves these four",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 193 line exceeds 42 chars (48)",
+      "cue_id": 193,
+      "timestamp_ms": 1292938,
+      "evidence": "sons, the heaped-up hoards, and the tilled land.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (49)",
+      "cue_id": 200,
+      "timestamp_ms": 1338320,
+      "evidence": "course, the men of God are those who have wagered",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (43)",
+      "cue_id": 204,
+      "timestamp_ms": 1364151,
+      "evidence": "are the ones who, in the inner jihad, chose",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 206 line exceeds 42 chars (49)",
+      "cue_id": 206,
+      "timestamp_ms": 1377578,
+      "evidence": "creatures — sons and women on one side, heaped-up",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (72)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "yet he suppresses that inner witness; he has locked it away in the state",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (67)",
+      "cue_id": 219,
+      "timestamp_ms": 1461120,
+      "evidence": "Resurrection he says, 'What is this record that leaves out nothing,",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (59)",
+      "cue_id": 220,
+      "timestamp_ms": 1468120,
+      "evidence": "(Quran 18:49). The great, weighty ledgers rest with God and",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (66)",
+      "cue_id": 221,
+      "timestamp_ms": 1474600,
+      "evidence": "everyday, ordinary record, though seemingly forgotten, is not lost",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (63)",
+      "cue_id": 222,
+      "timestamp_ms": 1481276,
+      "evidence": "forward' (Quran 82:5); the human being carries it with himself.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (75)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "it — though indeed, the 'noble scribes' (Quran 82:11) recorded it too — but",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (81)",
+      "cue_id": 224,
+      "timestamp_ms": 1495785,
+      "evidence": "forward' (Quran 82:5). Among the contexts where an indefinite noun appears within",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (79)",
+      "cue_id": 225,
+      "timestamp_ms": 1502567,
+      "evidence": "here, the rule is this: an indefinite noun in a negative context usually yields",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (75)",
+      "cue_id": 226,
+      "timestamp_ms": 1509292,
+      "evidence": "meaning none at all — but an indefinite noun in an affirmative context does",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (77)",
+      "cue_id": 227,
+      "timestamp_ms": 1516017,
+      "evidence": "however, according to the evidence and context, 'a soul will know what it has",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (77)",
+      "cue_id": 228,
+      "timestamp_ms": 1522514,
+      "evidence": "single soul — every soul will bring forward what it has done, the human being",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (67)",
+      "cue_id": 229,
+      "timestamp_ms": 1529296,
+      "evidence": "in the matter of the Hajj and its pack-camels these interpretations",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (76)",
+      "cue_id": 230,
+      "timestamp_ms": 1535565,
+      "evidence": "most fitting to connect this to the affairs of jihad; and it makes the human",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (78)",
+      "cue_id": 231,
+      "timestamp_ms": 1542347,
+      "evidence": "house who witnesses his deeds and his misdeeds, and who has recorded them all.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (76)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "your fitra is the witness; you yourself are the accused — that is, your base",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (71)",
+      "cue_id": 233,
+      "timestamp_ms": 1557800,
+      "evidence": "and the accused were one and the same, this would be meaningless unless",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 234 line exceeds 42 chars (70)",
+      "cue_id": 234,
+      "timestamp_ms": 1564668,
+      "evidence": "plunder appears embodied within, this is a testimony of deeds; whereas",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 235 line exceeds 42 chars (71)",
+      "cue_id": 235,
+      "timestamp_ms": 1571414,
+      "evidence": "necessarily involve more than one witness. This brings us to the end of",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (69)",
+      "cue_id": 236,
+      "timestamp_ms": 1577674,
+      "evidence": "name al-'Adiyat. Of course, many of the subtleties of this surah were",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 237 line exceeds 42 chars (70)",
+      "cue_id": 237,
+      "timestamp_ms": 1584238,
+      "evidence": "before it, and the reports that exist trace back to these same points.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (68)",
+      "cue_id": 238,
+      "timestamp_ms": 1590924,
+      "evidence": "deep understanding of whatever serves the good, the welfare, and the",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (68)",
+      "cue_id": 239,
+      "timestamp_ms": 1597610,
+      "evidence": "this world and the next, and that people will come to know that many",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 240 line exceeds 42 chars (73)",
+      "cue_id": 240,
+      "timestamp_ms": 1604235,
+      "evidence": "declarative sentences, are conveyed with the force of a command — telling",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (68)",
+      "cue_id": 241,
+      "timestamp_ms": 1611042,
+      "evidence": "believers; that is, O believers, strive to be the best of the people",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (68)",
+      "cue_id": 242,
+      "timestamp_ms": 1617788,
+      "evidence": "upon you. Peace be upon you, and the mercy of God and His blessings.",
+      "language": "en"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (56)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "اللہ کے نام سے جو نہایت مہربان، بےحد رحم فرمانے والا ہے۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (177)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "کی، جو ہانپتے ہوئے دوڑتے ہیں، پھر سنگ زنی سے چنگاریاں نکالتے ہیں، پھر صبح سویرے حملہ کرتے ہیں، پھر اس سے گردوغبار اٹھاتے",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (77)",
+      "cue_id": 4,
+      "timestamp_ms": 24840,
+      "evidence": "ہے نکال کر بکھیر دیا جائے گا؟ اور جو کچھ سینوں میں ہے وہ ظاہر کر دیا جائے گا؟",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (75)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "اہمیت ہے، مگر جو جہاد کے معاملے کے مناسب ہے وہ وہی ہے جو مدینہ میں پیش آیا۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (83)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "— یہ ایک خبری جملہ ہے جو حکم کی قوت کے ساتھ ادا کیا گیا ہے (رپورٹ کی صورت میں حکم)۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (71)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "آگ کی چنگاریاں نکالنے والوں کے بغیر، صبح سویرے حملہ کرنے والوں کے بغیر،",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (71)",
+      "cue_id": 91,
+      "timestamp_ms": 615180,
+      "evidence": "میں گھسنے والوں کے بغیر — یعنی جہاد اور کوشش کے بغیر — یا انہی کے ساتھ۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (59)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "گفتگو گھوڑے اور دیگر بار بردار جانوروں کے بارے میں ہوتی ہے۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (55)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "طرح فطرت بھی اسی انسان کے خلاف گواہی دیتی ہے — یہ انسان",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (50)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "گھونٹا اور اپنی [پست] طبیعت کو پھلنے دیا؛ یہ انسان",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (49)",
+      "cue_id": 129,
+      "timestamp_ms": 854891,
+      "evidence": "100:8)۔ یہاں 'خیر' صرف مال نہیں ہے — جیسا کہ سورہ",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (53)",
+      "cue_id": 130,
+      "timestamp_ms": 861891,
+      "evidence": "(Quran 2:180) — یہ مال ہے اور جو مال کی طرف لوٹتا ہے،",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (45)",
+      "cue_id": 131,
+      "timestamp_ms": 868891,
+      "evidence": "چیزیں۔ انسان، جہاں تک ہو سکے، زمین کی تہہ میں",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (49)",
+      "cue_id": 132,
+      "timestamp_ms": 875891,
+      "evidence": "استعمال کرتا ہے۔ زمین کی تہہ میں جو کچھ ہے وہ چار",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (48)",
+      "cue_id": 133,
+      "timestamp_ms": 882891,
+      "evidence": "انسانی۔ یہ عام انسان — جو 'اپنے رب کا ناشکرا ہے'",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (50)",
+      "cue_id": 134,
+      "timestamp_ms": 889891,
+      "evidence": "لیتا ہے۔ یہی وہ بات ہے جو سورہ آل عمران کے ابتدائی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (46)",
+      "cue_id": 135,
+      "timestamp_ms": 896891,
+      "evidence": "خوبصورت بنا دی گئی ہے' — یہ خواہشات، ایک عمومی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (43)",
+      "cue_id": 136,
+      "timestamp_ms": 903891,
+      "evidence": "'لوگوں کے لیے خوبصورت بنا دی گئی ہے خواہشات",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (44)",
+      "cue_id": 148,
+      "timestamp_ms": 983740,
+      "evidence": "فطرت ہے: 'اپنے خلاف کفر کی گواہی دیتے ہوئے۔'",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (73)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "دیا اور الگ کر دیا — مگر یہ اس کے اندر ہی موجود ہے، یہ اس کا اپنا نفس ہے۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (48)",
+      "cue_id": 152,
+      "timestamp_ms": 1010480,
+      "evidence": "کے عہد کے وقت موجود تھی اور اس نے 'ہاں' کہا تھا۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (43)",
+      "cue_id": 162,
+      "timestamp_ms": 1079147,
+      "evidence": "مکمل نصف کو دفن کر دیا ہے۔ جب قیامت کا منظر",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (49)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "محبوب بن سکتا تھا — [اس کے بجائے] ان چار چیزوں سے",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 193 line exceeds 42 chars (44)",
+      "cue_id": 193,
+      "timestamp_ms": 1293000,
+      "evidence": "اور بیٹے، اور جمع شدہ خزانے، اور کھیتی باڑی۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (58)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "وہ اس اندرونی گواہ کو دبا دیتا ہے؛ اس نے اسے 'اسے دبا دیا'",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (52)",
+      "cue_id": 219,
+      "timestamp_ms": 1461120,
+      "evidence": "منظر میں [وہ کہتا ہے]، 'یہ کیسا نامہ ہے جو کسی چھوٹی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (48)",
+      "cue_id": 220,
+      "timestamp_ms": 1467936,
+      "evidence": "لیا ہے؟' (Quran 18:49)۔ بڑے، وزنی رجسٹر اللہ اور",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (49)",
+      "cue_id": 221,
+      "timestamp_ms": 1474532,
+      "evidence": "معمولی نامہ جو بھلا دیا گیا ہو، وہ ضائع نہیں ہوتا",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (52)",
+      "cue_id": 222,
+      "timestamp_ms": 1481275,
+      "evidence": "گا' (Quran 82:5)؛ انسان اسے اپنے ساتھ لے کر چلتا ہے۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (54)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "— اگرچہ ہاں، 'معزز کاتب' (Quran 82:11) نے بھی اسے لکھا",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (55)",
+      "cue_id": 224,
+      "timestamp_ms": 1495765,
+      "evidence": "لے گا' (Quran 82:5)۔ ان مقامات میں سے جہاں ایک غیر معین",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (58)",
+      "cue_id": 225,
+      "timestamp_ms": 1502470,
+      "evidence": "ہوتا ہے — جیسا کہ یہاں — عام طور پر منفی سیاق میں غیر معین",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (53)",
+      "cue_id": 226,
+      "timestamp_ms": 1509382,
+      "evidence": "مددگار نہیں آیا،' یعنی [کوئی بھی نہیں]؛ مگر مثبت سیاق",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (51)",
+      "cue_id": 227,
+      "timestamp_ms": 1515810,
+      "evidence": "کرتا۔ یہاں، شواہد اور سیاق کے مطابق، 'ہر نفس جو کچھ",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (59)",
+      "cue_id": 228,
+      "timestamp_ms": 1522169,
+      "evidence": "مطلب ہے ہر نفس — 'ہر نفس، جو کچھ اس نے آگے لایا،' انسان خود",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (52)",
+      "cue_id": 229,
+      "timestamp_ms": 1529169,
+      "evidence": "بار بردار اونٹ کے معاملے میں یہ تفسیریں بھی روایت کی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (54)",
+      "cue_id": 230,
+      "timestamp_ms": 1535666,
+      "evidence": "کے امور سے جوڑا جائے؛ اور یہ انسان کو باخبر کرتا ہے کہ",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (56)",
+      "cue_id": 231,
+      "timestamp_ms": 1542371,
+      "evidence": "اور برے اعمال کا گواہ ہے، اور اس نے اسے محدود کر دیا ہے۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (45)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "تم خود ملزم ہو — یعنی تمہاری [پست] طبیعت ملزم",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (45)",
+      "cue_id": 233,
+      "timestamp_ms": 1557800,
+      "evidence": "یہ بےمعنی ہے سوائے اس کے کہ یہ اعمال کی گواہی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (44)",
+      "cue_id": 236,
+      "timestamp_ms": 1577541,
+      "evidence": "اختتام ہے۔ البتہ اس سورت کے بہت سے نکات پہلے",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (44)",
+      "cue_id": 238,
+      "timestamp_ms": 1590888,
+      "evidence": "تعالیٰ انہیں دنیا اور آخرت میں اسلامی امت کی",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (43)",
+      "cue_id": 239,
+      "timestamp_ms": 1597601,
+      "evidence": "فرمائے، اور انہیں معلوم ہو کہ ان میں سے بہت",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (45)",
+      "cue_id": 241,
+      "timestamp_ms": 1610868,
+      "evidence": "مومنو، دنیا کے بہترین انسان بننے کی کوشش کرو۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (45)",
+      "cue_id": 242,
+      "timestamp_ms": 1617741,
+      "evidence": "سلامتی ہو، اور اللہ کی رحمت اور اس کی برکتیں۔",
+      "language": "ur"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (48)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "الرَّجِيمِ. بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ.",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (44)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "خبرية تحمل معنى الأمر (خبر في معنى الإنشاء).",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (45)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "أيضًا تشهد على هذا الإنسان نفسه — هذا الإنسان",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (45)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "(الأمّارة) وأطلق العنان لطبيعته البهيمية؛ هذا",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (44)",
+      "cue_id": 129,
+      "timestamp_ms": 855260,
+      "evidence": "الْخَيْرِ لَشَدِيدٌ﴾ (Quran 100:8). و'الخير'",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (43)",
+      "cue_id": 130,
+      "timestamp_ms": 862260,
+      "evidence": "البقرة: ﴿إِنْ تَرَكَ خَيْرًا﴾ (Quran 2:180)",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (43)",
+      "cue_id": 132,
+      "timestamp_ms": 876260,
+      "evidence": "لعمله. وما في بطن الأرض أربعة أقسام: المعدن",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (47)",
+      "cue_id": 135,
+      "timestamp_ms": 897260,
+      "evidence": "الشهوات، وهي مجموعة عامة، تنحصر في هذه الأربعة:",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (52)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "ونحّتها جانبًا — إلا أنها موجودة فيه، هي ذاته نفسها.",
+      "language": "ar"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 16 chars (22)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "契合吉哈德之事的，是发生在麦地那的那一情形。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 16 chars (39)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "高于它，这是一句以陈述之形式，却带有命令之力的话语（外表是叙述，实则是命令）。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 16 chars (17)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "会作证反对这同一个人，这个在自我的",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 16 chars (17)",
+      "cue_id": 127,
+      "timestamp_ms": 841182,
+      "evidence": "滋长的人；这个对他的主忘恩负义(Q",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 16 chars (18)",
+      "cue_id": 128,
+      "timestamp_ms": 848104,
+      "evidence": "己也是这一切的见证(Quran 10",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 16 chars (17)",
+      "cue_id": 129,
+      "timestamp_ms": 855104,
+      "evidence": "(Quran 100:8)。这里的",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 16 chars (17)",
+      "cue_id": 130,
+      "timestamp_ms": 862026,
+      "evidence": "牛章》所说，若他留下财产（善）(Q",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 16 chars (18)",
+      "cue_id": 131,
+      "timestamp_ms": 868948,
+      "evidence": "以及与财富相关的一切：地位、权位、领",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 16 chars (17)",
+      "cue_id": 132,
+      "timestamp_ms": 875948,
+      "evidence": "深处所蕴藏的一切都当作自己劳作的工",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 16 chars (17)",
+      "cue_id": 133,
+      "timestamp_ms": 882870,
+      "evidence": "矿物、植物、动物和人类。这个平凡的",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 16 chars (17)",
+      "cue_id": 134,
+      "timestamp_ms": 889792,
+      "evidence": "类全都变成了自己的资财和占有物。这",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 16 chars (17)",
+      "cue_id": 135,
+      "timestamp_ms": 896714,
+      "evidence": "人们爱好私欲之事被装饰得美好，这些",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 16 chars (18)",
+      "cue_id": 136,
+      "timestamp_ms": 903636,
+      "evidence": "类：对人们而言，爱好私欲之事，妻子、",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 16 chars (17)",
+      "cue_id": 137,
+      "timestamp_ms": 910636,
+      "evidence": "饰得美好(Quran 3:14)。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 16 chars (19)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "证者，但他压制了这内在的见证；他在将它",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 16 chars (20)",
+      "cue_id": 219,
+      "timestamp_ms": 1460823,
+      "evidence": "活的场景中他说，这是什么簿册，竟不遗漏任",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 16 chars (19)",
+      "cue_id": 220,
+      "timestamp_ms": 1467717,
+      "evidence": "an 18:49)。那些重大而庄重的簿",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 16 chars (20)",
+      "cue_id": 221,
+      "timestamp_ms": 1474420,
+      "evidence": "里；但那被遗忘的日常寻常记录并未丢失，每",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 16 chars (19)",
+      "cue_id": 222,
+      "timestamp_ms": 1481314,
+      "evidence": "uran 82:5)；人将它随身携带。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 16 chars (21)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "然，尊贵的书记天使(Quran 82:11",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 16 chars (21)",
+      "cue_id": 224,
+      "timestamp_ms": 1495769,
+      "evidence": "将知道它所带来的一切(Quran 82:5",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 16 chars (20)",
+      "cue_id": 225,
+      "timestamp_ms": 1502478,
+      "evidence": "定名词置于肯定的全称语境中，如此处所示，",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 16 chars (21)",
+      "cue_id": 226,
+      "timestamp_ms": 1509005,
+      "evidence": "普遍性，如没有任何援助者来到我这里，意即一",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 16 chars (21)",
+      "cue_id": 227,
+      "timestamp_ms": 1515714,
+      "evidence": "并非处处都产生普遍性。此处，依据证据与语境",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 16 chars (21)",
+      "cue_id": 228,
+      "timestamp_ms": 1522423,
+      "evidence": "(Quran 82:5)意指每一个灵魂，每",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 16 chars (20)",
+      "cue_id": 229,
+      "timestamp_ms": 1529132,
+      "evidence": "呈现出来。因此，尽管在朝觐及朝觐所用的驮",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 16 chars (21)",
+      "cue_id": 230,
+      "timestamp_ms": 1535659,
+      "evidence": "首要契合的，仍是与吉哈德诸事相连；这使人意",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 16 chars (21)",
+      "cue_id": 231,
+      "timestamp_ms": 1542368,
+      "evidence": "所作的善行与恶行的见证者，且祂已将其封存。",
+      "language": "zh"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (80)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "Satan le maudit. Au nom de Dieu, le Tout Miséricordieux, le Très Miséricordieux.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (159)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "haletant, qui font jaillir des étincelles, qui font des raids à l'aube, soulevant ainsi un nuage de poussière, et pénétr",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (55)",
+      "cue_id": 3,
+      "timestamp_ms": 19500,
+      "evidence": "en vérité, il est intense dans son amour des richesses.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (168)",
+      "cue_id": 4,
+      "timestamp_ms": 26500,
+      "evidence": "des tombes sera dispersé, et que ce qui est dans les poitrines (les cœurs) sera mis à nu et rendu manifeste, ce Jour-là,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (67)",
+      "cue_id": 61,
+      "timestamp_ms": 418760,
+      "evidence": "s'agisse de chameaux ou d'autres, appartiennent finalement au ravin",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 62 line exceeds 42 chars (64)",
+      "cue_id": 62,
+      "timestamp_ms": 424627,
+      "evidence": "qui est sur le champ de bataille, ce sont ces chevaux de guerre.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (97)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "ont leur pertinence, mais ce qui convient à la cause du jihad, c'est ce qui s'est passé à Médine.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (125)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "au-dessus de lui » — c'est une phrase déclarative énoncée avec la force d'un ordre (un impératif sous la forme d'un rapp",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 66 line exceeds 42 chars (44)",
+      "cue_id": 66,
+      "timestamp_ms": 451120,
+      "evidence": "toute religion » (Quran 9:33) — qui apparaît",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 67 line exceeds 42 chars (43)",
+      "cue_id": 67,
+      "timestamp_ms": 457889,
+      "evidence": "al-Fath 48:28 et as-Saff 61:9) — bien qu'en",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 69 line exceeds 42 chars (50)",
+      "cue_id": 69,
+      "timestamp_ms": 471019,
+      "evidence": "al-Bayyina, il est dit que les croyants, les pieux",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 70 line exceeds 42 chars (48)",
+      "cue_id": 70,
+      "timestamp_ms": 478019,
+      "evidence": "créatures sur terre — c'est-à-dire la meilleure,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 73 line exceeds 42 chars (49)",
+      "cue_id": 73,
+      "timestamp_ms": 497348,
+      "evidence": "créatures » (Quran 98:7) — « birr » (piété/vertu)",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 75 line exceeds 42 chars (43)",
+      "cue_id": 75,
+      "timestamp_ms": 510628,
+      "evidence": "accomplissent de bonnes œuvres ; celui dont",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 77 line exceeds 42 chars (45)",
+      "cue_id": 77,
+      "timestamp_ms": 523432,
+      "evidence": "Tandis que celui qui ne fait le bien que pour",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 78 line exceeds 42 chars (44)",
+      "cue_id": 78,
+      "timestamp_ms": 530432,
+      "evidence": "un homme de « birr ». Et celui à la poitrine",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 82 line exceeds 42 chars (44)",
+      "cue_id": 82,
+      "timestamp_ms": 557494,
+      "evidence": "qui le confort n'est pas plaisant ; celui-là",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (65)",
+      "cue_id": 84,
+      "timestamp_ms": 571900,
+      "evidence": "comprenez donc : vous, musulmans, êtes la meilleure des créatures",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (56)",
+      "cue_id": 85,
+      "timestamp_ms": 578218,
+      "evidence": "personne lutte contre l'incroyance et l'ignorance, lutte",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (59)",
+      "cue_id": 86,
+      "timestamp_ms": 584161,
+      "evidence": "tyrannie — que ce soit par la lutte de la plume ou celle du",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (68)",
+      "cue_id": 87,
+      "timestamp_ms": 590354,
+      "evidence": "énoncées avec la force d'un ordre. Il a dit « vous êtes la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (59)",
+      "cue_id": 88,
+      "timestamp_ms": 596860,
+      "evidence": "comme un principe universel à Zayd (c'est-à-dire à chacun),",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (54)",
+      "cue_id": 89,
+      "timestamp_ms": 603053,
+      "evidence": "commandement et exhortation, cela ne se réalisera pas.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (69)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "les frappeurs d'étincelles, les raiders de l'aube, ceux qui soulèvent",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (75)",
+      "cue_id": 91,
+      "timestamp_ms": 615105,
+      "evidence": "troupe — c'est-à-dire sans lutte, sans jihad — ou bien avec cela seulement.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (56)",
+      "cue_id": 92,
+      "timestamp_ms": 621640,
+      "evidence": "on devient « la meilleure des créatures » — la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 93 line exceeds 42 chars (52)",
+      "cue_id": 93,
+      "timestamp_ms": 626344,
+      "evidence": "culture est la vôtre, la meilleure vie est la vôtre.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (56)",
+      "cue_id": 95,
+      "timestamp_ms": 634280,
+      "evidence": "de la sourate al-Bayyina, il est dit : « En vérité, ceux",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (57)",
+      "cue_id": 96,
+      "timestamp_ms": 641078,
+      "evidence": "œuvres — ceux-là sont la meilleure des créatures » (Quran",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (47)",
+      "cue_id": 97,
+      "timestamp_ms": 647670,
+      "evidence": "justes en tant que promesse, portent avec elles",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 98 line exceeds 42 chars (54)",
+      "cue_id": 98,
+      "timestamp_ms": 653644,
+      "evidence": "meilleure civilisation, le meilleur pays, la meilleure",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 99 line exceeds 42 chars (52)",
+      "cue_id": 99,
+      "timestamp_ms": 660168,
+      "evidence": "dirigeant, le meilleur Imam de la communauté — celui",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 100 line exceeds 42 chars (49)",
+      "cue_id": 100,
+      "timestamp_ms": 666348,
+      "evidence": "le Coran et les Purifiés (les gens de la maison).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (74)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "portage des charges, le discours concerne le cheval et les bêtes de somme.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (46)",
+      "cue_id": 102,
+      "timestamp_ms": 683700,
+      "evidence": "concerne que le cheval — le cheval, le cheval,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (44)",
+      "cue_id": 103,
+      "timestamp_ms": 688241,
+      "evidence": "pas comparables, et encore moins le chameau.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 106 line exceeds 42 chars (43)",
+      "cue_id": 106,
+      "timestamp_ms": 702660,
+      "evidence": "glorification et d'honneur que Dieu accorde",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (54)",
+      "cue_id": 107,
+      "timestamp_ms": 709597,
+      "evidence": "innée (fitra) — car toutes les vertus, les excellences",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 110 line exceeds 42 chars (45)",
+      "cue_id": 110,
+      "timestamp_ms": 729654,
+      "evidence": "Seigneur ? Ils dirent : Si ! » (Quran 7:172).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (45)",
+      "cue_id": 111,
+      "timestamp_ms": 736509,
+      "evidence": "excellences pratiques renvoient à cette part.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (67)",
+      "cue_id": 112,
+      "timestamp_ms": 743900,
+      "evidence": "renvoient à ceci : « l'homme a été créé anxieux » — l'origine basse",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (54)",
+      "cue_id": 113,
+      "timestamp_ms": 749170,
+      "evidence": "façonnée, cette dimension liée à cette argile de base.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (57)",
+      "cue_id": 114,
+      "timestamp_ms": 755500,
+      "evidence": "c'est-à-dire la disposition innée. Si quelqu'un ensevelit",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 116 line exceeds 42 chars (51)",
+      "cue_id": 116,
+      "timestamp_ms": 769334,
+      "evidence": "ferme la bouche et ne laisse pas cette fitra parler",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 117 line exceeds 42 chars (51)",
+      "cue_id": 117,
+      "timestamp_ms": 776334,
+      "evidence": "porte-parole de l'être humain devient le caprice et",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 118 line exceeds 42 chars (61)",
+      "cue_id": 118,
+      "timestamp_ms": 783249,
+      "evidence": "conjecture, agit selon l'inclination ; ses œuvres culturelles",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (51)",
+      "cue_id": 120,
+      "timestamp_ms": 796432,
+      "evidence": "il nie Dieu ou le Messager — pourtant, en lui-même,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 123 line exceeds 42 chars (53)",
+      "cue_id": 123,
+      "timestamp_ms": 817960,
+      "evidence": "connaissant et conscient ; il voit, il sait et il est",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 124 line exceeds 42 chars (45)",
+      "cue_id": 124,
+      "timestamp_ms": 823274,
+      "evidence": "Résurrection, l'être humain lui-même témoigne",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 125 line exceeds 42 chars (44)",
+      "cue_id": 125,
+      "timestamp_ms": 828116,
+      "evidence": "eux-mêmes de leur incroyance » (Quran 9:17).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (69)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "témoignent, la fitra elle aussi témoigne contre cet être humain — cet",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (68)",
+      "cue_id": 127,
+      "timestamp_ms": 841169,
+      "evidence": "étouffé la fitra et laissé fleurir sa nature inférieure ; cet humain",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (70)",
+      "cue_id": 128,
+      "timestamp_ms": 848142,
+      "evidence": "(Quran 100:6), et lui-même est « témoin de cela » (Quran 100:7), et il",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (66)",
+      "cue_id": 129,
+      "timestamp_ms": 855142,
+      "evidence": "richesses] » (Quran 100:8). Le « bien » ici n'est pas seulement la",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (73)",
+      "cue_id": 130,
+      "timestamp_ms": 862115,
+      "evidence": "sourate al-Baqara : « s'il laisse du bien [des richesses] » (Quran 2:180)",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (66)",
+      "cue_id": 131,
+      "timestamp_ms": 869115,
+      "evidence": "rapporte : le rang, la position, la direction, et le reste. L'être",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (72)",
+      "cue_id": 132,
+      "timestamp_ms": 875895,
+      "evidence": "comme outils de son œuvre tout ce qui se trouve dans le lit de la terre.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (69)",
+      "cue_id": 133,
+      "timestamp_ms": 882895,
+      "evidence": "est de quatre sortes : minéral, végétal, animal et humain. Cet humain",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (68)",
+      "cue_id": 134,
+      "timestamp_ms": 889895,
+      "evidence": "Seigneur » — transforme ces quatre catégories en sa propre provision",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (66)",
+      "cue_id": 135,
+      "timestamp_ms": 896868,
+      "evidence": "au début de la sourate Al Imran : « L'amour des désirs a été rendu",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (67)",
+      "cue_id": 136,
+      "timestamp_ms": 903777,
+      "evidence": "ensemble général, se résument à ces quatre : « L'amour des désirs a",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (69)",
+      "cue_id": 137,
+      "timestamp_ms": 910777,
+      "evidence": "femmes, enfants, et monceaux amassés d'or et d'argent » (Quran 3:14).",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (55)",
+      "cue_id": 138,
+      "timestamp_ms": 919180,
+      "evidence": "les terres cultivées » (Quran 3:14) — « harth » désigne",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 139 line exceeds 42 chars (48)",
+      "cue_id": 139,
+      "timestamp_ms": 925463,
+      "evidence": "bétail relèvent de l'élevage ; et les « monceaux",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 141 line exceeds 42 chars (57)",
+      "cue_id": 141,
+      "timestamp_ms": 936573,
+      "evidence": "minéral ; « enfants et femmes » sont l'humain. « Il a été",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 142 line exceeds 42 chars (43)",
+      "cue_id": 142,
+      "timestamp_ms": 942790,
+      "evidence": "désirs : femmes] » — « femmes et enfants ».",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (56)",
+      "cue_id": 143,
+      "timestamp_ms": 949800,
+      "evidence": "minéral ; les chevaux de race et le bétail appartiennent",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (64)",
+      "cue_id": 144,
+      "timestamp_ms": 956800,
+      "evidence": "L'agriculture appartient au règne végétal ; l'élevage appartient",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (54)",
+      "cue_id": 145,
+      "timestamp_ms": 963800,
+      "evidence": "appartiennent aux minéraux ; les femmes et les enfants",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (57)",
+      "cue_id": 146,
+      "timestamp_ms": 970276,
+      "evidence": "son service l'humain, le végétal, le minéral et l'animal,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 147 line exceeds 42 chars (50)",
+      "cue_id": 147,
+      "timestamp_ms": 977276,
+      "evidence": "Lorsque cette personne entre dans la Résurrection,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (49)",
+      "cue_id": 148,
+      "timestamp_ms": 984043,
+      "evidence": "témoignant contre eux-mêmes de leur incroyance ».",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (99)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "appétits et les instincts, et l'a mise à l'écart — pourtant elle est en lui, elle est son âme même.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (46)",
+      "cue_id": 152,
+      "timestamp_ms": 1010480,
+      "evidence": "l'alliance « Ne suis-Je pas [votre Seigneur] ?",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 153 line exceeds 42 chars (51)",
+      "cue_id": 153,
+      "timestamp_ms": 1017120,
+      "evidence": "est parvenue à ce lit [terrestre], cet humain qui —",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (48)",
+      "cue_id": 154,
+      "timestamp_ms": 1024940,
+      "evidence": ": cet humain a enseveli vivante sa propre fitra.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (59)",
+      "cue_id": 155,
+      "timestamp_ms": 1032920,
+      "evidence": "maison ; puis il est lui-même devenu un pillard. Cet humain",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (59)",
+      "cue_id": 156,
+      "timestamp_ms": 1039618,
+      "evidence": "endroits, Dieu, dans le Noble Coran, dit qu'il est « ingrat",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (62)",
+      "cue_id": 157,
+      "timestamp_ms": 1046451,
+      "evidence": "est « violent dans l'amour des richesses », qu'il est agressif",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (52)",
+      "cue_id": 158,
+      "timestamp_ms": 1053451,
+      "evidence": "il développe des problèmes d'injustice. Ce « lorsque",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (55)",
+      "cue_id": 159,
+      "timestamp_ms": 1059811,
+      "evidence": "ruinent et humilient les honorables parmi ses habitants",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (61)",
+      "cue_id": 160,
+      "timestamp_ms": 1066306,
+      "evidence": "catégorie. Ces plus de cinquante endroits où il est mentionné",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (64)",
+      "cue_id": 161,
+      "timestamp_ms": 1072733,
+      "evidence": "est « avide », « agité » et le reste — appartiennent à la moitié",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (57)",
+      "cue_id": 162,
+      "timestamp_ms": 1079733,
+      "evidence": "moitié pleine. Lorsque vient la scène de la Résurrection,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (55)",
+      "cue_id": 163,
+      "timestamp_ms": 1086363,
+      "evidence": "l'humain trompé est la partie corporelle — « témoignant",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 164 line exceeds 42 chars (56)",
+      "cue_id": 164,
+      "timestamp_ms": 1092655,
+      "evidence": "(Quran 9:17) — c'est cette même déclaration de la fitra.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (59)",
+      "cue_id": 165,
+      "timestamp_ms": 1100140,
+      "evidence": "« blessure/cicatrice » ainsi : l'humain qui a pris la forme",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (61)",
+      "cue_id": 166,
+      "timestamp_ms": 1106837,
+      "evidence": "contre lui-même qu'il est un pillard ; et c'est un témoignage",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (69)",
+      "cue_id": 167,
+      "timestamp_ms": 1113733,
+      "evidence": "premier témoin est le témoin de la propre maison, « témoignant contre",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (61)",
+      "cue_id": 168,
+      "timestamp_ms": 1120733,
+      "evidence": "9:17). Puis, lorsque cela atteint les membres et les organes,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (57)",
+      "cue_id": 169,
+      "timestamp_ms": 1127298,
+      "evidence": "(Quran 41:20-21). Or, gardez à l'esprit que le témoignage",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (73)",
+      "cue_id": 170,
+      "timestamp_ms": 1133863,
+      "evidence": "criminel lui-même parle, c'est un aveu ; si un étranger parle contre lui,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (58)",
+      "cue_id": 171,
+      "timestamp_ms": 1140863,
+      "evidence": "comme cela a été développé longuement dans les discussions",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (63)",
+      "cue_id": 172,
+      "timestamp_ms": 1147361,
+      "evidence": "chose que nos mains, autre chose que nos pieds, autre chose que",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (66)",
+      "cue_id": 173,
+      "timestamp_ms": 1154323,
+      "evidence": "Si cette main qui a pris un pot-de-vin sous la table, qui en donne",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (68)",
+      "cue_id": 174,
+      "timestamp_ms": 1161323,
+      "evidence": "suite, lorsqu'elle parle, il faudrait dire qu'elle a « avoué ». Mais",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (68)",
+      "cue_id": 175,
+      "timestamp_ms": 1168285,
+      "evidence": "pots-de-vin sous la table — cette main est un instrument de l'œuvre.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (62)",
+      "cue_id": 176,
+      "timestamp_ms": 1175760,
+      "evidence": "personne a pris [un pot-de-vin] et qu'elle a exécuté [l'acte].",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (50)",
+      "cue_id": 177,
+      "timestamp_ms": 1182568,
+      "evidence": "péché, alors, lorsqu'ils parlent, il faudrait dire",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (63)",
+      "cue_id": 178,
+      "timestamp_ms": 1188619,
+      "evidence": "ne dit pas que la main a avoué ; il dit que la main a témoigné.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 179 line exceeds 42 chars (63)",
+      "cue_id": 179,
+      "timestamp_ms": 1195619,
+      "evidence": "lui-même qui donne ou reçoit sous la table. Ce péché appartient",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 180 line exceeds 42 chars (50)",
+      "cue_id": 180,
+      "timestamp_ms": 1202495,
+      "evidence": "de l'humain, cette moitié qui remonte à « l'argile",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 181 line exceeds 42 chars (59)",
+      "cue_id": 181,
+      "timestamp_ms": 1208890,
+      "evidence": "« l'argile et la poussière » ; tandis que la [autre] moitié",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 182 line exceeds 42 chars (51)",
+      "cue_id": 182,
+      "timestamp_ms": 1215890,
+      "evidence": "Mon Esprit », c'est la partie familiale lésée. Dans",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 183 line exceeds 42 chars (60)",
+      "cue_id": 183,
+      "timestamp_ms": 1222147,
+      "evidence": "a été soumise à l'intrigue. Ainsi, le témoignage est parfois",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (54)",
+      "cue_id": 184,
+      "timestamp_ms": 1229147,
+      "evidence": "mosquée, on témoigne, ou d'autres personnes témoignent",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 185 line exceeds 42 chars (57)",
+      "cue_id": 185,
+      "timestamp_ms": 1235267,
+      "evidence": "témoignage intérieur est soit celui de la fitra contre la",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (61)",
+      "cue_id": 186,
+      "timestamp_ms": 1241524,
+      "evidence": "membres et des organes — [qui relèvent] de la nature — contre",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 187 line exceeds 42 chars (61)",
+      "cue_id": 187,
+      "timestamp_ms": 1248194,
+      "evidence": "l'humain frappé par sa nature, qui est « violent dans l'amour",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (51)",
+      "cue_id": 188,
+      "timestamp_ms": 1254795,
+      "evidence": "si vous aimez Dieu, suivez [le Messager], Dieu vous",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 189 line exceeds 42 chars (60)",
+      "cue_id": 189,
+      "timestamp_ms": 1261259,
+      "evidence": "d'être accepté est le Préexistant et l'Éternel, c'est-à-dire",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 190 line exceeds 42 chars (48)",
+      "cue_id": 190,
+      "timestamp_ms": 1268259,
+      "evidence": "c'est le Bien-Aimé divin, autour de qui l'humain",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (51)",
+      "cue_id": 191,
+      "timestamp_ms": 1274310,
+      "evidence": "Très-Haut a dit à Son propre Bien-Aimé : « Dis... »",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (55)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "bien-aimé de Dieu — aime au contraire ces quatre choses",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 193 line exceeds 42 chars (55)",
+      "cue_id": 193,
+      "timestamp_ms": 1292895,
+      "evidence": "enfants, les monceaux amassés, et les terres cultivées.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 195 line exceeds 42 chars (47)",
+      "cue_id": 195,
+      "timestamp_ms": 1306885,
+      "evidence": "humain, à l'égard de Dieu le Très Saint — après",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 197 line exceeds 42 chars (43)",
+      "cue_id": 197,
+      "timestamp_ms": 1319068,
+      "evidence": "lui-même un pillard ; et en lui, ces choses",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (46)",
+      "cue_id": 200,
+      "timestamp_ms": 1338320,
+      "evidence": "Bien sûr, les hommes de Dieu sont ceux qui ont",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 202 line exceeds 42 chars (48)",
+      "cue_id": 202,
+      "timestamp_ms": 1351105,
+      "evidence": "leur être, ont été mis en pièces, ont donné leur",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 203 line exceeds 42 chars (49)",
+      "cue_id": 203,
+      "timestamp_ms": 1357842,
+      "evidence": "lors de la bataille de Uhud — que la paix de Dieu",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (50)",
+      "cue_id": 204,
+      "timestamp_ms": 1364809,
+      "evidence": "chemin. Ce sont ceux qui, dans le jihad intérieur,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 205 line exceeds 42 chars (44)",
+      "cue_id": 205,
+      "timestamp_ms": 1371469,
+      "evidence": "l'amour des richesses ; l'amour du Créateur,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 207 line exceeds 42 chars (45)",
+      "cue_id": 207,
+      "timestamp_ms": 1383948,
+      "evidence": "autre, terres cultivées d'un autre — non, ils",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (74)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "témoin intérieur — mais il refoule ce témoin intérieur ; il l'a verrouillé",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (77)",
+      "cue_id": 219,
+      "timestamp_ms": 1461120,
+      "evidence": "la scène de la Résurrection [il dit] : « Qu'est-ce que ce registre qui n'omet",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (72)",
+      "cue_id": 220,
+      "timestamp_ms": 1468120,
+      "evidence": "consigné ? » (Quran 18:49). Les grands registres, les registres pesants,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (65)",
+      "cue_id": 221,
+      "timestamp_ms": 1474975,
+      "evidence": "divins ; mais ce registre quotidien, ordinaire, qui a été oublié,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (68)",
+      "cue_id": 222,
+      "timestamp_ms": 1481527,
+      "evidence": "qu'elle a présenté » (Quran 82:5) ; l'humain le porte avec lui-même.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (76)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "consigné — bien que, oui, les « nobles scribes » (Quran 82:11) l'aient aussi",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (80)",
+      "cue_id": 224,
+      "timestamp_ms": 1495745,
+      "evidence": "a présenté » (Quran 82:5). Parmi les cas où un nom indéfini, dans le cadre d'une",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (75)",
+      "cue_id": 225,
+      "timestamp_ms": 1502745,
+      "evidence": "comme ici — habituellement un nom indéfini dans un contexte négatif produit",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (68)",
+      "cue_id": 226,
+      "timestamp_ms": 1509372,
+      "evidence": "m'est venu », c'est-à-dire aucun du tout ; mais un nom indéfini dans",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (78)",
+      "cue_id": 227,
+      "timestamp_ms": 1515650,
+      "evidence": "partout l'universalité. Ici, selon les indices et le contexte, « une âme saura",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (83)",
+      "cue_id": 228,
+      "timestamp_ms": 1522393,
+      "evidence": "signifie chaque âme — « chaque âme saura ce qu'elle a présenté », l'humain lui-même",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (75)",
+      "cue_id": 229,
+      "timestamp_ms": 1529369,
+      "evidence": "l'affaire du Hajj et du chameau de charge du Hajj ces interprétations aient",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (74)",
+      "cue_id": 230,
+      "timestamp_ms": 1535822,
+      "evidence": "cela soit rattaché aux affaires du jihad ; et cela rend l'humain conscient",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (72)",
+      "cue_id": 231,
+      "timestamp_ms": 1542623,
+      "evidence": "témoin de ses actes et de ses mauvaises actions, et qui les a consignés.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (92)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "c'est-à-dire que votre fitra est le témoin ; vous êtes vous-même l'accusé — c'est-à-dire que",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (81)",
+      "cue_id": 233,
+      "timestamp_ms": 1557628,
+      "evidence": "Et si le témoin et l'accusé sont un seul et même être, cela serait dénué de sens,",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 234 line exceeds 42 chars (87)",
+      "cue_id": 234,
+      "timestamp_ms": 1564346,
+      "evidence": "des actes — comme lorsque le pillage apparaît sous la forme [d'une bête] dans le ventre",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 235 line exceeds 42 chars (71)",
+      "cue_id": 235,
+      "timestamp_ms": 1571346,
+      "evidence": "que les témoignages par la parole doivent nécessairement être multiples",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (81)",
+      "cue_id": 236,
+      "timestamp_ms": 1577623,
+      "evidence": "sourate bénie révélée sous le nom d'al-'Adiyat. Bien sûr, beaucoup des subtilités",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 237 line exceeds 42 chars (87)",
+      "cue_id": 237,
+      "timestamp_ms": 1584396,
+      "evidence": "dans les sourates et versets qui la précèdent, et les traditions qui existent renvoient",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (77)",
+      "cue_id": 238,
+      "timestamp_ms": 1591334,
+      "evidence": "le Très Saint leur accordera une bonne compréhension de tout ce qui constitue",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (74)",
+      "cue_id": 239,
+      "timestamp_ms": 1597941,
+      "evidence": "de la communauté islamique, en ce monde et dans l'autre, et qu'ils sauront",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 240 line exceeds 42 chars (85)",
+      "cue_id": 240,
+      "timestamp_ms": 1604328,
+      "evidence": "phrases déclaratives énoncées avec la force d'un ordre, nous disant que les meilleurs",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (79)",
+      "cue_id": 241,
+      "timestamp_ms": 1611211,
+      "evidence": "— c'est-à-dire, ô croyants, efforcez-vous d'être les meilleurs hommes du monde.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (80)",
+      "cue_id": 242,
+      "timestamp_ms": 1617929,
+      "evidence": "Que la paix soit sur vous, ainsi que la miséricorde de Dieu et Ses bénédictions.",
+      "language": "fr"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (58)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "el nombre de Dios, el Clementísimo, el Misericordiosísimo.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (130)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "que hacen saltar chispas de fuego, que atacan al amanecer, levantando así una nube de polvo, penetrando así en medio de ",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (50)",
+      "cue_id": 3,
+      "timestamp_ms": 19500,
+      "evidence": "Y en verdad, es intenso en su amor por la riqueza.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (145)",
+      "cue_id": 4,
+      "timestamp_ms": 26500,
+      "evidence": "las tumbas sea esparcido, y lo que hay en los pechos (corazones) sea sacado y manifestado, ese Día su Señor estará plena",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (60)",
+      "cue_id": 61,
+      "timestamp_ms": 418760,
+      "evidence": "o de otro tipo, en definitiva pertenecen a la honda garganta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 62 line exceeds 42 chars (50)",
+      "cue_id": 62,
+      "timestamp_ms": 424897,
+      "evidence": "campo de batalla es esta —los caballos de guerra—.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (83)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "fundamento, pero lo que conviene al asunto de la yihad es lo que ocurrió en Medina.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (119)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "encima de él' —una frase declarativa expresada con la fuerza de un mandato (un imperativo bajo la forma de un informe).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 76 line exceeds 42 chars (43)",
+      "cue_id": 76,
+      "timestamp_ms": 517186,
+      "evidence": "llanuras, sin límites, sin un dominio fijo,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (52)",
+      "cue_id": 84,
+      "timestamp_ms": 571900,
+      "evidence": "entonces: vosotros, los musulmanes, sois los mejores",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (51)",
+      "cue_id": 85,
+      "timestamp_ms": 578010,
+      "evidence": "siempre que la persona luche contra la incredulidad",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (61)",
+      "cue_id": 86,
+      "timestamp_ms": 584056,
+      "evidence": "colonialismo, luche contra la tiranía —ya sea con la lucha de",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (58)",
+      "cue_id": 87,
+      "timestamp_ms": 590102,
+      "evidence": "declarativas se expresan con la fuerza de un mandato. Dijo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (53)",
+      "cue_id": 88,
+      "timestamp_ms": 596470,
+      "evidence": "dirigir esto como un principio universal a cualquiera",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (52)",
+      "cue_id": 89,
+      "timestamp_ms": 602516,
+      "evidence": "insistencia, mandato y exhortación no se realizará—.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (62)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "que hacen saltar chispas de fuego, los que atacan al amanecer,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (61)",
+      "cue_id": 91,
+      "timestamp_ms": 615206,
+      "evidence": "de la hueste —es decir, sin esfuerzo, sin yihad— o con estos.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 92 line exceeds 42 chars (63)",
+      "cue_id": 92,
+      "timestamp_ms": 621640,
+      "evidence": "convierte en 'la mejor de las criaturas' —la mejor civilización",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 95 line exceeds 42 chars (47)",
+      "cue_id": 95,
+      "timestamp_ms": 634280,
+      "evidence": "la Sura al-Bayyina, se dijo 'En verdad, quienes",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (77)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "capacidad de carga, el discurso trata del caballo y de los animales de carga.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 102 line exceeds 42 chars (47)",
+      "cue_id": 102,
+      "timestamp_ms": 683700,
+      "evidence": "únicamente del caballo —el caballo, el caballo,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 103 line exceeds 42 chars (43)",
+      "cue_id": 103,
+      "timestamp_ms": 688426,
+      "evidence": "precisos para ello, y menos aún el camello.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 109 line exceeds 42 chars (47)",
+      "cue_id": 109,
+      "timestamp_ms": 722965,
+      "evidence": "lomos, a su descendencia, y los hizo testificar",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (59)",
+      "cue_id": 112,
+      "timestamp_ms": 743900,
+      "evidence": "remontan a esto: 'el hombre fue creado inquieto' —el origen",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (46)",
+      "cue_id": 113,
+      "timestamp_ms": 749147,
+      "evidence": "esa dimensión ligada a aquella arcilla básica.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (43)",
+      "cue_id": 114,
+      "timestamp_ms": 755500,
+      "evidence": "disposición innata. Si alguien entierra esa",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 115 line exceeds 42 chars (46)",
+      "cue_id": 115,
+      "timestamp_ms": 762424,
+      "evidence": "gran pacto de '¿No soy vuestro Señor? Dijeron:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 117 line exceeds 42 chars (45)",
+      "cue_id": 117,
+      "timestamp_ms": 776348,
+      "evidence": "capricho y el deseo; se mueve por conjeturas,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (46)",
+      "cue_id": 120,
+      "timestamp_ms": 796373,
+      "evidence": "Mensajero—, y sin embargo, dentro de sí mismo,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (67)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "testifican, también la fitra testifica contra este mismo ser humano",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (55)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "estranguló la fitra y dejó florecer su naturaleza baja;",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (61)",
+      "cue_id": 128,
+      "timestamp_ms": 848220,
+      "evidence": "(Quran 100:6), y él mismo es 'testigo de ello' (Quran 100:7),",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (58)",
+      "cue_id": 129,
+      "timestamp_ms": 855220,
+      "evidence": "riqueza]' (Quran 100:8). 'El bien' aquí no es solo riqueza",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (61)",
+      "cue_id": 130,
+      "timestamp_ms": 862220,
+      "evidence": "bienes tras de sí' (Quran 2:180)—; es riqueza y lo que a ella",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (59)",
+      "cue_id": 131,
+      "timestamp_ms": 869220,
+      "evidence": "cosas semejantes. El ser humano, en la medida en que puede,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (60)",
+      "cue_id": 132,
+      "timestamp_ms": 876220,
+      "evidence": "que hay en el seno de la tierra. Lo que hay en el seno de la",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (64)",
+      "cue_id": 133,
+      "timestamp_ms": 883220,
+      "evidence": "vegetal, animal y humano. Este hombre ordinario —que es 'ingrato",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (56)",
+      "cue_id": 134,
+      "timestamp_ms": 890220,
+      "evidence": "categorías en su propia provisión y posesión. Esto es lo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (70)",
+      "cue_id": 135,
+      "timestamp_ms": 896890,
+      "evidence": "Imran: 'Se ha embellecido para la gente el amor por los deseos' —estos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (49)",
+      "cue_id": 136,
+      "timestamp_ms": 903890,
+      "evidence": "en estos cuatro: 'Se ha embellecido para la gente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (61)",
+      "cue_id": 137,
+      "timestamp_ms": 910560,
+      "evidence": "hijos, y de tesoros amontonados de oro y plata' (Quran 3:14).",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 139 line exceeds 42 chars (53)",
+      "cue_id": 139,
+      "timestamp_ms": 924902,
+      "evidence": "marcados y el ganado son la ganadería; y los 'tesoros",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 141 line exceeds 42 chars (48)",
+      "cue_id": 141,
+      "timestamp_ms": 936759,
+      "evidence": "mineral—; 'hijos y mujeres' es lo humano. 'Se ha",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (53)",
+      "cue_id": 143,
+      "timestamp_ms": 949800,
+      "evidence": "mineral; los caballos marcados y el ganado pertenecen",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (51)",
+      "cue_id": 144,
+      "timestamp_ms": 956704,
+      "evidence": "agricultura pertenece al reino vegetal; el pastoreo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (57)",
+      "cue_id": 145,
+      "timestamp_ms": 963462,
+      "evidence": "amontonados pertenecen a los minerales; las mujeres y los",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (59)",
+      "cue_id": 146,
+      "timestamp_ms": 970366,
+      "evidence": "pone al hombre, la planta, el mineral y el animal, a todos,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 147 line exceeds 42 chars (59)",
+      "cue_id": 147,
+      "timestamp_ms": 977366,
+      "evidence": "instrumentos. Cuando esta persona entra en la Resurrección,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (52)",
+      "cue_id": 148,
+      "timestamp_ms": 984197,
+      "evidence": "'dando testimonio contra sí mismos de incredulidad'.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (74)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "e instintos, y la apartó—, sin embargo está dentro de él, es su propio yo.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (48)",
+      "cue_id": 152,
+      "timestamp_ms": 1010480,
+      "evidence": "pacto de '¿No soy [vuestro Señor]?' y dijo 'Sí'.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (59)",
+      "cue_id": 155,
+      "timestamp_ms": 1032920,
+      "evidence": "propia casa; y luego él mismo se convirtió en un asaltante.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (47)",
+      "cue_id": 156,
+      "timestamp_ms": 1039920,
+      "evidence": "cincuenta lugares Dios, en el Noble Corán, dice",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (52)",
+      "cue_id": 157,
+      "timestamp_ms": 1046542,
+      "evidence": "es 'intenso en el amor por la riqueza', es agresivo;",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (43)",
+      "cue_id": 158,
+      "timestamp_ms": 1053459,
+      "evidence": "problemas de maldad. Esto de 'cuando entran",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (49)",
+      "cue_id": 159,
+      "timestamp_ms": 1059713,
+      "evidence": "los honrados de su gente' (Quran 27:34) pertenece",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (64)",
+      "cue_id": 160,
+      "timestamp_ms": 1066262,
+      "evidence": "cincuenta lugares donde se menciona que el hombre es 'inquieto',",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (53)",
+      "cue_id": 162,
+      "timestamp_ms": 1079222,
+      "evidence": "Cuando llega la escena de la Resurrección, lo primero",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (55)",
+      "cue_id": 163,
+      "timestamp_ms": 1086139,
+      "evidence": "engañado es la parte corporal —'dando testimonio contra",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (69)",
+      "cue_id": 165,
+      "timestamp_ms": 1100140,
+      "evidence": "interpretaron su 'herida/marca': el ser humano que ha tomado la forma",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (71)",
+      "cue_id": 166,
+      "timestamp_ms": 1107140,
+      "evidence": "testifica contra sí mismo que es un depredador; y esto es un testimonio",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (46)",
+      "cue_id": 167,
+      "timestamp_ms": 1114140,
+      "evidence": "primer testigo es el testigo del propio hogar,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (62)",
+      "cue_id": 168,
+      "timestamp_ms": 1120462,
+      "evidence": "incredulidad' (Quran 9:17). Luego, cuando llega a los miembros",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (59)",
+      "cue_id": 169,
+      "timestamp_ms": 1127462,
+      "evidence": "contra ellos' (Quran 41:20-21). Ahora bien, tengan presente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (57)",
+      "cue_id": 170,
+      "timestamp_ms": 1134281,
+      "evidence": "confesión: si el propio criminal habla, eso es confesión;",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (66)",
+      "cue_id": 171,
+      "timestamp_ms": 1140887,
+      "evidence": "testimonio. Queda claro —como se trató extensamente en discusiones",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (46)",
+      "cue_id": 172,
+      "timestamp_ms": 1147887,
+      "evidence": "de nuestras manos, distintos de nuestros pies,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (58)",
+      "cue_id": 173,
+      "timestamp_ms": 1154067,
+      "evidence": "nuestra carne. Si esta mano que tomó un soborno por debajo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (55)",
+      "cue_id": 174,
+      "timestamp_ms": 1161028,
+      "evidence": "peca —entonces, después, cuando hable, habría que decir",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (60)",
+      "cue_id": 175,
+      "timestamp_ms": 1167920,
+      "evidence": "sobornos por debajo de la mesa es un instrumento de la obra.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (60)",
+      "cue_id": 176,
+      "timestamp_ms": 1175760,
+      "evidence": "persona tomó [el soborno] y ella lo ejecutó. Si los miembros",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (46)",
+      "cue_id": 177,
+      "timestamp_ms": 1182760,
+      "evidence": "hablaran tendríamos que decir que 'confesaron'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 179 line exceeds 42 chars (60)",
+      "cue_id": 179,
+      "timestamp_ms": 1195090,
+      "evidence": "quien da o toma por debajo de la mesa. Este pecado pertenece",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 180 line exceeds 42 chars (46)",
+      "cue_id": 180,
+      "timestamp_ms": 1202090,
+      "evidence": "vacía del ser humano, esa mitad que se remonta",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 181 line exceeds 42 chars (55)",
+      "cue_id": 181,
+      "timestamp_ms": 1208255,
+      "evidence": "alterado', a 'arcilla y polvo'—; mientras que la [otra]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 182 line exceeds 42 chars (52)",
+      "cue_id": 182,
+      "timestamp_ms": 1214714,
+      "evidence": "de Mi espíritu', es la parte agraviada del hogar. En",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 183 line exceeds 42 chars (49)",
+      "cue_id": 183,
+      "timestamp_ms": 1221613,
+      "evidence": "sometida a la intriga. Así, el testimonio a veces",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (48)",
+      "cue_id": 184,
+      "timestamp_ms": 1228292,
+      "evidence": "alguien testifica, u otras personas testifican—:",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 185 line exceeds 42 chars (53)",
+      "cue_id": 185,
+      "timestamp_ms": 1234824,
+      "evidence": "interno es o bien el de la fitra contra la naturaleza",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (56)",
+      "cue_id": 186,
+      "timestamp_ms": 1241723,
+      "evidence": "órganos —que son de esa naturaleza— contra la naturaleza",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (53)",
+      "cue_id": 188,
+      "timestamp_ms": 1254348,
+      "evidence": "Mientras que 'si amáis a Dios, seguid [al Mensajero],",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 189 line exceeds 42 chars (51)",
+      "cue_id": 189,
+      "timestamp_ms": 1260880,
+      "evidence": "digno de ser aceptado es el preeterno y perdurable,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 190 line exceeds 42 chars (52)",
+      "cue_id": 190,
+      "timestamp_ms": 1267412,
+      "evidence": "es el Amado divino, alrededor de cuya circunvalación",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (50)",
+      "cue_id": 191,
+      "timestamp_ms": 1274311,
+      "evidence": "Dios, el Exaltado, dijo a Su propio Amado: 'Di...'",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (58)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "ser amado de Dios— [en cambio] ama estas cuatro cosas: los",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 193 line exceeds 42 chars (56)",
+      "cue_id": 193,
+      "timestamp_ms": 1293000,
+      "evidence": "hijos, los tesoros amontonados y las tierras cultivadas.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 195 line exceeds 42 chars (43)",
+      "cue_id": 195,
+      "timestamp_ms": 1307239,
+      "evidence": "Santísimo —después de haber estrangulado su",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 197 line exceeds 42 chars (48)",
+      "cue_id": 197,
+      "timestamp_ms": 1318915,
+      "evidence": "convierte en un asaltante; y dentro de él [estas",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 201 line exceeds 42 chars (52)",
+      "cue_id": 201,
+      "timestamp_ms": 1344770,
+      "evidence": "vínculos y dependencias por la causa de Dios —dieron",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (48)",
+      "cue_id": 204,
+      "timestamp_ms": 1364099,
+      "evidence": "camino. Estos son los que, en la yihad interior,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (67)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "interior —pero suprime a ese testigo interior; lo ha encerrado bajo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (66)",
+      "cue_id": 219,
+      "timestamp_ms": 1460886,
+      "evidence": "la escena de la Resurrección [dice]: '¿Qué es este registro que no",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (73)",
+      "cue_id": 220,
+      "timestamp_ms": 1467848,
+      "evidence": "enumerarlo?' (Quran 18:49). Los grandes y pesados libros de cuentas están",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (69)",
+      "cue_id": 221,
+      "timestamp_ms": 1474810,
+      "evidence": "divinos; pero ese registro cotidiano y ordinario que ha sido olvidado",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (57)",
+      "cue_id": 222,
+      "timestamp_ms": 1481576,
+      "evidence": "presentado' (Quran 82:5); el ser humano lo lleva consigo.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (83)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "registrado —aunque sí, los 'nobles escribas' (Quran 82:11) también lo registraron—,",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (78)",
+      "cue_id": 224,
+      "timestamp_ms": 1495876,
+      "evidence": "presentado' (Quran 82:5). De los lugares donde se usa un sustantivo indefinido",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (75)",
+      "cue_id": 225,
+      "timestamp_ms": 1502345,
+      "evidence": "—como aquí— por lo general un sustantivo indefinido en un contexto negativo",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (73)",
+      "cue_id": 226,
+      "timestamp_ms": 1508988,
+      "evidence": "auxiliador', es decir, ninguno en absoluto; pero un sustantivo indefinido",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (71)",
+      "cue_id": 227,
+      "timestamp_ms": 1515631,
+      "evidence": "produce universalidad. Aquí, según la evidencia y el contexto, 'un alma",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (77)",
+      "cue_id": 228,
+      "timestamp_ms": 1521869,
+      "evidence": "significa cada alma —'cada alma, lo que ha presentado'—, el propio ser humano",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (78)",
+      "cue_id": 229,
+      "timestamp_ms": 1528685,
+      "evidence": "en el asunto del Hajj y del camello de carga del Hajj se han transmitido estas",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (75)",
+      "cue_id": 230,
+      "timestamp_ms": 1535559,
+      "evidence": "[conviene] es que se conecte con los asuntos de la yihad; y hace consciente",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (74)",
+      "cue_id": 231,
+      "timestamp_ms": 1542375,
+      "evidence": "casa que es testigo de sus obras y malas obras, y que Él las ha confinado.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (78)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "fitra es el testigo—; tú mismo eres el acusado —es decir, tu naturaleza [baja]",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (74)",
+      "cue_id": 233,
+      "timestamp_ms": 1557800,
+      "evidence": "acusado son uno solo, eso no tendría sentido a menos que sea un testimonio",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 234 line exceeds 42 chars (71)",
+      "cue_id": 234,
+      "timestamp_ms": 1564511,
+      "evidence": "en forma de [una bestia] en el vientre, eso es un testimonio de obras—;",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 235 line exceeds 42 chars (68)",
+      "cue_id": 235,
+      "timestamp_ms": 1571283,
+      "evidence": "requieren necesariamente múltiples testigos. Este es el final de una",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (69)",
+      "cue_id": 236,
+      "timestamp_ms": 1577873,
+      "evidence": "al-'Adiyat. Por supuesto, muchas de las sutilezas de esta sura fueron",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 237 line exceeds 42 chars (71)",
+      "cue_id": 237,
+      "timestamp_ms": 1584463,
+      "evidence": "anteriores a ella, y los relatos que existen se remontan a estos mismos",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (70)",
+      "cue_id": 238,
+      "timestamp_ms": 1590993,
+      "evidence": "les conceda buena comprensión de todo lo que sea el bien, el bienestar",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (74)",
+      "cue_id": 239,
+      "timestamp_ms": 1597765,
+      "evidence": "en este mundo y en el próximo, y que sepan que muchas de estas directrices",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 240 line exceeds 42 chars (65)",
+      "cue_id": 240,
+      "timestamp_ms": 1604765,
+      "evidence": "fuerza de un mandato, que nos dicen que los mejores hombres de la",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (76)",
+      "cue_id": 241,
+      "timestamp_ms": 1611234,
+      "evidence": "creyentes, esforzaos por ser los mejores hombres del mundo—. Y que Su gracia",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (66)",
+      "cue_id": 242,
+      "timestamp_ms": 1618127,
+      "evidence": "paz sea con vosotros, y la misericordia de Dios y Sus bendiciones.",
+      "language": "es"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (55)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "Satanás. Em nome de Deus, o Clemente, o Misericordioso.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (167)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "resfolegando, e produzem faíscas ao golpear as pedras, e atacam ao amanhecer, levantando com isso uma nuvem de poeira, e",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (59)",
+      "cue_id": 3,
+      "timestamp_ms": 19500,
+      "evidence": "disso. E, em verdade, ele é intenso em seu amor pelos bens.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (154)",
+      "cue_id": 4,
+      "timestamp_ms": 26500,
+      "evidence": "nos túmulos for revolvido, e o que há nos peitos (nos corações) for manifestado e trazido à luz, nesse Dia o seu Senhor ",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (64)",
+      "cue_id": 61,
+      "timestamp_ms": 418760,
+      "evidence": "camelos ou outras, pertencem, no fim das contas, ao desfiladeiro",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 62 line exceeds 42 chars (50)",
+      "cue_id": 62,
+      "timestamp_ms": 424869,
+      "evidence": "no campo de batalha são estes [cavalos de guerra].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (65)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "mas o que convém ao assunto do jihad é o que se passou em Medina.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (124)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "dele\" — o que é uma afirmação declarativa transmitida com a força de um mandamento (um imperativo sob a forma de um rela",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (50)",
+      "cue_id": 84,
+      "timestamp_ms": 571900,
+      "evidence": "pois: vós, muçulmanos, sois a melhor das criaturas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (50)",
+      "cue_id": 85,
+      "timestamp_ms": 578147,
+      "evidence": "pessoa lute contra a incredulidade e a ignorância,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (52)",
+      "cue_id": 86,
+      "timestamp_ms": 584190,
+      "evidence": "tirania — seja pela luta da pena ou pela luta do pé.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 87 line exceeds 42 chars (45)",
+      "cue_id": 87,
+      "timestamp_ms": 590572,
+      "evidence": "com a força de um mandamento. Ele disse \"sois",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (53)",
+      "cue_id": 88,
+      "timestamp_ms": 596547,
+      "evidence": "dirigir isto como princípio universal a Zayd (isto é,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (45)",
+      "cue_id": 89,
+      "timestamp_ms": 602590,
+      "evidence": "mandamento e admoestação, [não se realizará].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (58)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "os que fazem saltar faíscas, os atacantes ao amanhecer, os",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (61)",
+      "cue_id": 91,
+      "timestamp_ms": 615068,
+      "evidence": "hoste — isto é, sem luta, sem jihad — ou [somente] com estes.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (52)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "o discurso trata do cavalo [e dos animais de carga].",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 107 line exceeds 42 chars (44)",
+      "cue_id": 107,
+      "timestamp_ms": 709461,
+      "evidence": "(fitra) — que todas as virtudes, excelências",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 111 line exceeds 42 chars (44)",
+      "cue_id": 111,
+      "timestamp_ms": 736066,
+      "evidence": "excelências práticas remontam a essa porção.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (48)",
+      "cue_id": 112,
+      "timestamp_ms": 743900,
+      "evidence": "a este \"o homem foi criado [ansioso]\" — a origem",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 116 line exceeds 42 chars (44)",
+      "cue_id": 116,
+      "timestamp_ms": 768995,
+      "evidence": "tapa-lhe a boca e não deixa essa fitra falar",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (67)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "testemunham, também a fitra testemunha contra este mesmo ser humano",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (59)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "sufocou a fitra e deixou florescer sua natureza [inferior];",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (52)",
+      "cue_id": 128,
+      "timestamp_ms": 848260,
+      "evidence": "seu Senhor\" (Quran 100:6), e ele mesmo é \"testemunha",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (53)",
+      "cue_id": 129,
+      "timestamp_ms": 855176,
+      "evidence": "amor pelo bem [pelos bens]\" (Quran 100:8). \"Bem\" aqui",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (53)",
+      "cue_id": 130,
+      "timestamp_ms": 862176,
+      "evidence": "al-Baqara: \"se deixar bens [para trás]\" (Quran 2:180)",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (60)",
+      "cue_id": 131,
+      "timestamp_ms": 869176,
+      "evidence": "posição, cargo, liderança e semelhantes. O ser humano, tanto",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (58)",
+      "cue_id": 132,
+      "timestamp_ms": 876176,
+      "evidence": "obra tudo o que há no leito da terra. O que há no leito da",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (54)",
+      "cue_id": 133,
+      "timestamp_ms": 883176,
+      "evidence": "animal e humano. Este homem ordinário — que é \"ingrato",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (53)",
+      "cue_id": 134,
+      "timestamp_ms": 890176,
+      "evidence": "as quatro categorias em seu próprio sustento e posse.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (59)",
+      "cue_id": 135,
+      "timestamp_ms": 897166,
+      "evidence": "\"Aformoseou-se para os homens o amor pelos desejos\" — estes",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (51)",
+      "cue_id": 136,
+      "timestamp_ms": 904166,
+      "evidence": "nestes quatro: \"Aformoseou-se para os homens o amor",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (51)",
+      "cue_id": 137,
+      "timestamp_ms": 910788,
+      "evidence": "de montes acumulados de ouro e prata\" (Quran 3:14).",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 139 line exceeds 42 chars (47)",
+      "cue_id": 139,
+      "timestamp_ms": 925190,
+      "evidence": "e gado são a pecuária; e os \"montes acumulados\"",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (55)",
+      "cue_id": 143,
+      "timestamp_ms": 949800,
+      "evidence": "mineral; os cavalos de raça marcados e o gado pertencem",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (43)",
+      "cue_id": 145,
+      "timestamp_ms": 963440,
+      "evidence": "acumulados pertencem aos minerais; mulheres",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (45)",
+      "cue_id": 146,
+      "timestamp_ms": 970440,
+      "evidence": "ao seu serviço, como instrumentos, o vegetal,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 147 line exceeds 42 chars (46)",
+      "cue_id": 147,
+      "timestamp_ms": 977440,
+      "evidence": "entra na Ressurreição, sua primeira testemunha",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (80)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "e instintos, e a pôs de lado — contudo ela está dentro dele, é o seu próprio eu.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 152 line exceeds 42 chars (51)",
+      "cue_id": 152,
+      "timestamp_ms": 1010480,
+      "evidence": "\"Acaso não sou Eu [o vosso Senhor]?\" e disse \"Sim\".",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (45)",
+      "cue_id": 154,
+      "timestamp_ms": 1024940,
+      "evidence": "ser humano enterrou viva a sua própria fitra.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (53)",
+      "cue_id": 155,
+      "timestamp_ms": 1032920,
+      "evidence": "própria casa; então ele mesmo se tornou um saqueador.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (49)",
+      "cue_id": 156,
+      "timestamp_ms": 1039783,
+      "evidence": "mais de cinquenta lugares, no Nobre Alcorão, Deus",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (51)",
+      "cue_id": 157,
+      "timestamp_ms": 1046422,
+      "evidence": "\"testemunha\" e é \"violento em seu amor pelos bens\",",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (47)",
+      "cue_id": 158,
+      "timestamp_ms": 1052987,
+      "evidence": "crença, desenvolve problemas de injustiça. Este",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (52)",
+      "cue_id": 159,
+      "timestamp_ms": 1059253,
+      "evidence": "arruínam-na e humilham os mais honrados de seu povo\"",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (48)",
+      "cue_id": 160,
+      "timestamp_ms": 1065967,
+      "evidence": "mais de cinquenta lugares em que se menciona que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (54)",
+      "cue_id": 161,
+      "timestamp_ms": 1072681,
+      "evidence": "\"ávido\", \"inquieto\" e semelhantes — pertencem à metade",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (43)",
+      "cue_id": 162,
+      "timestamp_ms": 1079320,
+      "evidence": "plena. Quando chega a cena da Ressurreição,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (50)",
+      "cue_id": 163,
+      "timestamp_ms": 1085736,
+      "evidence": "homem enganado é a parte corporal — \"testemunhando",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 164 line exceeds 42 chars (50)",
+      "cue_id": 164,
+      "timestamp_ms": 1092450,
+      "evidence": "(Quran 9:17) — esta é a mesma declaração da fitra.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (57)",
+      "cue_id": 165,
+      "timestamp_ms": 1100140,
+      "evidence": "sua \"marca/cicatriz\": o ser humano que assumiu a forma de",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (70)",
+      "cue_id": 166,
+      "timestamp_ms": 1106916,
+      "evidence": "testemunha contra ele mesmo que é um saqueador; e isto é um testemunho",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (51)",
+      "cue_id": 167,
+      "timestamp_ms": 1113916,
+      "evidence": "primeira testemunha é a testemunha da própria casa,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (61)",
+      "cue_id": 168,
+      "timestamp_ms": 1120413,
+      "evidence": "incredulidade\" (Quran 9:17). Depois, quando chega aos membros",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (54)",
+      "cue_id": 169,
+      "timestamp_ms": 1127329,
+      "evidence": "contra eles\" (Quran 41:20-21). Ora, tende em mente que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 170 line exceeds 42 chars (56)",
+      "cue_id": 170,
+      "timestamp_ms": 1133756,
+      "evidence": "próprio criminoso fala, isso é confissão; se um estranho",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (63)",
+      "cue_id": 171,
+      "timestamp_ms": 1140672,
+      "evidence": "Torna-se claro — como já se disse detalhadamente nas discussões",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (56)",
+      "cue_id": 172,
+      "timestamp_ms": 1147588,
+      "evidence": "nossas mãos, distintos de nossos pés, distintos de nossa",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (55)",
+      "cue_id": 173,
+      "timestamp_ms": 1154294,
+      "evidence": "mão que recebeu suborno por debaixo e por cima da mesa,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (58)",
+      "cue_id": 174,
+      "timestamp_ms": 1160930,
+      "evidence": "então, depois, quando fala, dir-se-ia que ela \"confessou\".",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (63)",
+      "cue_id": 175,
+      "timestamp_ms": 1167920,
+      "evidence": "debaixo e por cima da mesa — esta mão é um instrumento da ação.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (49)",
+      "cue_id": 176,
+      "timestamp_ms": 1175760,
+      "evidence": "pessoa recebeu [um suborno] e ela executou o ato.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (47)",
+      "cue_id": 178,
+      "timestamp_ms": 1188798,
+      "evidence": "que a mão confessou; diz que a mão testemunhou.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 180 line exceeds 42 chars (48)",
+      "cue_id": 180,
+      "timestamp_ms": 1202066,
+      "evidence": "verdade, a essa metade vazia do ser humano, essa",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 181 line exceeds 42 chars (47)",
+      "cue_id": 181,
+      "timestamp_ms": 1208815,
+      "evidence": "lama negra alterada\", ao \"barro e pó\"; enquanto",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 182 line exceeds 42 chars (44)",
+      "cue_id": 182,
+      "timestamp_ms": 1215641,
+      "evidence": "nele do Meu espírito\", é a parte injustiçada",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (43)",
+      "cue_id": 184,
+      "timestamp_ms": 1228142,
+      "evidence": "ou da mesquita alguém testemunha, ou outras",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 185 line exceeds 42 chars (45)",
+      "cue_id": 185,
+      "timestamp_ms": 1234738,
+      "evidence": "externo. O testemunho interno é ou o da fitra",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (49)",
+      "cue_id": 186,
+      "timestamp_ms": 1241180,
+      "evidence": "membros e órgãos — [que são da] natureza — contra",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 187 line exceeds 42 chars (43)",
+      "cue_id": 187,
+      "timestamp_ms": 1247929,
+      "evidence": "tomado pela natureza que é \"violento em seu",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (43)",
+      "cue_id": 188,
+      "timestamp_ms": 1254371,
+      "evidence": "que \"se amais a Deus, segui [o Mensageiro],",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 189 line exceeds 42 chars (51)",
+      "cue_id": 189,
+      "timestamp_ms": 1260813,
+      "evidence": "ser aceito é o pré-eterno e sempiterno, que é Deus;",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 190 line exceeds 42 chars (54)",
+      "cue_id": 190,
+      "timestamp_ms": 1267813,
+      "evidence": "divino, ao redor de cuja circum-ambulação o ser humano",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (68)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "tornar-se um amado de Deus — [em vez disso] ama estas quatro coisas:",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 193 line exceeds 42 chars (60)",
+      "cue_id": 193,
+      "timestamp_ms": 1292826,
+      "evidence": "e os filhos, e os montes acumulados, e as terras cultivadas.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (48)",
+      "cue_id": 194,
+      "timestamp_ms": 1300940,
+      "evidence": "humano, e ele neles põe o coração. Bem, dissemos",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 200 line exceeds 42 chars (45)",
+      "cue_id": 200,
+      "timestamp_ms": 1338320,
+      "evidence": "Certamente, os homens de Deus são aqueles que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 204 line exceeds 42 chars (49)",
+      "cue_id": 204,
+      "timestamp_ms": 1364434,
+      "evidence": "Estes são os que, no jihad interior, [escolheram]",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (69)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "testemunha interior — mas suprime essa testemunha interior; trancou-a",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (63)",
+      "cue_id": 219,
+      "timestamp_ms": 1460980,
+      "evidence": "Ressurreição [diz]: \"Que registro é este, que não deixa de fora",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (63)",
+      "cue_id": 220,
+      "timestamp_ms": 1467907,
+      "evidence": "enumerado?\" (Quran 18:49). Os grandes e pesados registros estão",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (59)",
+      "cue_id": 221,
+      "timestamp_ms": 1474498,
+      "evidence": "mas aquele registro cotidiano e ordinário que foi esquecido",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (61)",
+      "cue_id": 222,
+      "timestamp_ms": 1481358,
+      "evidence": "trouxe consigo\" (Quran 82:5); o ser humano o carrega consigo.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (72)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "— embora, sim, os \"escribas nobres\" (Quran 82:11) também o registraram —",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (71)",
+      "cue_id": 224,
+      "timestamp_ms": 1495787,
+      "evidence": "(Quran 82:5). Dos lugares em que um substantivo indefinido, no contexto",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (76)",
+      "cue_id": 225,
+      "timestamp_ms": 1502514,
+      "evidence": "como aqui — geralmente um substantivo indefinido em contexto negativo produz",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (71)",
+      "cue_id": 226,
+      "timestamp_ms": 1509300,
+      "evidence": "veio a mim\", significando [nenhum, de forma alguma]; mas um substantivo",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (68)",
+      "cue_id": 227,
+      "timestamp_ms": 1515909,
+      "evidence": "produz universalidade em todos os casos. Aqui, segundo as evidências",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (75)",
+      "cue_id": 228,
+      "timestamp_ms": 1522164,
+      "evidence": "trouxe consigo\" (Quran 82:5) significa toda alma — \"toda alma, o que trouxe",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (80)",
+      "cue_id": 229,
+      "timestamp_ms": 1528773,
+      "evidence": "apresentará. Por isso, embora no assunto do Hajj e do camelo de carga do Hajj se",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (75)",
+      "cue_id": 230,
+      "timestamp_ms": 1535559,
+      "evidence": "antes de tudo convém que se ligue aos assuntos do jihad; e isso torna o ser",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (72)",
+      "cue_id": 231,
+      "timestamp_ms": 1542345,
+      "evidence": "da casa que é testemunha de vossas ações e más ações, e Ele as confinou.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (71)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "vossa fitra é a testemunha; vós mesmos sois o acusado — isto é, a vossa",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (68)",
+      "cue_id": 233,
+      "timestamp_ms": 1557800,
+      "evidence": "testemunha e o acusado são um só, isso não teria sentido a menos que",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 234 line exceeds 42 chars (76)",
+      "cue_id": 234,
+      "timestamp_ms": 1564742,
+      "evidence": "a pilhagem aparece sob a forma [de uma fera] no ventre, isto é um testemunho",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 235 line exceeds 42 chars (54)",
+      "cue_id": 235,
+      "timestamp_ms": 1571742,
+      "evidence": "palavras necessariamente exigem múltiplas testemunhas.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (64)",
+      "cue_id": 236,
+      "timestamp_ms": 1577538,
+      "evidence": "sob o nome de al-'Adiyat. Certamente, muitas das sutilezas desta",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 237 line exceeds 42 chars (69)",
+      "cue_id": 237,
+      "timestamp_ms": 1584162,
+      "evidence": "versículos anteriores a ela, e os relatos existentes remontam a esses",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (67)",
+      "cue_id": 238,
+      "timestamp_ms": 1590913,
+      "evidence": "Santíssimo, conceda a eles boa compreensão de tudo o que for o bem,",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (63)",
+      "cue_id": 239,
+      "timestamp_ms": 1597537,
+      "evidence": "islâmica neste mundo e no outro, e que saibam que muitas destas",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 240 line exceeds 42 chars (70)",
+      "cue_id": 240,
+      "timestamp_ms": 1604288,
+      "evidence": "transmitidas com a força de um mandamento, dizendo-nos que os melhores",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (60)",
+      "cue_id": 241,
+      "timestamp_ms": 1610976,
+      "evidence": "crentes, esforçai-vos por ser os melhores homens do mundo. E",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (69)",
+      "cue_id": 242,
+      "timestamp_ms": 1617540,
+      "evidence": "vós. A paz esteja sobre vós, e a misericórdia de Deus e Suas bênçãos.",
+      "language": "pt"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 0 line exceeds 42 chars (49)",
+      "cue_id": 0,
+      "timestamp_ms": 0,
+      "evidence": "сатаны. Во имя Аллаха, Милостивого, Милосердного.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 1 line exceeds 42 chars (123)",
+      "cue_id": 1,
+      "timestamp_ms": 5500,
+      "evidence": "бега, высекающими искры копытами, устраивающими набег на заре, поднимающими облако пыли и врывающимися в самую гущу враг",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 3 line exceeds 42 chars (43)",
+      "cue_id": 3,
+      "timestamp_ms": 19500,
+      "evidence": "поистине, он страстно привязан к богатству.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 4 line exceeds 42 chars (144)",
+      "cue_id": 4,
+      "timestamp_ms": 26500,
+      "evidence": "могил будет извергнуто, и то, что в груди (в сердцах), будет обнаружено и явлено, — поистине, в тот День Господь их буде",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 61 line exceeds 42 chars (51)",
+      "cue_id": 61,
+      "timestamp_ms": 418760,
+      "evidence": "то верблюды или иные, в итоге принадлежат глубокому",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 63 line exceeds 42 chars (109)",
+      "cue_id": 63,
+      "timestamp_ms": 430540,
+      "evidence": "есть своё основание, однако тому, что подобает делу джихада, соответствует именно то, что произошло в Медине.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 65 line exceeds 42 chars (100)",
+      "cue_id": 65,
+      "timestamp_ms": 444540,
+      "evidence": "его» — это утвердительное высказывание, переданное с силой повеления (повеление в облике сообщения).",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 84 line exceeds 42 chars (45)",
+      "cue_id": 84,
+      "timestamp_ms": 571900,
+      "evidence": "поймите: вы, мусульмане, — лучшие из творений",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 85 line exceeds 42 chars (52)",
+      "cue_id": 85,
+      "timestamp_ms": 578036,
+      "evidence": "человек борется против неверия и невежества, борется",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 86 line exceeds 42 chars (49)",
+      "cue_id": 86,
+      "timestamp_ms": 584464,
+      "evidence": "тирании — будь то борьбой перá или борьбой стопы.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 88 line exceeds 42 chars (45)",
+      "cue_id": 88,
+      "timestamp_ms": 596663,
+      "evidence": "всеобщий принцип к Зейду (то есть к каждому),",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 89 line exceeds 42 chars (45)",
+      "cue_id": 89,
+      "timestamp_ms": 602653,
+      "evidence": "повеления и увещевания [это не осуществится].",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 90 line exceeds 42 chars (64)",
+      "cue_id": 90,
+      "timestamp_ms": 609560,
+      "evidence": "высекающих искры, без совершающих набег на заре, без поднимающих",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 91 line exceeds 42 chars (53)",
+      "cue_id": 91,
+      "timestamp_ms": 615350,
+      "evidence": "то есть без борьбы, без джихада — либо [лишь] с этим.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 96 line exceeds 42 chars (44)",
+      "cue_id": 96,
+      "timestamp_ms": 640860,
+      "evidence": "праведные дела, — они наилучшие из творений»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 97 line exceeds 42 chars (46)",
+      "cue_id": 97,
+      "timestamp_ms": 647357,
+      "evidence": "верны как обещание, несут с собой определённое",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 101 line exceeds 42 chars (45)",
+      "cue_id": 101,
+      "timestamp_ms": 674560,
+      "evidence": "груза, речь идёт о коне [и вьючных животных].",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 112 line exceeds 42 chars (55)",
+      "cue_id": 112,
+      "timestamp_ms": 743900,
+      "evidence": "словам «человек создан [тревожным]» — к низкому началу,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 113 line exceeds 42 chars (47)",
+      "cue_id": 113,
+      "timestamp_ms": 748904,
+      "evidence": "[измерению], связанному с той низменной глиной.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 114 line exceeds 42 chars (48)",
+      "cue_id": 114,
+      "timestamp_ms": 755500,
+      "evidence": "виду] врождённую природу. Если человек погребает",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 119 line exceeds 42 chars (46)",
+      "cue_id": 119,
+      "timestamp_ms": 789700,
+      "evidence": "практические дела — на чувственное восприятие.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 120 line exceeds 42 chars (46)",
+      "cue_id": 120,
+      "timestamp_ms": 796700,
+      "evidence": "Первоначала — он отрицает Бога или Посланника,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 126 line exceeds 42 chars (56)",
+      "cue_id": 126,
+      "timestamp_ms": 834260,
+      "evidence": "так и фитра свидетельствует против этого самого человека",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 127 line exceeds 42 chars (53)",
+      "cue_id": 127,
+      "timestamp_ms": 841260,
+      "evidence": "задушил фитру и дал расцвести своей [низшей] природе;",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 128 line exceeds 42 chars (57)",
+      "cue_id": 128,
+      "timestamp_ms": 848196,
+      "evidence": "своему Господу» (Quran 100:6), и сам он «свидетель этому»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 129 line exceeds 42 chars (53)",
+      "cue_id": 129,
+      "timestamp_ms": 855196,
+      "evidence": "любви добра [богатства]» (Quran 100:8). «Добро» здесь",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 130 line exceeds 42 chars (58)",
+      "cue_id": 130,
+      "timestamp_ms": 862196,
+      "evidence": "аль-Бакара: «если он оставит после себя добро [богатство]»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 131 line exceeds 42 chars (53)",
+      "cue_id": 131,
+      "timestamp_ms": 869196,
+      "evidence": "к нему относится: положение, ранг, власть и подобное.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 132 line exceeds 42 chars (53)",
+      "cue_id": 132,
+      "timestamp_ms": 876196,
+      "evidence": "орудия своего дела всё, что заключено в недрах земли.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 133 line exceeds 42 chars (56)",
+      "cue_id": 133,
+      "timestamp_ms": 883196,
+      "evidence": "минеральное, растительное, животное и человеческое. Этот",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 134 line exceeds 42 chars (50)",
+      "cue_id": 134,
+      "timestamp_ms": 890132,
+      "evidence": "своему Господу», превращает все четыре категории в",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 135 line exceeds 42 chars (57)",
+      "cue_id": 135,
+      "timestamp_ms": 896770,
+      "evidence": "этом уже говорилось в начале суры Аль Имран: «Разукрашена",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 136 line exceeds 42 chars (60)",
+      "cue_id": 136,
+      "timestamp_ms": 903770,
+      "evidence": "желания, общим образом, сведены к этим четырём: «Разукрашена",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 137 line exceeds 42 chars (49)",
+      "cue_id": 137,
+      "timestamp_ms": 910770,
+      "evidence": "сыновьям, и груде золота и серебра» (Quran 3:14).",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 138 line exceeds 42 chars (45)",
+      "cue_id": 138,
+      "timestamp_ms": 919180,
+      "evidence": "земле» (Quran 3:14) — «харс» есть земледелие;",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 141 line exceeds 42 chars (44)",
+      "cue_id": 141,
+      "timestamp_ms": 936962,
+      "evidence": "женщины» — человеческое начало. «Разукрашена",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 143 line exceeds 42 chars (49)",
+      "cue_id": 143,
+      "timestamp_ms": 949800,
+      "evidence": "началу; меченые кони и скот относятся к животному",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 144 line exceeds 42 chars (46)",
+      "cue_id": 144,
+      "timestamp_ms": 956800,
+      "evidence": "относится к растительному царству; пастушество",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 145 line exceeds 42 chars (50)",
+      "cue_id": 145,
+      "timestamp_ms": 963515,
+      "evidence": "относится к минералам; женщины и сыновья относятся",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 146 line exceeds 42 chars (46)",
+      "cue_id": 146,
+      "timestamp_ms": 970308,
+      "evidence": "службу себе и человека, и растение, и минерал,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 147 line exceeds 42 chars (53)",
+      "cue_id": 147,
+      "timestamp_ms": 977179,
+      "evidence": "Когда этот человек вступает в час Воскресения, первый",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 148 line exceeds 42 chars (45)",
+      "cue_id": 148,
+      "timestamp_ms": 984179,
+      "evidence": "«свидетельствуя против самих себя в неверии».",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 151 line exceeds 42 chars (76)",
+      "cue_id": 151,
+      "timestamp_ms": 1003480,
+      "evidence": "и инстинктов, и отложила в сторону, — но она внутри него, она сама его душа.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 154 line exceeds 42 chars (43)",
+      "cue_id": 154,
+      "timestamp_ms": 1024940,
+      "evidence": "человек заживо погребает собственную фитру.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 155 line exceeds 42 chars (54)",
+      "cue_id": 155,
+      "timestamp_ms": 1032920,
+      "evidence": "дома; после чего сам стал разбойником-налётчиком. Этот",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 156 line exceeds 42 chars (52)",
+      "cue_id": 156,
+      "timestamp_ms": 1039864,
+      "evidence": "пятидесяти местах Бог в благородном Коране [говорит,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 157 line exceeds 42 chars (52)",
+      "cue_id": 157,
+      "timestamp_ms": 1046864,
+      "evidence": "«свидетель» и «страстно привязан к любви богатства»,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 158 line exceeds 42 chars (44)",
+      "cue_id": 158,
+      "timestamp_ms": 1053136,
+      "evidence": "вероучения, проблемы несправедливости. Слова",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 159 line exceeds 42 chars (61)",
+      "cue_id": 159,
+      "timestamp_ms": 1059258,
+      "evidence": "разрушают его и превращают почтенных его жителей в униженных»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 160 line exceeds 42 chars (45)",
+      "cue_id": 160,
+      "timestamp_ms": 1066258,
+      "evidence": "Эти более пятидесяти мест, где упомянуто, что",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 161 line exceeds 42 chars (55)",
+      "cue_id": 161,
+      "timestamp_ms": 1072828,
+      "evidence": "«неспокоен» и тому подобное, — принадлежат опустошённой",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 162 line exceeds 42 chars (45)",
+      "cue_id": 162,
+      "timestamp_ms": 1079697,
+      "evidence": "погребает. Когда наступает сцена Воскресения,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 163 line exceeds 42 chars (59)",
+      "cue_id": 163,
+      "timestamp_ms": 1086118,
+      "evidence": "обманутого человека, — это телесная часть — «свидетельствуя",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 165 line exceeds 42 chars (64)",
+      "cue_id": 165,
+      "timestamp_ms": 1100140,
+      "evidence": "«увечье»: человек, принявший облик зверя, — всё его ограниченное",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 166 line exceeds 42 chars (45)",
+      "cue_id": 166,
+      "timestamp_ms": 1107140,
+      "evidence": "самого, что он разбойник; и это свидетельство",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 167 line exceeds 42 chars (58)",
+      "cue_id": 167,
+      "timestamp_ms": 1113207,
+      "evidence": "этот свидетель — свидетель из самого дома, «свидетельствуя",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 168 line exceeds 42 chars (46)",
+      "cue_id": 168,
+      "timestamp_ms": 1120207,
+      "evidence": "Затем, когда доходит до членов и органов тела,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 169 line exceeds 42 chars (58)",
+      "cue_id": 169,
+      "timestamp_ms": 1126792,
+      "evidence": "них» (Quran 41:20-21). Теперь имейте в виду: свидетельство",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 171 line exceeds 42 chars (53)",
+      "cue_id": 171,
+      "timestamp_ms": 1140007,
+      "evidence": "Становится ясно — как подробно разъяснялось в прежних",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 172 line exceeds 42 chars (53)",
+      "cue_id": 172,
+      "timestamp_ms": 1146962,
+      "evidence": "иные, нежели наши ноги, иные, нежели наша кожа, иные,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 173 line exceeds 42 chars (59)",
+      "cue_id": 173,
+      "timestamp_ms": 1153962,
+      "evidence": "брала взятку из-под стола и сверху стола, даёт из-под стола",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 174 line exceeds 42 chars (53)",
+      "cue_id": 174,
+      "timestamp_ms": 1160962,
+      "evidence": "она заговорит, следует сказать, что она «призналась».",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 175 line exceeds 42 chars (52)",
+      "cue_id": 175,
+      "timestamp_ms": 1167962,
+      "evidence": "стола и сверху стола, — эта рука есть орудие деяния.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 176 line exceeds 42 chars (51)",
+      "cue_id": 176,
+      "timestamp_ms": 1175760,
+      "evidence": "человек взял [взятку], и она это совершила. Если бы",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 177 line exceeds 42 chars (68)",
+      "cue_id": 177,
+      "timestamp_ms": 1182516,
+      "evidence": "когда они заговорят, нам следовало бы сказать, что они «признались»,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 178 line exceeds 42 chars (51)",
+      "cue_id": 178,
+      "timestamp_ms": 1189516,
+      "evidence": "призналась; он говорит, что рука свидетельствовала.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 179 line exceeds 42 chars (56)",
+      "cue_id": 179,
+      "timestamp_ms": 1195984,
+      "evidence": "берёт из-под стола и сверху стола. Этот грех принадлежит",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 180 line exceeds 42 chars (57)",
+      "cue_id": 180,
+      "timestamp_ms": 1202740,
+      "evidence": "половине человека, той половине, что восходит к «звучащей",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 181 line exceeds 42 chars (45)",
+      "cue_id": 181,
+      "timestamp_ms": 1209496,
+      "evidence": "«глине и праху»; тогда как [другая] половина,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 182 line exceeds 42 chars (64)",
+      "cue_id": 182,
+      "timestamp_ms": 1215533,
+      "evidence": "духа», — это обиженная, домашняя часть. В состоянии «он погребал",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 183 line exceeds 42 chars (48)",
+      "cue_id": 183,
+      "timestamp_ms": 1222533,
+      "evidence": "Поэтому свидетельство бывает иногда внешним — из",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 184 line exceeds 42 chars (59)",
+      "cue_id": 184,
+      "timestamp_ms": 1228570,
+      "evidence": "или другие люди свидетельствуют: это внешнее свидетельство.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 185 line exceeds 42 chars (44)",
+      "cue_id": 185,
+      "timestamp_ms": 1235570,
+      "evidence": "свидетельство фитры против [низшей] природы,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 186 line exceeds 42 chars (57)",
+      "cue_id": 186,
+      "timestamp_ms": 1241319,
+      "evidence": "которые сами от [низшей] природы, — против самой природы;",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 187 line exceeds 42 chars (52)",
+      "cue_id": 187,
+      "timestamp_ms": 1248218,
+      "evidence": "который «страстно привязан к любви богатства» (Quran",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 188 line exceeds 42 chars (59)",
+      "cue_id": 188,
+      "timestamp_ms": 1254614,
+      "evidence": "следуйте [за Посланником], и Бог возлюбит вас» (Quran 3:31)",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 189 line exceeds 42 chars (54)",
+      "cue_id": 189,
+      "timestamp_ms": 1261513,
+      "evidence": "и вечнопребывающий, и это Бог; и осью и стержнем любви",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 190 line exceeds 42 chars (47)",
+      "cue_id": 190,
+      "timestamp_ms": 1268412,
+      "evidence": "обхождения которого человек делает возлюбленное",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 191 line exceeds 42 chars (45)",
+      "cue_id": 191,
+      "timestamp_ms": 1274880,
+      "evidence": "Своему собственному Возлюбленному: «Скажи...»",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 192 line exceeds 42 chars (51)",
+      "cue_id": 192,
+      "timestamp_ms": 1286000,
+      "evidence": "возлюбленным Бога — [вместо этого] любит эти четыре",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 194 line exceeds 42 chars (48)",
+      "cue_id": 194,
+      "timestamp_ms": 1300940,
+      "evidence": "человеческое начало, и он отдаёт им своё сердце.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 197 line exceeds 42 chars (43)",
+      "cue_id": 197,
+      "timestamp_ms": 1319140,
+      "evidence": "становится разбойником-налётчиком; и внутри",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 198 line exceeds 42 chars (47)",
+      "cue_id": 198,
+      "timestamp_ms": 1325062,
+      "evidence": "него. Эта фитра — не то, что умирает; эта фитра",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 218 line exceeds 42 chars (67)",
+      "cue_id": 218,
+      "timestamp_ms": 1454120,
+      "evidence": "свидетель, но он подавляет этого внутреннего свидетеля; он заключил",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 219 line exceeds 42 chars (60)",
+      "cue_id": 219,
+      "timestamp_ms": 1461120,
+      "evidence": "её», а на сцене Воскресения [он говорит]: «Что это за книга,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 220 line exceeds 42 chars (68)",
+      "cue_id": 220,
+      "timestamp_ms": 1467631,
+      "evidence": "великого, но всё перечислила?» (Quran 18:49). Великие, весомые книги",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 221 line exceeds 42 chars (70)",
+      "cue_id": 221,
+      "timestamp_ms": 1474602,
+      "evidence": "распорядителей; но та обыденная, повседневная запись, что была забыта,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 222 line exceeds 42 chars (57)",
+      "cue_id": 222,
+      "timestamp_ms": 1481573,
+      "evidence": "совершила прежде» (Quran 82:5); человек несёт её с собой.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 223 line exceeds 42 chars (76)",
+      "cue_id": 223,
+      "timestamp_ms": 1489060,
+      "evidence": "это записал, — хотя да, «благородные писцы» (Quran 82:11) тоже это записали,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 224 line exceeds 42 chars (70)",
+      "cue_id": 224,
+      "timestamp_ms": 1496060,
+      "evidence": "прежде» (Quran 82:5). Из тех мест, где неопределённое имя используется",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 225 line exceeds 42 chars (72)",
+      "cue_id": 225,
+      "timestamp_ms": 1502873,
+      "evidence": "суждения, как здесь: обычно неопределённое имя в отрицательном контексте",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 226 line exceeds 42 chars (66)",
+      "cue_id": 226,
+      "timestamp_ms": 1509500,
+      "evidence": "никакой помощник», то есть [вообще никто], — но неопределённое имя",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 227 line exceeds 42 chars (61)",
+      "cue_id": 227,
+      "timestamp_ms": 1515879,
+      "evidence": "всеобщность. Здесь, судя по свидетельствам и контексту, «душа",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 228 line exceeds 42 chars (76)",
+      "cue_id": 228,
+      "timestamp_ms": 1522258,
+      "evidence": "(Quran 82:5) означает каждую душу — «каждая душа [узнает], что она совершила",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 229 line exceeds 42 chars (66)",
+      "cue_id": 229,
+      "timestamp_ms": 1529257,
+      "evidence": "Поэтому, хотя относительно хаджа и верблюда хаджа передавались эти",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 230 line exceeds 42 chars (72)",
+      "cue_id": 230,
+      "timestamp_ms": 1535636,
+      "evidence": "[подобает], чтобы это было связано с делами джихада; и это даёт человеку",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 231 line exceeds 42 chars (73)",
+      "cue_id": 231,
+      "timestamp_ms": 1542263,
+      "evidence": "который свидетель твоим деяниям и злодеяниям, и Он заключил это [в тебе].",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 232 line exceeds 42 chars (61)",
+      "cue_id": 232,
+      "timestamp_ms": 1550800,
+      "evidence": "свидетель; ты сам — обвиняемый, то есть твоя [низшая] природа",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 233 line exceeds 42 chars (68)",
+      "cue_id": 233,
+      "timestamp_ms": 1557800,
+      "evidence": "обвиняемый — одно и то же, это было бы бессмысленно, если бы не было",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 234 line exceeds 42 chars (69)",
+      "cue_id": 234,
+      "timestamp_ms": 1564800,
+      "evidence": "когда разбой проявляется в облике [зверя] во чреве, это свидетельство",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 235 line exceeds 42 chars (46)",
+      "cue_id": 235,
+      "timestamp_ms": 1571800,
+      "evidence": "непременно требуют множественности свидетелей.",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 236 line exceeds 42 chars (44)",
+      "cue_id": 236,
+      "timestamp_ms": 1578002,
+      "evidence": "ниспосланная под именем аль-Адийат. Конечно,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 237 line exceeds 42 chars (55)",
+      "cue_id": 237,
+      "timestamp_ms": 1583992,
+      "evidence": "в предыдущих сурах и аятах, и предания, что существуют,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 238 line exceeds 42 chars (54)",
+      "cue_id": 238,
+      "timestamp_ms": 1590828,
+      "evidence": "надеемся, что Всесвятой Бог дарует им доброе разумение",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 239 line exceeds 42 chars (59)",
+      "cue_id": 239,
+      "timestamp_ms": 1597382,
+      "evidence": "процветание исламской общины в этом мире и в будущем, и что",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 240 line exceeds 42 chars (71)",
+      "cue_id": 240,
+      "timestamp_ms": 1604218,
+      "evidence": "наставлений — утвердительные предложения, переданные с силой повеления,",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 241 line exceeds 42 chars (54)",
+      "cue_id": 241,
+      "timestamp_ms": 1611218,
+      "evidence": "верующие, то есть, о верующие, стремитесь быть лучшими",
+      "language": "ru"
+    },
+    {
+      "severity": "minor",
+      "category": "line-length",
+      "summary": "cue 242 line exceeds 42 chars (56)",
+      "cue_id": 242,
+      "timestamp_ms": 1617772,
+      "evidence": "над вами. Мир вам, и милость Божья, и Его благословения.",
+      "language": "ru"
+    }
+  ]
+}

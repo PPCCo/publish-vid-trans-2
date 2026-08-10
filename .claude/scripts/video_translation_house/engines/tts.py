@@ -7,11 +7,19 @@ Design constraints (ANALYSIS.md D, E) — identical posture to ``engines/asr.py`
     ``EngineUnavailableError`` — callers defer to a human or a pre-rendered import, they do
     not crash.
 
-Provider selection is *language-aware*: a per-language default map lives in
-``tools.default.json`` (en->kokoro, fa/ar/ur->piper, zh/…->xtts). This adapter only builds
-the command line, runs it, and reports the WAV the child produced. Voice cloning is a pure
-mechanism here (``clone_ref``); the CONSENT policy that decides whether cloning is permitted
-lives in ``dubbing.py`` and the rights record — never bypass it by calling this directly.
+Provider selection is *language-aware*: a per-language engine map lives in
+``tools.default.json`` (``tts.per_language``). This adapter only builds the command line, runs
+it, and reports the WAV the child produced. Voice cloning is a pure mechanism here
+(``clone_ref``); the CONSENT policy that decides whether cloning is permitted lives in
+``dubbing.py`` and the rights record — never bypass it by calling this directly.
+
+SOURCE OF TRUTH for clone-vs-piper is NOT this file. Which languages are dubbed by XTTS
+voice-clone vs the piper gender registry is decided in ``dubbing.run_dub`` from company config
+``dubbing.clone_languages`` (default ["en","zh"]). By the time a clone/registry language reaches
+``synthesize_cue`` its ``provider`` is already resolved, so ``tts.per_language`` here is only the
+*fallback engine* for a language ``dub run`` left unresolved (``provider=None``) — see
+``_resolve_provider``/``_configured_provider``. Do not treat ``tts.per_language`` as the clone
+policy; keep the two in sync (both list en/zh as xtts) but change the policy in company config.
 """
 from __future__ import annotations
 
