@@ -1,6 +1,6 @@
 ---
-description: Generate the external terminal commands to kick off translate/dub for one playlist video with the uniform Javadi-playlist settings, then explain the handoff loop.
-argument-hint: <video-id>   (bare catalog id, e.g. yt-MFuUIoF5PSc)
+description: Generate the external terminal commands to kick off translate/dub for one playlist video with the uniform Javadi-playlist settings, then explain the handoff loop. A playlist URL instead indexes that playlist into the catalog.
+argument-hint: <video-id> | <playlist-url>   (bare catalog id e.g. yt-MFuUIoF5PSc, or a youtube.com/playlist?list=… URL)
 model: "@bedrock-eus2/us.anthropic.claude-opus-4-8"
 effort: medium
 ---
@@ -13,7 +13,45 @@ handoff loop back into this framework). This command is a **read-only command ge
 prints commands for the operator to run in a plain macOS terminal; it does **not** run the
 pipeline or mutate state itself.
 
-**In-progress detection (do this FIRST).** These SETTINGS only apply to a **fresh** video. If the
+## Argument routing (do this BEFORE anything else)
+
+`$ARGUMENTS` is either a **bare catalog video-id** (e.g. `yt-MFuUIoF5PSc`) or a **playlist URL**
+(contains `playlist?list=` or `/playlist`, or is a bare `list=…`). Decide which:
+
+- **Playlist URL** → **playlist-index mode** (below). Do NOT run the per-video onboarding steps.
+- **Bare video-id** → the per-video onboarding procedure (In-progress detection + STEPS 1–5 below).
+
+### Playlist-index mode
+
+When `$ARGUMENTS` is a playlist URL, ensure the playlist is cataloged, then step back — this mode
+only indexes the playlist (flag-free, metadata-only enumeration, rule 3); it does **not** init or
+ingest any video.
+
+1. **Extract the playlist id** — the `list=` value from the URL (e.g.
+   `https://www.youtube.com/playlist?list=PLnvPbB1dlVjUzEekQoDimvCW28iiIwxWJ` →
+   `PLnvPbB1dlVjUzEekQoDimvCW28iiIwxWJ`).
+2. **Check the catalog** — read `catalog/playlists.json` and see whether a `playlists[]` entry
+   already has that `playlist_id`.
+   - **Already present** → say so, then surface it: run
+     `.venv/bin/python3 .claude/scripts/vid_cli.py catalog playlist <playlist-id>` and show its
+     videos + each entry's derived `next_command`. Do **not** re-add. Stop.
+   - **Not present** → add it. This is the one sanctioned mutation this command performs, and it is
+     the flag-free metadata-only enumeration (no media download, rule 3), so run it directly (not
+     as an `!`-block handoff):
+
+     ```
+     .venv/bin/python3 .claude/scripts/vid_cli.py catalog add-playlist "$ARGUMENTS"
+     ```
+
+     Then confirm the new entry with
+     `.venv/bin/python3 .claude/scripts/vid_cli.py catalog playlist <playlist-id>` and show the
+     indexed videos.
+3. **Explain the next step** — to kick off any single video from the playlist, re-run
+   `/kickoff <video-id>` with a bare catalog id from the list just shown. Stop here.
+
+---
+
+**In-progress detection (do this FIRST for a bare video-id).** These SETTINGS only apply to a **fresh** video. If the
 video is already onboarded, its own configured settings are authoritative — do not re-apply the
 SETTINGS or re-init. Before anything else, check whether `projects/<ID>/` exists (e.g.
 `ls -d projects/<ID>` or `.venv/bin/python3 .claude/scripts/vid_cli.py project status <ID>` — a non-error
@@ -137,5 +175,8 @@ Present this plainly (this is how the framework takes over and hands back):
 - Never run `project init`, `ingest run`, `run_pipeline.sh`, or any gate transition yourself from
   this command — only **print** the commands for the operator (rule 1 state ownership is via the
   operator's external runs; gates stay human-bound, rules 2/13).
+- The **one exception** is playlist-index mode's `catalog add-playlist`: it is the flag-free,
+  metadata-only enumeration (no media download, no state gate, rule 3), so run it directly. Every
+  **media** download and per-video init still stays a printed handoff.
 - Emit bare-terminal form (no `!` prefix) — these are meant to be pasted into a normal macOS
   terminal, not run inside Claude.

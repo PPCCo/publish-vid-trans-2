@@ -14,3 +14,4 @@
   warnings.warn(
 [xtts-worker] model ready on mps in 108.2s (sr=24000)
 [xtts-worker] listening on /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.claude/state/xtts-worker.sock
+[xtts-worker] idle 1802s > 1800s; exiting

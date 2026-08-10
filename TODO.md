@@ -21,6 +21,11 @@ It should give status on
 12 pending
 
 ---
+Modify `/kickoff`. The `still image` should apply only if `--still-image` flag is used. For example, if user says `/kickoff --still-image yt-ZCw8i1crHUU` or  `/kickoff yt-ZCw8i1crHUU --still-image` only then, the `--images` option in the `project init` is applied, and all the related `Preflight the still images` check is performed.
+
+If user gives `/kickoff yt-ZCw8i1crHUU` without any `--still-image` flag, then the `--images` option is removed completely from the `project init`, and `Preflight the still images` will be skipped.
+
+---
 
 ## Translation model policy — priority languages on Opus  ✅ DONE (2026-08-10)
 

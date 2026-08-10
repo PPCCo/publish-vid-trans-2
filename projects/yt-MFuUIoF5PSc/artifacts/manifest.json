@@ -704,6 +704,44 @@
       "validation_status": "not-run",
       "supersedes": "art-sync-report-acaacf45ac1b",
       "frozen": false
+    },
+    {
+      "artifact_id": "art-dub-wav-417996109fd7",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dub-wav",
+      "language": "zh",
+      "stage": "DUBBING",
+      "version": 1,
+      "path": "audio/zh/dub.wav",
+      "sha256": "sha256:417996109fd7ae4e79284d2dafb05516ad4d7ddb6f52298ff48ec3241bae7320",
+      "size_bytes": 67049038,
+      "created_at": "2026-08-10T14:30:57Z",
+      "created_by": "agent",
+      "source_artifact_ids": [],
+      "provenance": {},
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-sync-report-68abf156b644",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "sync-report",
+      "language": null,
+      "stage": "AUDIO_SYNC_ADJUST",
+      "version": 9,
+      "path": "audio/sync-report.json",
+      "sha256": "sha256:68abf156b644f5077e03747a9c6978f6307a34d31f06cf7dad0b4de9b05d6648",
+      "size_bytes": 596139,
+      "created_at": "2026-08-10T14:30:58Z",
+      "created_by": "agent",
+      "source_artifact_ids": [],
+      "provenance": {},
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": "art-sync-report-b18a2cc603da",
+      "frozen": false
     }
   ]
 }
