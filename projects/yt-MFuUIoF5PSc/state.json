@@ -5,7 +5,7 @@
   "previous_state": "CAPTION_VALIDATION",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-10T06:04:22Z",
+  "updated_at": "2026-08-10T13:58:15Z",
   "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
@@ -30,17 +30,17 @@
       "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T16:11:48Z",
+      "updated_at": "2026-08-10T13:45:59Z",
       "auto_translate": true,
       "notes": "dub rendered; sync measured"
     },
     "ar": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:22Z",
+      "updated_at": "2026-08-10T12:25:07Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     },
     "zh": {
       "stage": "TRANSLATION_QA_GATE",
@@ -59,12 +59,12 @@
       "notes": "translated; awaiting QA"
     },
     "es": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:23Z",
+      "updated_at": "2026-08-10T13:58:15Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     },
     "pt": {
       "stage": "TRANSLATION_QA_GATE",
@@ -96,8 +96,10 @@
     "captions-json@pt": "sha256:cde010e38e0899da50dc0c20b477ef6322d22bcb262c5b12730e557e7512cdc7",
     "captions-json@ru": "sha256:3842f127214373d75897a92cba2d2c88fc01d6cb7a2154e305ac8b3fe74dedea",
     "dub-wav@en": "sha256:b2e39ee1b2c7a7906d9a439508457dc80829d5c9cc2691a38f373359af5b9614",
-    "sync-report": "sha256:01795710db2b329fb4dbed4699ff19f8ad076a2a3a0d1694793da734bbf5e6e1",
-    "dub-wav@ur": "sha256:aacbc38332d8989dd7b84581bf49545db8f3a9219e6fb543a2f97010f1db4e32"
+    "sync-report": "sha256:b18a2cc603da0969f5f98491ea8cbfae6aa447665dd15323f9025f53fee6b209",
+    "dub-wav@ur": "sha256:9524faf20546cdc07cee3b8abdc78d520882c27eeac004980b8a3bdeae45cb09",
+    "dub-wav@ar": "sha256:976f828e0848e628a77db044efa26051173c2e6b4232ba649c7f2a51aaf95201",
+    "dub-wav@es": "sha256:6a7f61beb74c71af7934219471b1e14467e6b0c603771af98c1d00c0f529683d"
   },
   "blocked_reasons": []
 }

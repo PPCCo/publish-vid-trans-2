@@ -17,14 +17,14 @@
     "verified": false
   },
   "tts": {
-    "_comment": "`per_language` picks the TTS ENGINE for a language whose provider `dub run` left unresolved (provider=None) — it is NOT the clone-vs-piper policy. The SOURCE OF TRUTH for which languages are voice-cloned (XTTS off source/audio.wav) vs fixed-voice is company.default.json `dubbing.clone_languages`; `dub run` resolves provider=xtts+clone there BEFORE the engine layer ever consults this map, so for a clone language this map is never read — it only matters as documentation/fallback. Keep the two in sync (every clone language listed xtts here too) but change the policy in company config, not here. fa/ur are the sole fixed-voice (mms) exception — no XTTS coverage for them; every other language, including the default_provider fallback, is xtts.",
+    "_comment": "`per_language` picks the TTS ENGINE for a language whose provider `dub run` left unresolved (provider=None) — it is NOT the clone-vs-piper policy, and it is NOT what real `dub run` reads for fa/ur (that's the company.local.json `dubbing.voices` registry via resolve_dub_voice). This map is only consulted by `tts-sample` (the A/B evaluation tool). The SOURCE OF TRUTH for which languages are voice-cloned (XTTS off source/audio.wav) vs fixed-voice is company.default.json `dubbing.clone_languages`; `dub run` resolves provider=xtts+clone there BEFORE the engine layer ever consults this map, so for a clone language this map is never read — it only matters as documentation/fallback. Keep the two in sync (every clone language listed xtts here too) but change the policy in company config, not here. fa/ur are the sole fixed-voice PIPER exception (reverted from an MMS trial 2026-08-10 — human judged piper's quality better) — no XTTS coverage for them; every other language, including the default_provider fallback, is xtts.",
     "default_provider": "xtts",
     "per_language": {
       "en": "xtts",
       "zh": "xtts",
       "ar": "xtts",
-      "fa": "mms",
-      "ur": "mms",
+      "fa": "piper",
+      "ur": "piper",
       "fr": "xtts",
       "es": "xtts",
       "pt": "xtts",

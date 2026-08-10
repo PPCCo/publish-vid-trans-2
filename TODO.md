@@ -4,6 +4,24 @@ I also want you to collect info on the token usage of all the major activities. 
 
 ---
 
+## playlists
+
+Right now, project (video `yt-MFuUIoF5PSc` for example) is referenced in `catalog/playlists.json`. So `playlists.json` has a link to `yt-MFuUIoF5PSc`, but from `yt-MFuUIoF5PSc`, there is no way of 
+
+## /playlist command
+
+I want to be able to check status os playlist with `/playlist-status` command
+
+### `status` verb
+
+I see a `.claude/commands/vid-status.md` command but don't see any `video-status` skill. I'm not sure if adding a skill for this is needed, but I was thinking, if a user says `
+
+It should give status on 
+15 completed
+12 pending
+
+---
+
 ## Translation model policy — priority languages on Opus  ✅ DONE (2026-08-10)
 
 **Final decision (Qaiser):** simpler than the escalation idea below — **Opus for en/ar/ur
