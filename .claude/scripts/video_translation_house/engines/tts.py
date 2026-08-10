@@ -35,13 +35,14 @@ from ..util import executable, load_tools_config
 
 # Providers we know how to drive via subprocess. Local-first order; vendor engines are
 # recognized names but still binary-gated (opt-in).
-KNOWN_PROVIDERS = ("kokoro", "piper", "xtts", "chatterbox", "elevenlabs", "azure", "google")
+KNOWN_PROVIDERS = ("kokoro", "piper", "xtts", "mms", "chatterbox", "elevenlabs", "azure", "google")
 
 # The engine binary each provider needs on PATH.
 _PROVIDER_BINARY = {
     "kokoro": "kokoro",
     "piper": "piper",
     "xtts": "tts",            # Coqui XTTS ships the `tts` CLI
+    "mms": "mms-tts",         # Meta MMS-TTS; local-only, always via a tools.local binary override
     "chatterbox": "chatterbox",
     "elevenlabs": "elevenlabs",
     "azure": "spx",           # Azure Speech CLI
@@ -195,6 +196,12 @@ def _build_command(
         cmd += ["--model_name", model or _XTTS_DEFAULT_MODEL]
         if clone_ref is not None:
             cmd += ["--speaker_wav", str(clone_ref)]
+        return cmd
+    if provider == "mms":  # Meta MMS-TTS (fixed voice per language; no cloning). Same argv shape
+        # as xtts minus the clone ref; the wrapper derives facebook/mms-tts-<iso> from language.
+        cmd = [binary, "--text", text, "--out_path", str(dst), "--language_idx", language]
+        if model:
+            cmd += ["--model_name", model]
         return cmd
     # Vendor engines: generic best-effort shape (operator-wrapped).
     cmd = [binary, "--text", text, "--output", str(dst), "--language", language]

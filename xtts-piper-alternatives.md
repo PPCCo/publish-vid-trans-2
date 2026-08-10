@@ -146,3 +146,30 @@ Worth considering: simplifying the whole pipeline
 Since you don't need cloning for fa/ur, and Azure/Google both cover ar, fr, es, pt, ru, zh, en as well with mature, stable neural voices — you could collapse this from "XTTS/Fish for 7 languages + cloud-only for 2" down to a single Azure or Google TTS call for all 9, with SSML as your consistency/pronunciation control layer throughout. That trades your self-hosted default for one clean, deterministic API surface — worth weighing against how much you value keeping the bulk of the pipeline off cloud dependencies versus the operational simplicity of one voice engine everywhere.
 
 If you want, I can sketch out how the SSML-based approach would slot into translate-house's gate structure — pronunciation dictionary as a pre-synthesis gate, for instance, so proper nouns and Quranic terms get locked in before audio generation rather than caught after.
+
+---
+
+What you need to download and stage (the MMS models)
+
+HuggingFace is blocked on this network, so use the same GitHub-release route as your other offline models (OPERATING-GUIDE §6). Each model is small
+(~145MB weights + tiny configs).
+
+Step 1 — on an un-proxied machine (HF reachable), download both models:
+huggingface-cli download facebook/mms-tts-fas --local-dir ./mms-tts-fas-stage
+huggingface-cli download facebook/mms-tts-urd --local-dir ./mms-tts-urd-stage
+Each dir will contain: model.safetensors (or pytorch_model.bin), config.json, tokenizer_config.json, vocab.json, and possibly
+special_tokens_map.json.
+
+Step 2 — push each to a GitHub release (repo must have ≥1 commit first):
+gh repo create <you>/mms-tts-fas-stage --private
+# commit a README, push, then:
+gh release create v1 --repo <you>/mms-tts-fas-stage
+gh release upload v1 model.safetensors config.json tokenizer_config.json vocab.json --repo <you>/mms-tts-fas-stage
+# repeat for mms-tts-urd-stage
+
+Step 3 — tell me when the releases are up. I'll then (on this machine, since GitHub is allow-listed) download the assets to stage dirs and
+reconstruct the offline HF cache symlink layout under HF_HOME=~/Dev/my-repos/pub/.cache/huggingface/hub/models--facebook--mms-tts-{fas,urd}/, exactly
+like your whisper stage. That part I can do myself.
+
+One thing to include in the download — the tokenizer_config.json for each. It carries the is_uroman flag; my wrapper reads it and only romanizes if
+required (Arabic-script fa/ur usually don't, but the code honors whatever the file says, and fails loud if uroman is needed but absent).

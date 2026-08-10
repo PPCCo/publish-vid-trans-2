@@ -98,17 +98,25 @@ def _resolve_source(root: Path, video_path_or_id: str) -> Path:
     )
 
 
-def _engines_for_language(language: str, requested: list[str] | None,
+def _engines_for_language(root: Path, language: str, requested: list[str] | None,
                           have_clone_ref: bool) -> list[str]:
-    """Which engines to sample for a language. When the caller doesn't pin `--engines`, pick a
-    sensible default set: xtts (clone) when a reference exists, plus piper as the local baseline."""
+    """Which engines to sample for a language when the caller doesn't pin `--engines`.
+
+    Uses the SAME routing the real pipeline uses (no piper here — the operator dislikes its
+    quality): a `clone_languages` language samples `xtts` (needs a clone ref); every other
+    language samples its `tts.per_language` engine (e.g. fa/ur -> `mms`). Falls back to `xtts`
+    for a clone-ref language with no config, else whatever `per_language`/default resolves to.
+    """
     if requested:
         return requested
-    engines = []
-    if have_clone_ref:
-        engines.append("xtts")
-    engines.append("piper")
-    return engines
+    try:
+        clone_langs = dubbing_mod.clone_languages(root)
+    except Exception:  # noqa: BLE001
+        clone_langs = []
+    if language in clone_langs:
+        return ["xtts"] if have_clone_ref else []
+    engine = tts_mod._configured_provider(root, language)
+    return [engine] if engine else []
 
 
 def _load_texts(language: str, text_source: str | None, n: int) -> list[str]:
@@ -174,7 +182,7 @@ def run_samples(
     report: dict[str, Any] = {}
     for language in languages:
         texts = _load_texts(language, text_source, samples_per_lang)
-        lang_engines = _engines_for_language(language, engines, have_clone_ref=ref.is_file())
+        lang_engines = _engines_for_language(root, language, engines, have_clone_ref=ref.is_file())
         report[language] = {}
         for engine in lang_engines:
             rows: list[dict[str, Any]] = []
@@ -183,12 +191,13 @@ def run_samples(
             for idx, text in enumerate(texts):
                 wav = out / f"{language}.{engine}.sample{idx}.wav"
                 row: dict[str, Any] = {"sample_id": idx, "text": text, "wav_path": str(wav)}
-                # Non-clone engines (piper/kokoro/…) need a concrete voice model — resolve it from
-                # the company `dubbing.voices` registry the same way `run_dub` does (male default,
-                # then female), so a piper sample isn't invoked without `--model`. XTTS is a clone
-                # engine: it takes no model here (uses the staged XTTS-v2 default + the clone ref).
+                # Engine-specific model resolution:
+                #  - xtts: clone engine, no model here (staged XTTS-v2 default + clone ref).
+                #  - mms:  derives facebook/mms-tts-<iso> from the language itself; no registry.
+                #  - piper/kokoro/…: need a concrete voice .onnx from the company `dubbing.voices`
+                #    registry (male default, then female), exactly as `run_dub` resolves it.
                 model = None
-                if engine != "xtts":
+                if engine not in ("xtts", "mms"):
                     picked = (dubbing_mod.resolve_dub_voice(root, language, "male")
                               or dubbing_mod.resolve_dub_voice(root, language, "female"))
                     if picked is None:
