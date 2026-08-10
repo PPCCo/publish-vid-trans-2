@@ -61,6 +61,15 @@ _XTTS_LANGUAGE_MAP = {"zh": "zh-cn"}
 _XTTS_DEFAULT_MODEL = "tts_models/multilingual/multi-dataset/xtts_v2"
 
 
+def _stderr_tail(stderr: str | None, lines: int = 8) -> str:
+    """The last ``lines`` of a subprocess's stderr — the actual error.
+
+    An engine (or a wrapper binary in front of it) may print a version/config banner FIRST,
+    burying the real failure at the tail; ``stderr[:500]`` would surface only the banner. Mirrors
+    ``media._stderr_tail`` — kept local because tts.py must not import media (cycle, see below)."""
+    return "\n".join((stderr or "").strip().splitlines()[-lines:])
+
+
 @dataclass
 class TTSResult:
     provider: str
@@ -252,7 +261,7 @@ def synthesize_cue(
         raise VideoTranslationHouseError(f"TTS timed out after {timeout}s: {command[0]}") from exc
     if result.returncode != 0:
         raise VideoTranslationHouseError(
-            f"{resolved} failed (exit {result.returncode}): {(result.stderr or '').strip()[:500]}"
+            f"{resolved} failed (exit {result.returncode}): {_stderr_tail(result.stderr)}"
         )
     if not dst.exists():
         raise VideoTranslationHouseError(f"{resolved} reported success but produced no WAV at {dst}")

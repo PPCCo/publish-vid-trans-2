@@ -112,6 +112,58 @@ def clone_languages(root: Path) -> list[str]:
     return list((load_company_config(root).get("dubbing", {}) or {}).get("clone_languages", []) or [])
 
 
+def _clone_ref_trim_seconds(root: Path) -> int:
+    """Length (seconds) of the trimmed clone reference clip, from `tts.xtts_worker`.
+
+    XTTS only needs a few seconds of clean reference speech to derive the speaker latents; the
+    full `source/audio.wav` can be many minutes, so `get_conditioning_latents` over the whole file
+    is wasted work on the FIRST cue of a run (every later cue hits the daemon's cache). Trimming to
+    a short head clip makes even that first computation cheap. 0/negative disables trimming (use
+    the full file). Default 25s. See `tools.default.json` → `tts.xtts_worker.clone_ref_trim_seconds`.
+    """
+    from .util import load_tools_config
+
+    try:
+        worker = (load_tools_config(root).get("tts", {}) or {}).get("xtts_worker", {}) or {}
+        return int(worker.get("clone_ref_trim_seconds", 25))
+    except (ValueError, TypeError, KeyError):
+        return 25
+
+
+def _clone_ref_trim(root: Path, project_id: str, paths: "ProjectPaths",
+                    src_wav: Path) -> Path:
+    """Return a short, cached head-slice of `src_wav` to use as the XTTS clone reference.
+
+    Deterministic derived scratch (NOT a registered artifact — rule 6 binds only shipped outputs):
+    `<project>/audio/.clone-ref-cache/head-<seconds>s-<mtime>.wav`. Keyed on the source mtime so a
+    re-extracted source auto-invalidates (and the daemon's own latents cache, keyed on the clip's
+    (path, mtime, size), invalidates in lockstep). On ANY failure (short/odd source, ffmpeg error)
+    fall back to the full `src_wav` — trimming is a pure speed optimization, never a correctness gate.
+    """
+    seconds = _clone_ref_trim_seconds(root)
+    if seconds <= 0 or not src_wav.is_file():
+        return src_wav
+    try:
+        total_ms = media_mod.audio_duration_ms(src_wav)
+        if total_ms <= seconds * 1000:
+            # Source is already at/under the trim length — nothing to gain, avoid an extra file.
+            return src_wav
+        mtime = int(src_wav.stat().st_mtime)
+        cache_dir = paths.audio_dir / ".clone-ref-cache"
+        cache_dir.mkdir(parents=True, exist_ok=True)
+        dest = cache_dir / f"head-{seconds}s-{mtime}.wav"
+        if dest.is_file() and media_mod.audio_duration_ms(dest) > 0:
+            return dest
+        media_mod.slice_wav(
+            src_wav, dest,
+            start_seconds=0.0, duration_seconds=float(seconds),
+            sample_rate=media_mod.DUB_SAMPLE_RATE, channels=media_mod.DUB_CHANNELS,
+        )
+        return dest if dest.is_file() and media_mod.audio_duration_ms(dest) > 0 else src_wav
+    except Exception:  # noqa: BLE001 - trimming is best-effort; full file is always a valid ref
+        return src_wav
+
+
 def resolve_dub_voice(root: Path, language: str, gender: str) -> dict[str, str] | None:
     """Look up the staged voice for (language, gender) in the company `dubbing.voices` registry.
 
@@ -417,7 +469,10 @@ def run_dub(
             from .ingest import ensure_source_present
 
             ensure_source_present(root, project_id, actor=actor)
-        clone_ref = src_wav if src_wav.is_file() else None
+        # XTTS derives the speaker latents from a few seconds of reference speech; hand it a short
+        # cached head-slice instead of the whole (often minutes-long) source so even the first
+        # cue's latent computation is cheap. Falls back to the full file on any trim failure.
+        clone_ref = _clone_ref_trim(root, project_id, paths, src_wav) if src_wav.is_file() else None
 
     # Keep-source-audio cues (rule 5 / rule 14): a cue flagged `keep-source-audio` plays the
     # ORIGINAL reciter/speaker audio under every language instead of TTS (untranslatable recited

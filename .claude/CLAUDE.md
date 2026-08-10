@@ -37,65 +37,45 @@ closed captions, autonomously but under human-bound gates.
    rights, but nothing in `outputs/` is safe to publish until a human sets `rights_status`
    to a distributable value. `PACKAGE → READY_FOR_REVIEW` is blocked while `unreviewed` or
    `do-not-distribute`.
-5. **Voice cloning requires recorded consent.** Default dubbing uses a neutral voice.
-   Cloning the source speaker's voice requires `voice_clone_consent: true` in the rights
-   record. (Separately, a cue flagged `keep-source-audio` preserves the **original** speaker's
-   own audio for a recited/untranslatable window in every language instead of dubbing it — a
-   distinct mechanism from cloning, no consent gate; see rule 14.)
+5. **Voice cloning requires recorded consent.** Cloning the source speaker's voice requires
+   `voice_clone_consent: true` in the rights record. (Separately, a cue flagged `keep-source-audio`
+   preserves the **original** speaker's own audio for a recited/untranslatable window in every
+   language instead of dubbing it — a distinct mechanism, no consent gate; see rule 14.)
 
-   **Male is the hard default dub voice for every language.** Dub voices are chosen from a
-   company-owned, gender-tagged registry (`dubbing.voices[<lang>][male|female]` in
-   `company.default.json` + real `.onnx` paths in gitignored `company.local.json`), **not** by
-   hand-passing `--model`. `dub run` with no `--model` resolves the voice as
-   `--gender` (CLI) → project `dubbing.voice_gender` → company `default_voice_gender` (**male**),
-   and **fails loudly** (`DubbingError`, staging message) when that gender isn't staged for the
-   language — never a silent wrong-gender dub. An explicit `dub run --model <path>` still wins
-   (operator override). The chosen project gender is set once at onboarding
-   (`project init --dub-voice-gender`, default male; captured by the `/new-video` skill). The
-   **source speaker's** own gender is a separate human observation recorded at LANGUAGE_ID
-   (`langid set --source-voice-gender`, default male; `state.source_voice_gender`); a **female**
-   source is the only trigger for asking whether dubs should also go female — otherwise dubs stay
-   male. Cloning **intent** captured at init (`project init --voice-clone-requested` →
-   `dubbing.voice_clone_requested`) is advisory only; it never flips the rights record, and actual
-   `voice_clone_consent` is still recorded solely at the human-only `rights-check` gate. `doctor`
-   lists which gendered voices are staged (`dub-voice:<lang>:<gender>`).
+   **Male is the hard default piper dub voice for every language.** Voices come from a company
+   gender-tagged registry (`dubbing.voices[<lang>][male|female]` in `company.default.json` + real
+   `.onnx` paths in gitignored `company.local.json`), **not** hand-passed `--model`. `dub run` with
+   no `--model` resolves gender as `--gender` (CLI) → project `dubbing.voice_gender` → company
+   `default_voice_gender` (**male**), and **fails loudly** (`DubbingError`) when that gender isn't
+   staged — never a silent wrong-gender dub. `dub run --model <path>` wins (operator override).
+   Project gender set once at init (`project init --dub-voice-gender`, default male). The **source
+   speaker's** gender is a separate human observation at LANGUAGE_ID (`langid set
+   --source-voice-gender`, default male); a **female** source is the only trigger to ask whether
+   dubs go female. `doctor` lists staged voices (`dub-voice:<lang>:<gender>`).
 
-   **Clone-language exception — `dubbing.clone_languages` (default `["en","zh"]`) are ALWAYS
-   XTTS voice-clone, gender N/A.** Languages listed in company config `dubbing.clone_languages`
-   are dubbed by **XTTS voice-clone off the source speaker's `source/audio.wav`**, *not* the piper
-   gender registry — so the male/female axis does **not** apply to them. `dub run --language en`
-   (or `zh`) with **no `--model` and no `--clone`** auto-resolves to `provider=xtts` + `clone=True`
-   (as if `--clone` were passed): the auto-clone fires in `dubbing.run_dub` (`auto_clone = not clone
-   and model is None and language in clone_languages(root)`) **before** the consent gate, so it is
-   **consent-gated** (needs rights `voice_clone_consent=true`, this rule) and **fails loud** if
-   consent is missing, the XTTS `tts` engine isn't installed, or no clone reference is present —
-   never a silent piper fallback. An explicit `dub run --model <path>` or `--gender <g>` still wins
-   (auto-clone only fires when `--model` is unset). **This is the company source of truth for
-   clone-vs-piper** — the `tts.per_language` map in `tools.default.json` only picks the *engine* for
-   an otherwise-unresolved provider (dead config for clone-vs-piper; that dead-config gap is exactly
-   why `en` once dubbed on piper — rule 8). Male stays the hard default for every language **not**
-   in `clone_languages`. Tune the list in `company.local.json`.
+   **Clone-language exception — `dubbing.clone_languages` (default `["en","zh"]`) are ALWAYS XTTS
+   voice-clone, gender N/A.** These langs dub by XTTS clone off `source/audio.wav`, not the piper
+   registry. `dub run --language en`/`zh` with no `--model`/`--clone` auto-resolves to `provider=xtts`
+   + `clone=True` in `run_dub` (`auto_clone = not clone and model is None and language in
+   clone_languages(root)`), **before** the consent gate — so it is consent-gated (this rule) and
+   **fails loud** if consent is missing, XTTS isn't installed, or no clone reference exists — never a
+   silent piper fallback. `--model`/`--gender` still wins. **This is the source of truth for
+   clone-vs-piper**; `tts.per_language` in `tools.default.json` only picks the *engine* for an
+   unresolved provider (dead config for clone-vs-piper — why `en` once dubbed piper, rule 8). Tune
+   the list in `company.local.json`.
 
-   **Authorized override (2026-08-07) — cloning ON + rights pre-recorded at init.** By explicit
-   human authorization, company policy now **defaults voice cloning ON** and auto-records the
-   rights posture at project init, so the token-thrifty scripted/manual route runs gate-to-gate
-   with less friction. The company `rights` block in `company.default.json`
-   (`default_voice_clone: true`, `auto_consent_at_init: true`, `default_rights_status:
-   "self-authored"`, `default_reviewer: "company-standing-authorization"`) drives it: `project
-   init` resolves `dubbing.voice_clone` from `default_voice_clone` and, when clone is on and
-   `auto_consent_at_init` is set, records `voice_clone_consent: true` + `rights_status` **through
-   the sanctioned `rights.set_rights` CLI path** (rule 1 — never a hand-written record; a
-   `RIGHTS_SET` event is appended). This deliberately relaxes this rule's neutral default; it is
-   **not a silent bypass** — the `/new-video` interview offers a one-click **Neutral voice**
-   opt-out (`project init --no-clone`, which records no consent and leaves the rule-5 neutral path
-   intact), the whole behavior is opt-out company-wide via `default_voice_clone: false`, and a
-   human can still revise at the human-only `rights-check` gate (`set_rights` overwrites, so a
-   later gate decision fully supersedes the init-written record). The three
-   `disable-model-invocation: true` outward-facing skills (`rights-check`,
-   `video-release-authorize`, `video-promote-approve`) keep their human-only posture regardless —
-   init pre-populating the record does not touch them. Because the init consent is real, the
-   old "clone intent never flips the rights record" caveat above applies only to the `--no-clone`
-   / explicit-intent-flag path; the *default* path does record consent at init.
+   **Authorized override (2026-08-07) — cloning ON + rights pre-recorded at init.** By human
+   authorization, cloning **defaults ON** and rights are auto-recorded at init, easing the
+   scripted route. The company `rights` block (`default_voice_clone: true`,
+   `auto_consent_at_init: true`, `default_rights_status: "self-authored"`, `default_reviewer:
+   "company-standing-authorization"`) drives it: `project init` records `voice_clone_consent: true`
+   + `rights_status` **through `rights.set_rights`** (rule 1 — never hand-written; `RIGHTS_SET`
+   event). Not a silent bypass — `/new-video` offers a one-click **Neutral voice** opt-out
+   (`project init --no-clone`, records no consent), it's opt-out company-wide via
+   `default_voice_clone: false`, and the human-only `rights-check` gate can revise (`set_rights`
+   overwrites). The three `disable-model-invocation: true` outward-facing skills keep their
+   human-only posture regardless. The old "clone intent never flips the rights record" caveat now
+   applies only to the `--no-clone`/explicit-intent-flag path; the default path records consent at init.
 6. **Artifacts are content-addressed.** Register every produced file with the CLI; approvals
    bind to exact SHA-256 hashes. Editing an approved artifact auto-invalidates its approval.
 
@@ -166,50 +146,39 @@ These govern *how you work*, not just what the pipeline does:
     was already confirmed), then the flagged `transcript run --advance`. This is a *plain rerun*, not
     a gated transition — no human confirmation needed to regenerate a not-yet-approved transcript; the
     gate re-fires only when this reaches `TRANSCRIPT_QA_GATE` again for human review.
-11. **English review-gloss at `TRANSCRIPT_QA_GATE`.** At the transcript gate an English gloss of
-    the source speech is always produced (`transcript english-export` → fill → `transcript
-    english-import` → `transcript/english-gloss.json`) and put through an AI context/word-sense pass
-    (the `english-context-check` skill, Opus-4.8/high) that verifies the words make sense in the
-    speech's context, **auto-fixes the English gloss** where it can, and **flags source-transcript
-    problems** for the human — so the human can validate the source transcript, the English gloss,
-    or both. This is **advisory**: the gloss's context findings fold into the existing
-    `transcript-qa` report (`english-context/*` categories; blocker→FAIL, major→CONDITIONAL_PASS),
-    adding no new required gate report and leaving the `TRANSCRIPT_QA_GATE → SEGMENT_RESOLUTION`
-    edge wiring unchanged. The gloss is a **review aid, not the en caption translation** (the later
-    per-language TRANSLATION stage still produces that independently, unchanged) and is registered
-    as an `english-gloss` artifact that never advances a language track. The AI **never edits the
-    source transcript** — source edits are human/CLI-only (they change an approved artifact and
-    re-trigger ASR QA).
+11. **English review-gloss at `TRANSCRIPT_QA_GATE`.** An English gloss of the source is always
+    produced (`transcript english-export` → fill → `transcript english-import` →
+    `transcript/english-gloss.json`) and run through an AI context/word-sense pass (the
+    `english-context-check` skill, Opus-4.8/high) that verifies word-sense in context, **auto-fixes
+    the gloss**, and **flags source-transcript problems** for the human. **Advisory**: findings fold
+    into the `transcript-qa` report (`english-context/*`; blocker→FAIL, major→CONDITIONAL_PASS),
+    adding no new gate report and leaving the `TRANSCRIPT_QA_GATE → SEGMENT_RESOLUTION` edge
+    unchanged. The gloss is a **review aid, not the en caption translation** (TRANSLATION produces
+    that independently), registered as an `english-gloss` artifact that never advances a track. The
+    AI **never edits the source transcript** — source edits are human/CLI-only (they re-trigger ASR QA).
 
-    **Verse-override review aid + auto-reconcile (Quran/tafsir sources).** For a Quranic source a
-    companion review aid `transcript/english-verses-gloss.worksheet.json` may list **only** the
-    verse-bearing gloss cues — each with its `(Quran s:a)` citation(s), the source text, the English
-    `translated_text` (== that cue's `target_text` in the gloss worksheet) and an empty
-    `modified_translation` the human fills **only** for renderings they want changed. `transcript
-    reconcile-verses <id>` copies each non-empty `modified_translation` into the matching cue's
-    `target_text` in `english-gloss.worksheet.json` (by cue id) and mirrors it back into the verses
-    file's `translated_text`; it is **always run as the first action of `transcript english-import`**
-    (import returns it under `verses_reconciled`), so a plain import always picks up the latest
-    overrides — the standalone verb just lets the human apply + inspect edits first. Idempotent;
-    no-op when the verses file is absent or has no overrides. Both files are **fill-in worksheets**
-    (not CLI-owned state, not registered artifacts — only the canonical `english-gloss.json` is), so
-    reconcile never touches `state.json`/manifest/approvals (rule 1); it appends an
-    `ENGLISH_GLOSS_VERSES_RECONCILED` event. **Every cited verse renders inline** in the gloss
-    `target_text`: the English rendering followed by the numeric `(Quran s:a)` citation after each
-    quoted verse, **no Arabic script** (consistent with rule 16 — the gloss is still a review aid,
-    not the shipped caption). `ar`'s later TRANSLATION captions remain the sole Arabic-verbatim path.
+    **Verse-override review aid + auto-reconcile (Quran/tafsir).** A companion worksheet
+    `transcript/english-verses-gloss.worksheet.json` may list only the verse-bearing gloss cues —
+    each with its `(Quran s:a)` citation(s), source text, English `translated_text` (== the gloss
+    cue's `target_text`), and an empty `modified_translation` the human fills only to change a
+    rendering. `transcript reconcile-verses <id>` copies each non-empty `modified_translation` into
+    the matching cue's `target_text` in `english-gloss.worksheet.json` (by id) and mirrors it back;
+    it is **always the first action of `transcript english-import`** (returned as
+    `verses_reconciled`), so plain import picks up latest overrides. Idempotent; no-op when absent.
+    Both are fill-in worksheets (not CLI state, not registered — only `english-gloss.json` is), so
+    reconcile never touches state/manifest/approvals (rule 1); appends
+    `ENGLISH_GLOSS_VERSES_RECONCILED`. **Every cited verse renders inline** in `target_text`: English
+    rendering + numeric `(Quran s:a)`, **no Arabic script** (rule 16 — review aid, not shipped
+    caption). `ar`'s TRANSLATION captions remain the sole Arabic-verbatim path.
 
-    **Filling the gloss worksheet in batches (avoid the single-response timeout).** When the AI is
-    the gloss translator, do **not** try to write all cues' `target_text` in one response — a dense
-    source (dozens of cues, some 900–1600 chars of Persian/Arabic) overflows a single turn and yields
-    an `API Error: The operation timed out`. Instead fill the worksheet **programmatically in bounded
-    batches**: write a small `_batchN.json` of `{ "<cue-id>": {"target_text", "context_note"?,
-    "flags_add"?} }` for a handful of cues at a time and merge it into `english-gloss.worksheet.json`
-    by cue id with a throwaway merge-by-id helper (a plain Edit can't target the identical empty
-    `"target_text": ""` anchors). The merge helper and `_batch*.json` are **scaffolding, not
-    deliverables** — delete them before/after `transcript english-import` (import reads only the
-    worksheet). This keeps each turn small, is idempotent per cue id, and never hand-edits CLI-owned
-    state (the worksheet is a fill-in artifact, not `state.json`/manifest/approvals).
+    **Fill the gloss worksheet in bounded batches (avoid single-response timeout).** When the AI is
+    the gloss translator, do **not** write all cues in one response — a dense source overflows a turn
+    (`API Error: The operation timed out`). Instead write small `_batchN.json` maps
+    (`{ "<cue-id>": {"target_text", "context_note"?, "flags_add"?} }`) for a few cues at a time and
+    merge into the worksheet by id with a throwaway merge helper (a plain Edit can't target identical
+    empty `"target_text": ""` anchors). Helper + `_batch*.json` are scaffolding — delete before/after
+    `transcript english-import` (import reads only the worksheet). Idempotent per cue id; never
+    hand-edits CLI state.
 
 12. **Long caption cues auto-split at caption build.** Cue durations are inherited from the ASR
     transcript, which can merge long uninterrupted passages into multi-minute cues. At caption-build
@@ -252,86 +221,64 @@ These govern *how you work*, not just what the pipeline does:
     all the fact-gathering and disclosure, but the human runs the final `!` command for those three.
     This is the standing gate UX; the `## Stop / Escalate — HUMAN GATE` section of every gate skill
     follows it.
-    **The catalog `next_command` is convenience, not a bypass.** `catalog list` / `catalog show`
-    surface a derived, copy-paste/`!`-runnable `next_command` (and, at a gate step, a `review_files`
-    array of the artifacts under review) computed fresh on read from `state.plan()` — never
-    persisted. It is a power-user shortcut for a human who wants to run the command themselves; at
-    a `STOP_AT_GATE` step it emits the approve command **with a `disclose+confirm first` reminder**.
-    It does NOT relax this rule: when *you* drive a gate in-conversation you still do
-    surface→options→disclose→confirm→execute, and the three outward-facing gates stay human-run.
+    **The catalog `next_command` is convenience, not a bypass.** `catalog list`/`show` surface a
+    derived, `!`-runnable `next_command` (+ `review_files` at a gate step) computed fresh from
+    `state.plan()`, never persisted — a power-user shortcut; at `STOP_AT_GATE` it emits the approve
+    command **with a `disclose+confirm first` reminder**. It does NOT relax this rule: when *you*
+    drive a gate you still surface→options→disclose→confirm→execute, and the three outward-facing
+    gates stay human-run.
 
-14. **Constant audio speed — the picture is always re-timed to the audio (mandatory; rule 5 /
-    TASK 2).** Dubbed audio is **NEVER time-stretched** to fit a caption slot — the per-cue
-    rubber-banding (speeding/slowing each cue) sounded terrible, so it is **removed**. Every cue
-    plays at its natural TTS length and the **picture** absorbs 100% of the mismatch via
-    freeze/trim. The old `quality_bars.audio.max_time_stretch` / `freeze_stretch_cap` /
-    `freeze_frame_enabled` bars are retained only for **reporting/back-compat** and **no longer
-    gate audio speed** — freeze-planning is now unconditional: `dub run` **always** writes a
-    per-language **freeze plan** (`audio/freeze-plan.<lang>.json`, a registered artifact tracing to
-    the dub-wav) and `package mux` **always** rebuilds the picture from a non-empty plan. (An empty
-    plan — audio happened to match the slots — takes the plain `-c:v copy` path.) `media.normalize_wav`
-    is the per-cue path: format-normalize only, duration identity. `dub import` still produces no plan
-    (`freeze_plan_skipped_reason`) — it has no per-cue natural durations. **The plan is computed on a *running gap*, not
-    each cue's own overflow** — because `dub run` lays cue audio **back-to-back** (lead silence
-    only when the audio is *early*), a long cue's overrun propagates to every following cue until a
-    natural pause, so per-cue-own-overflow freezing left the propagated backlog uncancelled (it
-    FAILed on real data). The plan holds the picture by `gap_i = rendered_start_ms - (caption_start_ms
-    + cum_freeze - cum_trim)` at each cue boundary where the audio is later than the (already
-    re-timed) picture. **Two modes, chosen per language by the `quality_bars.audio.
-    freeze_trim_languages` array (a company bar, default `[]`; no CLI flag):**
-    - **Hold-only (Model B, the default for languages *not* in the list):** only freeze/hold, never
-      drop source frames. Where the audio *underruns* the picture in aggregate (after a gap) a
-      one-sided residual remains — the picture lags the audio — and is surfaced **honestly** as
-      signed `drift_ms`; you reach PASS by accepting it under a raised `per_cue_drift_tolerance_ms`
-      (a disclosed, recorded bar relaxation), suitable when the residual is small (≤ a few seconds).
-    - **Freeze + trim (Model A, for languages *in* `freeze_trim_languages`):** additionally **trims**
-      the picture (skips `-gap_i` ms of source at the cue boundary) where the audio runs earlier
-      than the picture, so residual reaches **0 by construction** (`trims[]` + `total_trim_ms` in the
-      plan; `trim_planned`/`trim_ms` per cue in the sync report). Use this when hold-only would leave
-      an unacceptably large lag (e.g. an 11.6s ar residual on the al-'Asr project → `ar` is in the
-      list). Trimming drops real source frames on cue boundaries — an accepted trade vs a large
-      desync.
-    In `_build_sync_report` the post-adjust residual is `rendered_start - (caption_start + cum_freeze
-    - cum_trim)`; a freeze/trim-planned cue's `drift_ms` becomes 0 (Model A) or the honest one-sided
-    residual (Model B) and drops out of the over-cap list **by construction** — so
-    `analyze_sync`'s unchanged blocker/major checks read truthful post-adjust numbers and the track
-    reaches **PASS honestly** (Model A) or PASS-under-raised-tolerance (Model B). Each freeze is an informational `audio-freeze-planned` note;
-    a hold beyond `max_freeze_ms_per_cue` (default 4000ms) escalates to an `audio-freeze-excessive`
-    **major** so a person sees a frame that would linger. At `package mux` the picture is rebuilt on
-    the post-freeze timeline (source slices interleaved with frozen-frame inserts, re-encoded
-    H.264/AAC) and **both** the embedded soft-subs and the standalone `captions.<lang>.vtt/.srt`
-    deliverables are re-timed onto that timeline — the **canonical approved caption doc is never
-    edited** (rules 6/12); retimed subs are derived mux/package outputs. **Scope limit:**
-    freeze-planning is the **real-TTS `dub run` path only**; `dub import` has no per-cue natural
-    durations, so it produces no freeze plan (its result carries a `freeze_plan_skipped_reason`).
-    Freezes and trims always land on cue boundaries (`at_ms` == the corrected cue's
-    `caption_start_ms`), never mid-cue. The earlier band-aid overrides (`max_time_stretch`,
-    `cumulative_drift_ceiling_ms`) are dead as speed gates — freeze-frame is the only mechanism.
+14. **Constant audio speed — the picture is always re-timed to the audio (mandatory; TASK 2).**
+    Dubbed audio is **NEVER time-stretched** to fit a slot (per-cue rubber-banding sounded terrible,
+    removed). Every cue plays at its natural TTS length; the **picture** absorbs 100% of the mismatch
+    via freeze/trim. Old `quality_bars.audio.max_time_stretch`/`freeze_stretch_cap`/
+    `freeze_frame_enabled` bars are retained for reporting only and **no longer gate audio speed** —
+    freeze-planning is unconditional: `dub run` **always** writes a per-language freeze plan
+    (`audio/freeze-plan.<lang>.json`, registered, traces to dub-wav) and `package mux` **always**
+    rebuilds the picture from a non-empty plan (empty plan → plain `-c:v copy`). `media.normalize_wav`
+    is format-only, duration identity. **The plan uses a *running gap*, not per-cue overflow** —
+    `dub run` lays audio back-to-back (lead silence only when audio is early), so a long cue's overrun
+    propagates until a natural pause; per-cue-own-overflow left the backlog uncancelled (FAILed on
+    real data). Plan holds the picture by `gap_i = rendered_start_ms - (caption_start_ms + cum_freeze
+    - cum_trim)` at each boundary where audio is later than the (re-timed) picture. **Two modes, per
+    language via `quality_bars.audio.freeze_trim_languages` (company bar, default `[]`; no CLI flag):**
+    - **Hold-only (Model B, default, langs NOT in list):** only freeze/hold, never drop frames. Where
+      audio underruns the picture in aggregate a one-sided residual remains (picture lags audio),
+      surfaced **honestly** as signed `drift_ms`; reach PASS by accepting it under a raised
+      `per_cue_drift_tolerance_ms` (disclosed, recorded relaxation) — for small residuals.
+    - **Freeze + trim (Model A, langs IN list):** additionally trims the picture (skips `-gap_i` ms of
+      source at the boundary) where audio runs earlier, so residual reaches **0 by construction**
+      (`trims[]`/`total_trim_ms` in plan; `trim_planned`/`trim_ms` per cue). Use when hold-only lag is
+      too large (e.g. 11.6s ar residual on al-'Asr → `ar` is in the list). Drops real source frames on
+      boundaries — accepted trade vs a large desync.
+    In `_build_sync_report` post-adjust residual = `rendered_start - (caption_start + cum_freeze -
+    cum_trim)`; a planned cue's `drift_ms` → 0 (Model A) or honest residual (Model B) and drops out of
+    the over-cap list by construction — so `analyze_sync`'s blocker/major checks read truthful numbers
+    and the track PASSes honestly (A) or under raised tolerance (B). Each freeze is an informational
+    `audio-freeze-planned` note; a hold beyond `max_freeze_ms_per_cue` (default 4000ms) → an
+    `audio-freeze-excessive` **major**. At `package mux` the picture is rebuilt on the post-freeze
+    timeline (source slices + frozen inserts, re-encoded H.264/AAC) and both embedded soft-subs and
+    standalone `captions.<lang>.vtt/.srt` are re-timed onto it — the **canonical caption doc is never
+    edited** (rules 6/12); retimed subs are derived outputs. **Scope:** real-TTS `dub run` only;
+    `dub import` has no per-cue natural durations → no plan (`freeze_plan_skipped_reason`). Freezes/
+    trims land on cue boundaries (`at_ms` == corrected `caption_start_ms`), never mid-cue.
 
     **Keep-source-audio cues — preserve the original speaker's voice for a window (rule 5 tie-in).**
-    A transcript/caption cue tagged `flags: ["keep-source-audio"]` makes `dub run` **splice
-    `source/audio.wav[start_ms:end_ms]`** into the dub for that cue **instead of calling TTS**, in
-    **every** language — so the original reciter/speaker's own voice plays there rather than a
-    synthetic dub. It is for **recited or untranslatable passages** (e.g. a Quranic recitation the
-    ASR never transcribed) where a TTS dub is wrong and silence is worse. The flag rides the existing
-    `flags` string array end-to-end (transcript→worksheet→caption→through rule-12 split — **zero
-    schema change**) and drives **audio only**; the cue's `target_text` still drives the *caption*
-    (non-`ar` = translation + `(Quran s:a)`, `ar`/source = Arabic verbatim, rule 16). A keep-source
-    dub needs the source media present, so `dub run` restores it once (fetch-gated
-    `ensure_source_present`) before the synthesis loop even for a non-clone dub. Implemented as the
-    first branch of the per-cue synth in `dubbing.run_dub`; the spliced slice is real audio at its
-    natural length and flows through the same normalize→concat→loudnorm path as a TTS cue, and the
-    mux is unchanged (audio is muxed whole-file).
+    A cue tagged `flags: ["keep-source-audio"]` makes `dub run` splice `source/audio.wav[start:end]`
+    into the dub for that cue **instead of TTS**, in **every** language — the original reciter/speaker
+    plays there. For recited/untranslatable passages (e.g. a Quran recitation ASR never transcribed)
+    where TTS is wrong and silence is worse. Rides the existing `flags` array end-to-end (zero schema
+    change) and drives **audio only**; `target_text` still drives the *caption* (non-`ar` = translation
+    + `(Quran s:a)`, `ar`/source = Arabic verbatim, rule 16). Needs source media, so `dub run` restores
+    it once (fetch-gated `ensure_source_present`) even for a non-clone dub. First branch of the per-cue
+    synth in `run_dub`; the slice flows through the same normalize→concat→loudnorm path; mux unchanged.
 
     **Silent-span QA — a long dead-air run FAILs the track (`silent_span_max_ms`, default 7000ms).**
-    `dub run`'s sync report records `silent_spans_ms`/`max_silent_span_ms` — pure-silence runs on the
-    rendered dub timeline (leading gap + inter-cue gaps ≥ a 250ms floor). `analyze_sync` escalates any
-    span **longer than `quality_bars.audio.silent_span_max_ms`** to a **blocker** → `dub qa` **FAILs**.
-    This hard-catches an untranscribed/untranslated stretch that leaves the dub silent (it is what
-    would have caught the 33s al-ʿAdiyat recitation hole). **Keep-source-audio windows are exempt** —
-    a span abutting/inside a keep-source cue's rendered window is not counted (the reciter's own audio
-    fills it). To clear a real hole: recover the missing speech into the transcript, or mark the
-    window `keep-source-audio` if the source audio is genuinely untranslatable.
+    `dub run`'s sync report records `silent_spans_ms`/`max_silent_span_ms` (pure-silence runs on the
+    rendered timeline: leading + inter-cue gaps ≥ 250ms floor). `analyze_sync` escalates any span
+    longer than the bar to a **blocker** → `dub qa` **FAILs** (would have caught the 33s al-ʿAdiyat
+    hole). **Keep-source windows are exempt.** Clear a real hole by recovering the missing speech into
+    the transcript, or marking the window `keep-source-audio` if genuinely untranslatable.
 
 15. **Per-language still image + deliberate playback speed (TASK 1 / TASK 3).** Two per-language
     presentation choices live in `project.yaml` (which is `additionalProperties: true`) — **not**
@@ -389,71 +336,50 @@ These govern *how you work*, not just what the pipeline does:
       inline (a one-agent fan-out is pure overhead). No human gate on these.
     - The `skip_translation` source track never joins either path (verbatim, no worksheet).
 
-    **Model policy — priority languages on Opus, the rest on Sonnet (2026-08-10;
-    company-config-driven).** The per-cue *render* is bounded, but the **most-important editions
-    (`en`, `ar`, `ur`) are rendered on `@bedrock-eus2/us.anthropic.claude-opus-4-8` / `high`** and
-    **every other target on `@bedrock-eus1/us.anthropic.claude-sonnet-5` / `high`**. It is a fixed
-    per-language split — **no verify pass, no escalation, no redo tracking**: a language is either
-    in the priority list or it isn't. The list + both models live in company config
-    (`translation_models.priority_languages` / `priority_model` / `default_model` / `effort`;
-    tune in `company.local.json`). The split is enforced by *placement*, not by the ignored
-    `agent()` `model:` opt: priority langs are filled inline on the Opus session (fail-loud checked
-    at `translate export`); non-priority langs fan out on the Sonnet session. `en` (a priority
-    language) still **STOPS at its `translation_qa` human gate** regardless of model. An explicit
-    operator model override still wins.
-    **Canonical pattern.** (a) `translate export` every worksheet first so cue ids/timing exist;
-    (b) build one compact shared **pivot** the agents render from — for a tafsir/Quran video that
-    is `{cue: {source, en_gloss, en_meaning}}` so every language renders the same meaning + the
-    same canonical verse set. **A cited Quranic verse renders as the *target language's*
-    translation followed by a numeric citation `(Quran <surah>:<ayah>)` — e.g.
-    `(Quran 100:6)`. Original Arabic script (and transliteration) NEVER appears in a non-`ar`
-    caption's `target_text`, `.srt`, or `.vtt`, and therefore never in that language's dubbed
-    audio (rule 14 speaks `target_text` verbatim). The ONLY exception is target `ar`, whose own
-    narration is Arabic — its captions/dub carry the verse in Arabic verbatim.**
-    **The `(Quran s:a)` citation is caption-only, never spoken.** The numeric citation is a
-    reader's reference — dubbing it (piper voicing "Quran one hundred six" mid-verse) sounds wrong.
-    So the citation stays inline in `target_text` (captions/`.srt`/`.vtt` render it verbatim) but
-    `dub run` synthesizes from a **citation-stripped copy** of each cue: `dubbing._strip_citations`
-    (`re.sub(r"\s*\(Quran[^)]*\)", "", text)` + space-collapse) is applied at the TTS branch of
-    `run_dub` in **every** language incl. `ar` (the Arabic caption still shows the citation; the
-    Arabic dub doesn't speak it). The caption artifact is never mutated — only the string handed to
-    `synthesize_cue` is stripped; the keep-source-audio splice branch and the caption render path are
-    untouched. (Reversed
-    2026-08-09 from the earlier "Arabic script + translation in every language" convention: the
-    Arabic strings corrupted the non-Arabic piper dubs. The separate per-language
-    `distribution/notes/<lang>.txt` upload-description docs are unaffected — they keep Arabic verse
-    citations, rule 11 / the verse-and-notes policy.) The pivot is written to a scratch path;
-    (c) `parallel(langs.map(...))` with one
-    `agent()` per language, each given a `schema` that forces a validated
-    `{cues:[{id,target_text}]}` return — the agent reads the pivot, renders **all** cues, returns
-    the map; (d) back in the main thread, merge each returned map into
-    `captions/<iso>.worksheet.json` by cue id with a throwaway merge-by-id helper (scaffolding,
-    deleted after), then `translate import` each track through the normal CLI chokepoint. Timing
-    is the contract: never change `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues.
-    The worksheet is a fill-in artifact the fan-out only *fills*; the CLI still *imports* it
-    (rule 1), auto-split (rule 12) and the deterministic `translation-qa`+`glossary` QA still run
-    unchanged. This is the standing procedure in the `create-closed-captions` translation stage.
+    **Model policy — priority langs on Opus, the rest on Sonnet (2026-08-10; config-driven).**
+    `en`/`ar`/`ur` render on `@bedrock-eus2/us.anthropic.claude-opus-4-8`/`high`; every other target
+    on `@bedrock-eus1/us.anthropic.claude-sonnet-5`/`high`. Fixed per-language split — **no verify
+    pass, no escalation, no redo tracking**. List + models in company config
+    (`translation_models.priority_languages`/`priority_model`/`default_model`/`effort`). Enforced by
+    *placement*, not the ignored `agent()` `model:` opt: priority langs fill inline on the Opus
+    session (fail-loud at `translate export`); the rest fan out on Sonnet. `en` still STOPS at its
+    `translation_qa` gate. Operator model override wins.
+    **Canonical pattern.** (a) `translate export` every worksheet first (cue ids/timing exist);
+    (b) build one compact shared **pivot** agents render from — for tafsir/Quran, `{cue: {source,
+    en_gloss, en_meaning}}`, so every language renders the same meaning + canonical verse set. **A
+    cited Quranic verse renders as the *target language's* translation + numeric `(Quran <surah>:<ayah>)`
+    (e.g. `(Quran 100:6)`). Arabic script/transliteration NEVER appears in a non-`ar` `target_text`/
+    `.srt`/`.vtt` (nor its dub — rule 14 speaks `target_text` verbatim). Only `ar` carries the verse
+    in Arabic verbatim.** **The `(Quran s:a)` citation is caption-only, never spoken:** it stays
+    inline in `target_text` but `dub run` synthesizes from a citation-stripped copy
+    (`dubbing._strip_citations`, `re.sub(r"\s*\(Quran[^)]*\)", "", text)` + collapse) in **every**
+    language incl. `ar`. The caption artifact is never mutated — only the string to `synthesize_cue`;
+    the keep-source splice and render paths are untouched. (Reversed 2026-08-09 from "Arabic script +
+    translation in every language" — the Arabic strings corrupted the piper dubs. Per-language
+    `distribution/notes/<lang>.txt` docs keep Arabic verse citations, rule 11.) Pivot goes to a
+    scratch path; (c) `parallel(langs.map(...))` one `agent()` per language, each with a `schema`
+    forcing a validated `{cues:[{id,target_text}]}` — the agent reads the pivot, renders all cues,
+    returns the map; (d) merge each map into `captions/<iso>.worksheet.json` by cue id with a
+    throwaway helper (deleted after), then `translate import` each track. Timing is the contract:
+    never change `id`/`start_ms`/`end_ms`/`source_text`, never merge/split cues. The CLI still imports
+    (rule 1); auto-split (rule 12) + deterministic `translation-qa`+`glossary` QA run unchanged. This
+    is the standing procedure in the `create-closed-captions` translation stage.
 
     **Standalone helper verbs (no project needed):**
-    - `vid_cli.py size w 1042` / `size h 583` — from one axis, compute the full 16:9 (or
-      `--aspect W:H`) frame, even-rounded for H.264 (e.g. `1042x586`). Sizes the still-image canvas
-      and is a general operator helper. Pure math, no I/O.
-    - `vid_cli.py speed 1.25 <any.mp4> [--out <path>]` — uniformly re-time **any** video (audio+video
-      together), **source untouched**, output beside the source as `<stem>_<factor><suffix>` (e.g.
-      `my-file_1.25.mp4`) when `--out` is omitted. Works on files this tool didn't produce; refuses
+    - `vid_cli.py size w 1042` / `size h 583` — from one axis compute the full 16:9 (or `--aspect
+      W:H`) frame, even-rounded for H.264 (e.g. `1042x586`). Sizes the still-image canvas. Pure math.
+    - `vid_cli.py speed 1.25 <any.mp4> [--out <path>]` — uniformly re-time **any** video (audio+video),
+      **source untouched**, output beside it as `<stem>_<factor><suffix>` when `--out` omitted. Refuses
       to overwrite the source.
     - `vid_cli.py cmd <video-id-or-url>` / `vid_cli.py nextcmd <project-id>` — **read-only command
-      printers**: print (never execute) the copy-paste-ready terminal block for onboarding/ingesting
-      a video/playlist (`cmd`) or a project's current next step (`nextcmd`). Where a step maps to both
-      a real external tool *and* a CLI verb, both are emitted as labelled options, each with its own
-      `cd` + the exact env preamble that flavor needs (raw `yt-dlp` → `export VIDTRANS_FETCH_ENABLED=1`
-      only; `ingest run` → full `source .env.local`; playlist enumeration → none, rule 3); a pure state
-      op falls back to just the CLI verb. At a `STOP_AT_GATE` step `nextcmd` prints only the human-gate
-      explanation + the approve line **as reference** (never runnable — rule 13). Bare-terminal form by
-      default; `--for-claude` re-adds `!` on runnable lines only (never on a gate reference line). It is
-      a **view** over state like the catalog `next_command` — template-driven off the same argv builders
-      the real downloader uses so the printed and executed commands can't drift; it never downloads or
-      mutates anything (rule 1).
+      printers**: print (never run) the copy-paste terminal block for onboarding/ingesting a video/
+      playlist (`cmd`) or a project's next step (`nextcmd`). Where a step maps to both an external tool
+      and a CLI verb, both are labelled options with their env preamble (raw `yt-dlp` → `export
+      VIDTRANS_FETCH_ENABLED=1`; `ingest run` → full `source .env.local`; playlist enum → none, rule 3);
+      a pure state op falls back to the CLI verb. At `STOP_AT_GATE` `nextcmd` prints only the gate
+      explanation + approve line **as reference** (never runnable — rule 13). Bare-terminal by default;
+      `--for-claude` re-adds `!` on runnable lines only. A template-driven **view** over state (same
+      argv builders as the real downloader), never mutates anything (rule 1).
 
 ## Where to start
 
@@ -475,42 +401,33 @@ artifacts untouched, updates state + config, and logs `LANGUAGES_ADDED`. Added l
 to translate+dub; a source-language add is marked `skip_translation`, a non-en/non-source add is
 marked `auto_translate` (rule 7).
 
-To **turn on dubbing for a language that's already translated** ("add es dubbing for <id>"),
-use `project enable-dub <id> --targets <codes>` — it flips `dub_enabled` on the existing track(s)
-and reuses their captions (a non-clone dub has no source-video dependency); no re-translate, no
-re-init. `--disable` is the inverse (turn a dub back into captions-only; refuses to strand a
-produced `dub-wav` artifact unless `--force`, rule 6). If the track doesn't exist yet,
-`add-languages` first. A `--clone` dub or `package mux` that finds the `source/` media deleted will
-re-fetch it via `ingest ensure` (flag-gated).
+To **turn on dubbing for an already-translated language** ("add es dubbing for <id>"), use
+`project enable-dub <id> --targets <codes>` — flips `dub_enabled` on existing track(s), reuses their
+captions (non-clone dub has no source-video dep); no re-translate/re-init. `--disable` is the inverse
+(back to captions-only; refuses to strand a produced `dub-wav` unless `--force`, rule 6). If the track
+doesn't exist, `add-languages` first. A `--clone` dub or `package mux` finding `source/` deleted
+re-fetches via `ingest ensure` (flag-gated).
 
-To **re-render one dub track after it has advanced past the audio gate** (e.g. a freeze/
-trim-plan fix on just `ar` when en/ur/zh are already correct and approved), use `project redub
-<id> --targets <codes>` — *not* `project reset` (which wipes ALL downstream work for every
-track). It pulls the top `current_state` **backward** to `AUDIO_SYNC_ADJUST` (a dub-allowed
-state) only if the project had advanced past it, resets **only** the named dubbed track(s) to
-the dubbing stage, and leaves every other track + all artifacts + all approvals untouched. It
-refuses captions-only tracks (→ `enable-dub` first) and never pushes state forward. After it
-runs, re-`dub run` the named language (a fresh `dub-wav@<lang>` supersedes the old one; rule 6
-auto-invalidates the stale `audio_qa` approval bound to the superseded hash), `dub qa`, then
-re-surface the per-language `audio_qa` gate (rule 13). Logs `TRACK_REDUB_REQUESTED`.
+To **re-render one dub track after it has advanced past the audio gate** (e.g. a freeze/trim-plan
+fix on just `ar` when en/ur/zh are approved), use `project redub <id> --targets <codes>` — *not*
+`project reset` (which wipes ALL downstream work). It pulls `current_state` **backward** to
+`AUDIO_SYNC_ADJUST` only if past it, resets **only** the named track(s) to dubbing, leaves everything
+else untouched. Refuses captions-only tracks (→ `enable-dub` first), never pushes state forward.
+After it runs: re-`dub run` the language (fresh `dub-wav@<lang>` supersedes the old; rule 6
+auto-invalidates the stale `audio_qa` approval), `dub qa`, then re-surface the `audio_qa` gate (rule
+13). Logs `TRACK_REDUB_REQUESTED`.
 
 **Running `dub run` for several languages — one ffmpeg-heavy job at a time; NO network env.**
-`dub run` is **per-language** (`--language <iso>`); when multiple languages need dubbing (redub en
-+ first-dub es/ru, etc.) run them **one command at a time**, each fully returning before the next.
-Don't run two `dub run`s (or a dub + a `package mux`) **concurrently**, and don't chain them in an
-overlapping shell loop. **Root cause (verified 2026-08-07):** the dub's final concat used to open
-one ffmpeg input handle **per cue** (400+ on a long speech) via an N-way `filter_complex`; under
-concurrent ffmpeg load that exhausted process/FD resources and ffmpeg died emitting only its
-version banner (`rc 232`), surfaced as a misleading `ffmpeg concat failed (232)`. Synthesis,
-tempo-fit, and concat each pass in isolation — contention, not data. **Fixed in code:**
-`media.concat_wavs` now uses ffmpeg's **concat demuxer** (single `-i playlist.txt`, one handle
-regardless of cue count), so a single long dub is robust; and every ffmpeg error in `media.py` now
-shows the stderr *tail* (the real error) instead of the `[:400]` banner head. Still run one
-ffmpeg-heavy job at a time (two concurrent can contend regardless). A **non-clone** `dub run` needs
-**no env** — no `source .env.local`, `VIDTRANS_FETCH_ENABLED`, or CA bundle (it's local piper TTS +
-ffmpeg over the already-built captions); the fetch flag + CA bundle are only for media downloads
-(`ingest run`/`ensure`, a `--clone` dub, or a `package mux` that re-fetches deleted source, rule 3).
-`dub qa` takes **no** `--language` — run it once; it QAs all dubbed tracks together.
+`dub run` is **per-language** (`--language <iso>`); run multiple languages **one command at a time**,
+each fully returning first. Don't run two `dub run`s (or a dub + `package mux`) concurrently or in an
+overlapping loop. **Root cause (verified 2026-08-07):** the concat used to open one ffmpeg handle per
+cue (400+) via an N-way `filter_complex`; under concurrent load that exhausted FDs and ffmpeg died on
+its banner (`rc 232`), surfaced as a misleading `ffmpeg concat failed (232)`. **Fixed:**
+`media.concat_wavs` now uses the concat demuxer (single `-i playlist.txt`, one handle), and `media.py`
+errors show the stderr *tail* not the banner head. Still run one ffmpeg-heavy job at a time. A
+**non-clone** `dub run` needs **no env** (local piper TTS + ffmpeg over built captions); the fetch
+flag + CA bundle are only for media downloads (`ingest run`/`ensure`, a `--clone` dub, or a `package
+mux` re-fetching deleted source, rule 3). `dub qa` takes **no** `--language` — run once, QAs all dubs.
 
 To **reconcile the two-axis markers on a project created before the feature** (no
 `skip_translation`/`auto_translate` on its tracks), use `project sync-scope <id>` — it recomputes

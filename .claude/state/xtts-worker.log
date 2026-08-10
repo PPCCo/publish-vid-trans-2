@@ -1,0 +1,5 @@
+[xtts-worker] loading model 'tts_models/multilingual/multi-dataset/xtts_v2' (this is the one-time ~2GB cost) ...
+/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.venv-xtts/lib/python3.12/site-packages/transformers/utils/hub.py:110: FutureWarning: Using `TRANSFORMERS_CACHE` is deprecated and will be removed in v5 of Transformers. Use `HF_HOME` instead.
+  warnings.warn(
+[xtts-worker] model ready on mps in 80.3s (sr=24000)
+[xtts-worker] listening on /Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/.claude/state/xtts-worker.sock

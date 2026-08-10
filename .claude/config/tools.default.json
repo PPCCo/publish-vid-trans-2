@@ -22,17 +22,24 @@
     "per_language": {
       "en": "xtts",
       "zh": "xtts",
-      "ar": "piper",
+      "ar": "xtts",
       "fa": "piper",
       "ur": "piper",
       "fr": "piper",
-      "es": "piper",
+      "es": "xtts",
       "pt": "piper",
-      "ru": "piper"
+      "ru": "xtts"
     },
     "allow_noncommercial_engines": true,
     "providers_available": ["kokoro", "piper", "xtts", "chatterbox", "elevenlabs", "azure", "google"],
-    "verified": false
+    "verified": false,
+    "_comment_xtts_worker": "Defaults for the persistent XTTS daemon (engines/_xtts_client.py + .venv-xtts/xtts_worker.py). socket_path is set machine-locally in tools.local.json; these are the timeouts + the reference-clip trim length used by dubbing._clone_ref_trim.",
+    "xtts_worker": {
+      "enabled": true,
+      "idle_timeout_seconds": 1800,
+      "startup_timeout_seconds": 90,
+      "clone_ref_trim_seconds": 25
+    }
   },
   "external_binaries": {
     "ffmpeg": { "required": true },

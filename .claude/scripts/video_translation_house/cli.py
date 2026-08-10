@@ -488,6 +488,26 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("path", help="Path to a video file (source is never modified)")
     sp.add_argument("--out", help="Output path (default: <stem>_<factor><suffix> beside the source)")
 
+    ts = sub.add_parser(
+        "tts-sample",
+        help="A/B TTS engines per language on a source clip: time + quality samples (no project state)")
+    ts.add_argument("video_path_or_id",
+                    help="A local video/audio file path, OR a project/catalog video id (uses its source/audio.wav)")
+    ts.add_argument("--languages", required=True,
+                    help="Comma-separated ISO codes to sample (e.g. en,zh,ar,ur,fa)")
+    ts.add_argument("--engines",
+                    help="Comma-separated engines to compare (default: xtts if a clone ref exists, + piper)")
+    ts.add_argument("--start", type=float, default=0.0, help="Clip start in seconds (default 0)")
+    ts.add_argument("--duration", type=float, default=70.0, help="Clip length in seconds (default 70)")
+    ts.add_argument("--samples-per-lang", dest="samples_per_lang", type=int, default=3,
+                    help="How many sample sentences per language (default 3)")
+    ts.add_argument("--text-source", dest="text_source",
+                    help="File whose non-empty lines are the sample texts (overrides curated sentences)")
+    ts.add_argument("--out-dir", dest="out_dir",
+                    help="Where to write sample WAVs + tts-sample-report.json (default ./tts-samples)")
+    ts.add_argument("--clone-ref", dest="clone_ref",
+                    help="Reference WAV for XTTS clone (default: the sliced source clip)")
+
     cg = sub.add_parser(
         "cmd",
         help="Print the raw external command (+ vid_cli.py alternative) to onboard/ingest a "
@@ -537,6 +557,17 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "speed":
         from . import speed as speed_mod
         return speed_mod.respeed(root, args.factor, args.path, dest=args.out)
+    if cmd == "tts-sample":
+        from . import tts_sample as tts_sample_mod
+        langs = [c.strip() for c in args.languages.split(",") if c.strip()]
+        engines = [e.strip() for e in args.engines.split(",") if e.strip()] if args.engines else None
+        return tts_sample_mod.run_samples(
+            root, args.video_path_or_id,
+            languages=langs, engines=engines,
+            start_seconds=args.start, duration_seconds=args.duration,
+            samples_per_lang=args.samples_per_lang,
+            text_source=args.text_source, out_dir=args.out_dir, clone_ref=args.clone_ref,
+        )
     if cmd == "cmd":
         from . import cmdgen
         return cmdgen.cmd_for_video(root, args.video_id_or_url, for_claude=args.for_claude)
