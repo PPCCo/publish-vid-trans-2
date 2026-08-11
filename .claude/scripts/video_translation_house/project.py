@@ -995,14 +995,23 @@ def list_projects(root: Path) -> list[dict[str, Any]]:
             continue
         try:
             state = load_json(paths.state)
-            out.append({
+            row = {
                 "project_id": child.name,
                 "current_state": state.get("current_state"),
                 "target_languages": state.get("target_languages", []),
                 "source_language": state.get("source_language"),
-            })
+            }
+            # Enrich with the derived progress bucket + deterministic next command, reusing
+            # catalog.py's shared builders (read-only view over state.plan(); rule 1).
+            from . import catalog as catalog_mod
+            prog = catalog_mod.project_progress(root, child.name)
+            row["status"] = prog["status"]
+            row["autonomy_action"] = prog["autonomy_action"]
+            row["next_command"] = prog["next_command"]
+            out.append(row)
         except Exception:  # noqa: BLE001
-            out.append({"project_id": child.name, "current_state": "UNKNOWN"})
+            out.append({"project_id": child.name, "current_state": "UNKNOWN",
+                        "status": "unknown", "autonomy_action": None, "next_command": None})
     return out
 
 

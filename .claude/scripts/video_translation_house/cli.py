@@ -97,7 +97,10 @@ def build_parser() -> argparse.ArgumentParser:
                         help="Gender of the SOURCE speaker (human observation), recorded alongside "
                              "--source-language. Ignored if --source-language is omitted.")
     p_init.add_argument("--actor", default="human")
-    psub.add_parser("list")
+    p_list = psub.add_parser("list", help="List existing projects (enriched) + status_summary")
+    p_list.add_argument(
+        "--status",
+        help="Filter projects to these status buckets (CSV). status_summary still covers all.")
     for verb in ("status", "validate", "next", "plan"):
         pp = psub.add_parser(verb)
         pp.add_argument("project_id")
@@ -439,7 +442,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     cat = sub.add_parser("catalog", help="Repo-global source-video index")
     csub = cat.add_subparsers(dest="catalog_command", required=True)
-    csub.add_parser("list")
+    c_list = csub.add_parser("list", help="List catalog videos (enriched) + status_summary")
+    c_list.add_argument(
+        "--status",
+        help="Filter videos to these status buckets (CSV, e.g. in-progress,gate-pending). "
+             "status_summary is still computed over the full unfiltered set.")
+    c_list.add_argument("--playlist", help="Filter videos to one playlist_id")
     c_show = csub.add_parser("show")
     c_show.add_argument("video_id")
     c_addpl = csub.add_parser(
@@ -658,7 +666,15 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                 mt=args.mt, until=args.until, dry_run=args.dry_run, actor=args.actor,
             )
         if pc == "list":
-            return project.list_projects(root)
+            from . import catalog as catalog_mod
+            projects = project.list_projects(root)
+            summary = catalog_mod.summarize(projects)
+            rows = projects
+            if getattr(args, "status", None):
+                wanted = {s.strip() for s in args.status.split(",") if s.strip()}
+                rows = [p for p in projects if p.get("status") in wanted]
+            return {"projects_count": len(projects), "status_summary": summary,
+                    "projects": rows}
         if pc == "status":
             return project.project_status(root, args.project_id)
         if pc == "validate":
@@ -899,8 +915,18 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
     if cmd == "catalog":
         from . import catalog as catalog_mod
         if args.catalog_command == "list":
-            return {"videos": [catalog_mod.enrich_entry(root, e)
-                               for e in catalog_mod.list_entries(root)]}
+            enriched = [catalog_mod.enrich_entry(root, e)
+                        for e in catalog_mod.list_entries(root)]
+            # status_summary always covers the full unfiltered set (honest aggregate);
+            # the returned videos list is optionally filtered by bucket / playlist.
+            summary = catalog_mod.summarize(enriched)
+            videos = enriched
+            if getattr(args, "playlist", None):
+                videos = [v for v in videos if v.get("playlist_id") == args.playlist]
+            if getattr(args, "status", None):
+                wanted = {s.strip() for s in args.status.split(",") if s.strip()}
+                videos = [v for v in videos if v.get("status") in wanted]
+            return {"video_count": len(enriched), "status_summary": summary, "videos": videos}
         if args.catalog_command == "show":
             entry = catalog_mod.get_entry(root, args.video_id)
             if entry is None:
@@ -921,9 +947,7 @@ def dispatch(args: argparse.Namespace, root: Path) -> Any:
                      if e.get("playlist_id") == args.playlist_id}
             videos = [catalog_mod.enrich_entry(root, by_id[vid])
                       for vid in pl.get("video_ids", []) if vid in by_id]
-            summary: dict[str, int] = {}
-            for v in videos:
-                summary[v["status"]] = summary.get(v["status"], 0) + 1
+            summary = catalog_mod.summarize(videos)
             return {**pl, "video_count": len(videos), "status_summary": summary, "videos": videos}
     if cmd == "budget":
         from . import budget as budget_mod

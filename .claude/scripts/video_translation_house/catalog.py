@@ -337,6 +337,21 @@ def _status_for(current: str | None, action: str | None) -> str:
     return _STATUS_BUCKETS.get(action, "blocked")
 
 
+def summarize(entries: list[dict[str, Any]]) -> dict[str, int]:
+    """Tally already-enriched entries by their derived ``status`` bucket.
+
+    Shared by the ``catalog list`` and ``catalog playlist`` CLI verbs so the two surfaces
+    compute the same rollup (was inline in the playlist handler). Pure — expects each entry
+    to already carry a ``status`` (from ``enrich_entry``); entries missing one count as
+    ``unknown`` rather than raising.
+    """
+    summary: dict[str, int] = {}
+    for e in entries:
+        bucket = e.get("status") or "unknown"
+        summary[bucket] = summary.get(bucket, 0) + 1
+    return summary
+
+
 def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
     """Return a copy of ``entry`` with a derived ``status``, ``next_command`` (+
     ``review_files`` at gate steps). Pure/read-only: reads state.plan() for entries that have
@@ -402,6 +417,43 @@ def enrich_entry(root: Path, entry: dict[str, Any]) -> dict[str, Any]:
     else:
         out["next_command"] = None
     out.pop("review_files", None)
+    return out
+
+
+def project_progress(root: Path, project_id: str) -> dict[str, Any]:
+    """Derive ``{status, autonomy_action, current_state, next_command}`` for an existing
+    project, reusing the same buckets + command builders as ``enrich_entry``.
+
+    Used by ``project list`` to enrich each project row (``enrich_entry`` is keyed on a
+    catalog entry with a url; this is the project-only view). Read-only / never persisted
+    (rule 1). Best-effort: on a ``state.plan()`` error the status is ``unknown`` and the
+    other fields are null — mirrors ``enrich_entry``'s tolerance for an unreadable project.
+    """
+    from . import state as state_mod
+
+    try:
+        plan = state_mod.plan(root, project_id)
+    except Exception:
+        return {"status": "unknown", "autonomy_action": None,
+                "current_state": None, "next_command": None}
+
+    action = plan.get("autonomy_action")
+    current = plan.get("current_state")
+    out = {
+        "status": _status_for(current, action),
+        "autonomy_action": action,
+        "current_state": current,
+        "next_command": None,
+    }
+    if action == "PROCEED":
+        verb = _STATE_NEXT_VERB.get(current)
+        out["next_command"] = (f"! {_cli()} " + verb.format(id=project_id)) if verb else None
+    elif action == "STOP_AT_GATE":
+        gate = plan.get("required_gate")
+        target = plan.get("recommended_target")
+        out["next_command"] = "! " + _gate_reference_command(_cli(), project_id, gate, target)
+    elif action == "BLOCKED" and current == "PACKAGE":
+        out["next_command"] = "! " + _rights_blocked_command(_cli(), project_id)
     return out
 
 
