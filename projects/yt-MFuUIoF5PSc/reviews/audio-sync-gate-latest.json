@@ -1,0 +1,122 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "report_type": "audio-sync",
+  "decision": "PASS",
+  "metrics": {
+    "languages": {
+      "en": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "ur": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "ar": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "zh": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "fr": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "es": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "pt": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      },
+      "ru": {
+        "cumulative_offset_ms": 0,
+        "max_abs_drift_ms": 0,
+        "cues": 243,
+        "cues_over_tolerance": 0,
+        "cues_over_stretch_cap": 0,
+        "freeze_frame_enabled": false,
+        "total_freeze_ms": 0,
+        "cues_frozen": 0,
+        "max_silent_span_ms": 5220,
+        "silent_spans": 31
+      }
+    },
+    "quality_bars": {
+      "target_lufs": -16.0,
+      "max_time_stretch": 1.6,
+      "per_cue_drift_tolerance_ms": 3600,
+      "cumulative_drift_ceiling_ms": 30000,
+      "freeze_frame_enabled": true,
+      "freeze_stretch_cap": 1.15,
+      "max_freeze_ms_per_cue": 8000,
+      "freeze_trim_languages": [
+        "ar"
+      ],
+      "silent_span_max_ms": 7000
+    }
+  },
+  "created_at": "2026-08-11T02:54:22Z",
+  "created_by": "agent",
+  "findings": []
+}

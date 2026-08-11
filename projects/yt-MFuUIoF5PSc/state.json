@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "project_id": "yt-MFuUIoF5PSc",
-  "current_state": "DUBBING",
-  "previous_state": "CAPTION_VALIDATION",
+  "current_state": "VIDEO_MUX",
+  "previous_state": "AUDIO_QA_GATE",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-11T00:06:50Z",
+  "updated_at": "2026-08-11T03:43:09Z",
   "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
@@ -20,67 +20,67 @@
   ],
   "language_tracks": {
     "en": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T06:04:22Z",
-      "notes": "dub rendered; sync measured"
+      "updated_at": "2026-08-11T03:24:50Z",
+      "notes": "dubbed video muxed"
     },
     "ur": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T13:45:59Z",
+      "updated_at": "2026-08-11T03:26:38Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "ar": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T12:25:07Z",
+      "updated_at": "2026-08-11T03:28:41Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "zh": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T14:30:58Z",
+      "updated_at": "2026-08-11T03:30:50Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "fr": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-11T00:06:50Z",
+      "updated_at": "2026-08-11T03:34:11Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "es": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T13:58:15Z",
+      "updated_at": "2026-08-11T03:37:04Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "pt": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T23:09:37Z",
+      "updated_at": "2026-08-11T03:40:13Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     },
     "ru": {
-      "stage": "AUDIO_SYNC_ADJUST",
+      "stage": "FINAL_QA_GATE",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-10T23:37:13Z",
+      "updated_at": "2026-08-11T03:43:09Z",
       "auto_translate": true,
-      "notes": "dub rendered; sync measured"
+      "notes": "dubbed video muxed"
     }
   },
   "active_artifacts": {
@@ -103,7 +103,15 @@
     "dub-wav@zh": "sha256:417996109fd7ae4e79284d2dafb05516ad4d7ddb6f52298ff48ec3241bae7320",
     "dub-wav@pt": "sha256:b8c1af1d9f2dbf8791f921ef1053a8bd4d103f3c1669981af796fb8e5a109bd2",
     "dub-wav@ru": "sha256:78a82fb5d81d3c70d26a4df0291a8e7faf1dc48db0d176ac61b6b4b1fc92672d",
-    "dub-wav@fr": "sha256:5c7bb596458c60d43343993f212ac372e0fad3eae4fe04abdf669f33e46f83cc"
+    "dub-wav@fr": "sha256:5c7bb596458c60d43343993f212ac372e0fad3eae4fe04abdf669f33e46f83cc",
+    "dubbed-video@en": "sha256:e0ce2279ce03be7055c768253f5bfa029992a614e648e2f6c7f51216a10e51f6",
+    "dubbed-video@ur": "sha256:5d9821b08489ba10bf013f80355752b48b09356216f0cde352823c02fe51a389",
+    "dubbed-video@ar": "sha256:61a4d8e1586e7b589b46c4cc82d5bc2984e6b6be608bf073953c87791a73e58b",
+    "dubbed-video@zh": "sha256:95b02f577fd4be2d7596ec03be046d9187e370c69c80bf58e0375c6658af8a5c",
+    "dubbed-video@fr": "sha256:090a430ab24c262a6e7115dc0ac9f1154c8f082464dc72c7089c0abe091f9dd1",
+    "dubbed-video@es": "sha256:22be7b52acf74e3fa900ad11f9963fc5b580d32c2d5150270da269201d26afcc",
+    "dubbed-video@pt": "sha256:06239ee7641c420f1788dbd0a1f261e0ac8bcd50d2f6df1a4061b5fa473fd88f",
+    "dubbed-video@ru": "sha256:f680eeded230996ae2cd33920e8b48e4c61271d3a870c96f6d9bbf23da41e310"
   },
   "blocked_reasons": []
 }

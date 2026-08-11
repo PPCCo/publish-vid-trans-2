@@ -856,6 +856,282 @@
       "validation_status": "not-run",
       "supersedes": "art-sync-report-b88efec75287",
       "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-038b4a688199",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "en",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/en/dubbed.mp4",
+      "sha256": "sha256:038b4a6881999a5e3ac92fa03cac2210f52731c3f0a4ca17c5e3816afdc89d0b",
+      "size_bytes": 58887743,
+      "created_at": "2026-08-11T02:59:43Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-b2e39ee1b2c7"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-en.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-e439b0dba40b",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "ur",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/ur/dubbed.mp4",
+      "sha256": "sha256:e439b0dba40ba3462f15b05029bf132e84055be7c7ffb5cf786e9c0d53638a0c",
+      "size_bytes": 47402834,
+      "created_at": "2026-08-11T03:01:25Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-9524faf20546"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ur.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-0bf09036c338",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "ar",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/ar/dubbed.mp4",
+      "sha256": "sha256:0bf09036c33851c7d32af9deb05caef763377b8569dbc06b9f44c113cefde8ef",
+      "size_bytes": 54289348,
+      "created_at": "2026-08-11T03:03:25Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-976f828e0848"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ar.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-db4c5b06cc26",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "zh",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/zh/dubbed.mp4",
+      "sha256": "sha256:db4c5b06cc26c5c890e104e92b796dc2ee85ba46d91ccc03d2ecbd1d677d41fd",
+      "size_bytes": 56219972,
+      "created_at": "2026-08-11T03:06:00Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-417996109fd7"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-zh.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-e0ce2279ce03",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "en",
+      "stage": "VIDEO_MUX",
+      "version": 2,
+      "path": "video/en/dubbed.mp4",
+      "sha256": "sha256:e0ce2279ce03be7055c768253f5bfa029992a614e648e2f6c7f51216a10e51f6",
+      "size_bytes": 62654149,
+      "created_at": "2026-08-11T03:24:50Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-b2e39ee1b2c7"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-en.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": "art-dubbed-video-038b4a688199",
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-5d9821b08489",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "ur",
+      "stage": "VIDEO_MUX",
+      "version": 2,
+      "path": "video/ur/dubbed.mp4",
+      "sha256": "sha256:5d9821b08489ba10bf013f80355752b48b09356216f0cde352823c02fe51a389",
+      "size_bytes": 49648417,
+      "created_at": "2026-08-11T03:26:38Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-9524faf20546"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ur.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": "art-dubbed-video-e439b0dba40b",
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-61a4d8e1586e",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "ar",
+      "stage": "VIDEO_MUX",
+      "version": 2,
+      "path": "video/ar/dubbed.mp4",
+      "sha256": "sha256:61a4d8e1586e7b589b46c4cc82d5bc2984e6b6be608bf073953c87791a73e58b",
+      "size_bytes": 57033308,
+      "created_at": "2026-08-11T03:28:41Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-976f828e0848"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ar.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": "art-dubbed-video-0bf09036c338",
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-95b02f577fd4",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "zh",
+      "stage": "VIDEO_MUX",
+      "version": 2,
+      "path": "video/zh/dubbed.mp4",
+      "sha256": "sha256:95b02f577fd4be2d7596ec03be046d9187e370c69c80bf58e0375c6658af8a5c",
+      "size_bytes": 58654219,
+      "created_at": "2026-08-11T03:30:50Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-417996109fd7"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-zh.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": "art-dubbed-video-db4c5b06cc26",
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-090a430ab24c",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "fr",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/fr/dubbed.mp4",
+      "sha256": "sha256:090a430ab24c262a6e7115dc0ac9f1154c8f082464dc72c7089c0abe091f9dd1",
+      "size_bytes": 71564549,
+      "created_at": "2026-08-11T03:34:11Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-5c7bb596458c"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-fr.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-22be7b52acf7",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "es",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/es/dubbed.mp4",
+      "sha256": "sha256:22be7b52acf74e3fa900ad11f9963fc5b580d32c2d5150270da269201d26afcc",
+      "size_bytes": 71598280,
+      "created_at": "2026-08-11T03:37:04Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-6a7f61beb74c"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-es.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-06239ee7641c",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "pt",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/pt/dubbed.mp4",
+      "sha256": "sha256:06239ee7641c420f1788dbd0a1f261e0ac8bcd50d2f6df1a4061b5fa473fd88f",
+      "size_bytes": 70440984,
+      "created_at": "2026-08-11T03:40:12Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-b8c1af1d9f2d"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-pt.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
+    },
+    {
+      "artifact_id": "art-dubbed-video-f680eeded230",
+      "project_id": "yt-MFuUIoF5PSc",
+      "type": "dubbed-video",
+      "language": "ru",
+      "stage": "VIDEO_MUX",
+      "version": 1,
+      "path": "video/ru/dubbed.mp4",
+      "sha256": "sha256:f680eeded230996ae2cd33920e8b48e4c61271d3a870c96f6d9bbf23da41e310",
+      "size_bytes": 72014828,
+      "created_at": "2026-08-11T03:43:09Z",
+      "created_by": "agent",
+      "source_artifact_ids": [
+        "art-dub-wav-78a82fb5d81d"
+      ],
+      "provenance": {
+        "still_image": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/images/yt-MFuUIoF5PSc-ru.jpg"
+      },
+      "rights_status": "unreviewed",
+      "validation_status": "not-run",
+      "supersedes": null,
+      "frozen": false
     }
   ]
 }

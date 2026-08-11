@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0",
+  "project_id": "yt-MFuUIoF5PSc",
+  "report_type": "final",
+  "decision": "FAIL",
+  "metrics": {
+    "languages": {
+      "en": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1488020,
+        "dub_ms": 1487537,
+        "av_drift_ms": 483
+      },
+      "ur": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1181797,
+        "dub_ms": 1181797,
+        "av_drift_ms": 0
+      },
+      "ar": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1373800,
+        "dub_ms": 1373813,
+        "av_drift_ms": -13
+      },
+      "zh": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1396853,
+        "dub_ms": 1396853,
+        "av_drift_ms": 0
+      },
+      "fr": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1624540,
+        "dub_ms": 2070859,
+        "av_drift_ms": -446319
+      },
+      "es": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1624540,
+        "dub_ms": 1871861,
+        "av_drift_ms": -247321
+      },
+      "pt": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1624540,
+        "dub_ms": 2001152,
+        "av_drift_ms": -376612
+      },
+      "ru": {
+        "has_video": true,
+        "has_audio": true,
+        "container_ms": 1624540,
+        "dub_ms": 1694261,
+        "av_drift_ms": -69721
+      }
+    },
+    "av_align_tolerance_ms": 1000
+  },
+  "created_at": "2026-08-11T03:43:23Z",
+  "created_by": "agent",
+  "findings": [
+    {
+      "severity": "blocker",
+      "category": "mux-av-misaligned",
+      "summary": "[fr] audio ends -446319ms from the picture (tolerance 1000ms) — the dub is materially longer/shorter than the video.",
+      "language": "fr"
+    },
+    {
+      "severity": "blocker",
+      "category": "mux-av-misaligned",
+      "summary": "[es] audio ends -247321ms from the picture (tolerance 1000ms) — the dub is materially longer/shorter than the video.",
+      "language": "es"
+    },
+    {
+      "severity": "blocker",
+      "category": "mux-av-misaligned",
+      "summary": "[pt] audio ends -376612ms from the picture (tolerance 1000ms) — the dub is materially longer/shorter than the video.",
+      "language": "pt"
+    },
+    {
+      "severity": "blocker",
+      "category": "mux-av-misaligned",
+      "summary": "[ru] audio ends -69721ms from the picture (tolerance 1000ms) — the dub is materially longer/shorter than the video.",
+      "language": "ru"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "approval_id": "apr-audio_qa-20260811t025625z-f848de",
+  "project_id": "yt-MFuUIoF5PSc",
+  "gate": "audio_qa",
+  "language": "zh",
+  "approver": "Qaiser Abbas",
+  "approver_role": null,
+  "decision": "APPROVED",
+  "artifact_hashes": [
+    "sha256:417996109fd7ae4e79284d2dafb05516ad4d7ddb6f52298ff48ec3241bae7320"
+  ],
+  "scope": "audio",
+  "exclusions": [],
+  "notes": "Approved via /hi audio-sync QA review 2026-08-11: 0ms drift, 0 cues over tolerance/stretch-cap, no freeze plan (still-image project), max silent span 5220ms (under 7000ms threshold). Confirmed by Qaiser Abbas.",
+  "created_at": "2026-08-11T02:56:25Z",
+  "expires_at": null,
+  "invalidated_at": null,
+  "invalidation_reason": null
+}
