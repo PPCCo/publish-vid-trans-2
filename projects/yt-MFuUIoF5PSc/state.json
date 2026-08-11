@@ -5,7 +5,7 @@
   "previous_state": "CAPTION_VALIDATION",
   "created_at": "2026-08-08T06:06:29Z",
   "created_by": "human",
-  "updated_at": "2026-08-10T14:30:58Z",
+  "updated_at": "2026-08-11T00:06:50Z",
   "updated_by": "agent",
   "source_language": "fa",
   "target_languages": [
@@ -51,12 +51,12 @@
       "notes": "dub rendered; sync measured"
     },
     "fr": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:23Z",
+      "updated_at": "2026-08-11T00:06:50Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     },
     "es": {
       "stage": "AUDIO_SYNC_ADJUST",
@@ -67,20 +67,20 @@
       "notes": "dub rendered; sync measured"
     },
     "pt": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:23Z",
+      "updated_at": "2026-08-10T23:09:37Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     },
     "ru": {
-      "stage": "TRANSLATION_QA_GATE",
+      "stage": "AUDIO_SYNC_ADJUST",
       "status": "in_progress",
       "dub_enabled": true,
-      "updated_at": "2026-08-09T14:07:24Z",
+      "updated_at": "2026-08-10T23:37:13Z",
       "auto_translate": true,
-      "notes": "translated; awaiting QA"
+      "notes": "dub rendered; sync measured"
     }
   },
   "active_artifacts": {
@@ -96,11 +96,14 @@
     "captions-json@pt": "sha256:cde010e38e0899da50dc0c20b477ef6322d22bcb262c5b12730e557e7512cdc7",
     "captions-json@ru": "sha256:3842f127214373d75897a92cba2d2c88fc01d6cb7a2154e305ac8b3fe74dedea",
     "dub-wav@en": "sha256:b2e39ee1b2c7a7906d9a439508457dc80829d5c9cc2691a38f373359af5b9614",
-    "sync-report": "sha256:68abf156b644f5077e03747a9c6978f6307a34d31f06cf7dad0b4de9b05d6648",
+    "sync-report": "sha256:bc82e032b62c8e3bdbd043c35e91ed2a18e068009950aeee739b3e5c634b22c8",
     "dub-wav@ur": "sha256:9524faf20546cdc07cee3b8abdc78d520882c27eeac004980b8a3bdeae45cb09",
     "dub-wav@ar": "sha256:976f828e0848e628a77db044efa26051173c2e6b4232ba649c7f2a51aaf95201",
     "dub-wav@es": "sha256:6a7f61beb74c71af7934219471b1e14467e6b0c603771af98c1d00c0f529683d",
-    "dub-wav@zh": "sha256:417996109fd7ae4e79284d2dafb05516ad4d7ddb6f52298ff48ec3241bae7320"
+    "dub-wav@zh": "sha256:417996109fd7ae4e79284d2dafb05516ad4d7ddb6f52298ff48ec3241bae7320",
+    "dub-wav@pt": "sha256:b8c1af1d9f2dbf8791f921ef1053a8bd4d103f3c1669981af796fb8e5a109bd2",
+    "dub-wav@ru": "sha256:78a82fb5d81d3c70d26a4df0291a8e7faf1dc48db0d176ac61b6b4b1fc92672d",
+    "dub-wav@fr": "sha256:5c7bb596458c60d43343993f212ac372e0fad3eae4fe04abdf669f33e46f83cc"
   },
   "blocked_reasons": []
 }
