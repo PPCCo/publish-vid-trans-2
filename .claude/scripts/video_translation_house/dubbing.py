@@ -1079,7 +1079,7 @@ def analyze_sync(lang_block: dict[str, Any], bars: dict[str, Any]) -> dict[str, 
     # untranscribed/untranslated speech (or a hole in the timeline) — the dub sits dead there. Any
     # span over the bar is a BLOCKER → FAIL. Keep-source-audio windows are already excluded upstream
     # in _build_sync_report (the reciter's own voice fills them), so this never trips on them.
-    silent_cap = bars["silent_span_max_ms"]
+    silent_cap = bars.get("silent_span_max_ms", 7000)
     for span in lang_block.get("silent_spans_ms", []):
         if span["duration_ms"] > silent_cap:
             findings.append(_finding(

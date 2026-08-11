@@ -42,3 +42,4 @@ images/
 
 events.ndjson
 .claude/state/xtts-worker.log
+hook-audit.ndjson

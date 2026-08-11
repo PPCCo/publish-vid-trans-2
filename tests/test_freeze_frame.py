@@ -103,6 +103,7 @@ def _bars(freeze: bool = True, trim_langs: list[str] | None = None) -> dict:
         "freeze_stretch_cap": 1.15,
         "max_freeze_ms_per_cue": 4000,
         "freeze_trim_languages": list(trim_langs or []),
+        "silent_span_max_ms": 7000,
     }
 
 
