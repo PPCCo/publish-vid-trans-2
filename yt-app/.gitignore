@@ -1,0 +1,37 @@
+.venv/
+.venv-xtts/
+__pycache__/
+.pytest_cache/
+.coverage
+.DS_Store
+.env
+.env.*
+!.env.example
+
+# Large media binaries and generated deliverables (tracked by manifest hash, not git)
+projects/*/source/
+projects/*/audio/
+projects/*/video/
+projects/*/outputs/
+projects/*/packages/
+projects/*/tmp/
+projects/*/.lock
+
+# Distribution: rendered per-project guides may contain draft copy; keep JSON manifests tracked.
+projects/*/distribution/guides/
+projects/*/distribution/renders/
+
+*.egg-info/
+dist/
+build/
+node_modules/
+
+images/
+
+# vid_cli.py rotating debug logs (obs.py) — 24h TTL, not committed (hook-audit.ndjson stays tracked)
+.claude/logs/vid_cli.ndjson
+.claude/logs/vid_cli.ndjson.*
+
+events.ndjson
+.claude/state/xtts-worker.log
+hook-audit.ndjson

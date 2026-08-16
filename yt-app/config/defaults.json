@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "sourceLang": "fa",
+  "targetLangs": ["en", "fa", "ar", "es"],
+  "dubLangs": ["en", "ar"],
+  "closedCaptions": ["en", "fa", "ar", "es"],
+  "default_provider": null,
+  "per_language_provider": {
+    "en": "xtts",
+    "ar": "xtts",
+    "fa": "piper",
+    "ur": "piper"
+  },
+  "parallel_executions": 3,
+  "clone": {
+    "enabled_by_default": true
+  },
+  "voice_clone": {
+    "en": true,
+    "zh": true,
+    "ar": true,
+    "fa": false,
+    "ur": false,
+    "fr": true,
+    "es": true,
+    "pt": true,
+    "ru": true
+  },
+  "xtts_worker": {
+    "clone_ref_trim_seconds": 25,
+    "idle_timeout_seconds": 1800
+  },
+  "asr": {
+    "provider": "mlx-whisper",
+    "model": "mlx-community/whisper-large-v3-turbo",
+    "max_cue_ms": 7000
+  },
+  "mux_mode": "soft-subs",
+  "playback_speed": {},
+  "images": {}
+}

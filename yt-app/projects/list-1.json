@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "videos": [
+    {
+      "id": "abc123",
+      "url": "https://www.youtube.com/watch?v=abc123"
+    },
+    {
+      "id": "def456",
+      "url": "https://www.youtube.com/watch?v=def456",
+      "overrides": {
+        "targetLangs": ["en", "ar"],
+        "dubLangs": ["en"],
+        "closedCaptions": ["en", "ar"]
+      }
+    }
+  ]
+}
