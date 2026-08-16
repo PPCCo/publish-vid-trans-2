@@ -19,6 +19,19 @@ from pathlib import Path
 from typing import Any
 
 
+def fetch_enabled() -> bool:
+    """True iff media downloads are permitted (``VIDTRANS_FETCH_ENABLED`` is truthy).
+
+    ``lib.env.bootstrap()`` defaults the flag on, but it deliberately won't override an operator
+    who has explicitly exported ``VIDTRANS_FETCH_ENABLED=0`` (e.g. a sourced framework
+    ``.env.local``). This lets the batch runner preflight the flag and fail with an actionable
+    message instead of a bare ``FetchDisabled`` buried in a per-video error.
+    """
+    from video_translation_house.net.fetch import fetch_enabled as _fe  # lazy
+
+    return _fe()
+
+
 def normalize_url(url_or_id: str) -> str:
     """Canonicalize a bare id or messy URL to a watch URL (framework rule)."""
     from video_translation_house.net.fetch import normalize_youtube_url  # lazy

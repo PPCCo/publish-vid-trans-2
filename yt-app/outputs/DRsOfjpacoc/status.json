@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0",
+  "video_id": "DRsOfjpacoc",
+  "url": "https://www.youtube.com/watch?v=DRsOfjpacoc",
+  "stages": {
+    "download": {
+      "status": "done",
+      "started_at": "2026-08-16T10:41:45Z",
+      "finished_at": "2026-08-16T10:42:10Z",
+      "artifact": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/yt-app/outputs/DRsOfjpacoc/source/DRsOfjpacoc.mp4",
+      "error": null
+    },
+    "extract_audio": {
+      "status": "done",
+      "started_at": "2026-08-16T10:42:10Z",
+      "finished_at": "2026-08-16T10:42:11Z",
+      "artifact": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/yt-app/outputs/DRsOfjpacoc/source/audio.wav",
+      "error": null
+    },
+    "transcribe": {
+      "status": "done",
+      "started_at": "2026-08-16T10:42:11Z",
+      "finished_at": "2026-08-16T10:42:53Z",
+      "artifact": "/Users/qaiser.abbas/Dev/my-repos/pub/publish-vid-trans/yt-app/outputs/DRsOfjpacoc/captions/ur.json",
+      "error": null
+    },
+    "translate": {
+      "status": "failed",
+      "started_at": null,
+      "finished_at": null,
+      "artifact": null,
+      "error": null,
+      "per_language": {
+        "en": {
+          "status": "failed",
+          "started_at": "2026-08-16T10:57:17Z",
+          "finished_at": "2026-08-16T10:57:17Z",
+          "artifact": null,
+          "error": "EngineUnavailableError('No MT engine installed. Install argos-translate (offline .argosmodel packages) or another supported engine, translate via Claude, or fill the worksheet by hand. All MT engines are opt-in.')"
+        }
+      }
+    },
+    "dub": {
+      "status": "pending",
+      "started_at": null,
+      "finished_at": null,
+      "artifact": null,
+      "error": null,
+      "per_language": {}
+    },
+    "mux": {
+      "status": "pending",
+      "started_at": null,
+      "finished_at": null,
+      "artifact": null,
+      "error": null,
+      "per_language": {}
+    }
+  }
+}

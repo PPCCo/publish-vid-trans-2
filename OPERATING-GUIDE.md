@@ -56,6 +56,17 @@ export REQUESTS_CA_BUNDLE="$HOME/certs/aipe-certs.pem"
 > (`shutil.which`, no venv-bindir fallback) for exactly this reason — see `net/fetch.py`. If
 > you have a stray venv-pip `yt-dlp`, remove it: `.venv/bin/pip uninstall yt-dlp`.
 
+> **YouTube 403 on download → player-client fallback (verified 2026-08-16).** On this proxy
+> YouTube's *default* web player client is SABR / PO-token-gated: metadata, `--simulate` and
+> `-F` all succeed, but the actual media fetch returns `HTTP Error 403: Forbidden` **every
+> time** ("unable to download video data"). The non-gated `mweb` client downloads cleanly.
+> `net/fetch.py::ytdlp_download` now tries a player-client chain in order — default first
+> (best quality, up to 720p), then `mweb` (progressive 360p) — and only falls back when the
+> default 403s, so there's no quality loss when the default works. If YouTube shifts which
+> client works, override the chain without a code change:
+> `export VIDTRANS_YTDLP_CLIENTS="mweb,tv,ios"` (comma-separated, tried in order). A total
+> failure names every client it tried in the error message.
+
 A ready-to-source snippet (put in `.env.local`, **not** committed):
 
 ```bash

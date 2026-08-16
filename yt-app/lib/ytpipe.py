@@ -91,6 +91,9 @@ class VideoPipeline:
         self.video_dir = self.dir / "video"
         self.dub_lock = dub_lock
         self._log = log
+        # When True, keep the declared source language even if ASR detects a different one
+        # (skips the post-transcribe LanguageMismatchError). Set per-video via cfg["force"].
+        self.force = bool(cfg.get("force"))
         # Validated language plan (fails fast on ur:xtts etc., before any download).
         self.spec: LangSpec = build_langspec(cfg, root)
 
@@ -177,8 +180,12 @@ class VideoPipeline:
                 audio_wav, self.source_dir,
                 language=self.spec.source_lang, root=self.root,
                 provider=asr.get("provider"), model=asr.get("model"),
-                max_cue_ms=asr.get("max_cue_ms"),
+                max_cue_ms=asr.get("max_cue_ms"), force=self.force,
             )
+            detected = src_doc.get("detected_language")
+            if src_doc.get("language_mismatch_forced"):
+                self.log(f"transcribe: WARNING detected '{detected}' != declared "
+                         f"'{self.spec.source_lang}' — kept declared (--force)")
             # The source-language caption doc is one of the produced captions (verbatim).
             src_json = self.captions_dir / f"{self.spec.source_lang}.json"
             _write_json(src_json, src_doc)

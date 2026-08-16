@@ -79,6 +79,32 @@ def _clone_languages(root: Path) -> set[str]:
     return set(clone_languages(root))
 
 
+def _known_languages() -> set[str]:
+    """The framework's authoritative ISO-639-1 language set (``util.KNOWN_LANGUAGES``)."""
+    from video_translation_house.util import KNOWN_LANGUAGES  # lazy
+
+    return set(KNOWN_LANGUAGES)
+
+
+def _validate_codes(source_lang: str, *code_lists: list[str]) -> None:
+    """Fail fast on a language code the framework doesn't recognize (typo / wrong form).
+
+    Catches ``--source-lang urdu`` / ``eng`` / a fat-fingered target before any download or
+    engine subprocess — a bad code would otherwise waste a full download+ASR only to produce
+    garbage or an opaque engine error.
+    """
+    known = _known_languages()
+    unknown: list[str] = []
+    for code in [source_lang, *[c for lst in code_lists for c in lst]]:
+        if code and code not in known and code not in unknown:
+            unknown.append(code)
+    if unknown:
+        raise LangSpecError(
+            f"unrecognized language code(s): {unknown}. Known codes: {sorted(known)}. "
+            f"Use an ISO-639-1 code (e.g. 'ur' not 'urdu', 'en' not 'eng')."
+        )
+
+
 def build_langspec(cfg: dict[str, Any], root: Path) -> LangSpec:
     """Validate + normalize one video's language config into a ``LangSpec``.
 
@@ -97,6 +123,8 @@ def build_langspec(cfg: dict[str, Any], root: Path) -> LangSpec:
     targets = _norm_list(cfg.get("targetLangs"))
     dub_req = _norm_list(cfg.get("dubLangs"))
     cc_req = _norm_list(cfg.get("closedCaptions"))
+    # Reject unknown/typo codes up front (before any download or ASR).
+    _validate_codes(source_lang, targets, dub_req, cc_req)
     providers_raw = cfg.get("per_language_provider") or {}
     providers = {str(k).strip().lower(): str(v).strip().lower()
                  for k, v in providers_raw.items()}

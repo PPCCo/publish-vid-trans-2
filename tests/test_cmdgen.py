@@ -76,6 +76,90 @@ def test_download_argv_builder_matches_real_download(monkeypatch: pytest.MonkeyP
     assert captured["cmd"] == expected
 
 
+# --------------------------------------------------------------------------------------
+# 1b) Player-client fallback: the default web client 403s on some networks (SABR/PO-token),
+#     so ytdlp_download tries a fallback chain (default -> mweb). The argv builder pins the
+#     client via --extractor-args; ytdlp_clients() is the env-overridable chain.
+# --------------------------------------------------------------------------------------
+def test_argv_builder_pins_player_client():
+    dest = Path("/tmp/x")
+    argv = fetch.build_ytdlp_download_argv(WATCH_URL, dest, binary="yt-dlp", player_client="mweb")
+    assert "--extractor-args" in argv
+    assert argv[argv.index("--extractor-args") + 1] == "youtube:player_client=mweb"
+
+
+def test_argv_builder_default_and_none_add_no_extractor_args():
+    dest = Path("/tmp/x")
+    base = fetch.build_ytdlp_download_argv(WATCH_URL, dest, binary="yt-dlp")
+    for pc in (None, "default"):
+        argv = fetch.build_ytdlp_download_argv(WATCH_URL, dest, binary="yt-dlp", player_client=pc)
+        assert "--extractor-args" not in argv
+        assert argv == base  # byte-for-byte today's command
+
+
+def test_ytdlp_clients_default_chain(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv("VIDTRANS_YTDLP_CLIENTS", raising=False)
+    assert fetch.ytdlp_clients() == ["default", "mweb"]
+
+
+def test_ytdlp_clients_env_override(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("VIDTRANS_YTDLP_CLIENTS", " mweb , tv ")
+    assert fetch.ytdlp_clients() == ["mweb", "tv"]
+    monkeypatch.setenv("VIDTRANS_YTDLP_CLIENTS", "   ")  # blank -> default chain
+    assert fetch.ytdlp_clients() == ["default", "mweb"]
+
+
+def test_download_falls_back_to_next_client_on_failure(monkeypatch: pytest.MonkeyPatch, tmp_path):
+    """First client returns non-zero (simulating 403); the downloader retries the next."""
+    dest = tmp_path / "src"
+    dest.mkdir()
+    (dest / f"{VIDEO_ID}.info.json").write_text(f'{{"id": "{VIDEO_ID}"}}', encoding="utf-8")
+    (dest / f"{VIDEO_ID}.mp4").write_bytes(b"\x00")
+    monkeypatch.setattr(fetch, "require_fetch_enabled", lambda: None)
+    monkeypatch.setattr(fetch, "_check_url", lambda url: None)
+    monkeypatch.setattr(fetch, "_ytdlp", lambda: "yt-dlp")
+    monkeypatch.delenv("VIDTRANS_YTDLP_CLIENTS", raising=False)
+    seen: list = []
+
+    def fake_run(cmd, **kw):
+        seen.append(cmd)
+
+        class R:
+            # first attempt (default) fails, second (mweb) succeeds
+            returncode = 0 if len(seen) > 1 else 1
+            stdout = ""
+            stderr = "HTTP Error 403: Forbidden"
+        return R()
+
+    monkeypatch.setattr(fetch.subprocess, "run", fake_run)
+    fetch.ytdlp_download(WATCH_URL, dest)
+    assert len(seen) == 2  # tried default, then mweb
+    assert "--extractor-args" not in seen[0]                       # default: no pin
+    assert "youtube:player_client=mweb" in seen[1]                 # fallback pinned
+
+
+def test_download_raises_naming_clients_when_all_fail(monkeypatch: pytest.MonkeyPatch, tmp_path):
+    dest = tmp_path / "src"
+    monkeypatch.setattr(fetch, "require_fetch_enabled", lambda: None)
+    monkeypatch.setattr(fetch, "_check_url", lambda url: None)
+    monkeypatch.setattr(fetch, "_ytdlp", lambda: "yt-dlp")
+    monkeypatch.delenv("VIDTRANS_YTDLP_CLIENTS", raising=False)
+
+    def fake_run(cmd, **kw):
+        class R:
+            returncode = 1
+            stdout = ""
+            stderr = "HTTP Error 403: Forbidden"
+        return R()
+
+    monkeypatch.setattr(fetch.subprocess, "run", fake_run)
+    with pytest.raises(fetch.ConfigurationError) as exc:
+        fetch.ytdlp_download(WATCH_URL, dest)
+    msg = str(exc.value)
+    assert "default" in msg and "mweb" in msg  # names attempted clients
+    assert "403" in msg
+
+
 def test_playlist_argv_builder_matches_real_enumeration(monkeypatch: pytest.MonkeyPatch):
     captured: dict = {}
     monkeypatch.setattr(fetch, "_check_url", lambda url: None)

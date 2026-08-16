@@ -39,6 +39,29 @@ PUBLISH_HOSTS = {
 
 _TRUTHY = {"1", "true", "on", "yes"}
 
+# YouTube player-client fallback chain for media downloads. YouTube's default web player
+# client is SABR / PO-token-gated on some networks (Prisma Access here): metadata, --simulate
+# and -F all succeed, but the actual media-segment fetch returns HTTP 403 every time. The
+# `mweb` client is not gated and downloads cleanly. Clients are tried in order, best-quality
+# first (`default` offers up to 720p; `mweb` tops out at progressive 360p for the same video),
+# so quality only drops when the default is actually blocked. Overridable via
+# VIDTRANS_YTDLP_CLIENTS (comma-separated) for when YouTube shifts which client works.
+_DEFAULT_YTDLP_CLIENTS = ("default", "mweb")
+
+
+def ytdlp_clients() -> list[str]:
+    """Ordered player-client fallback chain for media downloads (see _DEFAULT_YTDLP_CLIENTS).
+
+    ``"default"`` is a sentinel meaning "add no ``--extractor-args``" — let yt-dlp use its own
+    default client set, so the command is byte-for-byte today's when the default works.
+    """
+    raw = os.environ.get("VIDTRANS_YTDLP_CLIENTS", "").strip()
+    if raw:
+        clients = [c.strip() for c in raw.split(",") if c.strip()]
+        if clients:
+            return clients
+    return list(_DEFAULT_YTDLP_CLIENTS)
+
 
 def fetch_enabled() -> bool:
     return os.environ.get("VIDTRANS_FETCH_ENABLED", "0").strip().lower() in _TRUTHY
@@ -209,6 +232,7 @@ def build_ytdlp_download_argv(
     write_subs: bool = True,
     sub_langs: str = "all",
     binary: str | None = None,
+    player_client: str | None = None,
 ) -> list[str]:
     """Pure argv builder for the media-download command — no subprocess, no side effects.
 
@@ -219,6 +243,11 @@ def build_ytdlp_download_argv(
     url so what it displays is exactly what would run). ``binary`` lets a print-only caller
     pass the bare command name (``"yt-dlp"``) without requiring ``shutil.which`` to resolve
     locally; the default (``None``) resolves via ``_ytdlp()`` as the real downloader needs.
+
+    ``player_client`` pins the YouTube player client via ``--extractor-args`` (see
+    ``ytdlp_clients``). ``None`` or the ``"default"`` sentinel add no extractor-args, so the
+    argv is byte-for-byte today's — the fallback only diverges the command when a non-default
+    client is being tried.
     """
     resolved = binary if binary is not None else _ytdlp()
     out_tmpl = str(dest_dir / "%(id)s.%(ext)s")
@@ -233,6 +262,8 @@ def build_ytdlp_download_argv(
     ]
     if write_subs:
         cmd += ["--write-auto-sub", "--write-sub", "--sub-langs", sub_langs, "--convert-subs", "srt"]
+    if player_client and player_client != "default":
+        cmd += ["--extractor-args", f"youtube:player_client={player_client}"]
     cmd.append(url)
     return cmd
 
@@ -265,12 +296,28 @@ def ytdlp_download(
     url = normalize_youtube_url(url)
     _check_url(url)
     dest_dir.mkdir(parents=True, exist_ok=True)
-    cmd = build_ytdlp_download_argv(url, dest_dir, write_subs=write_subs, sub_langs=sub_langs)
-    proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
-        cmd, capture_output=True, text=True, timeout=timeout, check=False,
-    )
-    if proc.returncode != 0:
-        raise ConfigurationError(f"yt-dlp download failed ({proc.returncode}): {proc.stderr.strip()[:400]}")
+
+    # Try each player client in order until one downloads. YouTube 403s the default client's
+    # media segments on some networks (SABR/PO-token gating) even though metadata succeeds;
+    # a non-gated client (e.g. `mweb`) clears it. Any non-zero rc — 403 or "format not
+    # available" for a client that lacks the merged format — falls through to the next
+    # client; the last error is preserved so a total failure is still actionable.
+    clients = ytdlp_clients()
+    proc = None
+    for i, client in enumerate(clients):
+        cmd = build_ytdlp_download_argv(
+            url, dest_dir, write_subs=write_subs, sub_langs=sub_langs, player_client=client,
+        )
+        proc = subprocess.run(  # noqa: S603 - fixed binary, validated URL, no shell
+            cmd, capture_output=True, text=True, timeout=timeout, check=False,
+        )
+        if proc.returncode == 0:
+            break
+        if i == len(clients) - 1:
+            raise ConfigurationError(
+                f"yt-dlp download failed ({proc.returncode}) "
+                f"(tried clients: {', '.join(clients)}): {proc.stderr.strip()[:400]}"
+            )
 
     info_files = sorted(dest_dir.glob("*.info.json"))
     info: dict[str, Any] = {}

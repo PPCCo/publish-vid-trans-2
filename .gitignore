@@ -29,6 +29,10 @@ projects/*/.lock
 projects/*/distribution/guides/
 projects/*/distribution/renders/
 
+# Large media binaries — never commit raw video/audio, anywhere in the tree
+*.mp4
+*.wav
+
 *.egg-info/
 dist/
 build/

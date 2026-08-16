@@ -228,10 +228,50 @@ def cmd_playlist(args) -> int:
 def cmd_batch(args) -> int:
     from lib import batch
 
-    summary = batch.run_batch(
-        ROOT, ref=args.ref, list_path=args.list,
-        out_root=args.out_root, parallel=args.parallel,
-    )
+    # Assemble per-video overrides from the single-ref CLI flags. Only keys the operator
+    # actually passed are included, so unset flags fall through to defaults.json.
+    overrides: dict = {}
+    if args.source_lang:
+        overrides["sourceLang"] = args.source_lang.strip().lower()
+    if args.target_langs is not None:
+        overrides["targetLangs"] = _csv(args.target_langs)
+    if args.dub_langs is not None:
+        overrides["dubLangs"] = _csv(args.dub_langs)
+    if args.cc is not None:
+        overrides["closedCaptions"] = _csv(args.cc)
+    if args.force:
+        overrides["force"] = True
+
+    if overrides and not args.ref:
+        print("error: --source-lang/--target-langs/--dub-langs/--cc/--force apply only to a "
+              "single id/url (not --list); put overrides in the list file", file=sys.stderr)
+        return 2
+
+    # Footgun guard: overriding --source-lang while leaving targetLangs at the config default
+    # can silently ask to translate INTO the old default source (e.g. --source-lang ur while
+    # defaults still list fa as a target → a ur→fa track nobody asked for). Warn, don't block.
+    if args.source_lang and args.target_langs is None:
+        from lib import config as _cfg
+
+        default_targets = _cfg.load_defaults().get("targetLangs") or []
+        src = args.source_lang.strip().lower()
+        stale = [t for t in default_targets if str(t).strip().lower() not in ("", src)]
+        if stale:
+            print(f"warning: --source-lang {src} set but --target-langs not given; the config "
+                  f"default targets {stale} still apply (you'll translate {src}→{stale}). "
+                  f"Pass --target-langs to change this.", file=sys.stderr)
+
+    try:
+        summary = batch.run_batch(
+            ROOT, ref=args.ref, list_path=args.list,
+            out_root=args.out_root, parallel=args.parallel,
+            overrides=overrides or None,
+        )
+    except RuntimeError as exc:
+        # Preflight failures (e.g. fetch flag off while a download is needed) are operator
+        # config errors, not crashes — print the actionable message cleanly, no stack trace.
+        print(f"error: {exc}", file=sys.stderr)
+        return 2
     _print_json({k: summary[k] for k in ("total", "succeeded", "failed")})
     return 0 if not summary["failed"] else 1
 
@@ -330,6 +370,17 @@ def build_parser() -> argparse.ArgumentParser:
     sp.add_argument("--list", help="a project-list JSON ({videos:[...]})")
     sp.add_argument("--out-root", dest="out_root", help="output root dir")
     sp.add_argument("--parallel", type=int, default=None, help="pool width (default: config)")
+    # Per-video overrides (single id/url mode only) — override defaults.json for this run.
+    sp.add_argument("--source-lang", dest="source_lang",
+                    help="spoken source language code (overrides config sourceLang)")
+    sp.add_argument("--target-langs", dest="target_langs",
+                    help="comma-separated caption/translate target langs")
+    sp.add_argument("--dub-langs", dest="dub_langs",
+                    help="comma-separated dub target langs")
+    sp.add_argument("--cc", dest="cc",
+                    help="comma-separated closed-caption langs")
+    sp.add_argument("--force", action="store_true",
+                    help="keep the declared source lang even if ASR detects a different one")
     sp.set_defaults(func=cmd_batch)
 
     return p
